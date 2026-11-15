@@ -14,6 +14,277 @@
 
 <!-- Global Light Mode & Theme Variables Override Stylesheet -->
 <style id="abhay-theme-styles">
+  /* ===================================================
+     1. GLOBAL DARK MODE (TACTICAL COMMAND THEME)
+     =================================================== */
+  html.dark {
+    color-scheme: dark;
+  }
+  html.dark, html.dark body {
+    background-color: #060c18 !important;
+    color: #f1f5f9 !important;
+  }
+
+  /* Structural Backgrounds in Dark Mode */
+  html.dark main,
+  html.dark .bg-background,
+  html.dark .bg-surface {
+    background-color: #060c18 !important;
+    color: #f1f5f9 !important;
+  }
+  html.dark .bg-surface-container-lowest,
+  html.dark .bg-surface-bright,
+  html.dark .bg-white {
+    background-color: #0b1526 !important;
+    color: #f8fafc !important;
+  }
+  html.dark .bg-surface-container-low {
+    background-color: #0f1c32 !important;
+    color: #f8fafc !important;
+  }
+  html.dark .bg-surface-container,
+  html.dark .bg-surface-container-high,
+  html.dark .bg-surface-container-highest {
+    background-color: #14243e !important;
+    color: #f8fafc !important;
+  }
+  html.dark .bg-primary {
+    background-color: #0b1e38 !important;
+    color: #f8fafc !important;
+  }
+  html.dark .bg-primary-container {
+    background-color: #0f284a !important;
+    color: #f8fafc !important;
+  }
+  html.dark .bg-surface-container-lowest/95,
+  html.dark .bg-surface-container-lowest/90,
+  html.dark .bg-surface-container-low/60,
+  html.dark .bg-surface-container-low/50,
+  html.dark .bg-surface-container-low/40,
+  html.dark .bg-surface-container-low/20,
+  html.dark .bg-surface-container/50,
+  html.dark .bg-surface-container-high/60,
+  html.dark .bg-surface-container-high/20 {
+    background-color: rgba(15, 28, 50, 0.85) !important;
+    color: #f8fafc !important;
+  }
+
+  /* Additional Containers & Badges in Dark Mode */
+  html.dark .bg-secondary-container {
+    background-color: rgba(254, 166, 25, 0.18) !important;
+    color: #fbbf24 !important;
+    border-color: rgba(254, 166, 25, 0.35) !important;
+  }
+  html.dark .bg-secondary-fixed,
+  html.dark .bg-secondary-fixed/30,
+  html.dark .bg-secondary-fixed/40,
+  html.dark .bg-primary-fixed,
+  html.dark .bg-primary-fixed-dim/20,
+  html.dark .bg-tertiary-fixed,
+  html.dark .bg-slate-100,
+  html.dark .bg-slate-200,
+  html.dark .bg-slate-50,
+  html.dark .bg-gray-100,
+  html.dark .bg-gray-200 {
+    background-color: #0f1c32 !important;
+    color: #f8fafc !important;
+  }
+  html.dark .bg-error-container {
+    background-color: rgba(186, 26, 26, 0.25) !important;
+    color: #fca5a5 !important;
+    border-color: rgba(220, 38, 38, 0.4) !important;
+  }
+  html.dark .bg-tertiary-container,
+  html.dark .bg-tertiary-container/80 {
+    background-color: rgba(30, 58, 138, 0.4) !important;
+    color: #93c5fd !important;
+  }
+  html.dark .bg-\[\#FEF2F2\] {
+    background-color: rgba(153, 27, 27, 0.25) !important;
+    color: #fca5a5 !important;
+    border-color: rgba(220, 38, 38, 0.4) !important;
+  }
+  html.dark .bg-\[\#F0FDF4\] {
+    background-color: rgba(22, 101, 52, 0.25) !important;
+    color: #86efac !important;
+    border-color: rgba(34, 197, 94, 0.4) !important;
+  }
+  html.dark .bg-\[\#FFF7ED\] {
+    background-color: rgba(154, 52, 18, 0.25) !important;
+    color: #fed7aa !important;
+    border-color: rgba(234, 88, 12, 0.4) !important;
+  }
+  html.dark .bg-\[\#EFF6FF\] {
+    background-color: rgba(30, 64, 175, 0.25) !important;
+    color: #93c5fd !important;
+    border-color: rgba(59, 130, 246, 0.4) !important;
+  }
+  html.dark .bg-\[\#F3F4F6\] {
+    background-color: rgba(55, 65, 81, 0.35) !important;
+    color: #cbd5e1 !important;
+    border-color: rgba(107, 114, 128, 0.4) !important;
+  }
+
+  /* Status and Category Texts in Dark Mode */
+  html.dark .text-secondary,
+  html.dark .text-on-secondary-container,
+  html.dark .text-on-secondary-fixed,
+  html.dark .text-on-secondary-fixed-variant {
+    color: #fbbf24 !important;
+  }
+  html.dark .text-on-error-container {
+    color: #fca5a5 !important;
+  }
+  html.dark .text-on-tertiary-container,
+  html.dark .text-on-primary-fixed-variant {
+    color: #93c5fd !important;
+  }
+  html.dark .text-\[\#991B1B\],
+  html.dark .text-red-800,
+  html.dark .text-red-900 {
+    color: #fca5a5 !important;
+  }
+  html.dark .text-\[\#9A3412\],
+  html.dark .text-amber-800,
+  html.dark .text-amber-900 {
+    color: #fed7aa !important;
+  }
+  html.dark .text-\[\#166534\],
+  html.dark .text-emerald-800,
+  html.dark .text-emerald-900 {
+    color: #86efac !important;
+  }
+  html.dark .text-\[\#1E40AF\] {
+    color: #93c5fd !important;
+  }
+  html.dark .text-\[\#374151\] {
+    color: #cbd5e1 !important;
+  }
+
+  /* Text Colors in Dark Mode */
+  html.dark .text-primary,
+  html.dark .text-on-surface,
+  html.dark .text-on-background,
+  html.dark .text-headline-sm,
+  html.dark .text-headline-lg,
+  html.dark .text-headline-lg-mobile {
+    color: #f8fafc !important;
+  }
+  html.dark .text-on-surface-variant {
+    color: #94a3b8 !important;
+  }
+  html.dark .text-outline,
+  html.dark .text-outline-variant {
+    color: #64748b !important;
+  }
+  html.dark .text-on-primary-container {
+    color: #93c5fd !important;
+  }
+  html.dark .text-slate-900,
+  html.dark .text-slate-800 {
+    color: #f8fafc !important;
+  }
+
+  /* Borders in Dark Mode */
+  html.dark .border-outline,
+  html.dark .border-outline-variant,
+  html.dark .border-outline-variant/60,
+  html.dark .border-outline-variant/50,
+  html.dark .border-outline-variant/40,
+  html.dark .border-outline-variant/30,
+  html.dark .border-outline-variant/20,
+  html.dark .border-surface-container,
+  html.dark .border-surface-dim,
+  html.dark .border-surface-container-high,
+  html.dark .border-slate-800,
+  html.dark .border-slate-700 {
+    border-color: #1e293b !important;
+  }
+
+  /* Form Inputs, Selects, and Textareas in Dark Mode */
+  html.dark input:not([type="checkbox"]):not([type="radio"]),
+  html.dark select,
+  html.dark textarea {
+    background-color: #0b1526 !important;
+    color: #f8fafc !important;
+    border-color: #334155 !important;
+  }
+  html.dark input::placeholder,
+  html.dark textarea::placeholder {
+    color: #64748b !important;
+  }
+
+  /* Tables & Lists in Dark Mode */
+  html.dark thead,
+  html.dark thead tr,
+  html.dark thead th {
+    background-color: #0f1c32 !important;
+    color: #cbd5e1 !important;
+    border-color: #1e293b !important;
+  }
+  html.dark tbody tr {
+    border-color: #1e293b !important;
+  }
+  html.dark tbody tr:hover,
+  html.dark tr.hover\:bg-surface-container-low:hover,
+  html.dark tr.hover\:bg-surface-container-low\/60:hover {
+    background-color: #14243e !important;
+  }
+  html.dark tr.bg-surface-container-lowest\/50 {
+    background-color: rgba(11, 21, 38, 0.6) !important;
+  }
+
+  /* Nav, Header & Modals in Dark Mode */
+  html.dark header.w-full {
+    background-color: #001026 !important;
+    border-bottom: 1px solid #1e293b !important;
+    color: #ffffff !important;
+  }
+  html.dark nav.fixed,
+  html.dark .role-badge-box {
+    background-color: #0b1526 !important;
+    border-color: #1e293b !important;
+    color: #f8fafc !important;
+  }
+  html.dark #lang-dropdown-menu {
+    background-color: #0b1526 !important;
+    border-color: #334155 !important;
+    color: #f8fafc !important;
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5) !important;
+  }
+  html.dark #lang-dropdown-menu button {
+    color: #e2e8f0 !important;
+  }
+  html.dark #lang-dropdown-menu button:hover {
+    background-color: #1e293b !important;
+    color: #fbbf24 !important;
+  }
+  html.dark #driver-manifest-modal > div,
+  html.dark #driver-comms-modal > div,
+  html.dark #purge-dialog > div,
+  html.dark .tactical-overlay {
+    background-color: #0b1526 !important;
+    border-color: #334155 !important;
+    color: #f8fafc !important;
+  }
+
+  /* Dark mode tactical Leaflet Map tiles */
+  html.dark .leaflet-tile-pane {
+    filter: invert(100%) hue-rotate(180deg) brightness(95%) contrast(90%);
+  }
+  html.dark .leaflet-container {
+    background-color: #060c18 !important;
+  }
+  html.dark .leaflet-popup-content-wrapper,
+  html.dark .leaflet-popup-tip {
+    background-color: #0b1526 !important;
+    color: #f8fafc !important;
+    border: 1px solid #334155 !important;
+  }
+
+  /* ===================================================
+     2. GLOBAL LIGHT MODE (CLEAN CRISP GOVERNMENT PORTAL)
+     =================================================== */
   html.light {
     color-scheme: light;
   }
@@ -21,7 +292,28 @@
     background-color: #f8fafc !important;
     color: #0f172a !important;
   }
-  /* Navigation Bar in Light Mode */
+  html.light main,
+  html.light .bg-background,
+  html.light .bg-surface {
+    background-color: #f8fafc !important;
+    color: #0f172a !important;
+  }
+  html.light .bg-surface-container-lowest,
+  html.light .bg-surface-bright,
+  html.light .bg-white {
+    background-color: #ffffff !important;
+    color: #0f172a !important;
+  }
+  html.light .bg-surface-container-low {
+    background-color: #f1f5f9 !important;
+    color: #0f172a !important;
+  }
+  html.light .bg-surface-container,
+  html.light .bg-surface-container-high,
+  html.light .bg-surface-container-highest {
+    background-color: #e2e8f0 !important;
+    color: #0f172a !important;
+  }
   html.light header.w-full {
     background-color: #ffffff !important;
     border-bottom: 1px solid #e2e8f0 !important;
@@ -40,49 +332,32 @@
     color: #1d4ed8 !important;
     border-color: #bfdbfe !important;
   }
-  /* Primary dark backgrounds to clean crisp white/slate */
-  html.light .bg-slate-950,
-  html.light .bg-slate-900,
-  html.light .bg-[#001026],
-  html.light .bg-[#0b1320],
-  html.light .bg-[#070d16],
-  html.light .bg-[#060c18],
-  html.light .bg-[#0f172a],
-  html.light .bg-[#131b2e] {
-    background-color: #ffffff !important;
-    color: #0f172a !important;
-  }
-  html.light .bg-slate-900\/50,
-  html.light .bg-slate-900\/80,
-  html.light .bg-slate-800,
-  html.light .bg-slate-850,
-  html.light .bg-[#0b2545],
-  html.light .bg-slate-800\/50 {
-    background-color: #f1f5f9 !important;
-    color: #1e293b !important;
-  }
-  /* Border overrides */
+  html.light .border-outline,
+  html.light .border-outline-variant,
+  html.light .border-outline-variant/60,
+  html.light .border-outline-variant/50,
+  html.light .border-outline-variant/40,
+  html.light .border-outline-variant/30,
+  html.light .border-outline-variant/20,
+  html.light .border-surface-container,
+  html.light .border-surface-dim,
+  html.light .border-surface-container-high,
   html.light .border-slate-800,
-  html.light .border-slate-700,
-  html.light .border-slate-800\/50,
-  html.light .border-slate-700\/50,
-  html.light .border-outline {
+  html.light .border-slate-700 {
     border-color: #cbd5e1 !important;
   }
-  /* Text color overrides */
-  html.light .text-white,
-  html.light .text-slate-100,
-  html.light .text-slate-200 {
+  html.light .text-primary,
+  html.light .text-on-surface,
+  html.light .text-on-background,
+  html.light .text-white {
     color: #0f172a !important;
   }
-  html.light .text-slate-300,
-  html.light .text-slate-400 {
+  html.light .text-on-surface-variant {
     color: #475569 !important;
   }
-  html.light .text-slate-500 {
+  html.light .text-outline {
     color: #64748b !important;
   }
-  /* Inputs, selects, and textareas */
   html.light input:not([type="checkbox"]):not([type="radio"]),
   html.light select,
   html.light textarea {
@@ -94,7 +369,6 @@
   html.light textarea::placeholder {
     color: #94a3b8 !important;
   }
-  /* Cards, tables, and dropdowns */
   html.light #lang-dropdown-menu {
     background-color: #ffffff !important;
     border-color: #cbd5e1 !important;
@@ -108,16 +382,45 @@
     color: #b45309 !important;
   }
   html.light tr.hover\:bg-slate-800\/50:hover,
-  html.light tr.hover\:bg-slate-900\/50:hover {
+  html.light tr.hover\:bg-slate-900\/50:hover,
+  html.light tr.hover\:bg-surface-container-low:hover {
     background-color: #f8fafc !important;
   }
   html.light thead {
     background-color: #f1f5f9 !important;
+    color: #475569 !important;
   }
   html.light .role-badge-box {
     background-color: #f1f5f9 !important;
     border-color: #cbd5e1 !important;
     color: #0f172a !important;
+  }
+  html.light nav.fixed {
+    background-color: #ffffff !important;
+    border-color: #e2e8f0 !important;
+    color: #0f172a !important;
+  }
+  html.light main .bg-slate-900,
+  html.light main .bg-slate-950 {
+    background-color: #ffffff !important;
+    color: #0f172a !important;
+    border-color: #e2e8f0 !important;
+  }
+  html.light main .bg-slate-800 {
+    background-color: #f8fafc !important;
+    color: #0f172a !important;
+    border-color: #e2e8f0 !important;
+  }
+  html.light main .text-slate-100,
+  html.light main .text-slate-200,
+  html.light main .text-slate-300 {
+    color: #1e293b !important;
+  }
+  html.light main .text-slate-400 {
+    color: #64748b !important;
+  }
+  html.light .leaflet-tile-pane {
+    filter: none !important;
   }
 </style>
 

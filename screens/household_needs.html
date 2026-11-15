@@ -6,7 +6,7 @@
 
 <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
 
-<title>ಅಭಯ / ABHAY DDMA - Household Needs</title>
+<title>ABHAY DDMA - Household Needs</title>
 
 <!-- Fonts -->
 
@@ -253,7 +253,7 @@
 
 <!-- Stepper / Progress Header Block -->
 
-<section aria-label="ಪ್ರಗತಿ / Progress" class="bg-surface-container-lowest rounded-xl p-3.5 border border-outline-variant/60 shadow-sm">
+<section aria-label="{{ t('Progress') }}" class="bg-surface-container-lowest rounded-xl p-3.5 border border-outline-variant/60 shadow-sm">
 
 <div class="flex justify-between items-center mb-1.5">
 
@@ -313,7 +313,7 @@
 
 <div>
 
-<h2 class="text-label-lg font-label-lg font-bold text-on-surface" id="member-1-heading">ಸದಸ್ಯ 1: ಹಿರಿಯ ನಾಗರಿಕರು</h2>
+<h2 class="text-label-lg font-label-lg font-bold text-on-surface" id="member-1-heading">{{ t("Member 1: Senior Citizen") }}</h2>
 
 <span class="text-caption font-caption text-on-surface-variant">Member 1 — Elderly Senior (Parvathi)</span>
 
@@ -341,7 +341,7 @@
 
 <label class="block text-caption font-caption font-bold text-on-surface mb-1" for="room-select-1">
 
-                ಮಲಗುವ ಕೋಣೆ / SLEEPING ROOM LOCATION <span class="text-error">*</span>
+                {{ t("Sleeping Room Location") }} <span class="text-error">*</span>
 
 </label>
 
@@ -349,13 +349,13 @@
 
 <select class="w-full h-11 pl-3 pr-8 rounded-lg border border-outline-variant bg-surface-container-lowest text-on-surface text-body-md font-body-md focus:border-primary-container focus:ring-2 focus:ring-secondary-container appearance-none font-medium" id="room-select-1">
 
-<option selected="" value="ground-front">ನೆಲ ಮಹಡಿ - ಮುಂಭಾಗ (Ground Floor - Front Room)</option>
+<option selected="" value="ground-front">{{ t("Ground Floor - Front Room") }}</option>
 
-<option value="ground-back">ನೆಲ ಮಹಡಿ - ಹಿಂಭಾಗ (Ground Floor - Back Room)</option>
+<option value="ground-back">{{ t("Ground Floor - Back Room") }}</option>
 
-<option value="first-floor">ಮೊದಲ ಮಹಡಿ (First Floor)</option>
+<option value="first-floor">{{ t("First Floor") }}</option>
 
-<option value="terrace">ಟೆರೇಸ್ / ಮೇಲ್ಛಾವಣಿ (Terrace Rooftop)</option>
+<option value="terrace">{{ t("Terrace / Top Floor") }}</option>
 
 </select>
 
@@ -385,7 +385,7 @@
 
 <div class="flex-1">
 
-<span class="text-label-md font-label-md font-bold text-[#991B1B] block">ನಡೆಯಲು ಸಾಧ್ಯವಿಲ್ಲ</span>
+<span class="text-label-md font-label-md font-bold text-[#991B1B] block">{{ t("Unable to Walk") }}</span>
 
 <span class="text-caption font-caption text-[#991B1B]/90">Cannot walk independently</span>
 
@@ -403,7 +403,7 @@
 
 <div class="flex-1">
 
-<span class="text-body-md font-body-md font-medium text-on-surface block leading-tight">ಗಾಲಿಕುರ್ಚಿ ಬಳಸುತ್ತಾರೆ - ಮ್ಯಾನುಯಲ್/ಪವರ್</span>
+<span class="text-body-md font-body-md font-medium text-on-surface block leading-tight">{{ t("Uses Wheelchair (Manual/Power)") }}</span>
 
 <span class="text-caption font-caption text-on-surface-variant">Uses wheelchair - manual or power</span>
 
@@ -421,7 +421,7 @@
 
 <div class="flex-1">
 
-<span class="text-label-md font-label-md font-bold text-[#991B1B] block">ಹಾಸಿಗೆ ಹಿಡಿದಿದ್ದಾರೆ / ಸ್ಟ್ರೆಚರ್ ಬೇಕು</span>
+<span class="text-label-md font-label-md font-bold text-[#991B1B] block">{{ t("Bedridden / Stretcher required") }}</span>
 
 <span class="text-caption font-caption text-[#991B1B]/90">Bedridden / Special stretcher equipment required</span>
 
@@ -439,7 +439,7 @@
 
 <div class="flex-1">
 
-<span class="text-label-md font-label-md font-bold text-on-surface block">ಹಿರಿಯ ನಾಗರಿಕರು 60+</span>
+<span class="text-label-md font-label-md font-bold text-on-surface block">{{ t("Senior Citizen (60+)") }}</span>
 
 <span class="text-caption font-caption text-on-surface-variant">Elderly Citizen</span>
 
@@ -457,7 +457,7 @@
 
 <div class="flex-1">
 
-<span class="text-body-md font-body-md font-medium text-on-surface block leading-tight">ಗರ್ಭಿಣಿ</span>
+<span class="text-body-md font-body-md font-medium text-on-surface block leading-tight">{{ t("Pregnant") }}</span>
 
 <span class="text-caption font-caption text-on-surface-variant">Pregnant</span>
 
@@ -473,7 +473,7 @@
 
 <input checked="" class="mt-0.5 rounded text-primary focus:ring-secondary-container border-outline w-4 h-4 text-primary-container" type="checkbox">
 
-<div class="flex-1"><span class="text-label-md font-label-md font-bold text-[#991B1B] block">ಔಷಧಿ ಅಥವಾ ಆಮ್ಲಜನಕ ಬೇಕು</span>
+<div class="flex-1"><span class="text-label-md font-label-md font-bold text-[#991B1B] block">{{ t("Oxygen or Critical Medicine required") }}</span>
 
 <span class="text-caption font-caption text-[#991B1B]/90">Needs medicine or oxygen</span></div>
 
@@ -499,7 +499,7 @@
 
 <div>
 
-<h2 class="text-label-lg font-label-lg font-bold text-on-surface" id="member-2-heading">ಸದಸ್ಯ 2: ವಯಸ್ಕ</h2>
+<h2 class="text-label-lg font-label-lg font-bold text-on-surface" id="member-2-heading">{{ t("Member 2: Adult") }}</h2>
 
 <span class="text-caption font-caption text-on-surface-variant">Member 2 — Adult (Son)</span>
 
@@ -525,7 +525,7 @@
 
 <label class="block text-caption font-caption font-bold text-on-surface mb-1" for="room-select-2">
 
-                ಮಲಗುವ ಕೋಣೆ / SLEEPING ROOM LOCATION
+                {{ t("Sleeping Room Location") }}
 
               </label>
 
@@ -533,11 +533,11 @@
 
 <select class="w-full h-11 pl-3 pr-8 rounded-lg border border-outline-variant bg-surface-container-lowest text-on-surface text-body-md font-body-md focus:border-primary-container appearance-none font-medium" id="room-select-2">
 
-<option selected="" value="ground-back">ನೆಲ ಮಹಡಿ - ಹಿಂಭಾಗ (Ground Floor - Back Room)</option>
+<option selected="" value="ground-back">{{ t("Ground Floor - Back Room") }}</option>
 
-<option value="ground-front">ನೆಲ ಮಹಡಿ - ಮುಂಭಾಗ (Ground Floor - Front Room)</option>
+<option value="ground-front">{{ t("Ground Floor - Front Room") }}</option>
 
-<option value="first-floor">ಮೊದಲ ಮಹಡಿ (First Floor)</option>
+<option value="first-floor">{{ t("First Floor") }}</option>
 
 </select>
 
@@ -555,7 +555,7 @@
 
 <span class="material-symbols-outlined text-[#16A34A] text-[18px]">check_circle</span>
 
-<span class="text-body-sm font-body-sm font-medium text-on-surface">ಸಾಮಾನ್ಯ ಚಲನಶೀಲತೆ (Normal Mobility)</span>
+<span class="text-body-sm font-body-sm font-medium text-on-surface">{{ t("Normal Mobility") }}</span>
 
 </div>
 
@@ -579,7 +579,7 @@
 
 <div>
 
-<h2 class="text-label-lg font-label-lg font-bold text-on-surface" id="member-3-heading">ಸದಸ್ಯ 3: ವಯಸ್ಕ</h2>
+<h2 class="text-label-lg font-label-lg font-bold text-on-surface" id="member-3-heading">{{ t("Member 3: Adult") }}</h2>
 
 <span class="text-caption font-caption text-on-surface-variant">Member 3 — Adult (Daughter-in-law)</span>
 
@@ -603,7 +603,7 @@
 
 <label class="block text-caption font-caption font-bold text-on-surface mb-1" for="room-select-3">
 
-                ಮಲಗುವ ಕೋಣೆ / SLEEPING ROOM LOCATION
+                {{ t("Sleeping Room Location") }}
 
               </label>
 
@@ -611,11 +611,11 @@
 
 <select class="w-full h-11 pl-3 pr-8 rounded-lg border border-outline-variant bg-surface-container-lowest text-on-surface text-body-md font-body-md focus:border-primary-container appearance-none font-medium" id="room-select-3">
 
-<option selected="" value="first-floor">ಮೊದಲ ಮಹಡಿ (First Floor)</option>
+<option selected="" value="first-floor">{{ t("First Floor") }}</option>
 
-<option value="ground-front">ನೆಲ ಮಹಡಿ - ಮುಂಭಾಗ (Ground Floor - Front)</option>
+<option value="ground-front">{{ t("Ground Floor - Front Room") }}</option>
 
-<option value="ground-back">ನೆಲ ಮಹಡಿ - ಹಿಂಭಾಗ (Ground Floor - Back)</option>
+<option value="ground-back">{{ t("Ground Floor - Back Room") }}</option>
 
 </select>
 
@@ -633,7 +633,7 @@
 
 <span class="material-symbols-outlined text-[#16A34A] text-[18px]">check_circle</span>
 
-<span class="text-body-sm font-body-sm font-medium text-on-surface">ಸಾಮಾನ್ಯ ಚಲನಶೀಲತೆ (Normal Mobility)</span>
+<span class="text-body-sm font-body-sm font-medium text-on-surface">{{ t("Normal Mobility") }}</span>
 
 </div>
 
@@ -649,7 +649,7 @@
 
 <!-- Mandatory Consent Card (Prominent Border as mandated) -->
 
-<section aria-label="ಕಾನೂನು ಸಮ್ಮತಿ / Legal Consent" class="bg-surface-container-lowest rounded-xl border-2 border-primary p-3.5 shadow-sm bg-gradient-to-b from-white to-surface-container-low/30">
+<section aria-label="{{ t('Mandatory Consent') }}" class="bg-surface-container-lowest rounded-xl border-2 border-primary p-3.5 shadow-sm bg-gradient-to-b from-white to-surface-container-low/30">
 
 <label class="flex items-start gap-3 cursor-pointer">
 
@@ -661,13 +661,13 @@
 
 <span class="material-symbols-outlined text-[16px] text-primary" style="font-variation-settings: 'FILL' 1;">verified_user</span>
 
-              ಕಡ್ಡಾಯ ಸಮ್ಮತಿ / Mandatory Consent
+              {{ t("Mandatory Consent") }}
 
             </span>
 
 <p class="text-body-sm font-body-sm font-bold text-on-surface leading-snug">
 
-              ತುರ್ತು ಪಾರುಗಾಣಿಕಾ ಸಮನ್ವಯಕ್ಕಾಗಿ ಮಾತ್ರ ನನ್ನ ವಿವರಗಳನ್ನು ಬಳಸಲು ನಾನು ಒಪ್ಪುತ್ತೇನೆ ಮತ್ತು ಘಟನೆಯ ನಂತರ ಸ್ವಯಂಚಾಲಿತವಾಗಿ ಅಳಿಸಲಾಗುತ್ತದೆ.
+              {{ t("Consent Description") }}
 
             </p>
 
@@ -701,7 +701,7 @@
 
 <p class="text-caption font-caption font-semibold text-on-surface">
 
-            ತುರ್ತು ಸಂದರ್ಭದಲ್ಲಿ <a class="text-error font-bold underline underline-offset-2" href="tel:1077">1077</a> ಸಹಾಯವಾಣಿಗೆ ಕರೆ ಮಾಡಿ.
+            {{ t("Helpline Call Notice") }}
 
           </p>
 

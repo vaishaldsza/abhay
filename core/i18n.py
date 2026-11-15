@@ -545,6 +545,211 @@ UI_TRANSLATIONS = {
         "hi": "आपका विवरण एन्क्रिप्ट किया गया है और केवल डीडीएमए निकासी के लिए उपयोग किया जाता है। आपदा के बाद स्वतः हटा दिया जाता है।",
         "kn": "ನಿಮ್ಮ ಮಾಹಿತಿಯನ್ನು ಕೇವಲ ವಿಪತ್ತು ನಿರ್ವಹಣೆಗಾಗಿ ಮಾತ್ರ ಬಳಸಲಾಗುತ್ತದೆ. DPDP ಕಾಯ್ದೆ 2023 ರ ಅಡಿಯಲ್ಲಿ ಘಟನೆಯ ನಂತರ ಸ್ವಯಂಚಾಲಿತವಾಗಿ ನಾಶವಾಗುತ್ತದೆ."
     },
+    "33% Completed": {
+        "en": "33% Completed",
+        "hi": "33% पूरा हुआ",
+        "kn": "33% ಮುಗಿದಿದೆ"
+    },
+    "66% Completed": {
+        "en": "66% Completed",
+        "hi": "66% पूरा हुआ",
+        "kn": "66% ಮುಗಿದಿದೆ"
+    },
+    "100% Completed": {
+        "en": "100% Completed",
+        "hi": "100% पूरा हुआ",
+        "kn": "100% ಮುಗಿದಿದೆ"
+    },
+    "Local Network: BSNL/Jio Active": {
+        "en": "Local Network: BSNL/Jio Active",
+        "hi": "स्थानीय नेटवर्क: बीएसएनएल/जियो सक्रिय",
+        "kn": "ಸ್ಥಳೀಯ ನೆಟ್‌ವರ್ಕ್: BSNL/Jio ಸಕ್ರಿಯ"
+    },
+    "Verified": {
+        "en": "Verified",
+        "hi": "सत्यापित",
+        "kn": "ದೃಢೀಕರಿಸಲಾಗಿದೆ"
+    },
+    "Netravati River Flood Zone Mapping": {
+        "en": "Netravati River Flood Zone Mapping",
+        "hi": "नेत्रावती नदी बाढ़ क्षेत्र मानचित्रण",
+        "kn": "ನೆತ್ರಾವತಿ ನದಿ ಪ್ರವಾಹ ವಲಯ ಮ್ಯಾಪಿಂಗ್"
+    },
+    "Share Location": {
+        "en": "Share Location",
+        "hi": "स्थान साझा करें",
+        "kn": "ಸ್ಥಳವನ್ನು ಹಂಚಿಕೊಳ್ಳಿ"
+    },
+    "Syncing GPS": {
+        "en": "Syncing GPS...",
+        "hi": "जीपीएस सिंक हो रहा है...",
+        "kn": "ಜಿಪಿಎಸ್ ಸಿಂಕ್ ಆಗುತ್ತಿದೆ..."
+    },
+    "Registering": {
+        "en": "Registering...",
+        "hi": "पंजीकरण हो रहा है...",
+        "kn": "ನೋಂದಾಯಿಸಲಾಗುತ್ತಿದೆ..."
+    },
+    "Member 1: Senior Citizen": {
+        "en": "Member 1: Senior Citizen",
+        "hi": "सदस्य 1: वरिष्ठ नागरिक",
+        "kn": "ಸದಸ್ಯ 1: ಹಿರಿಯ ನಾಗರಿಕರು"
+    },
+    "Sleeping Room Location": {
+        "en": "Sleeping Room Location",
+        "hi": "शयन कक्ष का स्थान",
+        "kn": "ಮಲಗುವ ಕೋಣೆ"
+    },
+    "Ground Floor - Front Room": {
+        "en": "Ground Floor - Front Room",
+        "hi": "भूतल - आगे का कमरा",
+        "kn": "ನೆಲ ಮಹಡಿ - ಮುಂಭಾಗ"
+    },
+    "Ground Floor - Back Room": {
+        "en": "Ground Floor - Back Room",
+        "hi": "भूतल - पीछे का कमरा",
+        "kn": "ನೆಲ ಮಹಡಿ - ಹಿಂಭಾಗ"
+    },
+    "First Floor": {
+        "en": "First Floor",
+        "hi": "पहली मंजिल",
+        "kn": "ಮೊದಲ ಮಹಡಿ"
+    },
+    "Terrace / Top Floor": {
+        "en": "Terrace / Top Floor",
+        "hi": "छत / ऊपरी मंजिल",
+        "kn": "ಟೆರೇಸ್ / ಮೇಲಿನ ಮಹಡಿ"
+    },
+    "Normal Mobility": {
+        "en": "Normal Mobility",
+        "hi": "सामान्य गतिशीलता",
+        "kn": "ಸಾಮಾನ್ಯ ಚಲನಶೀಲತೆ"
+    },
+    "Bedridden (Stretcher required)": {
+        "en": "Bedridden (Stretcher required)",
+        "hi": "शय्याग्रस्त (स्ट्रेचर आवश्यक)",
+        "kn": "ಹಾಸಿಗೆ ಹಿಡಿದ ರೋಗಿ (ಸ್ಟ್ರೆಚರ್ ಅಗತ್ಯವಿದೆ)"
+    },
+    "Oxygen support needed": {
+        "en": "Oxygen support needed",
+        "hi": "ऑक्सीजन सहायता की आवश्यकता",
+        "kn": "ಆಮ್ಲಜನಕ ಬೆಂಬಲ ಅಗತ್ಯವಿದೆ"
+    },
+    "Ground floor room": {
+        "en": "Ground floor room",
+        "hi": "भूतल का कमरा",
+        "kn": "ನೆಲ ಮಹಡಿ ಕೊಠಡಿ"
+    },
+    "Mandatory Consent": {
+        "en": "Mandatory Consent",
+        "hi": "अनिवार्य सहमति",
+        "kn": "ಕಡ್ಡಾಯ ಸಮ್ಮತಿ"
+    },
+    "Consent Description": {
+        "en": "I agree to use my details strictly for emergency rescue coordination, which will be automatically purged post-incident.",
+        "hi": "मैं आपातकालीन बचाव समन्वय के लिए अपने विवरण का उपयोग करने की सहमति देता हूँ, जिसे आपदा के बाद स्वतः हटा दिया जाएगा।",
+        "kn": "ತುರ್ತು ಪಾರುಗಾಣಿಕಾ ಸಮನ್ವಯಕ್ಕಾಗಿ ಮಾತ್ರ ನನ್ನ ವಿವರಗಳನ್ನು ಬಳಸಲು ನಾನು ಒಪ್ಪುತ್ತೇನೆ ಮತ್ತು ಘಟನೆಯ ನಂತರ ಸ್ವಯಂಚಾಲಿತವಾಗಿ ಅಳಿಸಲಾಗುತ್ತದೆ."
+    },
+    "Helpline Call Notice": {
+        "en": "In case of emergency, call 1077 Helpline.",
+        "hi": "आपात स्थिति में 1077 हेल्पलाइन पर कॉल करें।",
+        "kn": "ತುರ್ತು ಸಂದರ್ಭದಲ್ಲಿ 1077 ಸಹಾಯವಾಣಿಗೆ ಕರೆ ಮಾಡಿ."
+    },
+    "Your details have been saved": {
+        "en": "Your details have been saved",
+        "hi": "आपका विवरण सहेज लिया गया है",
+        "kn": "ನಿಮ್ಮ ವಿವರಗಳನ್ನು ಉಳಿಸಲಾಗಿದೆ"
+    },
+    "Reference Number:": {
+        "en": "Reference Number:",
+        "hi": "अनुरोध संख्या:",
+        "kn": "ವಿನಂತಿ ಸಂಖ್ಯೆ:"
+    },
+    "Household Summary": {
+        "en": "Household Details Summary",
+        "hi": "परिवार का संक्षिप्त विवरण",
+        "kn": "ಕುಟುಂಬದ ವಿವರಗಳ ಸಾರಾಂಶ"
+    },
+    "Edit": {
+        "en": "Edit",
+        "hi": "संपादित करें",
+        "kn": "ತಿದ್ದುಪಡಿ ಮಾಡಿ"
+    },
+    "Head of Household": {
+        "en": "Head of Household",
+        "hi": "परिवार का मुखिया",
+        "kn": "ಕುಟುಂಬದ ಮುಖ್ಯಸ್ಥ"
+    },
+    "Contact": {
+        "en": "Contact",
+        "hi": "संपर्क",
+        "kn": "ದೂರವಾಣಿ"
+    },
+    "Landmark Address": {
+        "en": "Landmark Address",
+        "hi": "पहचान चिह्न पता",
+        "kn": "ಗುರುತಿನ ಸ್ಥಳ ವಿಳಾಸ"
+    },
+    "Total Headcount": {
+        "en": "Total Headcount",
+        "hi": "कुल सदस्य संख्या",
+        "kn": "ಒಟ್ಟು ಸದಸ್ಯರು"
+    },
+    "Special Needs Flagged": {
+        "en": "Special Needs Flagged",
+        "hi": "विशेष आवश्यकताओं का विवरण",
+        "kn": "ವಿಶೇಷ ಅಗತ್ಯಗಳು"
+    },
+    "Auto-Purge Guarantee Notice": {
+        "en": "Data retention: Automatically destroyed post-incident under DPDP Act 2023.",
+        "hi": "डेटा प्रतिधारण: डीपीडीपी अधिनियम 2023 के तहत घटना के बाद स्वतः नष्ट कर दिया जाएगा।",
+        "kn": "ಅಳಿಸುವಿಕೆ: ವಿಪತ್ತು ಕಾರ್ಯಾಚರಣೆ ಮುಗಿದ ನಂತರ ಸ್ವಯಂಚಾಲಿತವಾಗಿ ನಾಶವಾಗುತ್ತದೆ (DPDP ಕಾಯ್ದೆ 2023)."
+    },
+    "Member 2: Adult": {
+        "en": "Member 2: Adult",
+        "hi": "सदस्य 2: वयस्क",
+        "kn": "ಸದಸ್ಯ 2: ವಯಸ್ಕ"
+    },
+    "Member 3: Adult": {
+        "en": "Member 3: Adult",
+        "hi": "सदस्य 3: वयस्क",
+        "kn": "ಸದಸ್ಯ 3: ವಯಸ್ಕ"
+    },
+    "Medical & Mobility Flags": {
+        "en": "Medical & Mobility Flags",
+        "hi": "चिकित्सा और गतिशीलता विवरण",
+        "kn": "ಚಲನಶೀಲತೆ ಮತ್ತು ವೈದ್ಯಕೀಯ ಸ್ಥಿತಿ"
+    },
+    "Unable to Walk": {
+        "en": "Unable to walk independently",
+        "hi": "स्वयं चलने में असमर्थ",
+        "kn": "ನಡೆಯಲು ಸಾಧ್ಯವಿಲ್ಲ"
+    },
+    "Uses Wheelchair (Manual/Power)": {
+        "en": "Uses wheelchair (manual or powered)",
+        "hi": "व्हीलचेयर का उपयोग करते हैं",
+        "kn": "ಗಾಲಿಕುರ್ಚಿ ಬಳಸುತ್ತಾರೆ"
+    },
+    "Bedridden / Stretcher required": {
+        "en": "Bedridden (Stretcher required)",
+        "hi": "शय्याग्रस्त (स्ट्रेचर आवश्यक)",
+        "kn": "ಹಾಸಿಗೆ ಹಿಡಿದಿದ್ದಾರೆ / ಸ್ಟ್ರೆಚರ್ ಬೇಕು"
+    },
+    "Senior Citizen (60+)": {
+        "en": "Senior Citizen (60+ years)",
+        "hi": "वरिष्ठ नागरिक (60+ वर्ष)",
+        "kn": "ಹಿರಿಯ ನಾಗರಿಕರು (60+)"
+    },
+    "Pregnant": {
+        "en": "Pregnant woman",
+        "hi": "गर्भवती महिला",
+        "kn": "ಗರ್ಭಿಣಿ"
+    },
+    "Oxygen or Critical Medicine required": {
+        "en": "Requires oxygen or cold-chain medication",
+        "hi": "ऑक्सीजन या जीवनरक्षक दवाओं की आवश्यकता",
+        "kn": "ಔಷಧಿ ಅಥವಾ ಆಮ್ಲಜನಕ ಬೇಕು"
+    },
 }
 
 def t(key: str, lang: str = "en") -> str:

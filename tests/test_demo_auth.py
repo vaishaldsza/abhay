@@ -364,3 +364,46 @@ def test_resident_page_language_switching(auth_app):
     html_kn = res_kn.data.decode("utf-8")
     assert "ತುರ್ತು ಸನ್ನದ್ಧತಾ ನಮೂನೆ" in html_kn
     assert "ಹಂತ 1 / 3: ಪ್ರಾಥಮಿಕ ವಿವರಗಳು" in html_kn
+
+
+def test_dark_mode_stylesheet_and_toggle_coverage(auth_app):
+    """Verify that nav.html defines comprehensive dark and light mode stylesheet rules."""
+    client = auth_app.test_client()
+    client.post("/login", data={"role": "dispatcher"})
+    
+    pages = [
+        "/evals",
+        "/under-the-hood",
+        "/privacy",
+        "/audit",
+        "/simulate",
+        "/call-floor",
+        "/dashboard",
+    ]
+    for page in pages:
+        res = client.get(page)
+        assert res.status_code == 200, f"Page {page} failed to load"
+        html = res.data.decode("utf-8")
+        assert 'id="abhay-theme-styles"' in html
+        assert "html.dark" in html
+        assert "html.light" in html
+        assert "toggleTheme()" in html
+        assert "theme-toggle-btn" in html
+
+    # Also check Driver and Resident
+    client.post("/login", data={"role": "driver"})
+    res_driver = client.get("/driver")
+    assert res_driver.status_code == 200
+    html_driver = res_driver.data.decode("utf-8")
+    assert 'id="abhay-theme-styles"' in html_driver
+    assert "html.dark" in html_driver
+    assert "html.light" in html_driver
+
+    client.post("/login", data={"role": "resident"})
+    res_ready = client.get("/ready")
+    assert res_ready.status_code == 200
+    html_ready = res_ready.data.decode("utf-8")
+    assert 'id="abhay-theme-styles"' in html_ready
+    assert "html.dark" in html_ready
+    assert "html.light" in html_ready
+

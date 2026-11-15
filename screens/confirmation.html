@@ -6,7 +6,7 @@
 
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-<title>ಅಭಯ / ABHAY DDMA - Confirmation</title>
+<title>ABHAY DDMA - Confirmation</title>
 
 <!-- Material Symbols Outlined -->
 
@@ -295,7 +295,7 @@
 
 <h1 class="text-headline-lg-mobile font-headline-lg-mobile text-primary tracking-tight">
 
-          ನಿಮ್ಮ ವಿವರಗಳನ್ನು ಉಳಿಸಲಾಗಿದೆ
+          {{ t("Your details have been saved") }}
 
         </h1>
 
@@ -311,7 +311,7 @@
 
 <span class="material-symbols-outlined text-[16px] text-primary" data-icon="badge">badge</span>
 
-<span class="text-caption font-caption text-on-surface-variant font-medium">ವಿನಂತಿ ಸಂಖ್ಯೆ / Reference:</span>
+<span class="text-caption font-caption text-on-surface-variant font-medium">{{ t("Reference Number:") }}</span>
 
 <span class="font-label-tabular text-label-tabular text-primary font-bold">#KA-MNG-4108</span>
 
@@ -337,7 +337,7 @@
 
 <h2 class="text-label-lg font-label-lg text-primary leading-tight">
 
-              ಕುಟುಂಬದ ವಿವರಗಳ ಸಾರಾಂಶ
+              {{ t("Household Summary") }}
 
             </h2>
 
@@ -349,7 +349,7 @@
 
 <span class="material-symbols-outlined text-[14px]" data-icon="edit">edit</span>
 
-<span>ತಿದ್ದುಪಡಿ ಮಾಡಿ / Edit</span>
+<span>{{ t("Edit") }}</span>
 
 </button>
 
@@ -363,11 +363,11 @@
 
 <div class="grid grid-cols-2 gap-2 bg-surface-container-low p-2.5 rounded-lg border border-outline-variant/60">
 
-<div><span class="text-caption font-caption text-on-surface-variant block">ಕುಟುಂಬದ ಮುಖ್ಯಸ್ಥ / Head</span><span class="text-label-md font-label-md text-on-surface font-bold">ರಮೇಶ್</span><span class="text-caption font-caption text-on-surface-variant block font-normal">Ramesh</span></div>
+<div><span class="text-caption font-caption text-on-surface-variant block">{{ t("Head of Household") }}</span><span class="text-label-md font-label-md text-on-surface font-bold">{% if current_lang == "kn" %}ರಮೇಶ್{% elif current_lang == "hi" %}रमेश{% else %}Ramesh{% endif %}</span></div>
 
 <div>
 
-<span class="text-caption font-caption text-on-surface-variant block">ದೂರವಾಣಿ / Contact</span>
+<span class="text-caption font-caption text-on-surface-variant block">{{ t("Contact") }}</span>
 
 <span class="font-label-tabular text-label-tabular text-primary font-bold block mt-0.5">#KA-MNG-4108</span>
 
@@ -389,11 +389,11 @@
 
 <div class="flex-1">
 
-<span class="text-caption font-caption text-on-surface-variant block font-medium">ಗುರುತಿನ ಸ್ಥಳ / Landmark Address</span>
+<span class="text-caption font-caption text-on-surface-variant block font-medium">{{ t("Landmark Address") }}</span>
 
 <p class="text-body-md font-body-md text-on-surface font-semibold leading-snug">
 
-                ಸೋಮೇಶ್ವರ ದೇವಸ್ಥಾನದ ಬಳಿ, ವಾರ್ಡ್ 4
+                {% if current_lang == "kn" %}ಸೋಮೇಶ್ವರ ದೇವಸ್ಥಾನದ ಬಳಿ, ವಾರ್ಡ್ 4{% elif current_lang == "hi" %}सोमेश्वर मंदिर के पास, वार्ड 4{% else %}Near Someshwara Temple, Ward 4{% endif %}
 
               </p>
 
@@ -415,11 +415,11 @@
 
 <div class="flex-1">
 
-<span class="text-caption font-caption text-on-surface-variant block font-medium">ಒಟ್ಟು ಸದಸ್ಯರು / Total Headcount</span>
+<span class="text-caption font-caption text-on-surface-variant block font-medium">{{ t("Total Headcount") }}</span>
 
 <p class="text-body-md font-body-md text-on-surface font-bold">
 
-                3 ಸದಸ್ಯರು <span class="font-normal text-body-sm text-on-surface-variant">(3 Members: 1 Senior Bedridden, 2 Adults)</span>
+                3 {{ t("Members") }} <span class="font-normal text-body-sm text-on-surface-variant">(3 Members: 1 Senior Bedridden, 2 Adults)</span>
 
 </p>
 
@@ -437,7 +437,7 @@
 
 <span class="material-symbols-outlined text-[14px]" data-icon="medical_services">medical_services</span>
 
-                ವಿಶೇಷ ಅಗತ್ಯಗಳು / Special Needs Flagged
+                {{ t("Special Needs Flagged") }}
 
               </span>
 
@@ -455,7 +455,7 @@
 
 <span class="w-1.5 h-1.5 rounded-full bg-[#DC2626] shrink-0"></span>
 
-<span class="text-body-sm font-body-sm font-medium">ಹಾಸಿಗೆ ಹಿಡಿದ ರೋಗಿ / Bedridden (Stretcher required)</span>
+<span class="text-body-sm font-body-sm font-medium">{{ t("Bedridden (Stretcher required)") }}</span>
 
 </div>
 
@@ -463,7 +463,7 @@
 
 <span class="w-1.5 h-1.5 rounded-full bg-[#DC2626] shrink-0"></span>
 
-<span class="text-body-sm font-body-sm font-medium">ಆಮ್ಲಜನಕ / Oxygen support needed</span>
+<span class="text-body-sm font-body-sm font-medium">{{ t("Oxygen support needed") }}</span>
 
 </div>
 
@@ -471,7 +471,7 @@
 
 <span class="w-1.5 h-1.5 rounded-full bg-outline shrink-0"></span>
 
-<span class="text-body-sm font-body-sm font-medium">ನೆಲ ಮಹಡಿ ಕೊಠಡಿ / Ground floor room</span>
+<span class="text-body-sm font-body-sm font-medium">{{ t("Ground floor room") }}</span>
 
 </div>
 
@@ -487,7 +487,7 @@
 
 <p class="text-caption font-caption text-on-surface-variant leading-tight">
 
-              ಅಳಿಸುವಿಕೆ: ವಿಪತ್ತು ಕಾರ್ಯಾಚರಣೆ ಮುಗಿದ ನಂತರ ಸ್ವಯಂಚಾಲಿತವಾಗಿ ನಾಶವಾಗುತ್ತದೆ (Auto-purges post-incident).
+              {{ t("Auto-Purge Guarantee Notice") }}
 
             </p>
 

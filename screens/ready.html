@@ -311,7 +311,7 @@
 
 </div>
 
-<span class="text-caption font-label-tabular text-secondary font-bold">33% ಮುಗಿದಿದೆ</span>
+<span class="text-caption font-label-tabular text-secondary font-bold">{{ t("33% Completed") }}</span>
 
 </div>
 
@@ -415,7 +415,7 @@
 
 <span class="text-caption font-caption text-on-surface-variant">ಸ್ಥಳೀಯ ನೆಟ್ವರ್ಕ್: BSNL/Jio ಸಕ್ರಿಯ</span>
 
-<span class="text-caption font-label-tabular text-emerald-800 font-semibold">ದೃಢೀಕರಿಸಲಾಗಿದೆ (Verified)</span>
+<span class="text-caption font-label-tabular text-emerald-800 font-semibold">{{ t("Verified") }}</span>
 
 </div>
 
@@ -459,7 +459,7 @@
 
 <span class="text-label-md font-label-md text-primary font-bold">{{ t("GPS Location") }}</span>
 
-<p class="text-caption font-caption text-on-surface-variant">ನೆತ್ರಾವತಿ ನದಿ ಪ್ರವಾಹ ವಲಯ ಮ್ಯಾಪಿಂಗ್</p>
+<p class="text-caption font-caption text-on-surface-variant">{{ t("Netravati River Flood Zone Mapping") }}</p>
 
 </div>
 
@@ -477,7 +477,7 @@
 
 <span class="material-symbols-outlined text-secondary-container" data-icon="my_location" style="font-variation-settings: 'FILL' 1;">my_location</span>
 
-<span class="text-[13px] font-semibold">ಸ್ಥಳವನ್ನು ಹಂಚಿಕೊಳ್ಳಿ / Share Location</span>
+<span class="text-[13px] font-semibold">{{ t("Share Location") }}</span>
 
 </div>
 
@@ -662,7 +662,7 @@
 
             <span class="material-symbols-outlined text-secondary-container animate-spin" data-icon="progress_activity">progress_activity</span>
 
-            <span class="text-[13px] font-semibold">ಜಿಪಿಎಸ್ ಸಿಂಕ್ ಆಗುತ್ತಿದೆ... (Syncing GPS)</span>
+            <span class="text-[13px] font-semibold">{{ t("Syncing GPS") }}</span>
 
           </div>
 
@@ -692,7 +692,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const submitBtn = form.querySelector('button[type="submit"]');
       if (submitBtn) {
         submitBtn.disabled = true;
-        submitBtn.innerHTML = '<span class="material-symbols-outlined animate-spin text-lg">sync</span><span>ನೋಂದಾಯಿಸಲಾಗುತ್ತಿದೆ...</span>';
+        submitBtn.innerHTML = '<span class="material-symbols-outlined animate-spin text-lg">sync</span><span>{{ t("Registering") }}</span>';
       }
 
       const firstName = document.getElementById('resident-first-name')?.value || 'ರಮೇಶ್';

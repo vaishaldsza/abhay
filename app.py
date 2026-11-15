@@ -321,8 +321,47 @@ def create_app():
     def set_language(lang):
         if lang in ("en", "hi", "kn"):
             session["lang"] = lang
+            if request.method == "GET":
+                referer = request.headers.get("Referer")
+                if referer:
+                    return redirect(referer)
+                return redirect(request.args.get("next") or "/")
             return jsonify({"success": True, "lang": lang})
         return jsonify({"success": False, "error": "Invalid language"}), 400
+
+    @app.route("/api/profile/update", methods=["POST"])
+    def update_profile():
+        if not session.get("role"):
+            return jsonify({"success": False, "error": "Unauthorized"}), 401
+        data = request.get_json() or {}
+        full_name = (data.get("full_name") or "").strip()
+        phone = (data.get("phone") or "").strip()
+        address = (data.get("address") or "").strip()
+        if not full_name:
+            return jsonify({"success": False, "error": "Full name cannot be empty"}), 400
+
+        session["user_name"] = full_name
+        if phone:
+            session["phone"] = phone
+        if address:
+            session["address"] = address
+
+        db = get_db()
+        user_id = session.get("user_id")
+        if user_id:
+            db.execute(
+                "UPDATE user SET full_name = ?, phone = ? WHERE id = ?",
+                (full_name, phone or None, user_id)
+            )
+        log_audit(
+            actor=full_name,
+            actor_type=session.get("role", "user"),
+            action="USER_PROFILE_UPDATE",
+            detail=f"User updated profile: name={full_name}, phone={phone}, address={address}",
+            conn=db
+        )
+        db.commit()
+        return jsonify({"success": True, "user_name": full_name, "role": session.get("role")})
 
     @app.route("/")
     def page_incident_select():

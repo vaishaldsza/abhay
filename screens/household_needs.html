@@ -246,6 +246,27 @@
 
 <!-- Household Needs Shell (Responsive max-w-2xl) -->
 <main class="w-full max-w-2xl mx-auto min-h-[calc(100vh-64px)] bg-background relative flex flex-col pb-28 border-x border-outline-variant/30 shadow-2xl">
+<!-- Language Selector Pill -->
+<div class="px-4 py-2">
+  <div class="flex items-center justify-between bg-surface-container-high/80 px-3 py-1.5 rounded-lg border border-outline-variant/60">
+    <span class="text-xs font-bold text-primary flex items-center gap-1.5">
+      <span>🌐</span>
+      <span>Language:</span>
+    </span>
+    <div class="inline-flex rounded-md shadow-xs bg-surface-container-lowest p-0.5 border border-outline-variant/40">
+      <a href="/api/set-lang/en" class="px-2.5 py-0.5 text-xs font-semibold rounded transition {% if current_lang == 'en' %}bg-primary text-on-primary shadow-xs font-bold{% else %}text-on-surface-variant hover:text-primary{% endif %}">
+        English
+      </a>
+      <a href="/api/set-lang/hi" class="px-2.5 py-0.5 text-xs font-semibold rounded transition {% if current_lang == 'hi' %}bg-primary text-on-primary shadow-xs font-bold{% else %}text-on-surface-variant hover:text-primary{% endif %}">
+        हिन्दी
+      </a>
+      <a href="/api/set-lang/kn" class="px-2.5 py-0.5 text-xs font-semibold rounded transition {% if current_lang == 'kn' %}bg-primary text-on-primary shadow-xs font-bold{% else %}text-on-surface-variant hover:text-primary{% endif %}">
+        ಕನ್ನಡ
+      </a>
+    </div>
+  </div>
+</div>
+
 
 <!-- Page Content Container with top clearance for fixed header -->
 
@@ -373,7 +394,7 @@
 
 <legend class="text-caption font-caption font-bold text-outline uppercase tracking-wider mb-1">
 
-                ಚಲನಶೀಲತೆ &amp; ವೈದ್ಯಕೀಯ ಸ್ಥಿತಿ (Medical &amp; Mobility Flags)
+                {{ t("Medical & Mobility Flags") }}
 
               </legend>
 

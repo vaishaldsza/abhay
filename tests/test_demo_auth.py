@@ -407,3 +407,71 @@ def test_dark_mode_stylesheet_and_toggle_coverage(auth_app):
     assert "html.dark" in html_ready
     assert "html.light" in html_ready
 
+
+
+def test_profile_edit_and_update_api(auth_app):
+    """Verify user can update their profile (name, phone, address) and it reflects in session & audit."""
+    client = auth_app.test_client()
+    client.post("/login", data={"role": "dispatcher"})
+
+    # Check modal and badge
+    dash = client.get("/dashboard")
+    assert dash.status_code == 200
+    html = dash.data.decode("utf-8")
+    assert "openProfileModal()" in html
+    assert 'id="profile-edit-modal"' in html
+
+    # Update profile
+    res = client.post("/api/profile/update", json={
+        "full_name": "Senior Officer Anand Rao",
+        "phone": "+91 98450 99999",
+        "address": "Bantwal Taluk Emergency Control Room, Sector 2"
+    })
+    assert res.status_code == 200
+    data = res.get_json()
+    assert data["success"] is True
+    assert data["user_name"] == "Senior Officer Anand Rao"
+
+    # Verify updated name in subsequent page load
+    dash2 = client.get("/dashboard")
+    html2 = dash2.data.decode("utf-8")
+    assert "Senior Officer Anand Rao" in html2
+
+
+def test_fleet_page_light_mode_and_boxes(auth_app):
+    """Verify fleet page has proper styling and classes for visibility in light mode."""
+    client = auth_app.test_client()
+    client.post("/login", data={"role": "dispatcher"})
+    res = client.get("/fleet")
+    assert res.status_code == 200
+    html = res.data.decode("utf-8")
+    assert "fleet-metric-card" in html
+    assert "fleet-label" in html
+    assert "fleet-vehicle-card" in html
+    assert "html.light .fleet-metric-card" in html
+
+
+def test_resident_screens_language_switcher_and_get_redirect(auth_app):
+    """Verify GET /api/set-lang/<lang> redirects and resident pages have language selector pills."""
+    client = auth_app.test_client()
+    client.post("/login", data={"role": "resident"})
+
+    # GET redirect test
+    res = client.get("/api/set-lang/hi", headers={"Referer": "/ready"})
+    assert res.status_code == 302
+    assert "/ready" in res.location
+
+    # Verify Hindi resident page
+    res_ready = client.get("/ready")
+    html_ready = res_ready.data.decode("utf-8")
+    assert "/api/set-lang/en" in html_ready
+    assert "/api/set-lang/hi" in html_ready
+    assert "/api/set-lang/kn" in html_ready
+    assert "आपदा आपातकालीन निकासी तैयारी प्रपत्र" in html_ready
+
+    # Check phone simulator in English
+    client.get("/api/set-lang/en")
+    res_phone = client.get("/phone")
+    html_phone = res_phone.data.decode("utf-8")
+    assert "Emergency Call in Progress..." in html_phone
+    assert "1: I need rescue help" in html_phone

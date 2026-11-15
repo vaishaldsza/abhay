@@ -328,6 +328,25 @@
 <!-- Main Content Canvas -->
 
 <main class="flex-1 px-4 py-3 space-y-4">
+<!-- Language Selector Pill -->
+<div class="flex items-center justify-between bg-surface-container-high/80 px-3 py-1.5 rounded-lg border border-outline-variant/60 my-2">
+  <span class="text-xs font-bold text-primary flex items-center gap-1.5">
+    <span>🌐</span>
+    <span>Language:</span>
+  </span>
+  <div class="inline-flex rounded-md shadow-xs bg-surface-container-lowest p-0.5 border border-outline-variant/40">
+    <a href="/api/set-lang/en" class="px-2.5 py-0.5 text-xs font-semibold rounded transition {% if current_lang == 'en' %}bg-primary text-on-primary shadow-xs font-bold{% else %}text-on-surface-variant hover:text-primary{% endif %}">
+      English
+    </a>
+    <a href="/api/set-lang/hi" class="px-2.5 py-0.5 text-xs font-semibold rounded transition {% if current_lang == 'hi' %}bg-primary text-on-primary shadow-xs font-bold{% else %}text-on-surface-variant hover:text-primary{% endif %}">
+      हिन्दी
+    </a>
+    <a href="/api/set-lang/kn" class="px-2.5 py-0.5 text-xs font-semibold rounded transition {% if current_lang == 'kn' %}bg-primary text-on-primary shadow-xs font-bold{% else %}text-on-surface-variant hover:text-primary{% endif %}">
+      ಕನ್ನಡ
+    </a>
+  </div>
+</div>
+
 
 <!-- Form Context Header -->
 
@@ -371,7 +390,7 @@
 
 <div class="relative">
 
-<input id="resident-first-name" name="first_name" class="w-full h-11 px-3 bg-surface-bright dark:bg-slate-800 border border-outline-variant rounded-lg text-body-md font-body-md text-primary dark:text-white focus:border-primary-container focus:ring-2 focus:ring-secondary-container/50 outline-none transition" placeholder="ಉದಾ: ರಮೇಶ್ / Ramesh (First name only)" required type="text" value="{% if current_lang == 'kn' %}ರಮೇಶ್{% elif current_lang == 'hi' %}रमेश{% else %}Ramesh{% endif %}"/>
+<input id="resident-first-name" name="first_name" class="w-full h-11 px-3 bg-surface-bright dark:bg-slate-800 border border-outline-variant rounded-lg text-body-md font-body-md text-primary dark:text-white focus:border-primary-container focus:ring-2 focus:ring-secondary-container/50 outline-none transition" placeholder="{{ t('Placeholder Head Name') }}" required type="text" value="{% if current_lang == 'kn' %}ರಮೇಶ್{% elif current_lang == 'hi' %}रमेश{% else %}Ramesh{% endif %}"/>
 
 <span class="material-symbols-outlined absolute right-3 top-3 text-outline text-lg" data-icon="person">person</span>
 
@@ -413,7 +432,7 @@
 
 <div class="flex justify-between items-center mt-1">
 
-<span class="text-caption font-caption text-on-surface-variant">ಸ್ಥಳೀಯ ನೆಟ್ವರ್ಕ್: BSNL/Jio ಸಕ್ರಿಯ</span>
+<span class="text-caption font-caption text-on-surface-variant">{{ t("Local Network: BSNL/Jio Active") }}</span>
 
 <span class="text-caption font-label-tabular text-emerald-800 font-semibold">{{ t("Verified") }}</span>
 
@@ -429,7 +448,7 @@
 
 <label class="block text-label-md font-label-md text-primary mb-1">{{ t("Landmark") }} <span class="text-error font-bold">*</span></label>
 
-<input id="resident-landmark" name="landmark" class="w-full h-11 px-3 bg-surface-bright dark:bg-slate-800 border border-outline-variant rounded-lg text-body-md font-body-md text-primary dark:text-white focus:border-primary-container focus:ring-2 focus:ring-secondary-container/50 outline-none transition" placeholder="ಉದಾ: ಸೋಮೇಶ್ವರ ದೇವಸ್ಥಾನದ ಹಿಂಭಾಗ (Behind Someshwara Temple)" required type="text" value="{% if current_lang == 'kn' %}ಸೋಮೇಶ್ವರ ದೇವಸ್ಥಾನದ ಹಿಂಭಾಗ, ಹಳೆ ಸೇತುವೆ ಹತ್ತಿರ{% elif current_lang == 'hi' %}सोमेश्वर मंदिर के पीछे, पुराने पुल के पास{% else %}Behind Someshwara Temple, near Old Bridge{% endif %}"/>
+<input id="resident-landmark" name="landmark" class="w-full h-11 px-3 bg-surface-bright dark:bg-slate-800 border border-outline-variant rounded-lg text-body-md font-body-md text-primary dark:text-white focus:border-primary-container focus:ring-2 focus:ring-secondary-container/50 outline-none transition" placeholder="{{ t('Placeholder Landmark') }}" required type="text" value="{% if current_lang == 'kn' %}ಸೋಮೇಶ್ವರ ದೇವಸ್ಥಾನದ ಹಿಂಭಾಗ, ಹಳೆ ಸೇತುವೆ ಹತ್ತಿರ{% elif current_lang == 'hi' %}सोमेश्वर मंदिर के पीछे, पुराने पुल के पास{% else %}Behind Someshwara Temple, near Old Bridge{% endif %}"/>
 
 </div>
 
@@ -497,7 +516,7 @@
 
             </span>
 
-<span class="text-on-surface-variant font-caption">Bantwal Ward 4 (ಕಲ್ಲುಗುಂಡಿ)</span>
+<span class="text-on-surface-variant font-caption">{{ t("Ward 4 Kallugundi") }}</span>
 
 </div>
 
@@ -695,7 +714,7 @@ document.addEventListener('DOMContentLoaded', () => {
         submitBtn.innerHTML = '<span class="material-symbols-outlined animate-spin text-lg">sync</span><span>{{ t("Registering") }}</span>';
       }
 
-      const firstName = document.getElementById('resident-first-name')?.value || 'ರಮೇಶ್';
+      const firstName = document.getElementById('resident-first-name')?.value || 'Ramesh';
       const phone = document.getElementById('resident-phone')?.value || '9845012345';
       const landmark = document.getElementById('resident-landmark')?.value || 'Someshwara Temple';
       const pin = document.getElementById('resident-pin')?.value || '574211';

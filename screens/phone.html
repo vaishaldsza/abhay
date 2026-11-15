@@ -6,7 +6,7 @@
 
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-<title>ಅಭಯ / ABHAY DDMA - Resident Phone Simulator</title>
+<title>ABHAY DDMA - {{ t("Resident Phone Simulator") }}</title>
 
 <link href="https://fonts.googleapis.com" rel="preconnect">
 
@@ -267,6 +267,25 @@
 
 <!-- INCOMING ACTIVE CALL CARD (Simulated Dialler/Call Screen) -->
 
+<!-- Language Selector Pill -->
+<div class="flex items-center justify-between bg-surface-container-high/80 px-3 py-1.5 rounded-lg border border-outline-variant/60 mb-2">
+  <span class="text-xs font-bold text-primary flex items-center gap-1.5">
+    <span>🌐</span>
+    <span>Language:</span>
+  </span>
+  <div class="inline-flex rounded-md shadow-xs bg-surface-container-lowest p-0.5 border border-outline-variant/40">
+    <a href="/api/set-lang/en" class="px-2.5 py-0.5 text-xs font-semibold rounded transition {% if current_lang == 'en' %}bg-primary text-on-primary shadow-xs font-bold{% else %}text-on-surface-variant hover:text-primary{% endif %}">
+      English
+    </a>
+    <a href="/api/set-lang/hi" class="px-2.5 py-0.5 text-xs font-semibold rounded transition {% if current_lang == 'hi' %}bg-primary text-on-primary shadow-xs font-bold{% else %}text-on-surface-variant hover:text-primary{% endif %}">
+      हिन्दी
+    </a>
+    <a href="/api/set-lang/kn" class="px-2.5 py-0.5 text-xs font-semibold rounded transition {% if current_lang == 'kn' %}bg-primary text-on-primary shadow-xs font-bold{% else %}text-on-surface-variant hover:text-primary{% endif %}">
+      ಕನ್ನಡ
+    </a>
+  </div>
+</div>
+
 <section class="bg-surface-container-lowest rounded-xl border border-outline-variant/50 shadow-sm p-3.5 space-y-3">
 
 <!-- Caller Metadata Block -->
@@ -289,7 +308,7 @@
 
 <div class="flex items-center gap-1.5">
 
-<span class="font-label-lg text-label-lg text-on-surface font-bold truncate">ಅಭಯ / ABHAY DDMA</span>
+<span class="font-label-lg text-label-lg text-on-surface font-bold truncate">ABHAY DDMA</span>
 
 <span class="text-[10px] font-caption font-bold bg-amber-100 text-amber-900 border border-amber-300 px-1 rounded uppercase tracking-wider">OFFICIAL</span>
 
@@ -311,7 +330,7 @@
 
 <span class="w-2.5 h-2.5 rounded-full bg-emerald-600 animate-pulse"></span>
 
-<span class="font-label-md text-label-md text-primary font-bold">ಕರೆ ಚಾಲ್ತಿಯಲ್ಲಿದೆ / Call in progress</span>
+<span class="font-label-md text-label-md text-primary font-bold">{{ t("Emergency Call Active") }}</span>
 
 </div>
 
@@ -339,7 +358,7 @@
 
 <!-- Mandatory Operational Copy (Kannada + English verbatim without rescue guarantee) -->
 
-<div class="space-y-1.5 text-on-surface"><p class="font-body-md text-body-md font-semibold leading-snug">"ನಿಮ್ಮ ವಿನಂತಿಯನ್ನು ದಾಖಲಿಸಲಾಗಿದೆ. ಇನ್ನೂ ಯಾವುದೇ ಚಾಲಕರು ಒಪ್ಪಿಕೊಂಡಿಲ್ಲ."</p><p class="font-body-sm text-body-sm text-on-surface-variant leading-snug">"Your request is recorded. No driver has accepted yet."</p></div>
+<div class="space-y-1.5 text-on-surface"><p class="font-body-md text-body-md font-semibold leading-snug">{{ t("IVR Prompt Audio") }}</p><p class="font-body-sm text-body-sm text-on-surface-variant leading-snug">{{ t("Request recorded, no driver accepted yet") }}</p></div>
 
 <div class="pt-1 flex items-center gap-1 text-[11px] font-caption text-error font-medium">
 
@@ -375,9 +394,7 @@
 
 <div>
 
-<div class="font-label-md text-label-md font-bold leading-tight">1: ನನಗೆ ಸಹಾಯ ಬೇಕು</div>
-
-<div class="font-caption text-caption text-secondary-fixed leading-tight">I need help</div>
+<div class="font-label-md text-label-md font-bold leading-tight">{{ t("Key 1 Needs Help") }}</div>
 
 </div>
 
@@ -403,9 +420,7 @@
 
 <div>
 
-<div class="font-label-md text-label-md font-semibold text-on-surface leading-tight">2: ನಾನು ಇತರರಿಗೆ ಸಹಾಯ ಮಾಡಬಲ್ಲೆ</div>
-
-<div class="font-caption text-caption text-on-surface-variant leading-tight">I can help others</div>
+<div class="font-label-md text-label-md font-semibold text-on-surface leading-tight">{{ t("Key 2 I am Safe") }}</div>
 
 </div>
 
@@ -425,9 +440,7 @@
 
 <div>
 
-<div class="font-label-md text-label-md font-semibold text-on-surface leading-tight">3: ನಾನು ಸುರಕ್ಷಿತವಾಗಿ ಸ್ಥಳಾಂತರಗೊಂಡಿದ್ದೇನೆ</div>
-
-<div class="font-caption text-caption text-on-surface-variant leading-tight">I have left / evacuated</div>
+<div class="font-label-md text-label-md font-semibold text-on-surface leading-tight">{{ t("Key 3 Can Volunteer") }}</div>
 
 </div>
 
@@ -475,7 +488,7 @@
 
 <p class="font-body-sm text-body-sm text-on-surface font-medium leading-relaxed">
 
-              ಅಭಯ ಡಿಡಿಎಂಎ: ನಿಮ್ಮ ಸ್ಥಳಾಂತರ ವಿನಂತಿಯನ್ನು ದಾಖಲಿಸಲಾಗಿದೆ (<span class="font-label-tabular font-bold text-primary">#KA-BNT-8821</span>). ಯಾವುದೇ ಚಾಲಕರು ಒಪ್ಪಿಕೊಂಡ ನಂತರವೇ ನಿಮಗೆ ಮುಂದಿನ ಸಂದೇಶ ಬರಲಿದೆ. ಸಹಾಯವಾಣಿ: <span class="font-label-tabular font-bold text-primary">1077</span>.
+              {{ t("SMS Confirmation Banner") }} (<span class="font-label-tabular font-bold text-primary">#KA-BNT-8821</span>). {{ t("Helpline Call Notice") }}
 
             </p>
 
@@ -483,7 +496,7 @@
 
 <p class="font-caption text-caption text-on-surface-variant leading-snug">
 
-                (ABHAY DDMA: Your evacuation request is recorded. Notice: Resident will be informed only after a driver accepts. Emergency Helpline: 1077)
+              {{ t("DPDP Consent Guarantee") }}
 
               </p>
 
@@ -528,47 +541,22 @@
 <!-- BottomNavBar (from Shared Components JSON with active IVR tab lock) -->
 
 <nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-2 py-2 h-16 bg-surface-container-lowest dark:bg-surface-container-high border-t border-outline-variant dark:border-outline shadow-md">
-
-<!-- Item 1: Ready -->
-
-<button class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline px-3 py-1 transition-transform duration-150 active:scale-95 hover:text-primary">
-
-<span class="material-symbols-outlined text-xl" data-icon="verified_user">verified_user</span>
-
-<span class="text-caption font-caption">ಸಿದ್ಧತೆ / Ready</span>
-
-</button>
-
-<!-- Item 2: House -->
-
-<button class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline px-3 py-1 transition-transform duration-150 active:scale-95 hover:text-primary">
-
-<span class="material-symbols-outlined text-xl" data-icon="groups">groups</span>
-
-<span class="text-caption font-caption">ಕುಟುಂಬ / House</span>
-
-</button>
-
-<!-- Item 3: IVR (Active lock mapped to resident call simulator intent) -->
-
-<button class="flex flex-col items-center justify-center text-primary dark:text-secondary-fixed font-bold bg-primary-fixed dark:bg-primary-container rounded-lg px-3 py-1 transition-transform duration-150 active:scale-95">
-
-<span class="material-symbols-outlined text-xl" data-icon="ring_volume" style="font-variation-settings: 'FILL' 1;">ring_volume</span>
-
-<span class="text-caption font-caption">ತುರ್ತು / IVR</span>
-
-</button>
-
-<!-- Item 4: Status -->
-
-<button class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline px-3 py-1 transition-transform duration-150 active:scale-95 hover:text-primary">
-
-<span class="material-symbols-outlined text-xl" data-icon="task_alt">task_alt</span>
-
-<span class="text-caption font-caption">ಸ್ಥಿತಿ / Status</span>
-
-</button>
-
+  <a href="/ready" class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline px-3 py-1 transition-transform duration-150 active:scale-95 hover:text-primary">
+    <span class="material-symbols-outlined text-xl" data-icon="verified_user">verified_user</span>
+    <span class="text-caption font-caption">{{ t("Ready Tab") }}</span>
+  </a>
+  <a href="/household-needs" class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline px-3 py-1 transition-transform duration-150 active:scale-95 hover:text-primary">
+    <span class="material-symbols-outlined text-xl" data-icon="groups">groups</span>
+    <span class="text-caption font-caption">{{ t("House Tab") }}</span>
+  </a>
+  <a href="/phone" class="flex flex-col items-center justify-center text-primary dark:text-secondary-fixed font-bold bg-primary-fixed dark:bg-primary-container rounded-lg px-3 py-1 transition-transform duration-150 active:scale-95">
+    <span class="material-symbols-outlined text-xl" data-icon="ring_volume" style="font-variation-settings: 'FILL' 1;">ring_volume</span>
+    <span class="text-caption font-caption">{{ t("IVR Tab") }}</span>
+  </a>
+  <a href="/confirmation" class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline px-3 py-1 transition-transform duration-150 active:scale-95 hover:text-primary">
+    <span class="material-symbols-outlined text-xl" data-icon="task_alt">task_alt</span>
+    <span class="text-caption font-caption">{{ t("Status Tab") }}</span>
+  </a>
 </nav>
 
 </div>

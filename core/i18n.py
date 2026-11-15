@@ -750,6 +750,97 @@ UI_TRANSLATIONS = {
         "hi": "ऑक्सीजन या जीवनरक्षक दवाओं की आवश्यकता",
         "kn": "ಔಷಧಿ ಅಥವಾ ಆಮ್ಲಜನಕ ಬೇಕು"
     },
+    # Resident Ready & Phone Simulator Additional Strings
+    "Placeholder Head Name": {
+        "en": "e.g. Ramesh (First name only)",
+        "hi": "उदा: रमेश (केवल पहला नाम)",
+        "kn": "ಉದಾ: ರಮೇಶ್ (ಮೊದಲ ಹೆಸರು ಮಾತ್ರ)"
+    },
+    "Placeholder Landmark": {
+        "en": "e.g. Behind Someshwara Temple, near Old Bridge",
+        "hi": "उदा: सोमेश्वर मंदिर के पीछे, पुराने पुल के पास",
+        "kn": "ಉದಾ: ಸೋಮೇಶ್ವರ ದೇವಸ್ಥಾನದ ಹಿಂಭಾಗ, ಹಳೆ ಸೇತುವೆ ಹತ್ತಿರ"
+    },
+    "Ward 4 Kallugundi": {
+        "en": "Bantwal Ward 4 (Kallugundi Sector)",
+        "hi": "बंटवाल वार्ड 4 (कल्लुगुंडी सेक्टर)",
+        "kn": "ಬಂಟ್ವಾಳ ವಾರ್ಡ್ 4 (ಕಲ್ಲುಗುಂಡಿ ವಲಯ)"
+    },
+    "Resident Phone Simulator": {
+        "en": "Resident Phone Simulator",
+        "hi": "नागरिक फोन सिम्युलेटर",
+        "kn": "ನಿವಾಸಿ ಫೋನ್ ಸಿಮ್ಯುಲೇಟರ್"
+    },
+    "Emergency Call Active": {
+        "en": "Emergency Call in Progress...",
+        "hi": "आपातकालीन कॉल जारी है...",
+        "kn": "ತುರ್ತು ಕರೆ ಚಾಲ್ತಿಯಲ್ಲಿದೆ..."
+    },
+    "IVR Prompt Audio": {
+        "en": "\"Do you need immediate flood evacuation or rescue assistance?\"",
+        "hi": "\"क्या आपको तत्काल बाढ़ निकासी या बचाव सहायता की आवश्यकता है?\"",
+        "kn": "\"ನಿಮಗೆ ತುರ್ತು ಸ್ಥಳಾಂತರ ಅಥವಾ ರಕ್ಷಣಾ ಬೋಟ್ ಬೇಕೇ?\""
+    },
+    "Key 1 Needs Help": {
+        "en": "1: I need rescue help",
+        "hi": "1: मुझे बचाव सहायता चाहिए",
+        "kn": "1: ನನಗೆ ಸಹಾಯ ಬೇಕು"
+    },
+    "Key 2 I am Safe": {
+        "en": "2: I am safe / Water receding",
+        "hi": "2: मैं सुरक्षित हूँ / पानी कम हो रहा है",
+        "kn": "2: ನಾನು ಸುರಕ್ಷಿತವಾಗಿದ್ದೇನೆ"
+    },
+    "Key 3 Can Volunteer": {
+        "en": "3: I have resources / Can volunteer",
+        "hi": "3: मेरे पास संसाधन हैं / स्वयंसेवक बन सकता हूँ",
+        "kn": "3: ನಾನು ಸ್ವಯಂಸೇವಕನಾಗಬಲ್ಲೆ"
+    },
+    "SMS Confirmation Banner": {
+        "en": "ABHAY DDMA: Your evacuation request has been recorded. Rescue unit alerted.",
+        "hi": "अभय डीडीएमए: आपका निकासी अनुरोध दर्ज हो चुका है। बचाव दल को सूचित किया गया।",
+        "kn": "ಅಭಯ ಡಿಡಿಎಂಎ: ನಿಮ್ಮ ಸ್ಥಳಾಂತರ ವಿನಂತಿ ಸ್ವೀಕರಿಸಲಾಗಿದೆ. ರಕ್ಷಣಾ ಪಡೆಗೆ ಮಾಹಿತಿ ನೀಡಲಾಗಿದೆ."
+    },
+    "End Call": {
+        "en": "End Call",
+        "hi": "कॉल समाप्त करें",
+        "kn": "ಕರೆ ಕೊನೆಗೊಳಿಸಿ"
+    },
+    "Keypad": {
+        "en": "Tactile DTMF Keypad",
+        "hi": "डीटीएमएफ कीपैड",
+        "kn": "DTMF ಕೀಪ್ಯಾಡ್"
+    },
+    "Profile Edit Title": {
+        "en": "Edit User Profile",
+        "hi": "उपयोगकर्ता प्रोफ़ाइल संपादित करें",
+        "kn": "ಬಳಕೆದಾರರ ಪ್ರೊಫೈಲ್ ತಿದ್ದುಪಡಿ"
+    },
+    "Display Name": {
+        "en": "Full Name / Display Name",
+        "hi": "पूरा नाम / प्रदर्शित नाम",
+        "kn": "ಪೂರ್ಣ ಹೆಸರು"
+    },
+    "Designation / Role": {
+        "en": "Designation / Role",
+        "hi": "पद / भूमिका",
+        "kn": "ಹುದ್ದೆ / ಪಾತ್ರ"
+    },
+    "Contact Phone": {
+        "en": "Contact Phone Number",
+        "hi": "संपर्क फोन नंबर",
+        "kn": "ಸಂಪರ್ಕ ದೂರವಾಣಿ ಸಂಖ್ಯೆ"
+    },
+    "Jurisdiction / Address": {
+        "en": "Jurisdiction / Base Station Address",
+        "hi": "अधिकार क्षेत्र / बेस स्टेशन का पता",
+        "kn": "ಕಾರ್ಯಕ್ಷೇತ್ರ / ವಿಳಾಸ"
+    },
+    "Save Profile Changes": {
+        "en": "Save Profile Changes",
+        "hi": "प्रोफ़ाइल परिवर्तन सहेजें",
+        "kn": "ಪ್ರೊಫೈಲ್ ಉಳಿಸಿ"
+    },
 }
 
 def t(key: str, lang: str = "en") -> str:

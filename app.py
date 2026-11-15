@@ -67,7 +67,7 @@ def create_app():
     def check_role_access():
         path = request.path
         # Allow static files, audio cache, login and logout
-        if path.startswith("/static/") or path.startswith("/audio-cache/") or path in ("/login", "/logout") or path.startswith("/api/set-lang/"):
+        if path.startswith("/static/") or path.startswith("/audio-cache/") or path in ("/login", "/logout", "/register") or path.startswith("/api/set-lang/"):
             return None
 
         # If DEMO_MODE is disabled, allow access without demo role enforcement
@@ -158,7 +158,106 @@ def create_app():
 
     @app.route("/login", methods=["GET", "POST"])
     def page_login():
+        tab = request.args.get("tab", "login")
         if request.method == "POST":
+            action = request.form.get("action")
+            role_home = {
+                "dispatcher": "/dashboard",
+                "driver": "/driver",
+                "field_worker": "/field",
+                "resident": "/ready"
+            }
+
+            # --- CASE 1: Sign Up / Register New Account ---
+            if action == "register":
+                username = (request.form.get("username") or "").strip()
+                password = request.form.get("password") or ""
+                full_name = (request.form.get("full_name") or "").strip()
+                email = (request.form.get("email") or "").strip()
+                role = (request.form.get("role") or "resident").strip()
+                phone = (request.form.get("phone") or "").strip()
+                vehicle_id = (request.form.get("vehicle_id") or "").strip() or ("veh-01" if role == "driver" else None)
+
+                if not username or not password or not full_name:
+                    return render_template("login.html", demo_mode=Config.DEMO_MODE, error="Please provide Full Name, Username, and Password.", tab="register")
+                if role not in ("dispatcher", "driver", "field_worker", "resident"):
+                    return render_template("login.html", demo_mode=Config.DEMO_MODE, error="Invalid role selected.", tab="register")
+
+                db = get_db()
+                existing = db.execute("SELECT id FROM user WHERE username = ? OR (email IS NOT NULL AND email != '' AND email = ?)", (username, email)).fetchone()
+                if existing:
+                    return render_template("login.html", demo_mode=Config.DEMO_MODE, error="Username or email is already registered.", tab="register")
+
+                import uuid
+                from werkzeug.security import generate_password_hash
+                user_id = f"usr-{uuid.uuid4().hex[:8]}"
+                pwd_hash = generate_password_hash(password)
+                db.execute(
+                    "INSERT INTO user (id, username, email, password_hash, role, full_name, phone, vehicle_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
+                    (user_id, username, email or None, pwd_hash, role, full_name, phone or None, vehicle_id)
+                )
+                log_audit(
+                    actor=full_name,
+                    actor_type=role,
+                    action="USER_REGISTER",
+                    detail=f"User registered with username {username} as {role}",
+                    conn=db
+                )
+                db.commit()
+
+                # Automatically establish session upon registration
+                session["user_id"] = user_id
+                session["role"] = role
+                session["user_name"] = full_name
+                if role == "driver":
+                    session["vehicle_id"] = vehicle_id or "veh-01"
+                else:
+                    session.pop("vehicle_id", None)
+
+                log_audit(
+                    actor=full_name,
+                    actor_type=role,
+                    action="USER_LOGIN",
+                    detail=f"User {username} auto-logged in as {role} after registration",
+                    conn=db
+                )
+                db.commit()
+                return redirect(role_home.get(role, "/dashboard"))
+
+            # --- CASE 2: Account Login with Username & Password ---
+            if action == "login" or (request.form.get("username") and request.form.get("password")):
+                username = (request.form.get("username") or "").strip()
+                password = request.form.get("password") or ""
+                db = get_db()
+                user = db.execute(
+                    "SELECT * FROM user WHERE username = ? OR (email IS NOT NULL AND email != '' AND email = ?)",
+                    (username, username)
+                ).fetchone()
+                from werkzeug.security import check_password_hash
+                if not user or not check_password_hash(user["password_hash"], password):
+                    return render_template("login.html", demo_mode=Config.DEMO_MODE, error="Invalid username or password.", tab="login")
+
+                role = user["role"]
+                full_name = user["full_name"]
+                session["user_id"] = user["id"]
+                session["role"] = role
+                session["user_name"] = full_name
+                if role == "driver":
+                    session["vehicle_id"] = user["vehicle_id"] or "veh-01"
+                else:
+                    session.pop("vehicle_id", None)
+
+                log_audit(
+                    actor=full_name,
+                    actor_type=role,
+                    action="USER_LOGIN",
+                    detail=f"User {user['username']} logged in with credentials as {role}",
+                    conn=db
+                )
+                db.commit()
+                return redirect(role_home.get(role, "/dashboard"))
+
+            # --- CASE 3: Quick Demo Role 1-Click Login ---
             role = request.form.get("role", "dispatcher")
             user_names = {
                 "dispatcher": "Duty officer",
@@ -185,16 +284,17 @@ def create_app():
             )
             db.commit()
 
-            role_home = {
-                "dispatcher": "/dashboard",
-                "driver": "/driver",
-                "field_worker": "/field",
-                "resident": "/ready"
-            }
             return redirect(role_home.get(role, "/dashboard"))
 
         error = request.args.get("error")
-        return render_template("login.html", demo_mode=Config.DEMO_MODE, error=error)
+        return render_template("login.html", demo_mode=Config.DEMO_MODE, error=error, tab=tab)
+
+    @app.route("/register", methods=["GET", "POST"])
+    def page_register():
+        if request.method == "POST":
+            return page_login()
+        error = request.args.get("error")
+        return render_template("login.html", demo_mode=Config.DEMO_MODE, error=error, tab="register")
 
     @app.route("/logout")
     def page_logout():

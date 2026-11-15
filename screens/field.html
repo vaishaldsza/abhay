@@ -292,43 +292,8 @@
 
 <!-- Official TopAppBar Component (Rendered via JSON Token Blueprint) -->
 
-<header class="bg-surface-container-lowest flex items-center justify-between px-3.5 h-14 border-b border-outline-variant sticky top-[29px] z-40 shadow-sm">
-
-<div class="flex items-center space-x-2.5">
-
-<div class="w-8 h-8 rounded-lg bg-primary-container flex items-center justify-center text-on-primary">
-
-<span class="material-symbols-outlined text-[20px]" data-icon="shield">shield</span>
-
-</div>
-
-<div>
-
-<h1 class="font-headline-sm text-headline-sm font-bold text-primary tracking-tight leading-none">Abhay DDMA</h1>
-
-<div class="flex items-center space-x-1 mt-0.5">
-
-<span class="font-caption text-caption text-on-surface-variant font-medium">Sector 4 • Bantwal Field Ops</span>
-
-</div>
-
-</div>
-
-</div>
-
-<!-- Segmented Language Switcher -->
-
-<div class="flex items-center bg-surface-container-high rounded-lg p-0.5 border border-outline-variant/60">
-
-<button class="px-2 py-0.5 rounded bg-primary text-on-primary font-caption text-caption font-bold transition-all">EN</button>
-
-<button class="px-1.5 py-0.5 rounded text-on-surface-variant hover:text-primary font-caption text-caption transition-colors">ಕನ್</button>
-
-<button class="px-1.5 py-0.5 rounded text-on-surface-variant hover:text-primary font-caption text-caption transition-colors">हिं</button>
-
-</div>
-
-</header>
+{% set active_page = "field" %}
+{% include "nav.html" %}
 
 <!-- Operational Context Sub-Header -->
 

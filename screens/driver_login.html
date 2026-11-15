@@ -300,29 +300,8 @@
 
 <!-- Shared Component: TopAppBar (docked, borderless separation via shadow) -->
 
-<header class="flex justify-between items-center w-full px-margin h-14 bg-primary text-on-primary shadow-sm z-30">
-
-<div class="flex items-center space-x-2">
-
-<span class="material-symbols-outlined text-secondary-container" data-icon="shield" style="font-variation-settings: 'FILL' 1;">shield</span>
-
-<span class="font-headline-sm text-headline-sm font-bold tracking-wider text-on-primary uppercase">ABHAY DRIVER</span>
-
-</div>
-
-<!-- Language Switcher: Segmented tactical toggle (EN | हिं | ಕನ್ನ) -->
-
-<div class="flex items-center bg-primary-container p-0.5 rounded border border-on-primary-container/20">
-
-<button class="px-2 py-0.5 rounded bg-on-primary text-primary font-caption text-caption font-bold transition-all shadow-xs" type="button">EN</button>
-
-<button class="px-2 py-0.5 rounded text-primary-fixed font-caption text-caption hover:text-on-primary transition-colors" type="button">हिं</button>
-
-<button class="px-2 py-0.5 rounded text-primary-fixed font-caption text-caption hover:text-on-primary transition-colors" type="button">ಕನ್ನ</button>
-
-</div>
-
-</header>
+{% set active_page = "driver" %}
+{% include "nav.html" %}
 
 <!-- Authority Verification Banner (DDMA Official Seal strip) -->
 

@@ -1,3 +1,126 @@
+<!-- Early Theme Initialization to Prevent Flash of Dark/Light Theme -->
+<script>
+  (function() {
+    const theme = localStorage.getItem('theme') || 'dark';
+    if (theme === 'light') {
+      document.documentElement.classList.add('light');
+      document.documentElement.classList.remove('dark');
+    } else {
+      document.documentElement.classList.add('dark');
+      document.documentElement.classList.remove('light');
+    }
+  })();
+</script>
+
+<!-- Global Light Mode & Theme Variables Override Stylesheet -->
+<style id="abhay-theme-styles">
+  html.light {
+    color-scheme: light;
+  }
+  html.light, html.light body {
+    background-color: #f8fafc !important;
+    color: #0f172a !important;
+  }
+  /* Navigation Bar in Light Mode */
+  html.light header.w-full {
+    background-color: #ffffff !important;
+    border-bottom: 1px solid #e2e8f0 !important;
+    color: #0f172a !important;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.05) !important;
+  }
+  html.light header.w-full nav a {
+    color: #475569 !important;
+  }
+  html.light header.w-full nav a:hover {
+    background-color: #f1f5f9 !important;
+    color: #0f172a !important;
+  }
+  html.light header.w-full nav a.bg-\[\#0b2545\] {
+    background-color: #eff6ff !important;
+    color: #1d4ed8 !important;
+    border-color: #bfdbfe !important;
+  }
+  /* Primary dark backgrounds to clean crisp white/slate */
+  html.light .bg-slate-950,
+  html.light .bg-slate-900,
+  html.light .bg-[#001026],
+  html.light .bg-[#0b1320],
+  html.light .bg-[#070d16],
+  html.light .bg-[#060c18],
+  html.light .bg-[#0f172a],
+  html.light .bg-[#131b2e] {
+    background-color: #ffffff !important;
+    color: #0f172a !important;
+  }
+  html.light .bg-slate-900\/50,
+  html.light .bg-slate-900\/80,
+  html.light .bg-slate-800,
+  html.light .bg-slate-850,
+  html.light .bg-[#0b2545],
+  html.light .bg-slate-800\/50 {
+    background-color: #f1f5f9 !important;
+    color: #1e293b !important;
+  }
+  /* Border overrides */
+  html.light .border-slate-800,
+  html.light .border-slate-700,
+  html.light .border-slate-800\/50,
+  html.light .border-slate-700\/50,
+  html.light .border-outline {
+    border-color: #cbd5e1 !important;
+  }
+  /* Text color overrides */
+  html.light .text-white,
+  html.light .text-slate-100,
+  html.light .text-slate-200 {
+    color: #0f172a !important;
+  }
+  html.light .text-slate-300,
+  html.light .text-slate-400 {
+    color: #475569 !important;
+  }
+  html.light .text-slate-500 {
+    color: #64748b !important;
+  }
+  /* Inputs, selects, and textareas */
+  html.light input:not([type="checkbox"]):not([type="radio"]),
+  html.light select,
+  html.light textarea {
+    background-color: #ffffff !important;
+    color: #0f172a !important;
+    border-color: #cbd5e1 !important;
+  }
+  html.light input::placeholder,
+  html.light textarea::placeholder {
+    color: #94a3b8 !important;
+  }
+  /* Cards, tables, and dropdowns */
+  html.light #lang-dropdown-menu {
+    background-color: #ffffff !important;
+    border-color: #cbd5e1 !important;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1) !important;
+  }
+  html.light #lang-dropdown-menu button {
+    color: #1e293b !important;
+  }
+  html.light #lang-dropdown-menu button:hover {
+    background-color: #f1f5f9 !important;
+    color: #b45309 !important;
+  }
+  html.light tr.hover\:bg-slate-800\/50:hover,
+  html.light tr.hover\:bg-slate-900\/50:hover {
+    background-color: #f8fafc !important;
+  }
+  html.light thead {
+    background-color: #f1f5f9 !important;
+  }
+  html.light .role-badge-box {
+    background-color: #f1f5f9 !important;
+    border-color: #cbd5e1 !important;
+    color: #0f172a !important;
+  }
+</style>
+
 <!-- Demo Mode Global Warning Banner -->
 <div class="bg-amber-400 text-slate-950 px-4 py-1 text-xs font-bold text-center tracking-wide shadow-sm z-50 shrink-0">
   Demo mode: sample accounts, no real data.
@@ -87,17 +210,43 @@
     {% endif %}
   </nav>
 
-  <!-- Right Controls: Language Switcher, Role Badge, Logout -->
+  <!-- Right Controls: Language Dropdown, Dark/Light Mode, Role Badge, Logout -->
   <div class="flex items-center gap-2">
-    <!-- Language Switcher -->
-    <div class="flex items-center bg-slate-800 p-0.5 rounded border border-slate-700 text-xs">
-      <button onclick="setAppLanguage('en')" class="px-1.5 py-0.5 rounded transition {% if current_lang == 'en' %}bg-[#001026] text-amber-400 font-bold{% else %}text-slate-300 hover:text-white{% endif %}">EN</button>
-      <button onclick="setAppLanguage('hi')" class="px-1.5 py-0.5 rounded transition {% if current_lang == 'hi' %}bg-[#001026] text-amber-400 font-bold{% else %}text-slate-300 hover:text-white{% endif %}">हिं</button>
-      <button onclick="setAppLanguage('kn')" class="px-1.5 py-0.5 rounded transition {% if current_lang == 'kn' %}bg-[#001026] text-amber-400 font-bold{% else %}text-slate-300 hover:text-white{% endif %}">ಕನ್ನ</button>
+    <!-- Language Selection Dropdown Toggle -->
+    <div class="relative inline-block text-left" id="lang-dropdown-wrapper">
+      <button type="button" onclick="toggleLangDropdown(event)" id="lang-toggle-btn" class="flex items-center gap-1.5 px-2.5 py-1.5 rounded bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 text-xs font-medium transition focus:outline-none">
+        <span class="text-sm">🌐</span>
+        <span class="font-bold text-amber-400" id="current-lang-label">
+          {% if current_lang == 'hi' %}हिन्दी (HI){% elif current_lang == 'kn' %}ಕನ್ನಡ (KN){% else %}English (EN){% endif %}
+        </span>
+        <svg class="w-3.5 h-3.5 text-slate-400 transition-transform duration-200" id="lang-chevron" viewBox="0 0 20 20" fill="currentColor">
+          <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+        </svg>
+      </button>
+      <div id="lang-dropdown-menu" class="hidden absolute right-0 mt-1.5 w-36 rounded-md shadow-xl bg-slate-900 border border-slate-700 py-1 z-50 divide-y divide-slate-800">
+        <button type="button" onclick="setAppLanguage('en')" class="w-full text-left px-3 py-2 text-xs flex items-center justify-between transition {% if current_lang == 'en' %}text-amber-400 font-bold bg-slate-800/80{% else %}text-slate-200 hover:bg-slate-800 hover:text-amber-300{% endif %}">
+          <span>English (EN)</span>
+          {% if current_lang == 'en' %}<span class="text-amber-400 text-sm">✓</span>{% endif %}
+        </button>
+        <button type="button" onclick="setAppLanguage('hi')" class="w-full text-left px-3 py-2 text-xs flex items-center justify-between transition {% if current_lang == 'hi' %}text-amber-400 font-bold bg-slate-800/80{% else %}text-slate-200 hover:bg-slate-800 hover:text-amber-300{% endif %}">
+          <span>हिन्दी (Hindi)</span>
+          {% if current_lang == 'hi' %}<span class="text-amber-400 text-sm">✓</span>{% endif %}
+        </button>
+        <button type="button" onclick="setAppLanguage('kn')" class="w-full text-left px-3 py-2 text-xs flex items-center justify-between transition {% if current_lang == 'kn' %}text-amber-400 font-bold bg-slate-800/80{% else %}text-slate-200 hover:bg-slate-800 hover:text-amber-300{% endif %}">
+          <span>ಕನ್ನಡ (Kannada)</span>
+          {% if current_lang == 'kn' %}<span class="text-amber-400 text-sm">✓</span>{% endif %}
+        </button>
+      </div>
     </div>
 
+    <!-- Dark / Light Mode Toggle Button -->
+    <button id="theme-toggle-btn" onclick="toggleTheme()" class="px-2.5 py-1.5 rounded bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-amber-400 border border-slate-700 text-xs font-semibold transition flex items-center gap-1 shadow-sm" title="Toggle Dark/Light Mode">
+      <span id="theme-toggle-icon">☀️</span>
+      <span class="hidden sm:inline text-[11px]" id="theme-toggle-label">Theme</span>
+    </button>
+
     <!-- Role Badge -->
-    <div class="hidden sm:flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-slate-800 border border-slate-700 text-xs">
+    <div class="hidden sm:flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-slate-800 border border-slate-700 text-xs role-badge-box">
       <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
       <span class="font-semibold text-slate-200 capitalize">
         {% if session.get('role') == 'dispatcher' %}
@@ -115,17 +264,70 @@
     </div>
 
     <!-- Logout Button -->
-    <a href="/logout" class="px-2.5 py-1 rounded bg-slate-800 hover:bg-red-900/60 hover:text-red-200 text-slate-300 border border-slate-700 text-xs font-semibold transition" title="Logout">
+    <a href="/logout" class="px-2.5 py-1.5 rounded bg-slate-800 hover:bg-red-900/60 hover:text-red-200 text-slate-300 border border-slate-700 text-xs font-semibold transition" title="Logout">
       {{ t_nav('Logout') }}
     </a>
   </div>
 </header>
 
 <script>
+// Language Dropdown Handling
+function toggleLangDropdown(e) {
+  if (e) e.stopPropagation();
+  const menu = document.getElementById('lang-dropdown-menu');
+  const chev = document.getElementById('lang-chevron');
+  if (menu) {
+    menu.classList.toggle('hidden');
+    if (chev) chev.classList.toggle('rotate-180');
+  }
+}
+
+document.addEventListener('click', function(e) {
+  const menu = document.getElementById('lang-dropdown-menu');
+  const wrap = document.getElementById('lang-dropdown-wrapper');
+  if (menu && !menu.classList.contains('hidden') && wrap && !wrap.contains(e.target)) {
+    menu.classList.add('hidden');
+    const chev = document.getElementById('lang-chevron');
+    if (chev) chev.classList.remove('rotate-180');
+  }
+});
+
 function setAppLanguage(lang) {
   fetch('/api/set-lang/' + lang, { method: 'POST' })
     .then(r => r.json())
     .then(() => window.location.reload())
     .catch(() => window.location.reload());
 }
+
+// Dark / Light Theme Toggle Handling
+function toggleTheme() {
+  const isLight = document.documentElement.classList.contains('light');
+  if (isLight) {
+    document.documentElement.classList.remove('light');
+    document.documentElement.classList.add('dark');
+    localStorage.setItem('theme', 'dark');
+    updateThemeUI('dark');
+  } else {
+    document.documentElement.classList.remove('dark');
+    document.documentElement.classList.add('light');
+    localStorage.setItem('theme', 'light');
+    updateThemeUI('light');
+  }
+}
+
+function updateThemeUI(theme) {
+  const icon = document.getElementById('theme-toggle-icon');
+  const label = document.getElementById('theme-toggle-label');
+  if (icon) {
+    icon.textContent = theme === 'light' ? '🌙' : '☀️';
+  }
+  if (label) {
+    label.textContent = theme === 'light' ? 'Dark' : 'Light';
+  }
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+  const curTheme = localStorage.getItem('theme') || 'dark';
+  updateThemeUI(curTheme);
+});
 </script>

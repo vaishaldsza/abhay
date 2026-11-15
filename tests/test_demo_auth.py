@@ -126,3 +126,82 @@ def test_language_switcher_session(auth_app):
     assert res.status_code == 200
     # Hindi nav label rendered
     assert "नियंत्रण केंद्र" in res.data.decode("utf-8")
+
+def test_credential_login_with_seeded_user(auth_app):
+    client = auth_app.test_client()
+    res = client.post("/login", data={
+        "action": "login",
+        "username": "dispatcher",
+        "password": "admin123"
+    }, follow_redirects=False)
+    assert res.status_code == 302
+    assert res.headers["Location"] == "/dashboard"
+
+    # Access dispatcher page
+    r = client.get("/dashboard")
+    assert r.status_code == 200
+
+def test_credential_login_invalid_password(auth_app):
+    client = auth_app.test_client()
+    res = client.post("/login", data={
+        "action": "login",
+        "username": "dispatcher",
+        "password": "wrongpassword"
+    }, follow_redirects=True)
+    assert res.status_code == 200
+    assert "Invalid username or password" in res.data.decode("utf-8")
+
+def test_user_signup_registration(auth_app):
+    client = auth_app.test_client()
+    # Register new field worker
+    res = client.post("/register", data={
+        "action": "register",
+        "full_name": "Ravi Ground Officer",
+        "username": "ravi_field",
+        "email": "ravi@ddma.gov.in",
+        "password": "securepass123",
+        "role": "field_worker",
+        "phone": "9876543299"
+    }, follow_redirects=False)
+    assert res.status_code == 302
+    assert res.headers["Location"] == "/field"
+
+    # Check database and audit log
+    with auth_app.app_context():
+        db = get_db()
+        u = db.execute("SELECT * FROM user WHERE username = 'ravi_field'").fetchone()
+        assert u is not None
+        assert u["full_name"] == "Ravi Ground Officer"
+        assert u["role"] == "field_worker"
+
+        reg_log = db.execute("SELECT * FROM audit_log WHERE action = 'USER_REGISTER'").fetchone()
+        assert reg_log is not None
+
+def test_signup_duplicate_username_rejected(auth_app):
+    client = auth_app.test_client()
+    res = client.post("/register", data={
+        "action": "register",
+        "full_name": "Another Dispatcher",
+        "username": "dispatcher", # already exists in seed
+        "password": "newpassword123",
+        "role": "dispatcher"
+    }, follow_redirects=True)
+    assert res.status_code == 200
+    assert "already registered" in res.data.decode("utf-8").lower()
+
+def test_language_dropdown_and_theme_toggle_rendered(auth_app):
+    client = auth_app.test_client()
+    client.post("/login", data={"role": "dispatcher"})
+    res = client.get("/dashboard")
+    assert res.status_code == 200
+    html = res.data.decode("utf-8")
+    # Language dropdown elements
+    assert "lang-dropdown-wrapper" in html
+    assert "lang-dropdown-menu" in html
+    assert "English (EN)" in html
+    assert "हिन्दी (Hindi)" in html
+    assert "ಕನ್ನಡ (Kannada)" in html
+    # Theme toggle elements
+    assert "theme-toggle-btn" in html
+    assert "toggleTheme()" in html
+    assert "abhay-theme-styles" in html

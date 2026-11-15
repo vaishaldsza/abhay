@@ -122,3 +122,15 @@ CREATE TABLE IF NOT EXISTS field_visit (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (household_id) REFERENCES household(id)
 );
+
+CREATE TABLE IF NOT EXISTS user (
+    id TEXT PRIMARY KEY,
+    username TEXT UNIQUE NOT NULL,
+    email TEXT UNIQUE,
+    password_hash TEXT NOT NULL,
+    role TEXT NOT NULL DEFAULT 'resident', -- dispatcher | driver | field_worker | resident
+    full_name TEXT NOT NULL,
+    phone TEXT,
+    vehicle_id TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);

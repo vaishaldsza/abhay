@@ -266,29 +266,8 @@
 
 <!-- TopAppBar (from Shared Components JSON & Command Guidance) -->
 
-<header class="flex justify-between items-center w-full px-margin h-14 bg-primary dark:bg-primary text-on-primary dark:text-on-primary docked full-width top-0 shadow-sm border-b border-primary-container z-40 sticky top-0">
-
-<div class="flex items-center space-x-2">
-
-<span class="material-symbols-outlined text-primary-fixed" data-icon="shield">shield</span>
-
-<span class="font-headline-sm text-headline-sm font-bold tracking-wider text-on-primary uppercase">ABHAY RESCUE</span>
-
-</div>
-
-<!-- Language Switcher: Segmented Toggle (EN | हिन्दी | ಕನ್ನಡ) -->
-
-<div class="flex items-center bg-primary-container rounded p-0.5 border border-primary-fixed/20 text-caption font-caption">
-
-<button class="bg-primary text-on-primary px-1.5 py-0.5 rounded font-bold transition-transform active:scale-95">EN</button>
-
-<button class="text-on-primary-container hover:text-on-primary px-1.5 py-0.5 transition-transform active:scale-95">हिं</button>
-
-<button class="text-on-primary-container hover:text-on-primary px-1.5 py-0.5 transition-transform active:scale-95">ಕನ್ನ</button>
-
-</div>
-
-</header>
+{% set active_page = "driver" %}
+{% include "nav.html" %}
 
 <!-- Sub-Header: Driver Identity & Operational Status Strip -->
 

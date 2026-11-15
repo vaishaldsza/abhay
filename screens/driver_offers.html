@@ -284,35 +284,8 @@
 
 <!-- Top Navigation Anchor (Based on Shared Components JSON) -->
 
-<header class="flex justify-between items-center w-full px-space-md h-14 bg-primary text-on-primary shadow-sm sticky top-0 z-40">
-
-<div class="flex items-center gap-space-sm">
-
-<span class="material-symbols-outlined text-primary-fixed" data-icon="shield">shield</span>
-
-<div class="flex flex-col">
-
-<span class="font-headline-sm text-headline-sm font-bold tracking-wider text-on-primary">ABHAY RESCUE</span>
-
-<span class="font-caption text-caption text-primary-fixed leading-none">DDMA TACTICAL DISPATCH</span>
-
-</div>
-
-</div>
-
-<!-- Language Switcher Segmented Toggle -->
-
-<div class="flex items-center bg-primary-container rounded border border-outline-variant/30 p-0.5">
-
-<button class="font-label-md text-label-md px-1.5 py-0.5 rounded bg-surface-container-lowest text-primary font-bold">EN</button>
-
-<button class="font-label-md text-label-md px-1.5 py-0.5 rounded text-primary-fixed hover:text-on-primary">हिं</button>
-
-<button class="font-label-md text-label-md px-1.5 py-0.5 rounded text-primary-fixed hover:text-on-primary">ಕನ್ನ</button>
-
-</div>
-
-</header>
+{% set active_page = "driver" %}
+{% include "nav.html" %}
 
 <!-- Operational Unit Telemetry Bar -->
 

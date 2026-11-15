@@ -3,7 +3,22 @@
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>ABHAY DDMA - Demo Login</title>
+  <title>ABHAY DDMA - Login &amp; Registration</title>
+
+  <!-- Early Theme Initialization to Prevent Flash -->
+  <script>
+    (function() {
+      const theme = localStorage.getItem('theme') || 'dark';
+      if (theme === 'light') {
+        document.documentElement.classList.add('light');
+        document.documentElement.classList.remove('dark');
+      } else {
+        document.documentElement.classList.add('dark');
+        document.documentElement.classList.remove('light');
+      }
+    })();
+  </script>
+
   <!-- Material Symbols Outlined -->
   <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
   <!-- Fonts -->
@@ -12,168 +27,468 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet"/>
   <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+
+  <!-- Theme Overrides for Login & Signup -->
+  <style>
+    html.light { color-scheme: light; }
+    html.light body { background-color: #f8fafc !important; color: #0f172a !important; }
+    html.light .theme-card { background-color: #ffffff !important; border-color: #cbd5e1 !important; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05) !important; }
+    html.light .theme-subcard { background-color: #f1f5f9 !important; border-color: #cbd5e1 !important; }
+    html.light .theme-text-primary { color: #0f172a !important; }
+    html.light .theme-text-secondary { color: #475569 !important; }
+    html.light .theme-input { background-color: #ffffff !important; color: #0f172a !important; border-color: #cbd5e1 !important; }
+    html.light .theme-input:focus { border-color: #fea619 !important; }
+    html.light .theme-dropdown-menu { background-color: #ffffff !important; border-color: #cbd5e1 !important; }
+    html.light .theme-dropdown-item { color: #1e293b !important; }
+    html.light .theme-dropdown-item:hover { background-color: #f1f5f9 !important; }
+  </style>
 </head>
-<body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col items-center justify-center p-4 font-sans select-none">
-  
-  <div class="w-full max-w-4xl space-y-6">
-    <!-- Brand Header -->
-    <div class="text-center space-y-2">
-      <div class="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-[#fea619] text-[#001026] text-2xl font-black shadow-lg mb-2">
+<body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col justify-between p-4 font-sans select-none transition-colors duration-200">
+
+  <!-- Top Utilities Header: Language Dropdown + Dark/Light Mode -->
+  <header class="w-full max-w-4xl mx-auto flex items-center justify-between py-2">
+    <div class="flex items-center gap-2">
+      <div class="w-8 h-8 rounded-lg bg-[#fea619] text-[#001026] flex items-center justify-center font-black text-sm shadow">
         अभ
       </div>
-      <h1 class="text-3xl font-extrabold tracking-tight text-white">ABHAY DDMA COMMAND</h1>
-      <p class="text-sm text-slate-400 max-w-lg mx-auto">
-        District Disaster Voice AI Coordinator • Bantwal Taluk Flood Response Prototype
+      <span class="font-extrabold text-sm tracking-tight text-white theme-text-primary">ABHAY DDMA</span>
+    </div>
+
+    <div class="flex items-center gap-2">
+      <!-- Language Dropdown -->
+      <div class="relative inline-block text-left" id="lang-dropdown-wrapper">
+        <button type="button" onclick="toggleLangDropdown(event)" id="lang-toggle-btn" class="flex items-center gap-1.5 px-2.5 py-1.5 rounded bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 text-xs font-medium transition focus:outline-none theme-subcard theme-text-primary">
+          <span class="text-sm">🌐</span>
+          <span class="font-bold text-amber-400" id="current-lang-label">
+            {% if current_lang == 'hi' %}हिन्दी (HI){% elif current_lang == 'kn' %}ಕನ್ನಡ (KN){% else %}English (EN){% endif %}
+          </span>
+          <svg class="w-3.5 h-3.5 text-slate-400" id="lang-chevron" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+          </svg>
+        </button>
+        <div id="lang-dropdown-menu" class="hidden absolute right-0 mt-1.5 w-36 rounded-md shadow-xl bg-slate-900 border border-slate-700 py-1 z-50 divide-y divide-slate-800 theme-dropdown-menu">
+          <button type="button" onclick="setAppLanguage('en')" class="w-full text-left px-3 py-2 text-xs flex items-center justify-between transition theme-dropdown-item {% if current_lang == 'en' %}text-amber-400 font-bold bg-slate-800/80{% else %}text-slate-200 hover:bg-slate-800 hover:text-amber-300{% endif %}">
+            <span>English (EN)</span>
+            {% if current_lang == 'en' %}<span class="text-amber-400 text-sm">✓</span>{% endif %}
+          </button>
+          <button type="button" onclick="setAppLanguage('hi')" class="w-full text-left px-3 py-2 text-xs flex items-center justify-between transition theme-dropdown-item {% if current_lang == 'hi' %}text-amber-400 font-bold bg-slate-800/80{% else %}text-slate-200 hover:bg-slate-800 hover:text-amber-300{% endif %}">
+            <span>हिन्दी (Hindi)</span>
+            {% if current_lang == 'hi' %}<span class="text-amber-400 text-sm">✓</span>{% endif %}
+          </button>
+          <button type="button" onclick="setAppLanguage('kn')" class="w-full text-left px-3 py-2 text-xs flex items-center justify-between transition theme-dropdown-item {% if current_lang == 'kn' %}text-amber-400 font-bold bg-slate-800/80{% else %}text-slate-200 hover:bg-slate-800 hover:text-amber-300{% endif %}">
+            <span>ಕನ್ನಡ (Kannada)</span>
+            {% if current_lang == 'kn' %}<span class="text-amber-400 text-sm">✓</span>{% endif %}
+          </button>
+        </div>
+      </div>
+
+      <!-- Dark / Light Theme Toggle -->
+      <button id="theme-toggle-btn" onclick="toggleTheme()" class="px-2.5 py-1.5 rounded bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-amber-400 border border-slate-700 text-xs font-semibold transition flex items-center gap-1 shadow-sm theme-subcard theme-text-primary" title="Toggle Dark/Light Mode">
+        <span id="theme-toggle-icon">☀️</span>
+        <span class="hidden sm:inline text-[11px]" id="theme-toggle-label">Theme</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Main Container -->
+  <main class="w-full max-w-4xl mx-auto my-6 space-y-6">
+    <!-- Brand Title -->
+    <div class="text-center space-y-2">
+      <h1 class="text-3xl font-black tracking-tight text-white theme-text-primary">ABHAY DDMA COMMAND</h1>
+      <p class="text-sm text-slate-400 theme-text-secondary max-w-lg mx-auto">
+        District Disaster Voice AI Evacuation Coordinator • Bantwal Taluk Flood Operations
       </p>
       
-      <!-- Demo Mode Notice -->
-      <div class="inline-block mt-3 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-400 text-xs font-semibold">
+      <!-- Demo Notice Pill -->
+      <div class="inline-block mt-2 px-3 py-0.5 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-400 text-xs font-semibold">
         Demo mode: sample accounts, no real data.
       </div>
     </div>
 
     {% if error %}
-    <div class="max-w-md mx-auto p-3 bg-red-950/60 border border-red-500/40 text-red-200 rounded-lg text-xs text-center font-medium">
+    <div class="max-w-md mx-auto p-3 bg-red-950/60 border border-red-500/40 text-red-200 rounded-lg text-xs text-center font-medium shadow">
       {{ error }}
     </div>
     {% endif %}
 
-    {% if not demo_mode %}
-    <!-- Demo Mode Disabled Notice -->
-    <div class="max-w-md mx-auto p-8 bg-slate-900 border border-slate-800 rounded-xl text-center space-y-3">
-      <span class="material-symbols-outlined text-4xl text-amber-500">lock</span>
-      <h2 class="text-lg font-bold text-white">Demo Login Disabled</h2>
-      <p class="text-xs text-slate-400">
-        Demo mode is currently switched off in environment configuration. Contact administrator.
-      </p>
+    <!-- Mode Navigation Tabs: Account Login / Register / Demo 1-Click -->
+    <div class="max-w-xl mx-auto flex items-center justify-center p-1 rounded-xl bg-slate-900 border border-slate-800 shadow-sm theme-card">
+      <button type="button" onclick="switchAuthTab('login')" id="tab-btn-login" class="flex-1 py-2 px-3 text-xs font-bold rounded-lg transition-all flex items-center justify-center gap-1.5 {% if tab == 'register' or tab == 'demo' %}text-slate-400 hover:text-slate-200 theme-text-secondary{% else %}bg-[#0b2545] text-amber-400 shadow-sm border border-amber-400/20{% endif %}">
+        <span class="material-symbols-outlined text-base">login</span>
+        <span>Account Login</span>
+      </button>
+      <button type="button" onclick="switchAuthTab('register')" id="tab-btn-register" class="flex-1 py-2 px-3 text-xs font-bold rounded-lg transition-all flex items-center justify-center gap-1.5 {% if tab == 'register' %}bg-[#0b2545] text-amber-400 shadow-sm border border-amber-400/20{% else %}text-slate-400 hover:text-slate-200 theme-text-secondary{% endif %}">
+        <span class="material-symbols-outlined text-base">person_add</span>
+        <span>Sign Up / Register</span>
+      </button>
+      <button type="button" onclick="switchAuthTab('demo')" id="tab-btn-demo" class="flex-1 py-2 px-3 text-xs font-bold rounded-lg transition-all flex items-center justify-center gap-1.5 {% if tab == 'demo' %}bg-[#0b2545] text-amber-400 shadow-sm border border-amber-400/20{% else %}text-slate-400 hover:text-slate-200 theme-text-secondary{% endif %}">
+        <span class="material-symbols-outlined text-base">bolt</span>
+        <span>Quick Demo Roles</span>
+      </button>
     </div>
-    {% else %}
-    <!-- 4 Demo Role Cards -->
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-      
-      <!-- Card 1: Dispatcher (Control Room) -->
-      <div class="bg-slate-900 border border-slate-800 hover:border-amber-500/60 rounded-xl p-5 flex flex-col justify-between transition-all duration-200 shadow-md">
-        <div class="space-y-3">
-          <div class="flex items-center justify-between">
-            <span class="px-2.5 py-0.5 rounded text-[11px] font-bold uppercase tracking-wider bg-blue-500/10 text-blue-400 border border-blue-500/20">
-              Command Center
-            </span>
-            <span class="material-symbols-outlined text-blue-400 text-2xl">shield</span>
-          </div>
-          <div>
-            <h3 class="text-lg font-bold text-white">Dispatcher</h3>
-            <p class="text-xs text-slate-400 mt-1 leading-relaxed">
-              District Magistrate / DDMA Duty officer role. Triage inbound IVR distress queues, verify straight-line distances, and approve driver assignments.
-            </p>
-          </div>
-          <div class="text-[11px] text-slate-400 font-mono space-y-0.5 pt-1 border-t border-slate-800/80">
-            <div>• Access: /dashboard, /call-floor, /fleet, /audit, /privacy</div>
-            <div>• Home: <code>/dashboard</code></div>
-          </div>
+
+    <!-- TAB 1: Account Login Form -->
+    <div id="section-login" class="max-w-md mx-auto {% if tab == 'register' or tab == 'demo' %}hidden{% endif %}">
+      <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl space-y-5 theme-card">
+        <div class="border-b border-slate-800 pb-3">
+          <h2 class="text-base font-bold text-white theme-text-primary">Sign In to Your Account</h2>
+          <p class="text-xs text-slate-400 theme-text-secondary mt-0.5">Enter your username or email and password to access your role dashboard.</p>
         </div>
-        <form method="POST" action="/login" class="mt-4">
-          <input type="hidden" name="role" value="dispatcher"/>
-          <button type="submit" class="w-full py-2.5 rounded-lg bg-blue-600 hover:bg-blue-500 text-white font-semibold text-xs transition active:scale-98 flex items-center justify-center gap-1.5 shadow">
-            <span>Enter as demo Dispatcher</span>
+
+        <form method="POST" action="/login" class="space-y-4">
+          <input type="hidden" name="action" value="login"/>
+          
+          <div>
+            <label class="block text-xs font-semibold text-slate-300 theme-text-primary mb-1">Username or Email</label>
+            <div class="relative">
+              <span class="material-symbols-outlined absolute left-3 top-2.5 text-slate-500 text-lg">person</span>
+              <input type="text" name="username" required placeholder="e.g. dispatcher or user@ddma.gov.in" class="w-full pl-10 pr-3 py-2 text-xs rounded-lg bg-slate-950 border border-slate-700 text-white placeholder:text-slate-500 focus:outline-none focus:border-amber-400 transition theme-input"/>
+            </div>
+          </div>
+
+          <div>
+            <label class="block text-xs font-semibold text-slate-300 theme-text-primary mb-1">Password</label>
+            <div class="relative">
+              <span class="material-symbols-outlined absolute left-3 top-2.5 text-slate-500 text-lg">lock</span>
+              <input type="password" name="password" required placeholder="••••••••" class="w-full pl-10 pr-3 py-2 text-xs rounded-lg bg-slate-950 border border-slate-700 text-white placeholder:text-slate-500 focus:outline-none focus:border-amber-400 transition theme-input"/>
+            </div>
+          </div>
+
+          <button type="submit" class="w-full py-2.5 rounded-lg bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs transition active:scale-98 flex items-center justify-center gap-1.5 shadow">
+            <span>Log In</span>
             <span class="material-symbols-outlined text-base">arrow_forward</span>
           </button>
         </form>
-      </div>
 
-      <!-- Card 2: Driver (Rescue Unit) -->
-      <div class="bg-slate-900 border border-slate-800 hover:border-amber-500/60 rounded-xl p-5 flex flex-col justify-between transition-all duration-200 shadow-md">
-        <div class="space-y-3">
-          <div class="flex items-center justify-between">
-            <span class="px-2.5 py-0.5 rounded text-[11px] font-bold uppercase tracking-wider bg-amber-500/10 text-amber-400 border border-amber-500/20">
-              Field Rescue Unit
-            </span>
-            <span class="material-symbols-outlined text-amber-400 text-2xl">directions_boat</span>
+        <!-- Quick Reference Seeded Credentials -->
+        <div class="p-3 rounded-lg bg-slate-950 border border-slate-800 text-[11px] space-y-1 theme-subcard">
+          <div class="font-bold text-slate-300 theme-text-primary flex items-center gap-1">
+            <span class="material-symbols-outlined text-sm text-amber-400">key</span>
+            <span>Pre-Configured Demo Accounts:</span>
           </div>
-          <div>
-            <h3 class="text-lg font-bold text-white">Driver</h3>
-            <p class="text-xs text-slate-400 mt-1 leading-relaxed">
-              NDRF / SDRF boat and ambulance operator. Receives dispatched offers with expiry timers, accepts missions, and logs passenger pickups.
-            </p>
-          </div>
-          <div class="text-[11px] text-slate-400 font-mono space-y-0.5 pt-1 border-t border-slate-800/80">
-            <div>• Bound Asset: <code>veh-01</code> (Rescue Boat NDRF-1)</div>
-            <div>• Home: <code>/driver</code></div>
+          <div class="grid grid-cols-2 gap-1 text-slate-400 theme-text-secondary font-mono text-[10px]">
+            <div>• Dispatcher: <code>dispatcher / admin123</code></div>
+            <div>• Driver: <code>driver / driver123</code></div>
+            <div>• Field: <code>field_worker / field123</code></div>
+            <div>• Resident: <code>resident / resident123</code></div>
           </div>
         </div>
-        <form method="POST" action="/login" class="mt-4">
-          <input type="hidden" name="role" value="driver"/>
-          <button type="submit" class="w-full py-2.5 rounded-lg bg-amber-600 hover:bg-amber-500 text-white font-semibold text-xs transition active:scale-98 flex items-center justify-center gap-1.5 shadow">
-            <span>Enter as demo Driver</span>
-            <span class="material-symbols-outlined text-base">arrow_forward</span>
-          </button>
-        </form>
-      </div>
 
-      <!-- Card 3: Field Worker (ASHA / Panchayat) -->
-      <div class="bg-slate-900 border border-slate-800 hover:border-amber-500/60 rounded-xl p-5 flex flex-col justify-between transition-all duration-200 shadow-md">
-        <div class="space-y-3">
-          <div class="flex items-center justify-between">
-            <span class="px-2.5 py-0.5 rounded text-[11px] font-bold uppercase tracking-wider bg-rose-500/10 text-rose-400 border border-rose-500/20">
-              Gram Ground Team
-            </span>
-            <span class="material-symbols-outlined text-rose-400 text-2xl">directions_walk</span>
-          </div>
-          <div>
-            <h3 class="text-lg font-bold text-white">Field worker</h3>
-            <p class="text-xs text-slate-400 mt-1 leading-relaxed">
-              ASHA worker / Panchayat door-knock squad. Physically visits unanswered homes escalated under the rule: <em>"Silence never counts as safe."</em>
-            </p>
-          </div>
-          <div class="text-[11px] text-slate-400 font-mono space-y-0.5 pt-1 border-t border-slate-800/80">
-            <div>• Access: /field, /house-card, door knock resolution</div>
-            <div>• Home: <code>/field</code></div>
-          </div>
+        <div class="text-center pt-2 border-t border-slate-800 text-xs text-slate-400 theme-text-secondary">
+          Don't have an account? 
+          <button type="button" onclick="switchAuthTab('register')" class="text-amber-400 hover:underline font-semibold ml-1">Sign Up here</button>
         </div>
-        <form method="POST" action="/login" class="mt-4">
-          <input type="hidden" name="role" value="field_worker"/>
-          <button type="submit" class="w-full py-2.5 rounded-lg bg-rose-600 hover:bg-rose-500 text-white font-semibold text-xs transition active:scale-98 flex items-center justify-center gap-1.5 shadow">
-            <span>Enter as demo Field worker</span>
-            <span class="material-symbols-outlined text-base">arrow_forward</span>
-          </button>
-        </form>
       </div>
-
-      <!-- Card 4: Resident (Citizen) -->
-      <div class="bg-slate-900 border border-slate-800 hover:border-amber-500/60 rounded-xl p-5 flex flex-col justify-between transition-all duration-200 shadow-md">
-        <div class="space-y-3">
-          <div class="flex items-center justify-between">
-            <span class="px-2.5 py-0.5 rounded text-[11px] font-bold uppercase tracking-wider bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
-              Citizen Self-Service
-            </span>
-            <span class="material-symbols-outlined text-emerald-400 text-2xl">person</span>
-          </div>
-          <div>
-            <h3 class="text-lg font-bold text-white">Resident</h3>
-            <p class="text-xs text-slate-400 mt-1 leading-relaxed">
-              Vulnerable citizen or family head. Self-registers special evacuation needs (oxygen, mobility, infants) and simulates IVR phone interaction.
-            </p>
-          </div>
-          <div class="text-[11px] text-slate-400 font-mono space-y-0.5 pt-1 border-t border-slate-800/80">
-            <div>• Access: /ready, /household-needs, /confirmation, /phone</div>
-            <div>• Home: <code>/ready</code></div>
-          </div>
-        </div>
-        <form method="POST" action="/login" class="mt-4">
-          <input type="hidden" name="role" value="resident"/>
-          <button type="submit" class="w-full py-2.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-xs transition active:scale-98 flex items-center justify-center gap-1.5 shadow">
-            <span>Enter as demo Resident</span>
-            <span class="material-symbols-outlined text-base">arrow_forward</span>
-          </button>
-        </form>
-      </div>
-
     </div>
-    {% endif %}
 
-    <div class="text-center text-xs text-slate-500">
-      DPDP Act 2023 Principles Enforced • First names &amp; Masked Telephony Only
+    <!-- TAB 2: Sign Up / Register Form -->
+    <div id="section-register" class="max-w-md mx-auto {% if tab != 'register' %}hidden{% endif %}">
+      <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl space-y-5 theme-card">
+        <div class="border-b border-slate-800 pb-3">
+          <h2 class="text-base font-bold text-white theme-text-primary">Create a New Account</h2>
+          <p class="text-xs text-slate-400 theme-text-secondary mt-0.5">Register as an incident dispatcher, rescue driver, field worker, or resident.</p>
+        </div>
+
+        <form method="POST" action="/login" class="space-y-4">
+          <input type="hidden" name="action" value="register"/>
+
+          <div>
+            <label class="block text-xs font-semibold text-slate-300 theme-text-primary mb-1">Full Name</label>
+            <input type="text" name="full_name" required placeholder="e.g. Arun Kumar" class="w-full px-3 py-2 text-xs rounded-lg bg-slate-950 border border-slate-700 text-white placeholder:text-slate-500 focus:outline-none focus:border-amber-400 transition theme-input"/>
+          </div>
+
+          <div class="grid grid-cols-2 gap-3">
+            <div>
+              <label class="block text-xs font-semibold text-slate-300 theme-text-primary mb-1">Username</label>
+              <input type="text" name="username" required placeholder="e.g. arun_k" class="w-full px-3 py-2 text-xs rounded-lg bg-slate-950 border border-slate-700 text-white placeholder:text-slate-500 focus:outline-none focus:border-amber-400 transition theme-input"/>
+            </div>
+            <div>
+              <label class="block text-xs font-semibold text-slate-300 theme-text-primary mb-1">Email</label>
+              <input type="email" name="email" placeholder="arun@example.com" class="w-full px-3 py-2 text-xs rounded-lg bg-slate-950 border border-slate-700 text-white placeholder:text-slate-500 focus:outline-none focus:border-amber-400 transition theme-input"/>
+            </div>
+          </div>
+
+          <div>
+            <label class="block text-xs font-semibold text-slate-300 theme-text-primary mb-1">Password</label>
+            <input type="password" name="password" required placeholder="Minimum 6 characters" class="w-full px-3 py-2 text-xs rounded-lg bg-slate-950 border border-slate-700 text-white placeholder:text-slate-500 focus:outline-none focus:border-amber-400 transition theme-input"/>
+          </div>
+
+          <div class="grid grid-cols-2 gap-3">
+            <div>
+              <label class="block text-xs font-semibold text-slate-300 theme-text-primary mb-1">Role</label>
+              <select name="role" id="register-role-select" onchange="toggleVehicleField(this.value)" class="w-full px-3 py-2 text-xs rounded-lg bg-slate-950 border border-slate-700 text-white focus:outline-none focus:border-amber-400 transition theme-input">
+                <option value="dispatcher">Dispatcher (Control Room)</option>
+                <option value="driver">Driver (Rescue Unit)</option>
+                <option value="field_worker">Field Worker (ASHA)</option>
+                <option value="resident" selected>Resident (Citizen)</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-xs font-semibold text-slate-300 theme-text-primary mb-1">Phone (Optional)</label>
+              <input type="tel" name="phone" placeholder="9876543210" class="w-full px-3 py-2 text-xs rounded-lg bg-slate-950 border border-slate-700 text-white placeholder:text-slate-500 focus:outline-none focus:border-amber-400 transition theme-input"/>
+            </div>
+          </div>
+
+          <div id="driver-vehicle-box" class="hidden">
+            <label class="block text-xs font-semibold text-slate-300 theme-text-primary mb-1">Assigned Vehicle</label>
+            <select name="vehicle_id" class="w-full px-3 py-2 text-xs rounded-lg bg-slate-950 border border-slate-700 text-white focus:outline-none focus:border-amber-400 transition theme-input">
+              <option value="veh-01">Rescue Boat NDRF-1 (veh-01)</option>
+              <option value="veh-02">Rescue Boat SDRF-2 (veh-02)</option>
+              <option value="veh-03">108 Ambulance Unit 4 (veh-03)</option>
+              <option value="veh-04">Bantwal KSRTC Evac Bus (veh-04)</option>
+            </select>
+          </div>
+
+          <button type="submit" class="w-full py-2.5 rounded-lg bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs transition active:scale-98 flex items-center justify-center gap-1.5 shadow">
+            <span>Create Account &amp; Sign In</span>
+            <span class="material-symbols-outlined text-base">how_to_reg</span>
+          </button>
+        </form>
+
+        <div class="text-center pt-2 border-t border-slate-800 text-xs text-slate-400 theme-text-secondary">
+          Already registered? 
+          <button type="button" onclick="switchAuthTab('login')" class="text-amber-400 hover:underline font-semibold ml-1">Sign In</button>
+        </div>
+      </div>
     </div>
-  </div>
 
+    <!-- TAB 3: Quick Demo 1-Click Access Cards -->
+    <div id="section-demo" class="{% if tab != 'demo' %}hidden{% endif %}">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        
+        <!-- Card 1: Dispatcher (Control Room) -->
+        <div class="bg-slate-900 border border-slate-800 hover:border-amber-500/60 rounded-xl p-5 flex flex-col justify-between transition-all duration-200 shadow-md theme-card">
+          <div class="space-y-3">
+            <div class="flex items-center justify-between">
+              <span class="px-2.5 py-0.5 rounded text-[11px] font-bold uppercase tracking-wider bg-blue-500/10 text-blue-400 border border-blue-500/20">
+                Command Center
+              </span>
+              <span class="material-symbols-outlined text-blue-400 text-2xl">shield</span>
+            </div>
+            <div>
+              <h3 class="text-lg font-bold text-white theme-text-primary">Dispatcher</h3>
+              <p class="text-xs text-slate-400 theme-text-secondary mt-1 leading-relaxed">
+                District Magistrate / DDMA Duty officer role. Triage inbound IVR distress queues, verify straight-line distances, and approve driver assignments.
+              </p>
+            </div>
+            <div class="text-[11px] text-slate-400 theme-text-secondary font-mono space-y-0.5 pt-1 border-t border-slate-800/80">
+              <div>• Access: /dashboard, /call-floor, /fleet, /audit, /privacy</div>
+              <div>• Home: <code>/dashboard</code></div>
+            </div>
+          </div>
+          <form method="POST" action="/login" class="mt-4">
+            <input type="hidden" name="role" value="dispatcher"/>
+            <button type="submit" class="w-full py-2.5 rounded-lg bg-blue-600 hover:bg-blue-500 text-white font-semibold text-xs transition active:scale-98 flex items-center justify-center gap-1.5 shadow">
+              <span>Enter as demo Dispatcher</span>
+              <span class="material-symbols-outlined text-base">arrow_forward</span>
+            </button>
+          </form>
+        </div>
+
+        <!-- Card 2: Driver (Rescue Unit) -->
+        <div class="bg-slate-900 border border-slate-800 hover:border-amber-500/60 rounded-xl p-5 flex flex-col justify-between transition-all duration-200 shadow-md theme-card">
+          <div class="space-y-3">
+            <div class="flex items-center justify-between">
+              <span class="px-2.5 py-0.5 rounded text-[11px] font-bold uppercase tracking-wider bg-amber-500/10 text-amber-400 border border-amber-500/20">
+                Field Rescue Unit
+              </span>
+              <span class="material-symbols-outlined text-amber-400 text-2xl">directions_boat</span>
+            </div>
+            <div>
+              <h3 class="text-lg font-bold text-white theme-text-primary">Driver</h3>
+              <p class="text-xs text-slate-400 theme-text-secondary mt-1 leading-relaxed">
+                NDRF / SDRF boat and ambulance operator. Receives dispatched offers with expiry timers, accepts missions, and logs passenger pickups.
+              </p>
+            </div>
+            <div class="text-[11px] text-slate-400 theme-text-secondary font-mono space-y-0.5 pt-1 border-t border-slate-800/80">
+              <div>• Bound Asset: <code>veh-01</code> (Rescue Boat NDRF-1)</div>
+              <div>• Home: <code>/driver</code></div>
+            </div>
+          </div>
+          <form method="POST" action="/login" class="mt-4">
+            <input type="hidden" name="role" value="driver"/>
+            <button type="submit" class="w-full py-2.5 rounded-lg bg-amber-600 hover:bg-amber-500 text-white font-semibold text-xs transition active:scale-98 flex items-center justify-center gap-1.5 shadow">
+              <span>Enter as demo Driver</span>
+              <span class="material-symbols-outlined text-base">arrow_forward</span>
+            </button>
+          </form>
+        </div>
+
+        <!-- Card 3: Field Worker (ASHA / Panchayat) -->
+        <div class="bg-slate-900 border border-slate-800 hover:border-amber-500/60 rounded-xl p-5 flex flex-col justify-between transition-all duration-200 shadow-md theme-card">
+          <div class="space-y-3">
+            <div class="flex items-center justify-between">
+              <span class="px-2.5 py-0.5 rounded text-[11px] font-bold uppercase tracking-wider bg-rose-500/10 text-rose-400 border border-rose-500/20">
+                Gram Ground Team
+              </span>
+              <span class="material-symbols-outlined text-rose-400 text-2xl">directions_walk</span>
+            </div>
+            <div>
+              <h3 class="text-lg font-bold text-white theme-text-primary">Field worker</h3>
+              <p class="text-xs text-slate-400 theme-text-secondary mt-1 leading-relaxed">
+                ASHA worker / Panchayat door-knock squad. Physically visits unanswered homes escalated under the rule: <em>"Silence never counts as safe."</em>
+              </p>
+            </div>
+            <div class="text-[11px] text-slate-400 theme-text-secondary font-mono space-y-0.5 pt-1 border-t border-slate-800/80">
+              <div>• Access: /field, /house-card, door knock resolution</div>
+              <div>• Home: <code>/field</code></div>
+            </div>
+          </div>
+          <form method="POST" action="/login" class="mt-4">
+            <input type="hidden" name="role" value="field_worker"/>
+            <button type="submit" class="w-full py-2.5 rounded-lg bg-rose-600 hover:bg-rose-500 text-white font-semibold text-xs transition active:scale-98 flex items-center justify-center gap-1.5 shadow">
+              <span>Enter as demo Field worker</span>
+              <span class="material-symbols-outlined text-base">arrow_forward</span>
+            </button>
+          </form>
+        </div>
+
+        <!-- Card 4: Resident (Citizen) -->
+        <div class="bg-slate-900 border border-slate-800 hover:border-amber-500/60 rounded-xl p-5 flex flex-col justify-between transition-all duration-200 shadow-md theme-card">
+          <div class="space-y-3">
+            <div class="flex items-center justify-between">
+              <span class="px-2.5 py-0.5 rounded text-[11px] font-bold uppercase tracking-wider bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+                Citizen Self-Service
+              </span>
+              <span class="material-symbols-outlined text-emerald-400 text-2xl">person</span>
+            </div>
+            <div>
+              <h3 class="text-lg font-bold text-white theme-text-primary">Resident</h3>
+              <p class="text-xs text-slate-400 theme-text-secondary mt-1 leading-relaxed">
+                Vulnerable citizen or family head. Self-registers special evacuation needs (oxygen, mobility, infants) and simulates IVR phone interaction.
+              </p>
+            </div>
+            <div class="text-[11px] text-slate-400 theme-text-secondary font-mono space-y-0.5 pt-1 border-t border-slate-800/80">
+              <div>• Access: /ready, /household-needs, /confirmation, /phone</div>
+              <div>• Home: <code>/ready</code></div>
+            </div>
+          </div>
+          <form method="POST" action="/login" class="mt-4">
+            <input type="hidden" name="role" value="resident"/>
+            <button type="submit" class="w-full py-2.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-xs transition active:scale-98 flex items-center justify-center gap-1.5 shadow">
+              <span>Enter as demo Resident</span>
+              <span class="material-symbols-outlined text-base">arrow_forward</span>
+            </button>
+          </form>
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+  <footer class="text-center text-xs text-slate-500 py-3">
+    DPDP Act 2023 Principles Enforced • First names &amp; Masked Telephony Only
+  </footer>
+
+  <!-- Scripts -->
+  <script>
+    // Tab Switching
+    function switchAuthTab(tab) {
+      const secLogin = document.getElementById('section-login');
+      const secRegister = document.getElementById('section-register');
+      const secDemo = document.getElementById('section-demo');
+
+      const btnLogin = document.getElementById('tab-btn-login');
+      const btnRegister = document.getElementById('tab-btn-register');
+      const btnDemo = document.getElementById('tab-btn-demo');
+
+      const activeClass = 'bg-[#0b2545] text-amber-400 shadow-sm border border-amber-400/20';
+      const inactiveClass = 'text-slate-400 hover:text-slate-200 theme-text-secondary';
+
+      secLogin.classList.add('hidden');
+      secRegister.classList.add('hidden');
+      secDemo.classList.add('hidden');
+
+      [btnLogin, btnRegister, btnDemo].forEach(btn => {
+        btn.className = btn.className.replace(activeClass, '').trim();
+        if (!btn.className.includes('theme-text-secondary')) {
+          btn.className += ' ' + inactiveClass;
+        }
+      });
+
+      if (tab === 'register') {
+        secRegister.classList.remove('hidden');
+        btnRegister.className = btnRegister.className.replace(inactiveClass, '').trim() + ' ' + activeClass;
+      } else if (tab === 'demo') {
+        secDemo.classList.remove('hidden');
+        btnDemo.className = btnDemo.className.replace(inactiveClass, '').trim() + ' ' + activeClass;
+      } else {
+        secLogin.classList.remove('hidden');
+        btnLogin.className = btnLogin.className.replace(inactiveClass, '').trim() + ' ' + activeClass;
+      }
+    }
+
+    // Role select driver vehicle box toggle
+    function toggleVehicleField(role) {
+      const box = document.getElementById('driver-vehicle-box');
+      if (box) {
+        if (role === 'driver') {
+          box.classList.remove('hidden');
+        } else {
+          box.classList.add('hidden');
+        }
+      }
+    }
+
+    // Language Dropdown
+    function toggleLangDropdown(e) {
+      if (e) e.stopPropagation();
+      const menu = document.getElementById('lang-dropdown-menu');
+      const chev = document.getElementById('lang-chevron');
+      if (menu) {
+        menu.classList.toggle('hidden');
+        if (chev) chev.classList.toggle('rotate-180');
+      }
+    }
+
+    document.addEventListener('click', function(e) {
+      const menu = document.getElementById('lang-dropdown-menu');
+      const wrap = document.getElementById('lang-dropdown-wrapper');
+      if (menu && !menu.classList.contains('hidden') && wrap && !wrap.contains(e.target)) {
+        menu.classList.add('hidden');
+        const chev = document.getElementById('lang-chevron');
+        if (chev) chev.classList.remove('rotate-180');
+      }
+    });
+
+    function setAppLanguage(lang) {
+      fetch('/api/set-lang/' + lang, { method: 'POST' })
+        .then(r => r.json())
+        .then(() => window.location.reload())
+        .catch(() => window.location.reload());
+    }
+
+    // Theme Toggle
+    function toggleTheme() {
+      const isLight = document.documentElement.classList.contains('light');
+      if (isLight) {
+        document.documentElement.classList.remove('light');
+        document.documentElement.classList.add('dark');
+        localStorage.setItem('theme', 'dark');
+        updateThemeUI('dark');
+      } else {
+        document.documentElement.classList.remove('dark');
+        document.documentElement.classList.add('light');
+        localStorage.setItem('theme', 'light');
+        updateThemeUI('light');
+      }
+    }
+
+    function updateThemeUI(theme) {
+      const icon = document.getElementById('theme-toggle-icon');
+      const label = document.getElementById('theme-toggle-label');
+      if (icon) {
+        icon.textContent = theme === 'light' ? '🌙' : '☀️';
+      }
+      if (label) {
+        label.textContent = theme === 'light' ? 'Dark' : 'Light';
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+      const curTheme = localStorage.getItem('theme') || 'dark';
+      updateThemeUI(curTheme);
+    });
+  </script>
 </body>
 </html>

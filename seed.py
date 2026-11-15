@@ -7,6 +7,7 @@ import random
 from datetime import datetime, timedelta, timezone
 from config import Config
 from db import init_db, get_standalone_db, mask_phone, encrypt_phone, log_audit
+from werkzeug.security import generate_password_hash
 
 def create_sample_wav(filepath: str, duration_sec: float = 2.0, freq: float = 440.0):
     """Generates a small valid WAV file for sample audio playback."""
@@ -30,7 +31,7 @@ def seed_database():
     cur = conn.cursor()
 
     # Clear existing data for fresh seed
-    tables = ["field_visit", "callback", "audit_log", "offer", "request", "call", "member", "vehicle", "household", "incident"]
+    tables = ["user", "field_visit", "callback", "audit_log", "offer", "request", "call", "member", "vehicle", "household", "incident"]
     for t in tables:
         cur.execute(f"DELETE FROM {t};")
     conn.commit()
@@ -234,6 +235,19 @@ def seed_database():
         """INSERT INTO field_visit (id, household_id, assigned_officer, status, reason, notes, created_at)
            VALUES (?, ?, ?, ?, ?, ?, ?)""",
         field_visit_records
+    )
+
+    # Seed Default Registered Users
+    sample_users = [
+        ("usr-001", "dispatcher", "dispatcher@ddma.gov.in", generate_password_hash("admin123"), "dispatcher", "Duty officer", "+91 9876543210", None),
+        ("usr-002", "driver", "driver.suresh@rescue.gov.in", generate_password_hash("driver123"), "driver", "Driver Suresh", "+91 9876543211", "veh-01"),
+        ("usr-003", "field_worker", "suma.asha@health.gov.in", generate_password_hash("field123"), "field_worker", "ASHA Worker Suma", "+91 9876543212", None),
+        ("usr-004", "resident", "parvathi.achari@gmail.com", generate_password_hash("resident123"), "resident", "Citizen Parvathi", "+91 9876543213", None)
+    ]
+    cur.executemany(
+        """INSERT INTO user (id, username, email, password_hash, role, full_name, phone, vehicle_id)
+           VALUES (?, ?, ?, ?, ?, ?, ?, ?)""",
+        sample_users
     )
 
     conn.commit()

@@ -244,51 +244,8 @@
 
 <!-- Top Operational Sub-Header (Task-Focused with Back action: Global Nav Bottom Bar correctly suppressed per mandate) -->
 
-<header class="sticky top-0 z-40 bg-surface-container-lowest shadow-sm px-4 pt-3 pb-2.5 flex flex-col gap-2">
-
-<div class="flex items-center justify-between">
-
-<!-- Return Button -->
-
-<a class="inline-flex items-center gap-1 text-primary hover:text-primary-container active:scale-95 transition-transform" href="/field">
-
-<span class="material-symbols-outlined text-[18px]">arrow_back</span>
-
-<span class="font-label-md text-label-md">&lt; Back to Field Visits</span>
-
-</a>
-
-<!-- DDMA Institutional Tag -->
-
-<div class="flex items-center gap-1 text-on-surface-variant font-caption text-caption uppercase tracking-wider">
-
-<span class="material-symbols-outlined text-[14px]">shield</span>
-
-<span>Abhay Field Ops</span>
-
-</div>
-
-</div>
-
-<!-- Title & Quick Status Strip -->
-
-<div class="flex items-center justify-between pt-0.5">
-
-<h1 class="font-headline-sm text-headline-sm text-primary font-bold tracking-tight">House Card #HH-4019</h1>
-
-<!-- Status Chip: Not Reached Yet / Pending Verification -->
-
-<div class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-surface-container-high border border-outline-variant">
-
-<span class="w-1.5 h-1.5 rounded-full bg-outline"></span>
-
-<span class="font-caption text-caption text-on-surface-variant font-semibold">Pending Field Verification</span>
-
-</div>
-
-</div>
-
-</header>
+{% set active_page = "house-card" %}
+{% include "nav.html" %}
 
 <!-- Main Operational Canvas -->
 

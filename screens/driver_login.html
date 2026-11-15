@@ -1,0 +1,657 @@
+<!-- Driver Login - Abhay Driver -->
+
+<!DOCTYPE html>
+
+
+
+<html lang="en"><head>
+
+<meta charset="utf-8"/>
+
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+
+<title>ABHAY DRIVER - Tactical Authentication</title>
+
+<!-- Material Symbols Outlined -->
+
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+
+<!-- Fonts -->
+
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;family=JetBrains+Mono:wght@500;600&amp;display=swap" rel="stylesheet"/>
+
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+
+<!-- Tailwind CSS CDN -->
+
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+
+<script id="tailwind-config">
+
+    tailwind.config = {
+
+      darkMode: "class",
+
+      theme: {
+
+        extend: {
+
+          "colors": {
+
+            "on-tertiary-fixed-variant": "#003ea8",
+
+            "surface-variant": "#dae2fd",
+
+            "primary-fixed": "#d5e3ff",
+
+            "error": "#ba1a1a",
+
+            "on-secondary-fixed": "#2a1700",
+
+            "tertiary": "#000c31",
+
+            "on-secondary-container": "#684000",
+
+            "on-error-container": "#93000a",
+
+            "on-primary-fixed": "#001c3b",
+
+            "outline-variant": "#c4c6cf",
+
+            "surface-container-low": "#f2f3ff",
+
+            "on-secondary": "#ffffff",
+
+            "surface-container-highest": "#dae2fd",
+
+            "on-secondary-fixed-variant": "#653e00",
+
+            "secondary-container": "#fea619",
+
+            "on-primary-fixed-variant": "#314769",
+
+            "background": "#faf8ff",
+
+            "outline": "#74777f",
+
+            "surface-dim": "#d2d9f4",
+
+            "on-error": "#ffffff",
+
+            "on-surface-variant": "#44474e",
+
+            "on-primary": "#ffffff",
+
+            "tertiary-container": "#001f5e",
+
+            "inverse-primary": "#b1c7f0",
+
+            "surface": "#faf8ff",
+
+            "inverse-surface": "#283044",
+
+            "surface-bright": "#faf8ff",
+
+            "primary": "#001026",
+
+            "surface-tint": "#495f82",
+
+            "on-background": "#131b2e",
+
+            "secondary-fixed-dim": "#ffb95f",
+
+            "tertiary-fixed-dim": "#b4c5ff",
+
+            "secondary": "#855300",
+
+            "surface-container-lowest": "#ffffff",
+
+            "on-tertiary-fixed": "#00174b",
+
+            "inverse-on-surface": "#eef0ff",
+
+            "error-container": "#ffdad6",
+
+            "surface-container-high": "#e2e7ff",
+
+            "secondary-fixed": "#ffddb8",
+
+            "tertiary-fixed": "#dbe1ff",
+
+            "on-tertiary-container": "#5885ff",
+
+            "on-surface": "#131b2e",
+
+            "primary-container": "#0b2545",
+
+            "on-tertiary": "#ffffff",
+
+            "on-primary-container": "#778db2",
+
+            "surface-container": "#eaedff",
+
+            "primary-fixed-dim": "#b1c7f0"
+
+          },
+
+          "borderRadius": {
+
+            "DEFAULT": "0.25rem",
+
+            "lg": "0.5rem",
+
+            "xl": "0.75rem",
+
+            "full": "9999px"
+
+          },
+
+          "spacing": {
+
+            "space-sm": "0.5rem",
+
+            "space-xs": "0.25rem",
+
+            "margin-md": "1.5rem",
+
+            "space-lg": "1.5rem",
+
+            "margin": "1rem",
+
+            "space-md": "1rem",
+
+            "space-xl": "2rem",
+
+            "space-2xl": "3rem",
+
+            "margin-lg": "2rem",
+
+            "gutter": "1rem",
+
+            "gutter-lg": "1.5rem"
+
+          },
+
+          "fontFamily": {
+
+            "body-md": ["Inter"],
+
+            "label-md": ["Inter"],
+
+            "headline-sm": ["Inter"],
+
+            "body-sm": ["Inter"],
+
+            "display-lg-mobile": ["Inter"],
+
+            "display-lg": ["Inter"],
+
+            "headline-lg": ["Inter"],
+
+            "headline-lg-mobile": ["Inter"],
+
+            "headline-md": ["Inter"],
+
+            "body-lg": ["Inter"],
+
+            "label-tabular": ["JetBrains Mono"],
+
+            "caption": ["Inter"],
+
+            "label-lg": ["Inter"]
+
+          },
+
+          "fontSize": {
+
+            "body-md": ["14px", { "lineHeight": "20px", "letterSpacing": "0em", "fontWeight": "400" }],
+
+            "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "600" }],
+
+            "headline-sm": ["18px", { "lineHeight": "24px", "letterSpacing": "0em", "fontWeight": "600" }],
+
+            "body-sm": ["12px", { "lineHeight": "16px", "letterSpacing": "0.01em", "fontWeight": "400" }],
+
+            "display-lg-mobile": ["28px", { "lineHeight": "36px", "letterSpacing": "-0.01em", "fontWeight": "700" }],
+
+            "display-lg": ["40px", { "lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+
+            "headline-lg": ["30px", { "lineHeight": "38px", "letterSpacing": "-0.015em", "fontWeight": "700" }],
+
+            "headline-lg-mobile": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "700" }],
+
+            "headline-md": ["22px", { "lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+
+            "body-lg": ["16px", { "lineHeight": "24px", "letterSpacing": "0em", "fontWeight": "400" }],
+
+            "label-tabular": ["13px", { "lineHeight": "18px", "letterSpacing": "-0.01em", "fontWeight": "500" }],
+
+            "caption": ["11px", { "lineHeight": "14px", "letterSpacing": "0.04em", "fontWeight": "500" }],
+
+            "label-lg": ["14px", { "lineHeight": "18px", "letterSpacing": "0.01em", "fontWeight": "600" }]
+
+          }
+
+        },
+
+      },
+
+    }
+
+  </script>
+
+<style>
+
+    .material-symbols-outlined {
+
+      font-variation-settings: 'FILL' 0, 'wght' 500, 'GRAD' 0, 'opsz' 24;
+
+      display: inline-block;
+
+      vertical-align: middle;
+
+      line-height: 1;
+
+    }
+
+    input::-webkit-outer-spin-button,
+
+    input::-webkit-inner-spin-button {
+
+      -webkit-appearance: none;
+
+      margin: 0;
+
+    }
+
+    input[type=number] {
+
+      -moz-appearance: textfield;
+
+    }
+
+  </style>
+
+<style>
+
+    body {
+
+      min-height: max(884px, 100dvh);
+
+    }
+
+  </style>
+
+  </head>
+
+<body class="bg-background text-on-surface antialiased flex justify-center items-start min-h-screen p-0 sm:py-6 selection:bg-secondary-container selection:text-primary">
+
+<!-- Mobile Container (390px specified design width) -->
+
+<main class="w-full max-w-[390px] min-h-screen sm:min-h-[844px] bg-background flex flex-col justify-between shadow-2xl relative overflow-hidden sm:rounded-2xl border border-outline-variant/30">
+
+<!-- Top Section: Header & Verification Badges -->
+
+<div>
+
+<!-- Shared Component: TopAppBar (docked, borderless separation via shadow) -->
+
+<header class="flex justify-between items-center w-full px-margin h-14 bg-primary text-on-primary shadow-sm z-30">
+
+<div class="flex items-center space-x-2">
+
+<span class="material-symbols-outlined text-secondary-container" data-icon="shield" style="font-variation-settings: 'FILL' 1;">shield</span>
+
+<span class="font-headline-sm text-headline-sm font-bold tracking-wider text-on-primary uppercase">ABHAY DRIVER</span>
+
+</div>
+
+<!-- Language Switcher: Segmented tactical toggle (EN | हिं | ಕನ್ನ) -->
+
+<div class="flex items-center bg-primary-container p-0.5 rounded border border-on-primary-container/20">
+
+<button class="px-2 py-0.5 rounded bg-on-primary text-primary font-caption text-caption font-bold transition-all shadow-xs" type="button">EN</button>
+
+<button class="px-2 py-0.5 rounded text-primary-fixed font-caption text-caption hover:text-on-primary transition-colors" type="button">हिं</button>
+
+<button class="px-2 py-0.5 rounded text-primary-fixed font-caption text-caption hover:text-on-primary transition-colors" type="button">ಕನ್ನ</button>
+
+</div>
+
+</header>
+
+<!-- Authority Verification Banner (DDMA Official Seal strip) -->
+
+<div class="bg-surface-container-high px-margin py-2 flex items-center justify-between border-b border-outline-variant/40">
+
+<div class="flex items-center space-x-1.5 overflow-hidden">
+
+<span class="material-symbols-outlined text-secondary text-[16px]" data-icon="verified_user" style="font-variation-settings: 'FILL' 1;">verified_user</span>
+
+<p class="font-caption text-caption text-on-surface font-semibold tracking-wide truncate">
+
+            Govt of Karnataka • DDMA Driver Portal
+
+          </p>
+
+</div>
+
+<div class="flex items-center space-x-1 shrink-0 bg-surface-container-lowest px-1.5 py-0.5 rounded border border-outline-variant/50">
+
+<span class="w-1.5 h-1.5 rounded-full bg-error animate-ping"></span>
+
+<span class="font-label-tabular text-[10px] text-error font-bold">LIVE OPS</span>
+
+</div>
+
+</div>
+
+<!-- Main Interaction Form Canvas -->
+
+<div class="p-margin space-y-space-md">
+
+<!-- Title Block -->
+
+<div>
+
+<div class="flex items-center justify-between mb-1">
+
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile text-primary font-bold">
+
+              Rescue Unit Login
+
+            </h1>
+
+<span class="font-label-tabular text-[11px] text-on-surface-variant font-bold bg-surface-container px-2 py-0.5 rounded border border-outline-variant/40">
+
+              TERMINAL #08
+
+            </span>
+
+</div>
+
+<p class="font-body-md text-body-md text-on-surface-variant font-medium">
+
+            चालक लॉगिन • Enter verified mobile registered with DDMA Incident Command.
+
+          </p>
+
+</div>
+
+<!-- Phone Verification Card -->
+
+<div class="bg-surface-container-lowest p-space-md rounded-xl border border-outline-variant/60 shadow-sm space-y-space-sm">
+
+<div class="flex justify-between items-center">
+
+<label class="font-label-md text-label-md text-on-surface font-semibold" for="driver-phone">
+
+              Official Registered Phone / मोबाइल नंबर
+
+            </label>
+
+<!-- Auto-detected Sector Indicator Badge -->
+
+<span class="inline-flex items-center gap-1 font-caption text-caption text-secondary font-semibold bg-secondary-fixed/30 px-2 py-0.5 rounded-full border border-secondary-fixed-dim/50">
+
+<span class="w-1.5 h-1.5 rounded-full bg-secondary-container"></span>
+
+              Sector 4 - Bantwal Taluk
+
+            </span>
+
+</div>
+
+<!-- Phone Input Group -->
+
+<div class="relative flex items-center rounded-lg border border-outline-variant focus-within:border-primary-container focus-within:ring-2 focus-within:ring-secondary-container/80 transition-all bg-surface-container-lowest">
+
+<div class="flex items-center pl-3 pr-2 py-2.5 border-r border-outline-variant bg-surface-container-low rounded-l-lg select-none">
+
+<span class="font-label-tabular text-on-surface font-bold">+91</span>
+
+<span class="material-symbols-outlined text-[16px] text-outline ml-1" data-icon="arrow_drop_down">arrow_drop_down</span>
+
+</div>
+
+<input class="w-full h-11 pl-3 pr-10 bg-transparent font-label-tabular text-body-lg text-primary focus:outline-none" id="driver-phone" placeholder="+91 XXXXX XXXXX" type="tel" value="+91 XXXXX XXXXX"/>
+
+<span class="absolute right-3 material-symbols-outlined text-[#16A34A] text-[20px]" data-icon="check_circle" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+
+</div>
+
+<p class="font-caption text-caption text-on-surface-variant flex items-center gap-1">
+
+<span class="material-symbols-outlined text-[14px] text-outline" data-icon="info">info</span>
+
+            Encrypted DDMA telemetry link active. Unit auto-matched.
+
+          </p>
+
+</div>
+
+<!-- Pre-Dispatched Vehicle & Tactical Assignment Preview Chip -->
+
+<div class="bg-surface-container-low border border-primary-fixed-dim rounded-xl p-3.5 space-y-2 relative overflow-hidden">
+
+<div class="absolute -right-6 -bottom-6 opacity-5 pointer-events-none">
+
+<span class="material-symbols-outlined text-[110px]" data-icon="directions_boat">directions_boat</span>
+
+</div>
+
+<div class="flex items-center justify-between">
+
+<div class="flex items-center space-x-1.5">
+
+<span class="material-symbols-outlined text-primary-container text-[18px]" data-icon="sailing">sailing</span>
+
+<span class="font-caption text-caption uppercase tracking-wider text-primary-container font-bold">Assigned Rescue Asset</span>
+
+</div>
+
+<!-- Status Pill: Driver Accepted standard token -->
+
+<span class="inline-flex items-center gap-1 bg-[#EFF6FF] text-[#1E40AF] border border-[#BFDBFE] font-caption text-caption px-2 py-0.5 rounded font-semibold">
+
+<span class="w-1.5 h-1.5 rounded-full bg-[#2563EB]"></span>
+
+              Standby / Stand By
+
+            </span>
+
+</div>
+
+<div>
+
+<h2 class="font-headline-sm text-headline-sm text-primary font-bold flex items-center gap-1.5">
+
+              NDRF Boat-01
+
+              <span class="font-caption text-caption font-semibold bg-primary text-on-primary px-1.5 py-0.2 rounded">SDRF-DIV-3</span>
+
+</h2>
+
+<p class="font-label-tabular text-[12px] text-on-surface-variant font-medium">Rigid Hull • Twin 40hp Yamaha Outboard</p>
+
+</div>
+
+<!-- Pilot / Commander Tag -->
+
+<div class="pt-2 border-t border-outline-variant/40 flex items-center justify-between">
+
+<div class="flex items-center space-x-2">
+
+<div class="w-6 h-6 rounded-full bg-primary-container text-on-primary flex items-center justify-center font-caption text-[10px] font-bold">
+
+                MH
+
+              </div>
+
+<span class="font-label-md text-label-md text-primary font-semibold">Manoj</span>
+
+</div>
+
+<span class="font-caption text-caption text-outline font-medium">Badge #KA-9821</span>
+
+</div>
+
+</div>
+
+<!-- OTP Tactical Entry Block -->
+
+<div class="bg-surface-container-lowest p-space-md rounded-xl border border-outline-variant/60 shadow-sm space-y-3">
+
+<div class="flex items-center justify-between">
+
+<label class="font-label-md text-label-md text-on-surface font-semibold flex items-center gap-1.5">
+
+<span class="material-symbols-outlined text-secondary text-[18px]" data-icon="key">key</span>
+
+              Incident Command OTP
+
+            </label>
+
+<span class="font-label-tabular text-caption text-[#16A34A] font-semibold flex items-center gap-1">
+
+<span class="w-1.5 h-1.5 rounded-full bg-[#16A34A]"></span>
+
+              SMS SENT 14:02:18
+
+            </span>
+
+</div>
+
+<!-- 6 Discrete Input Boxes -->
+
+<div class="grid grid-cols-6 gap-2">
+
+<input class="h-12 w-full text-center font-label-tabular text-headline-sm font-bold bg-surface-container-low text-primary border border-outline-variant rounded-lg focus:border-primary-container focus:ring-2 focus:ring-secondary-container" maxlength="1" type="text" value="4"/>
+
+<input class="h-12 w-full text-center font-label-tabular text-headline-sm font-bold bg-surface-container-low text-primary border border-outline-variant rounded-lg focus:border-primary-container focus:ring-2 focus:ring-secondary-container" maxlength="1" type="text" value="8"/>
+
+<input class="h-12 w-full text-center font-label-tabular text-headline-sm font-bold bg-surface-container-low text-primary border border-outline-variant rounded-lg focus:border-primary-container focus:ring-2 focus:ring-secondary-container" maxlength="1" type="text" value="2"/>
+
+<input class="h-12 w-full text-center font-label-tabular text-headline-sm font-bold bg-surface-container-low text-primary border border-outline-variant rounded-lg focus:border-primary-container focus:ring-2 focus:ring-secondary-container" maxlength="1" type="text" value="1"/>
+
+<input class="h-12 w-full text-center font-label-tabular text-headline-sm font-bold bg-surface-container-low text-primary border border-outline-variant rounded-lg focus:border-primary-container focus:ring-2 focus:ring-secondary-container" maxlength="1" type="text" value="9"/>
+
+<input class="h-12 w-full text-center font-label-tabular text-headline-sm font-bold bg-surface-container-low text-primary border border-outline-variant rounded-lg focus:border-primary-container focus:ring-2 focus:ring-secondary-container" maxlength="1" type="text" value="0"/>
+
+</div>
+
+<!-- Resend Trigger -->
+
+<div class="flex items-center justify-between pt-1">
+
+<span class="font-caption text-caption text-on-surface-variant">Didn't receive SMS code?</span>
+
+<div class="flex items-center space-x-1 font-label-tabular text-caption font-semibold text-secondary">
+
+<span class="material-symbols-outlined text-[14px]" data-icon="timer">timer</span>
+
+<span>Resend in 0:42</span>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- Bottom Tactical Call-To-Action & Emergency Footer Note -->
+
+<div class="p-margin bg-surface-container-lowest border-t border-outline-variant/40 space-y-3">
+
+<!-- Primary Action: High-Contrast Command Button -->
+
+<button class="w-full min-h-[48px] bg-primary-container hover:bg-[#133968] active:scale-[0.98] transition-all text-on-primary rounded-xl font-label-lg text-label-lg flex items-center justify-center space-x-2 shadow-md focus:outline-none focus:ring-2 focus:ring-secondary-container" type="button">
+
+<span class="material-symbols-outlined text-[20px] text-secondary-container" data-icon="how_to_reg">how_to_reg</span>
+
+<span class="font-bold tracking-wide">Verify &amp; Go On Duty / लॉग इन करें</span>
+
+</button>
+
+<!-- Institutional Directives / Helplines (Strict non-panicking operational copy) -->
+
+<div class="bg-surface-container p-2.5 rounded-lg border border-outline-variant/50 flex items-start space-x-2.5">
+
+<span class="material-symbols-outlined text-primary-container text-[20px] shrink-0 mt-0.5" data-icon="perm_phone_msg">perm_phone_msg</span>
+
+<div class="flex-1">
+
+<p class="font-caption text-caption text-on-surface font-semibold tracking-wide">
+
+            DDMA Field Comms: VHF Ch-16 | Priority Line 1077
+
+          </p>
+
+<p class="font-caption text-[10px] text-on-surface-variant font-medium">
+
+            Immediate reroute orders broadcasted via emergency radio dispatch.
+
+          </p>
+
+</div>
+
+</div>
+
+<!-- Government Compliance Bar -->
+
+<div class="flex items-center justify-between text-[11px] text-outline font-label-tabular px-1">
+
+<span>ENCRYPTED FIPS-140-3</span>
+
+<span>VER 4.2.1-REL</span>
+
+</div>
+
+</div>
+
+</main>
+
+<script>
+
+    // Lightweight auto-tab between tactical OTP input fields
+
+    document.addEventListener("DOMContentLoaded", () => {
+
+      const inputs = document.querySelectorAll('input[type="text"][maxlength="1"]');
+
+      inputs.forEach((input, index) => {
+
+        input.addEventListener("input", (e) => {
+
+          if (e.target.value.length === 1 && index < inputs.length - 1) {
+
+            inputs[index + 1].focus();
+
+          }
+
+        });
+
+        input.addEventListener("keydown", (e) => {
+
+          if (e.key === "Backspace" && !e.target.value && index > 0) {
+
+            inputs[index - 1].focus();
+
+          }
+
+        });
+
+      });
+
+    });
+
+  </script>
+
+</body></html>

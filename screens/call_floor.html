@@ -1,0 +1,873 @@
+<!-- Call Floor View - Abhay DDMA -->
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Call Floor View - ABHAY DDMA COMMAND</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "error-container": "#ffdad6",
+            "on-error-container": "#93000a",
+            "tertiary": "#000c31",
+            "inverse-surface": "#283044",
+            "on-tertiary-container": "#5885ff",
+            "on-primary": "#ffffff",
+            "surface-container-lowest": "#ffffff",
+            "surface-bright": "#faf8ff",
+            "surface-container-high": "#e2e7ff",
+            "tertiary-fixed-dim": "#b4c5ff",
+            "surface-dim": "#d2d9f4",
+            "primary-container": "#0b2545",
+            "on-primary-fixed": "#001c3b",
+            "surface-tint": "#495f82",
+            "surface-container-low": "#f2f3ff",
+            "secondary": "#855300",
+            "primary-fixed": "#d5e3ff",
+            "outline": "#74777f",
+            "surface": "#faf8ff",
+            "inverse-primary": "#b1c7f0",
+            "surface-container-highest": "#dae2fd",
+            "inverse-on-surface": "#eef0ff",
+            "on-error": "#ffffff",
+            "on-secondary-container": "#684000",
+            "tertiary-fixed": "#dbe1ff",
+            "on-primary-fixed-variant": "#314769",
+            "error": "#ba1a1a",
+            "on-secondary": "#ffffff",
+            "surface-variant": "#dae2fd",
+            "on-background": "#131b2e",
+            "tertiary-container": "#001f5e",
+            "background": "#faf8ff",
+            "primary": "#001026",
+            "on-tertiary-fixed-variant": "#003ea8",
+            "on-primary-container": "#778db2",
+            "on-tertiary-fixed": "#00174b",
+            "on-secondary-fixed-variant": "#653e00",
+            "on-surface-variant": "#44474e",
+            "outline-variant": "#c4c6cf",
+            "surface-container": "#eaedff",
+            "on-tertiary": "#ffffff",
+            "secondary-fixed-dim": "#ffb95f",
+            "on-surface": "#131b2e",
+            "secondary-fixed": "#ffddb8",
+            "on-secondary-fixed": "#2a1700",
+            "primary-fixed-dim": "#b1c7f0",
+            "secondary-container": "#fea619"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+          "spacing": {
+            "margin": "1rem",
+            "gutter": "1rem",
+            "margin-md": "1.5rem",
+            "margin-lg": "2rem",
+            "space-lg": "1.5rem",
+            "space-xl": "2rem",
+            "gutter-lg": "1.5rem",
+            "space-md": "1rem",
+            "space-2xl": "3rem",
+            "space-xs": "0.25rem",
+            "space-sm": "0.5rem"
+          },
+          "fontFamily": {
+            "label-lg": ["Inter"],
+            "body-md": ["Inter"],
+            "caption": ["Inter"],
+            "label-md": ["Inter"],
+            "headline-sm": ["Inter"],
+            "body-sm": ["Inter"],
+            "label-tabular": ["JetBrains Mono"],
+            "body-lg": ["Inter"],
+            "headline-lg-mobile": ["Inter"],
+            "display-lg": ["Inter"],
+            "headline-lg": ["Inter"],
+            "headline-md": ["Inter"],
+            "display-lg-mobile": ["Inter"]
+          },
+          "fontSize": {
+            "label-lg": ["14px", { "lineHeight": "18px", "letterSpacing": "0.01em", "fontWeight": "600" }],
+            "body-md": ["14px", { "lineHeight": "20px", "letterSpacing": "0em", "fontWeight": "400" }],
+            "caption": ["11px", { "lineHeight": "14px", "letterSpacing": "0.04em", "fontWeight": "500" }],
+            "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "600" }],
+            "headline-sm": ["18px", { "lineHeight": "24px", "letterSpacing": "0em", "fontWeight": "600" }],
+            "body-sm": ["12px", { "lineHeight": "16px", "letterSpacing": "0.01em", "fontWeight": "400" }],
+            "label-tabular": ["13px", { "lineHeight": "18px", "letterSpacing": "-0.01em", "fontWeight": "500" }],
+            "body-lg": ["16px", { "lineHeight": "24px", "letterSpacing": "0em", "fontWeight": "400" }],
+            "headline-lg-mobile": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "700" }],
+            "display-lg": ["40px", { "lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+            "headline-lg": ["30px", { "lineHeight": "38px", "letterSpacing": "-0.015em", "fontWeight": "700" }],
+            "headline-md": ["22px", { "lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+            "display-lg-mobile": ["28px", { "lineHeight": "36px", "letterSpacing": "-0.01em", "fontWeight": "700" }]
+          }
+        },
+      },
+    }
+  </script>
+<style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      display: inline-block;
+      vertical-align: middle;
+      line-height: 1;
+    }
+    .pulse-alert {
+      box-shadow: 0 0 0 0 rgba(220, 38, 38, 0.7);
+      animation: pulseAlert 2s infinite cubic-bezier(0.66, 0, 0, 1);
+    }
+    @keyframes pulseAlert {
+      to {
+        box-shadow: 0 0 0 8px rgba(220, 38, 38, 0);
+      }
+    }
+    /* Table scroll custom scrollbar */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #f1f5f9;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #cbd5e1;
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #94a3b8;
+    }
+  </style>
+</head>
+<body class="bg-background text-on-surface antialiased min-h-screen flex flex-col font-body-md text-body-md select-none">
+<!-- ================= TOP APP BAR (Shared Component Anchor) ================= -->
+{% set active_page = "call-floor" %}
+{% include "nav.html" %}
+<!-- ================= MAIN OPERATIONAL CANVAS ================= -->
+<main class="flex-1 mt-14 p-space-lg max-w-[1920px] mx-auto w-full flex flex-col gap-space-md">
+<!-- Title and Subtitle Block -->
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-space-sm pb-2 border-b border-outline-variant">
+<div>
+<div class="flex items-center gap-space-sm">
+<h1 class="font-headline-lg text-headline-lg font-bold text-primary tracking-tight">Automated Telephony Call Floor</h1>
+<span class="px-2 py-0.5 bg-surface-container-high text-primary font-label-md text-label-md rounded border border-outline-variant font-label-tabular">
+            TRUNK 01-04 ACTIVE
+          </span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant mt-0.5">
+          Live citizen outreach, interactive voice response (IVR) triage, and retry escalation matrix
+        </p>
+</div>
+<!-- Operational System Status -->
+<div class="flex items-center gap-3 bg-surface-container-lowest p-2 rounded-lg border border-outline-variant shadow-sm self-start md:self-auto">
+<div class="flex items-center gap-2 font-label-tabular text-caption px-2 py-1 bg-surface-container-low rounded border border-outline-variant/50">
+<span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+<span class="text-on-surface font-semibold">PRI TRUNK: 99.8% UPTIME</span>
+</div>
+<div class="flex items-center gap-2 font-label-tabular text-caption px-2 py-1 bg-surface-container-low rounded border border-outline-variant/50">
+<span class="material-symbols-outlined text-sm text-secondary" data-icon="speed">speed</span>
+<span class="text-on-surface">64 CHANNELS CONCURRENT</span>
+</div>
+</div>
+</div>
+<!-- ================= STAT SUMMARY BAR (Bento Metric Strip) ================= -->
+<div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-space-sm">
+<!-- Metric 1: Total Queued -->
+<div class="bg-surface-container-lowest p-space-md rounded-lg border border-outline-variant shadow-sm flex flex-col justify-between">
+<div class="flex items-center justify-between text-on-surface-variant mb-1">
+<span class="font-caption text-caption uppercase tracking-wider font-semibold">Total Queued</span>
+<span class="material-symbols-outlined text-base text-primary" data-icon="dialpad">dialpad</span>
+</div>
+<div class="flex items-baseline gap-2">
+<span class="font-headline-lg text-headline-lg font-bold font-label-tabular text-primary">1,240</span>
+<span class="font-caption text-caption text-on-surface-variant">Households</span>
+</div>
+<div class="w-full bg-surface-container-low h-1.5 rounded-full mt-2 overflow-hidden">
+<div class="bg-primary h-full rounded-full" style="width: 100%"></div>
+</div>
+</div>
+<!-- Metric 2: Connected & Triaged -->
+<div class="bg-surface-container-lowest p-space-md rounded-lg border border-outline-variant shadow-sm flex flex-col justify-between">
+<div class="flex items-center justify-between text-on-surface-variant mb-1">
+<span class="font-caption text-caption uppercase tracking-wider font-semibold">Connected &amp; Triaged</span>
+<span class="material-symbols-outlined text-base text-emerald-600" data-icon="check_circle">check_circle</span>
+</div>
+<div class="flex items-baseline gap-2">
+<span class="font-headline-lg text-headline-lg font-bold font-label-tabular text-emerald-700">592</span>
+<span class="font-caption text-caption text-emerald-800 font-semibold font-label-tabular">47.7%</span>
+</div>
+<div class="w-full bg-surface-container-low h-1.5 rounded-full mt-2 overflow-hidden">
+<div class="bg-emerald-600 h-full rounded-full" style="width: 47.7%"></div>
+</div>
+</div>
+<!-- Metric 3: Unanswered / Pending Retry -->
+<div class="bg-surface-container-lowest p-space-md rounded-lg border border-outline-variant shadow-sm flex flex-col justify-between">
+<div class="flex items-center justify-between text-on-surface-variant mb-1">
+<span class="font-caption text-caption uppercase tracking-wider font-semibold">Pending Retry</span>
+<span class="material-symbols-outlined text-base text-secondary" data-icon="replay">replay</span>
+</div>
+<div class="flex items-baseline gap-2">
+<span class="font-headline-lg text-headline-lg font-bold font-label-tabular text-secondary">418</span>
+<span class="font-caption text-caption text-secondary font-label-tabular">33.7%</span>
+</div>
+<div class="w-full bg-surface-container-low h-1.5 rounded-full mt-2 overflow-hidden">
+<div class="bg-secondary-container h-full rounded-full" style="width: 33.7%"></div>
+</div>
+</div>
+<!-- Metric 4: Critical Life-Threat Flagged -->
+<div class="bg-red-50/70 p-space-md rounded-lg border border-red-200 shadow-sm flex flex-col justify-between">
+<div class="flex items-center justify-between text-red-900 mb-1">
+<span class="font-caption text-caption uppercase tracking-wider font-bold flex items-center gap-1">
+<span class="w-2 h-2 rounded-full bg-error pulse-alert"></span>
+            Critical Life-Threat
+          </span>
+<span class="material-symbols-outlined text-base text-error" data-icon="warning">warning</span>
+</div>
+<div class="flex items-baseline gap-2">
+<span class="font-headline-lg text-headline-lg font-bold font-label-tabular text-error">11</span>
+<span class="font-caption text-caption text-error font-semibold">Immediate Dispatch</span>
+</div>
+<div class="w-full bg-red-100 h-1.5 rounded-full mt-2 overflow-hidden">
+<div class="bg-error h-full rounded-full" style="width: 100%"></div>
+</div>
+</div>
+<!-- Metric 5: Field Visit Required -->
+<div class="bg-surface-container-lowest p-space-md rounded-lg border border-outline-variant shadow-sm flex flex-col justify-between col-span-2 md:col-span-1 lg:col-span-1">
+<div class="flex items-center justify-between text-on-surface-variant mb-1">
+<span class="font-caption text-caption uppercase tracking-wider font-semibold">Field Visit Required</span>
+<span class="material-symbols-outlined text-base text-indigo-700" data-icon="person_alert">person_alert</span>
+</div>
+<div class="flex items-baseline gap-2">
+<span class="font-headline-lg text-headline-lg font-bold font-label-tabular text-primary">28</span>
+<span class="font-caption text-caption text-indigo-800 font-semibold">Gram Panchayat</span>
+</div>
+<div class="w-full bg-surface-container-low h-1.5 rounded-full mt-2 overflow-hidden">
+<div class="bg-indigo-600 h-full rounded-full" style="width: 28%"></div>
+</div>
+</div>
+</div>
+<!-- ================= PROTOCOL EXPLAINER BANNER ================= -->
+<div class="bg-surface-container-lowest border-l-4 border-secondary-container border-y border-r border-outline-variant rounded-r-lg p-space-md flex flex-col lg:flex-row lg:items-center justify-between gap-space-md shadow-sm">
+<div class="flex items-start sm:items-center gap-space-sm">
+<div class="w-9 h-9 rounded-full bg-surface-container-high flex items-center justify-center shrink-0 text-primary">
+<span class="material-symbols-outlined" data-icon="route">route</span>
+</div>
+<div>
+<span class="font-label-lg text-label-lg font-bold text-primary mr-2">Automated Outreach Cadence:</span>
+<span class="font-body-md text-body-md text-on-surface">
+            Unanswered homes trigger <strong class="font-semibold text-primary">Retry at 2 min</strong>, <strong class="font-semibold text-primary">Retry at 5 min</strong>, then <strong class="font-semibold text-primary">SMS blast</strong>, then automated escalation to <strong class="font-semibold text-primary">Field Visit</strong> by Gram Panchayat squad.
+          </span>
+</div>
+</div>
+<div class="flex items-center gap-3 text-caption font-label-tabular shrink-0 bg-surface-container-low px-3 py-1.5 rounded border border-outline-variant/60">
+<span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-slate-400"></span> Call 1</span>
+<span class="text-outline">→</span>
+<span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-amber-500"></span> +2m</span>
+<span class="text-outline">→</span>
+<span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-amber-600"></span> +5m</span>
+<span class="text-outline">→</span>
+<span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-blue-500"></span> SMS</span>
+<span class="text-outline">→</span>
+<span class="flex items-center gap-1 font-bold text-error"><span class="w-2 h-2 rounded-full bg-error"></span> Field Squad</span>
+</div>
+</div>
+<!-- ================= FILTER & SEARCH TOOLBAR ================= -->
+<div class="bg-surface-container-lowest p-space-md rounded-lg border border-outline-variant shadow-sm flex flex-col gap-space-md">
+<!-- Top Row: Search and Ward Filter -->
+<div class="flex flex-col md:flex-row items-center gap-space-md justify-between">
+<!-- Search Field -->
+<div class="relative w-full md:w-96">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline" data-icon="search">search</span>
+<input class="w-full h-11 pl-10 pr-4 bg-surface-container-lowest border border-outline-variant rounded-lg font-body-md text-body-md text-on-surface placeholder:text-outline focus:outline-none focus:border-primary focus:ring-2 focus:ring-secondary-container transition-all" placeholder="Search by household head, phone (+91), or ward..." type="text"/>
+</div>
+<!-- Right Tool Set: Ward Selector + Secondary Batch Controls -->
+<div class="flex items-center gap-3 w-full md:w-auto justify-end">
+<div class="flex items-center gap-2">
+<label class="font-label-md text-label-md text-on-surface-variant whitespace-nowrap">Filter Ward:</label>
+<select class="h-11 px-3 bg-surface-container-lowest border border-outline-variant rounded-lg font-label-md text-label-md text-on-surface focus:outline-none focus:border-primary focus:ring-2 focus:ring-secondary-container cursor-pointer">
+<option selected="">All Wards (Ward 1 - 9)</option>
+<option>Ward 1 - Panemangalore</option>
+<option>Ward 2 - Bantwal Town North</option>
+<option>Ward 3 - Bantwal Town South</option>
+<option>Ward 4 - Aladka Inundation Zone</option>
+<option>Ward 5 - Jakribettu Relief Axis</option>
+<option>Ward 6 - Baddakatte</option>
+<option>Ward 7 - Kavalapadoor</option>
+<option>Ward 8 - Navoor Riverbank</option>
+<option>Ward 9 - Sarapady Upstream</option>
+</select>
+</div>
+<button class="h-11 px-3.5 bg-surface-container-lowest hover:bg-surface-container border border-outline-variant rounded-lg text-primary font-label-md text-label-md flex items-center gap-1.5 transition-colors">
+<span class="material-symbols-outlined text-base" data-icon="filter_list">filter_list</span>
+<span>More Filters</span>
+</button>
+<button class="h-11 px-3.5 bg-surface-container-lowest hover:bg-surface-container border border-outline-variant rounded-lg text-primary font-label-md text-label-md flex items-center gap-1.5 transition-colors">
+<span class="material-symbols-outlined text-base" data-icon="file_download">file_download</span>
+<span>Export Manifest</span>
+</button>
+</div>
+</div>
+<!-- Bottom Row: Segmented Filter Tabs -->
+<div class="flex items-center gap-2 overflow-x-auto pb-1 border-t border-outline-variant/60 pt-3">
+<!-- Tab: All Calls -->
+<button class="flex items-center gap-2 px-3 py-1.5 bg-primary text-on-primary rounded-DEFAULT font-label-md text-label-md shrink-0 shadow-sm">
+<span>All Calls</span>
+<span class="bg-primary-container px-1.5 py-0.5 rounded text-caption font-label-tabular text-on-primary">1,240</span>
+</button>
+<!-- Tab: Emergency -->
+<button class="flex items-center gap-2 px-3 py-1.5 bg-surface-container-low hover:bg-surface-container text-on-surface rounded-DEFAULT font-label-md text-label-md shrink-0 border border-outline-variant/60 transition-colors">
+<span class="w-2 h-2 rounded-full bg-error pulse-alert"></span>
+<span class="text-error font-bold">Emergency</span>
+<span class="bg-red-100 text-error px-1.5 py-0.5 rounded text-caption font-label-tabular font-bold">11</span>
+</button>
+<!-- Tab: Retrying -->
+<button class="flex items-center gap-2 px-3 py-1.5 bg-surface-container-low hover:bg-surface-container text-on-surface rounded-DEFAULT font-label-md text-label-md shrink-0 border border-outline-variant/60 transition-colors">
+<span class="w-2 h-2 rounded-full bg-secondary-container"></span>
+<span>Retrying</span>
+<span class="bg-amber-100 text-amber-900 px-1.5 py-0.5 rounded text-caption font-label-tabular">145</span>
+</button>
+<!-- Tab: Unanswered -->
+<button class="flex items-center gap-2 px-3 py-1.5 bg-surface-container-low hover:bg-surface-container text-on-surface rounded-DEFAULT font-label-md text-label-md shrink-0 border border-outline-variant/60 transition-colors">
+<span class="w-2 h-2 rounded-full bg-slate-400"></span>
+<span>Unanswered</span>
+<span class="bg-slate-200 text-slate-700 px-1.5 py-0.5 rounded text-caption font-label-tabular">273</span>
+</button>
+<!-- Tab: Completed -->
+<button class="flex items-center gap-2 px-3 py-1.5 bg-surface-container-low hover:bg-surface-container text-on-surface rounded-DEFAULT font-label-md text-label-md shrink-0 border border-outline-variant/60 transition-colors">
+<span class="w-2 h-2 rounded-full bg-emerald-600"></span>
+<span>Completed</span>
+<span class="bg-emerald-100 text-emerald-800 px-1.5 py-0.5 rounded text-caption font-label-tabular">592</span>
+</button>
+<!-- Tab: Can help -->
+<button class="flex items-center gap-2 px-3 py-1.5 bg-surface-container-low hover:bg-surface-container text-on-surface rounded-DEFAULT font-label-md text-label-md shrink-0 border border-outline-variant/60 transition-colors">
+<span class="w-2 h-2 rounded-full bg-orange-500"></span>
+<span>Can help</span>
+<span class="bg-orange-100 text-orange-900 px-1.5 py-0.5 rounded text-caption font-label-tabular">38</span>
+</button>
+<div class="ml-auto text-caption font-body-sm text-on-surface-variant hidden lg:flex items-center gap-1.5 shrink-0 pl-4">
+<span class="material-symbols-outlined text-sm text-emerald-600" data-icon="sync">sync</span>
+<span>Auto-refreshing live socket</span>
+</div>
+</div>
+</div>
+<!-- ================= CALL FLOOR DATA TABLE ================= -->
+<div class="bg-surface-container-lowest rounded-lg border border-outline-variant shadow-sm overflow-hidden flex flex-col flex-1">
+<div class="overflow-x-auto flex-1">
+<table class="w-full text-left border-collapse min-w-[1280px]">
+<!-- Sticky Header -->
+<thead class="bg-[#F8FAFC] border-b-2 border-[#CBD5E1] sticky top-0 z-10 font-caption text-caption text-on-surface-variant uppercase tracking-wider">
+<tr>
+<th class="py-3 px-4 w-64" scope="col">Household Head &amp; Location</th>
+<th class="py-3 px-3 w-28" scope="col">Language</th>
+<th class="py-3 px-4 w-60" scope="col">Status</th>
+<th class="py-3 px-3 w-36" scope="col">Duration / State</th>
+<th class="py-3 px-3 w-44" scope="col">Emergency Flag</th>
+<th class="py-3 px-3 w-28" scope="col">Last Update</th>
+<th class="py-3 px-4" scope="col">Retry Count &amp; Protocol Cadence</th>
+<th class="py-3 px-4 text-right w-44" scope="col">Quick Actions</th>
+</tr>
+</thead>
+<!-- Table Body with Alternating Rows -->
+<tbody class="divide-y divide-[#E2E8F0] font-body-md text-body-md">
+<!-- ROW 1: Parvathi -->
+<tr class="hover:bg-[#F1F5F9] transition-colors bg-red-50/20">
+<td class="py-3 px-4">
+<div class="font-bold text-primary flex items-center gap-1.5">
+<span>Parvathi</span>
+<span class="w-2 h-2 rounded-full bg-error pulse-alert" title="Active Life Threat"></span>
+</div>
+<div class="text-caption text-on-surface-variant flex items-center gap-2 mt-0.5">
+<span class="font-semibold text-primary">Ward 4</span>
+<span>•</span>
+<span class="font-label-tabular">+91 XXXXX XXXXX</span>
+</div>
+<div class="text-caption text-slate-500 truncate max-w-xs mt-0.5">
+                  Nr. Aladka Bridge, Old Well Compound
+                </div>
+</td>
+<td class="py-3 px-3">
+<span class="inline-flex items-center px-2 py-0.5 rounded text-caption font-semibold bg-surface-container-high text-primary border border-outline-variant/60">
+                  Kannada
+                </span>
+</td>
+<td class="py-3 px-4">
+<div class="flex flex-col gap-1 items-start">
+<!-- Authorized Needs Help chip -->
+<span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-caption font-semibold bg-[#FEF2F2] border border-[#FECACA] text-[#991B1B]">
+<span class="w-2 h-2 rounded-full bg-[#DC2626]"></span>
+                    Needs help
+                  </span>
+<!-- Authorized Request Recorded chip -->
+<span class="inline-flex items-center px-2 py-0.5 rounded text-caption font-medium bg-amber-50 border border-amber-200 text-amber-800">
+                    Request recorded, no driver accepted yet
+                  </span>
+</div>
+</td>
+<td class="py-3 px-3">
+<div class="font-label-tabular text-label-tabular font-semibold text-primary">01:12</div>
+<span class="text-caption text-emerald-700 flex items-center gap-1 font-semibold">
+<span class="w-1.5 h-1.5 rounded-full bg-emerald-600 animate-pulse"></span>
+                  Live intake
+                </span>
+</td>
+<td class="py-3 px-3">
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded text-caption font-bold bg-[#DC2626] text-white tracking-wide shadow-xs">
+<span class="material-symbols-outlined text-xs" data-icon="flood">flood</span>
+                  CRITICAL - Inundation
+                </span>
+</td>
+<td class="py-3 px-3 font-label-tabular text-caption text-slate-600">
+                1m ago
+              </td>
+<td class="py-3 px-4">
+<div class="flex items-center gap-2">
+<span class="px-2 py-0.5 bg-blue-50 border border-blue-200 text-blue-800 rounded text-caption font-label-tabular font-semibold">
+                    Attempt 1 / Live Intake
+                  </span>
+<span class="text-caption text-slate-500 font-body-sm">Audio stream processing...</span>
+</div>
+</td>
+<td class="py-3 px-4 text-right">
+<button class="inline-flex items-center gap-1 px-3 py-1.5 bg-[#0B2545] hover:bg-[#133968] active:bg-[#06162B] text-white rounded-lg text-label-md font-label-md shadow-sm transition-all">
+<span class="material-symbols-outlined text-sm" data-icon="visibility">visibility</span>
+<span>View Details</span>
+</button>
+</td>
+</tr>
+<!-- ROW 2: Anand -->
+<tr class="hover:bg-[#F1F5F9] transition-colors bg-[#FFFFFF]">
+<td class="py-3 px-4">
+<div class="font-bold text-primary">Anand</div>
+<div class="text-caption text-on-surface-variant flex items-center gap-2 mt-0.5">
+<span class="font-semibold text-primary">Ward 3</span>
+<span>•</span>
+<span class="font-label-tabular">+91 XXXXX XXXXX</span>
+</div>
+<div class="text-caption text-slate-500 truncate max-w-xs mt-0.5">
+                  Bantwal Pethe, Opp. Mahalingeshwara Temple
+                </div>
+</td>
+<td class="py-3 px-3">
+<span class="inline-flex items-center px-2 py-0.5 rounded text-caption font-semibold bg-surface-container-high text-primary border border-outline-variant/60">
+                  Kannada
+                </span>
+</td>
+<td class="py-3 px-4">
+<!-- Authorized Not reached chip -->
+<span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-caption font-semibold bg-[#F3F4F6] border border-[#E5E7EB] text-[#374151]">
+<span class="w-2 h-2 rounded-full bg-[#9CA3AF]"></span>
+                  Not reached
+                </span>
+</td>
+<td class="py-3 px-3">
+<div class="font-label-tabular text-label-tabular text-slate-500">--:--</div>
+<span class="text-caption text-amber-700 flex items-center gap-1 font-medium">
+<span class="material-symbols-outlined text-xs" data-icon="phone_missed">phone_missed</span>
+                  No answer (24s ring)
+                </span>
+</td>
+<td class="py-3 px-3">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded text-caption font-semibold bg-amber-50 border border-amber-200 text-amber-900">
+<span class="w-1.5 h-1.5 rounded-full bg-amber-600"></span>
+                  High Alert
+                </span>
+</td>
+<td class="py-3 px-3 font-label-tabular text-caption text-slate-600">
+                3m ago
+              </td>
+<td class="py-3 px-4">
+<div class="flex flex-col gap-1">
+<div class="flex items-center gap-1.5 text-caption font-label-tabular">
+<span class="px-1.5 py-0.2 bg-emerald-50 text-emerald-800 border border-emerald-200 rounded">Retry @ 2m (Done)</span>
+<span class="text-outline">→</span>
+<span class="px-1.5 py-0.2 bg-amber-100 text-amber-900 border border-amber-300 rounded font-bold animate-pulse">Retry @ 5m (In 2m)</span>
+</div>
+<div class="w-48 bg-slate-100 h-1.5 rounded-full overflow-hidden">
+<div class="bg-secondary-container h-full rounded-full" style="width: 60%"></div>
+</div>
+</div>
+</td>
+<td class="py-3 px-4 text-right">
+<button class="inline-flex items-center gap-1 px-3 py-1.5 bg-[#F59E0B] hover:bg-[#D97706] text-[#0B2545] rounded-lg text-label-md font-label-md font-semibold shadow-sm transition-all">
+<span class="material-symbols-outlined text-sm" data-icon="replay">replay</span>
+<span>Force Retry</span>
+</button>
+</td>
+</tr>
+<!-- ROW 3: Prema -->
+<tr class="hover:bg-[#F1F5F9] transition-colors bg-[#FBFDFF]">
+<td class="py-3 px-4">
+<div class="font-bold text-primary">Prema</div>
+<div class="text-caption text-on-surface-variant flex items-center gap-2 mt-0.5">
+<span class="font-semibold text-primary">Ward 2</span>
+<span>•</span>
+<span class="font-label-tabular">+91 XXXXX XXXXX</span>
+</div>
+<div class="text-caption text-slate-500 truncate max-w-xs mt-0.5">
+                  Bantwal Bypass Road, Farm House #12
+                </div>
+</td>
+<td class="py-3 px-3">
+<span class="inline-flex items-center px-2 py-0.5 rounded text-caption font-semibold bg-surface-container-high text-primary border border-outline-variant/60">
+                  Kannada
+                </span>
+</td>
+<td class="py-3 px-4">
+<!-- Authorized Can Help chip -->
+<div class="flex flex-col gap-1 items-start">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-caption font-semibold bg-[#FFF7ED] border border-[#FFEDD5] text-[#9A3412]">
+<span class="w-2 h-2 rounded-full bg-[#EA580C]"></span>
+                    Can help
+                  </span>
+<span class="text-caption text-slate-600 font-label-md">
+                    Asset: <strong class="text-primary font-semibold">4WD Tractor + Winch</strong>
+</span>
+</div>
+</td>
+<td class="py-3 px-3">
+<div class="font-label-tabular text-label-tabular font-semibold text-primary">00:54</div>
+<span class="text-caption text-slate-600 flex items-center gap-1">
+<span class="material-symbols-outlined text-xs text-emerald-600" data-icon="call_end">call_end</span>
+                  Completed
+                </span>
+</td>
+<td class="py-3 px-3">
+<span class="inline-flex items-center px-2 py-0.5 rounded text-caption text-slate-600 bg-slate-100 border border-slate-200">
+                  Normal Priority
+                </span>
+</td>
+<td class="py-3 px-3 font-label-tabular text-caption text-slate-600">
+                5m ago
+              </td>
+<td class="py-3 px-4">
+<div class="text-caption font-label-tabular text-emerald-800 bg-emerald-50 border border-emerald-200 px-2 py-1 rounded inline-flex items-center gap-1.5">
+<span class="material-symbols-outlined text-sm text-emerald-600" data-icon="verified">verified</span>
+<span>Connected • Asset catalogued to Sector 4 pool</span>
+</div>
+</td>
+<td class="py-3 px-4 text-right">
+<button class="inline-flex items-center gap-1 px-3 py-1.5 bg-white border border-[#CBD5E1] hover:bg-[#F1F5F9] text-[#0B2545] rounded-lg text-label-md font-label-md transition-all">
+<span class="material-symbols-outlined text-sm" data-icon="visibility">visibility</span>
+<span>View Details</span>
+</button>
+</td>
+</tr>
+<!-- ROW 4: Lokesh -->
+<tr class="hover:bg-[#F1F5F9] transition-colors bg-[#FFFFFF]">
+<td class="py-3 px-4">
+<div class="font-bold text-primary">Lokesh</div>
+<div class="text-caption text-on-surface-variant flex items-center gap-2 mt-0.5">
+<span class="font-semibold text-primary">Ward 2</span>
+<span>•</span>
+<span class="font-label-tabular">+91 XXXXX XXXXX</span>
+</div>
+<div class="text-caption text-slate-500 truncate max-w-xs mt-0.5">
+                  Near Shambhavi School, Lowline Road
+                </div>
+</td>
+<td class="py-3 px-3">
+<span class="inline-flex items-center px-2 py-0.5 rounded text-caption font-semibold bg-surface-container-high text-primary border border-outline-variant/60">
+                  Kannada
+                </span>
+</td>
+<td class="py-3 px-4">
+<!-- Authorized Driver Accepted chip -->
+<div class="flex flex-col gap-1 items-start">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-caption font-semibold bg-[#EFF6FF] border border-[#BFDBFE] text-[#1E40AF]">
+<span class="w-2 h-2 rounded-full bg-[#2563EB]"></span>
+                    Driver accepted
+                  </span>
+<span class="text-caption text-blue-900 font-label-tabular">
+                    Assigned: <strong class="font-bold">NDRF Boat-02</strong>
+</span>
+</div>
+</td>
+<td class="py-3 px-3">
+<div class="font-label-tabular text-label-tabular font-semibold text-primary">01:45</div>
+<span class="text-caption text-slate-600 flex items-center gap-1">
+<span class="material-symbols-outlined text-xs text-emerald-600" data-icon="call_end">call_end</span>
+                  Completed
+                </span>
+</td>
+<td class="py-3 px-3">
+<span class="inline-flex items-center px-2 py-0.5 rounded text-caption text-slate-600 bg-slate-100 border border-slate-200">
+                  Normal Priority
+                </span>
+</td>
+<td class="py-3 px-3 font-label-tabular text-caption text-slate-600">
+                8m ago
+              </td>
+<td class="py-3 px-4">
+<div class="text-caption font-label-tabular text-blue-900 bg-blue-50 border border-blue-200 px-2 py-1 rounded inline-flex items-center gap-1.5">
+<span class="material-symbols-outlined text-sm text-blue-600" data-icon="directions_boat">directions_boat</span>
+<span>Triage complete → Dispatched NDRF Boat-02 (ETA --)</span>
+</div>
+</td>
+<td class="py-3 px-4 text-right">
+<button class="inline-flex items-center gap-1 px-3 py-1.5 bg-white border border-[#CBD5E1] hover:bg-[#F1F5F9] text-[#0B2545] rounded-lg text-label-md font-label-md transition-all">
+<span class="material-symbols-outlined text-sm" data-icon="visibility">visibility</span>
+<span>View Details</span>
+</button>
+</td>
+</tr>
+<!-- ROW 5: Sumanth Shenoy (Medical Alert + Field Visit Escalation) -->
+<tr class="hover:bg-[#F1F5F9] transition-colors bg-amber-50/20">
+<td class="py-3 px-4">
+<div class="font-bold text-primary flex items-center gap-1.5">
+<span>Sumanth</span>
+<span class="px-1.5 py-0.2 bg-red-100 text-error text-[10px] font-bold rounded">DIALYSIS</span>
+</div>
+<div class="text-caption text-on-surface-variant flex items-center gap-2 mt-0.5">
+<span class="font-semibold text-primary">Ward 5</span>
+<span>•</span>
+<span class="font-label-tabular">+91 XXXXX XXXXX</span>
+</div>
+<div class="text-caption text-slate-500 truncate max-w-xs mt-0.5">
+                  Near Jakribettu Cross, Shenoy Compound
+                </div>
+</td>
+<td class="py-3 px-3">
+<span class="inline-flex items-center px-2 py-0.5 rounded text-caption font-semibold bg-surface-container-high text-primary border border-outline-variant/60">
+                  English
+                </span>
+</td>
+<td class="py-3 px-4">
+<!-- Authorized Not reached chip -->
+<div class="flex flex-col gap-1 items-start">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-caption font-semibold bg-[#F3F4F6] border border-[#E5E7EB] text-[#374151]">
+<span class="w-2 h-2 rounded-full bg-[#9CA3AF]"></span>
+                    Not reached
+                  </span>
+<span class="text-caption text-error font-semibold bg-red-50 px-1.5 py-0.2 rounded border border-red-200">
+                    Escalated to Field Visit
+                  </span>
+</div>
+</td>
+<td class="py-3 px-3">
+<div class="font-label-tabular text-label-tabular text-slate-500">--:--</div>
+<span class="text-caption text-red-700 flex items-center gap-1 font-medium">
+<span class="material-symbols-outlined text-xs" data-icon="portable_wifi_off">portable_wifi_off</span>
+                  Line Congested
+                </span>
+</td>
+<td class="py-3 px-3">
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded text-caption font-bold bg-[#FEF2F2] border border-[#FECACA] text-[#991B1B]">
+<span class="material-symbols-outlined text-xs text-error" data-icon="medical_services">medical_services</span>
+                  Medical Urgency
+                </span>
+</td>
+<td class="py-3 px-3 font-label-tabular text-caption text-slate-600">
+                14m ago
+              </td>
+<td class="py-3 px-4">
+<!-- Escalation Flow Chain -->
+<div class="flex flex-col gap-1">
+<div class="flex items-center flex-wrap gap-1 text-[11px] font-label-tabular">
+<span class="px-1.5 py-0.5 bg-slate-100 text-slate-500 line-through rounded">Retry 2m (Failed)</span>
+<span class="text-outline">→</span>
+<span class="px-1.5 py-0.5 bg-slate-100 text-slate-500 line-through rounded">5m (Failed)</span>
+<span class="text-outline">→</span>
+<span class="px-1.5 py-0.5 bg-blue-100 text-blue-800 rounded font-medium">SMS Sent</span>
+<span class="text-outline">→</span>
+<span class="px-1.5 py-0.5 bg-red-600 text-white rounded font-bold shadow-xs">Gram Panchayat Visit</span>
+</div>
+<span class="text-caption text-error font-semibold">Assigned: Squad GP-Ward5 (Asha Worker + Home Guard)</span>
+</div>
+</td>
+<td class="py-3 px-4 text-right">
+<button class="inline-flex items-center gap-1 px-3 py-1.5 bg-[#DC2626] hover:bg-[#B91C1C] active:bg-[#991B1B] text-white rounded-lg text-label-md font-label-md font-semibold shadow-sm transition-all">
+<span class="material-symbols-outlined text-sm" data-icon="person_pin_circle">person_pin_circle</span>
+<span>Assign Field Visit</span>
+</button>
+</td>
+</tr>
+<!-- ROW 6: Devappa -->
+<tr class="hover:bg-[#F1F5F9] transition-colors bg-[#FFFFFF]">
+<td class="py-3 px-4">
+<div class="font-bold text-primary">Devappa</div>
+<div class="text-caption text-on-surface-variant flex items-center gap-2 mt-0.5">
+<span class="font-semibold text-primary">Ward 1</span>
+<span>•</span>
+<span class="font-label-tabular">+91 XXXXX XXXXX</span>
+</div>
+<div class="text-caption text-slate-500 truncate max-w-xs mt-0.5">
+                  Panemangalore Bridge Slums, Row 4
+                </div>
+</td>
+<td class="py-3 px-3">
+<span class="inline-flex items-center px-2 py-0.5 rounded text-caption font-semibold bg-surface-container-high text-primary border border-outline-variant/60">
+                  Kannada
+                </span>
+</td>
+<td class="py-3 px-4">
+<!-- Authorized On run chip -->
+<div class="flex flex-col gap-1 items-start">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-caption font-semibold bg-[#F0FDF4] border border-[#BBF7D0] text-[#166534]">
+<span class="w-2 h-2 rounded-full bg-[#16A34A]"></span>
+                    On run
+                  </span>
+<span class="text-caption text-emerald-800 font-label-tabular">
+                    Enroute: PU College Shelter
+                  </span>
+</div>
+</td>
+<td class="py-3 px-3">
+<div class="font-label-tabular text-label-tabular font-semibold text-primary">02:10</div>
+<span class="text-caption text-slate-600 flex items-center gap-1">
+<span class="material-symbols-outlined text-xs text-emerald-600" data-icon="call_end">call_end</span>
+                  Completed
+                </span>
+</td>
+<td class="py-3 px-3">
+<span class="inline-flex items-center px-2 py-0.5 rounded text-caption text-slate-600 bg-slate-100 border border-slate-200">
+                  Normal Priority
+                </span>
+</td>
+<td class="py-3 px-3 font-label-tabular text-caption text-slate-600">
+                12m ago
+              </td>
+<td class="py-3 px-4">
+<div class="text-caption font-label-tabular text-slate-700 bg-slate-100 border border-slate-200 px-2 py-1 rounded inline-flex items-center gap-1.5">
+<span class="material-symbols-outlined text-sm text-slate-600" data-icon="directions_walk">directions_walk</span>
+<span>Self-evacuating • 4 Family members tracked by GP Squad</span>
+</div>
+</td>
+<td class="py-3 px-4 text-right">
+<button class="inline-flex items-center gap-1 px-3 py-1.5 bg-white border border-[#CBD5E1] hover:bg-[#F1F5F9] text-[#0B2545] rounded-lg text-label-md font-label-md transition-all">
+<span class="material-symbols-outlined text-sm" data-icon="visibility">visibility</span>
+<span>View Details</span>
+</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- ================= PAGINATION & FOOTER STATUS ================= -->
+<div class="p-space-md bg-[#F8FAFC] border-t border-[#CBD5E1] flex flex-col md:flex-row items-center justify-between gap-space-md">
+<!-- Left: Status & Gateway Telemetry -->
+<div class="flex flex-col sm:flex-row items-start sm:items-center gap-space-sm font-label-tabular text-caption text-slate-600">
+<span class="font-semibold text-primary">Showing 1 - 25 of 1,240 calls</span>
+<span class="hidden sm:inline text-outline-variant">|</span>
+<span class="flex items-center gap-1.5">
+<span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+            Telephony Gateway: <strong class="text-primary font-semibold">Dakshina Kannada PRI Trunk 01-04</strong> (Online, 99.8% uptime)
+          </span>
+</div>
+<!-- Right: Pagination Controls -->
+<div class="flex items-center gap-2">
+<span class="text-caption text-on-surface-variant mr-2">Page 1 of 50</span>
+<button class="px-2.5 py-1.5 bg-white border border-outline-variant rounded text-on-surface hover:bg-slate-100 disabled:opacity-40 disabled:cursor-not-allowed font-label-md text-label-md" disabled="">
+<span class="material-symbols-outlined text-sm" data-icon="arrow_back">arrow_back</span>
+</button>
+<button class="px-3 py-1.5 bg-primary text-white rounded font-label-tabular text-label-md font-bold">1</button>
+<button class="px-3 py-1.5 bg-white border border-outline-variant hover:bg-slate-100 text-on-surface rounded font-label-tabular text-label-md">2</button>
+<button class="px-3 py-1.5 bg-white border border-outline-variant hover:bg-slate-100 text-on-surface rounded font-label-tabular text-label-md">3</button>
+<span class="px-1 text-slate-400">...</span>
+<button class="px-3 py-1.5 bg-white border border-outline-variant hover:bg-slate-100 text-on-surface rounded font-label-tabular text-label-md">50</button>
+<button class="px-2.5 py-1.5 bg-white border border-outline-variant rounded text-on-surface hover:bg-slate-100 font-label-md text-label-md">
+<span class="material-symbols-outlined text-sm" data-icon="arrow_forward">arrow_forward</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Quick Telemetry Footnote -->
+<div class="flex items-center justify-between text-caption font-body-sm text-slate-500 px-1 py-1">
+<div>DDMA Incident Command Center Bantwal • Dispatched under NDMA Section 34 Guidelines</div>
+<div class="font-label-tabular">Auto-escalation engine: v2.4.1 (Stable) • Latency: 24ms</div>
+</div>
+</main>
+<!-- Inline Script for Clock & Micro-interactions -->
+<script>
+    // Live Clock ticking
+    function updateClock() {
+      const now = new Date();
+      const hours = String(now.getHours()).padStart(2, '0');
+      const minutes = String(now.getMinutes()).padStart(2, '0');
+      const seconds = String(now.getSeconds()).padStart(2, '0');
+      const clockEl = document.getElementById('liveClock');
+      if (clockEl) {
+        clockEl.textContent = `${hours}:${minutes}:${seconds} IST`;
+      }
+    }
+    setInterval(updateClock, 1000);
+  </script>
+
+<script>
+function triggerRunAllRetries() {
+  fetch('/api/unanswered-retry', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({})
+  })
+    .then(r => r.json())
+    .then(data => {
+      alert(`Auto-retry ladder executed successfully.\nProcessed ${data.count || 0} unanswered households.`);
+      window.location.reload();
+    })
+    .catch(err => alert('Failed to execute auto-retries.'));
+}
+
+function exportManifestCSV() {
+  fetch('/api/households')
+    .then(r => r.json())
+    .then(data => {
+      const csv = 'ID,FirstName,Phone,Landmark,Members,Status\n' +
+        (data.households || []).map(h => `"${h.id}","${h.first_name}","${h.phone_masked}","${h.landmark || ''}",${h.members},"${h.status}"`).join('\n');
+      const blob = new Blob([csv], { type: 'text/csv' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'evacuation_manifest.csv';
+      a.click();
+    });
+}
+
+// Client-side search and filtering
+document.addEventListener('DOMContentLoaded', () => {
+  const searchInput = document.querySelector('input[placeholder*="Search by household head"]');
+  if (searchInput) {
+    searchInput.addEventListener('input', (e) => {
+      const val = e.target.value.toLowerCase().trim();
+      const rows = document.querySelectorAll('tbody tr');
+      rows.forEach(r => {
+        const text = r.textContent.toLowerCase();
+        r.style.display = text.includes(val) ? '' : 'none';
+      });
+    });
+  }
+
+  // Wire row Assign vehicle buttons
+  document.querySelectorAll('button').forEach(btn => {
+    if (btn.textContent.includes('Assign vehicle')) {
+      btn.onclick = () => window.location.href = '/call/hh-001';
+    } else if (btn.textContent.includes('Flag Field Visit')) {
+      btn.onclick = () => {
+        fetch('/api/field-visits', {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({household_id: 'hh-001'})
+        }).then(r => r.json()).then(data => {
+          alert('Household successfully flagged for Field Visit.');
+          window.location.href = '/field';
+        });
+      };
+    }
+  });
+});
+</script>
+
+</body></html>

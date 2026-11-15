@@ -1,0 +1,1469 @@
+<!-- Audit Log - Abhay DDMA -->
+
+<!DOCTYPE html><html lang="en"><head>
+
+<meta charset="utf-8">
+
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+<title>Audit Log - Abhay DDMA</title>
+
+<!-- Material Symbols Outlined -->
+
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+
+<!-- Inter & JetBrains Mono Fonts -->
+
+<link href="https://fonts.googleapis.com" rel="preconnect">
+
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;600&amp;display=swap" rel="stylesheet">
+
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+
+<!-- Tailwind CSS with Forms and Container Queries Plugins -->
+
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+
+<script id="tailwind-config">
+
+    tailwind.config = {
+
+      darkMode: "class",
+
+      theme: {
+
+        extend: {
+
+          "colors": {
+
+            "surface-container": "#eaedff",
+
+            "error": "#ba1a1a",
+
+            "surface": "#faf8ff",
+
+            "inverse-on-surface": "#eef0ff",
+
+            "error-container": "#ffdad6",
+
+            "surface-tint": "#495f82",
+
+            "on-tertiary-fixed": "#00174b",
+
+            "on-primary-container": "#778db2",
+
+            "on-tertiary-container": "#5885ff",
+
+            "secondary": "#855300",
+
+            "on-error-container": "#93000a",
+
+            "tertiary-container": "#001f5e",
+
+            "on-tertiary": "#ffffff",
+
+            "on-primary-fixed": "#001c3b",
+
+            "surface-container-lowest": "#ffffff",
+
+            "on-tertiary-fixed-variant": "#003ea8",
+
+            "on-surface-variant": "#44474e",
+
+            "on-secondary-fixed": "#2a1700",
+
+            "surface-variant": "#dae2fd",
+
+            "secondary-fixed-dim": "#ffb95f",
+
+            "outline": "#74777f",
+
+            "on-primary": "#ffffff",
+
+            "inverse-primary": "#b1c7f0",
+
+            "tertiary-fixed-dim": "#b4c5ff",
+
+            "secondary-container": "#fea619",
+
+            "primary-container": "#0b2545",
+
+            "primary-fixed-dim": "#b1c7f0",
+
+            "tertiary": "#000c31",
+
+            "outline-variant": "#c4c6cf",
+
+            "primary-fixed": "#d5e3ff",
+
+            "surface-bright": "#faf8ff",
+
+            "on-secondary-fixed-variant": "#653e00",
+
+            "surface-dim": "#d2d9f4",
+
+            "on-secondary": "#ffffff",
+
+            "surface-container-highest": "#dae2fd",
+
+            "background": "#faf8ff",
+
+            "inverse-surface": "#283044",
+
+            "on-error": "#ffffff",
+
+            "on-primary-fixed-variant": "#314769",
+
+            "surface-container-low": "#f2f3ff",
+
+            "tertiary-fixed": "#dbe1ff",
+
+            "secondary-fixed": "#ffddb8",
+
+            "on-secondary-container": "#684000",
+
+            "surface-container-high": "#e2e7ff",
+
+            "primary": "#001026",
+
+            "on-background": "#131b2e",
+
+            "on-surface": "#131b2e"
+
+          },
+
+          "borderRadius": {
+
+            "DEFAULT": "0.25rem",
+
+            "lg": "0.5rem",
+
+            "xl": "0.75rem",
+
+            "full": "9999px"
+
+          },
+
+          "spacing": {
+
+            "space-lg": "1.5rem",
+
+            "space-sm": "0.5rem",
+
+            "margin-md": "1.5rem",
+
+            "gutter": "1rem",
+
+            "space-md": "1rem",
+
+            "gutter-lg": "1.5rem",
+
+            "margin": "1rem",
+
+            "space-xs": "0.25rem",
+
+            "margin-lg": "2rem",
+
+            "space-xl": "2rem",
+
+            "space-2xl": "3rem"
+
+          },
+
+          "fontFamily": {
+
+            "body-lg": ["Inter"],
+
+            "label-tabular": ["JetBrains Mono"],
+
+            "headline-lg": ["Inter"],
+
+            "caption": ["Inter"],
+
+            "display-lg-mobile": ["Inter"],
+
+            "body-sm": ["Inter"],
+
+            "label-md": ["Inter"],
+
+            "headline-lg-mobile": ["Inter"],
+
+            "display-lg": ["Inter"],
+
+            "headline-md": ["Inter"],
+
+            "body-md": ["Inter"],
+
+            "headline-sm": ["Inter"],
+
+            "label-lg": ["Inter"]
+
+          },
+
+          "fontSize": {
+
+            "body-lg": ["16px", { "lineHeight": "24px", "letterSpacing": "0em", "fontWeight": "400" }],
+
+            "label-tabular": ["13px", { "lineHeight": "18px", "letterSpacing": "-0.01em", "fontWeight": "500" }],
+
+            "headline-lg": ["30px", { "lineHeight": "38px", "letterSpacing": "-0.015em", "fontWeight": "700" }],
+
+            "caption": ["11px", { "lineHeight": "14px", "letterSpacing": "0.04em", "fontWeight": "500" }],
+
+            "display-lg-mobile": ["28px", { "lineHeight": "36px", "letterSpacing": "-0.01em", "fontWeight": "700" }],
+
+            "body-sm": ["12px", { "lineHeight": "16px", "letterSpacing": "0.01em", "fontWeight": "400" }],
+
+            "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "600" }],
+
+            "headline-lg-mobile": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "700" }],
+
+            "display-lg": ["40px", { "lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+
+            "headline-md": ["22px", { "lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+
+            "body-md": ["14px", { "lineHeight": "20px", "letterSpacing": "0em", "fontWeight": "400" }],
+
+            "headline-sm": ["18px", { "lineHeight": "24px", "letterSpacing": "0em", "fontWeight": "600" }],
+
+            "label-lg": ["14px", { "lineHeight": "18px", "letterSpacing": "0.01em", "fontWeight": "600" }]
+
+          }
+
+        }
+
+      }
+
+    }
+
+  </script>
+
+<style>
+
+    .material-symbols-outlined {
+
+      font-family: 'Material Symbols Outlined';
+
+      font-weight: normal;
+
+      font-style: normal;
+
+      font-size: 20px;
+
+      line-height: 1;
+
+      letter-spacing: normal;
+
+      text-transform: none;
+
+      display: inline-block;
+
+      white-space: nowrap;
+
+      word-wrap: normal;
+
+      direction: ltr;
+
+      font-feature-settings: 'liga';
+
+      -webkit-font-smoothing: antialiased;
+
+    }
+
+    
+
+    /* Custom subtle scrollbar for dense tables */
+
+    ::-webkit-scrollbar {
+
+      width: 6px;
+
+      height: 6px;
+
+    }
+
+    ::-webkit-scrollbar-track {
+
+      background: #F1F5F9;
+
+    }
+
+    ::-webkit-scrollbar-thumb {
+
+      background: #CBD5E1;
+
+      border-radius: 4px;
+
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+
+      background: #94A3B8;
+
+    }
+
+  </style>
+
+</head>
+
+<body class="bg-surface text-on-surface font-body-md text-body-md antialiased min-h-screen flex flex-col">
+
+<!-- ======================================================== -->
+
+<!-- TOPNAVBAR (Shared Component: Command Header)             -->
+
+<!-- ======================================================== -->
+
+{% set active_page = "audit" %}
+{% include "nav.html" %}
+
+<!-- ======================================================== -->
+
+<!-- MAIN LAYOUT WRAPPER (Fixed Drawer + Fluid Content Canvas)-->
+
+<!-- ======================================================== -->
+
+<div class="flex pt-16 flex-1">
+
+<!-- ======================================================== -->
+
+<!-- SIDENAVBAR (Shared Component: Tactical Drawer)           -->
+
+<!-- ======================================================== -->
+
+<aside class="fixed top-16 left-0 bottom-0 w-80 flex flex-col justify-between p-space-md z-40 bg-surface-container-lowest dark:bg-surface-container text-primary dark:text-inverse-primary border-r border-outline-variant dark:border-outline/30 shadow-sm dark:shadow-none">
+
+<!-- Drawer Top: Emblem, Title & Main Nav Items -->
+
+<div class="space-y-4">
+
+<!-- Control Hub Identifier -->
+
+<div class="flex items-center gap-3 p-3 bg-surface-container-low dark:bg-surface-container-high rounded-lg border border-outline-variant/40">
+
+<div class="w-10 h-10 rounded bg-primary-container text-inverse-primary flex items-center justify-center">
+
+<span class="material-symbols-outlined text-2xl text-secondary-container">hub</span>
+
+</div>
+
+<div>
+
+<div class="font-label-lg text-label-lg font-bold text-primary dark:text-inverse-primary">DDMA Control Hub</div>
+
+<div class="font-caption text-caption text-secondary font-medium tracking-wide">Sector Alpha</div>
+
+</div>
+
+</div>
+
+<!-- Red Alert Trigger Button -->
+
+<button class="w-full h-10 bg-error hover:bg-error/90 active:scale-[0.99] text-on-error font-label-lg text-label-lg rounded-lg flex items-center justify-center gap-2 transition-transform shadow-sm">
+
+<span class="material-symbols-outlined text-base">warning</span>
+
+<span>Declare Red Alert</span>
+
+</button>
+
+<!-- Primary Navigation Tabs (5 Tabs - Exact JSON Strings) -->
+
+<nav class="space-y-1 pt-2">
+
+<!-- Item 1: Operations Center -->
+
+<a class="text-on-surface-variant dark:text-outline-variant font-label-lg text-label-lg rounded-lg px-4 py-3 flex items-center gap-3 hover:bg-surface-container-low dark:hover:bg-surface-container-highest transition-colors" href="/dashboard">
+
+<span class="material-symbols-outlined text-xl">dashboard</span>
+
+<span>Operations Center</span>
+
+</a>
+
+<!-- Item 2: Evacuation Manifest -->
+
+<a class="text-on-surface-variant dark:text-outline-variant font-label-lg text-label-lg rounded-lg px-4 py-3 flex items-center gap-3 hover:bg-surface-container-low dark:hover:bg-surface-container-highest transition-colors" href="/dashboard">
+
+<span class="material-symbols-outlined text-xl">groups</span>
+
+<span>Evacuation Manifest</span>
+
+</a>
+
+<!-- Item 3: Fleet Telemetry -->
+
+<a class="text-on-surface-variant dark:text-outline-variant font-label-lg text-label-lg rounded-lg px-4 py-3 flex items-center gap-3 hover:bg-surface-container-low dark:hover:bg-surface-container-highest transition-colors" href="/dashboard">
+
+<span class="material-symbols-outlined text-xl">local_shipping</span>
+
+<span>Fleet Telemetry</span>
+
+</a>
+
+<!-- Item 4: Telephony Audit Logs (ACTIVE MATCH) -->
+
+<a class="bg-surface-container-high dark:bg-primary-container text-primary dark:text-inverse-primary font-label-lg text-label-lg rounded-lg border-l-4 border-secondary-container px-4 py-3 flex items-center gap-3 shadow-sm" href="/dashboard">
+
+<span class="material-symbols-outlined text-xl text-primary-container dark:text-secondary-container" style="font-variation-settings: 'FILL' 1;">phone_in_talk</span>
+
+<span class="font-bold">Telephony Audit Logs</span>
+
+<span class="ml-auto w-2 h-2 rounded-full bg-secondary-container animate-pulse"></span>
+
+</a>
+
+<!-- Item 5: System Data & Privacy -->
+
+<a class="text-on-surface-variant dark:text-outline-variant font-label-lg text-label-lg rounded-lg px-4 py-3 flex items-center gap-3 hover:bg-surface-container-low dark:hover:bg-surface-container-highest transition-colors" href="/dashboard">
+
+<span class="material-symbols-outlined text-xl">security</span>
+
+<span>System Data &amp; Privacy</span>
+
+</a>
+
+</nav>
+
+</div>
+
+<!-- Drawer Bottom Footer Navigation Tabs -->
+
+<div class="border-t border-outline-variant/30 pt-3 space-y-1">
+
+<a class="text-on-surface-variant dark:text-outline-variant font-label-lg text-label-lg rounded-lg px-4 py-2.5 flex items-center gap-3 hover:bg-surface-container-low dark:hover:bg-surface-container-highest transition-colors" href="/dashboard">
+
+<span class="material-symbols-outlined text-lg">inventory_2</span>
+
+<span>Incident Archive</span>
+
+</a>
+
+<a class="text-on-surface-variant dark:text-outline-variant font-label-lg text-label-lg rounded-lg px-4 py-2.5 flex items-center gap-3 hover:bg-surface-container-low dark:hover:bg-surface-container-highest transition-colors" href="/dashboard">
+
+<span class="material-symbols-outlined text-lg">settings</span>
+
+<span>Console Settings</span>
+
+</a>
+
+<!-- System Heartbeat Meta -->
+
+<div class="px-4 py-2 mt-2 bg-surface-container-low/50 rounded flex items-center justify-between text-on-surface-variant">
+
+<span class="font-caption text-caption">Gateway Status</span>
+
+<span class="font-label-tabular text-label-tabular text-xs flex items-center gap-1 font-semibold text-primary">
+
+<span class="w-1.5 h-1.5 rounded-full bg-green-600 inline-block"></span> 99.98% UP
+
+          </span>
+
+</div>
+
+</div>
+
+</aside>
+
+<!-- ======================================================== -->
+
+<!-- MAIN CONTENT CANVAS (Pushed by 320px sidebar width)     -->
+
+<!-- ======================================================== -->
+
+<main class="ml-80 flex-1 p-space-xl min-w-0 bg-surface">
+
+<!-- Top Title & Directive Area -->
+
+<div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4 pb-6 border-b border-outline-variant/30">
+
+<div>
+
+<div class="flex items-center gap-3">
+
+<h1 class="font-headline-lg text-headline-lg font-bold text-primary tracking-tight">Incident Audit Log &amp; Decision Traceability</h1>
+
+<span class="px-2.5 py-0.5 rounded-full text-xs font-label-tabular bg-primary-container text-inverse-primary border border-outline-variant/40">
+
+              Audit log
+
+            </span>
+
+</div>
+
+<p class="font-body-md text-body-md text-on-surface-variant mt-1">Complete ledger of telephony events, automated system state changes, driver responses, and command approvals.</p>
+
+</div>
+
+<!-- Quick Summary Metrics -->
+
+<div class="flex items-center gap-3">
+
+<div class="bg-surface-container-lowest border border-outline-variant/40 rounded-lg px-3.5 py-2 text-right">
+
+<span class="font-caption text-caption text-on-surface-variant block uppercase">Audited Events</span>
+
+<span class="font-label-tabular text-label-tabular text-lg font-bold text-primary">1,482</span>
+
+</div>
+
+<div class="bg-surface-container-lowest border border-outline-variant/40 rounded-lg px-3.5 py-2 text-right">
+
+<span class="font-caption text-caption text-on-surface-variant block uppercase">Rule Executions</span>
+
+<span class="font-label-tabular text-label-tabular text-lg font-bold text-secondary">314</span>
+
+</div>
+
+<div class="bg-surface-container-lowest border border-outline-variant/40 rounded-lg px-3.5 py-2 text-right">
+
+<span class="font-caption text-caption text-on-surface-variant block uppercase">Officer Overrides</span>
+
+<span class="font-label-tabular text-label-tabular text-lg font-bold text-primary">19</span>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- Algorithmic Transparency Guarantee Callout Banner -->
+
+
+
+<!-- Filter Controls Cluster (Structured Grid) -->
+
+<div class="mt-6 p-4 bg-surface-container-lowest rounded-xl border border-outline-variant/40 shadow-sm space-y-3">
+
+<div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-12 gap-3 items-center">
+
+<!-- Filter 1: Incident Date/Time Picker -->
+
+<div class="xl:col-span-3">
+
+<label class="block font-caption text-caption text-on-surface-variant font-medium mb-1">
+
+              Incident Context / Date
+
+            </label>
+
+<div class="relative">
+
+<span class="material-symbols-outlined absolute left-3 top-2.5 text-on-surface-variant text-lg">calendar_today</span>
+
+<input class="w-full h-10 pl-9 pr-3 rounded-lg border border-outline-variant bg-surface-container-low font-label-tabular text-xs font-semibold text-primary focus:outline-none cursor-pointer" readonly="" type="text" value="Today: 14 Aug 2024 (Incident #INC-001)">
+
+</div>
+
+</div>
+
+<!-- Filter 2: Household ID Search / Filter -->
+
+<div class="xl:col-span-3">
+
+<label class="block font-caption text-caption text-on-surface-variant font-medium mb-1">
+
+              Household ID / Subject Filter
+
+            </label>
+
+<div class="relative">
+
+<span class="material-symbols-outlined absolute left-3 top-2.5 text-on-surface-variant text-lg">filter_alt</span>
+
+<input class="w-full h-10 pl-9 pr-4 rounded-lg border border-outline-variant bg-white font-body-sm text-body-sm text-on-surface placeholder:text-on-surface-variant/60 focus:border-primary-container focus:ring-1 focus:ring-primary-container" placeholder="Filter by Household (e.g. #HH-4019, #HH-4024...)" type="text">
+
+</div>
+
+</div>
+
+<!-- Filter 3: Action Type Dropdown -->
+
+<div class="xl:col-span-2">
+
+<label class="block font-caption text-caption text-on-surface-variant font-medium mb-1">
+
+              Action Type
+
+            </label>
+
+<select class="w-full h-10 px-3 rounded-lg border border-outline-variant bg-white font-body-sm text-body-sm text-on-surface focus:border-primary-container focus:ring-1 focus:ring-primary-container">
+
+<option>All Actions (Calls, System Rule Transitions, Driver Actions, Dispatcher Approvals)</option>
+
+<option>Telephony &amp; IVR Dispatches</option>
+
+<option>System Rule Transitions</option>
+
+<option>Driver Acceptances</option>
+
+<option>Dispatcher Approvals</option>
+
+</select>
+
+</div>
+
+<!-- Filter 4: Actor Dropdown -->
+
+<div class="xl:col-span-2">
+
+<label class="block font-caption text-caption text-on-surface-variant font-medium mb-1">
+
+              Performing Actor
+
+            </label>
+
+<select class="w-full h-10 px-3 rounded-lg border border-outline-variant bg-white font-body-sm text-body-sm text-on-surface focus:border-primary-container focus:ring-1 focus:ring-primary-container">
+
+<option>All Actors (Automated Rules Engine, Dispatcher, Driver, Resident IVR)</option>
+
+<option>Deterministic Rules Engine</option>
+
+<option>Incident Commander / Dispatcher</option>
+
+<option>Field Driver / Rescuer</option>
+
+<option>Telecom Gateway</option>
+
+</select>
+
+</div>
+
+<!-- Action 5: Export Log Button Cluster -->
+
+<div class="xl:col-span-2 flex items-end gap-2">
+
+<button class="flex-1 h-10 bg-primary-container hover:bg-primary-container/90 text-on-primary font-label-lg text-label-lg rounded-lg flex items-center justify-center gap-1.5 transition-all shadow-sm">
+
+<span class="material-symbols-outlined text-base">download</span>
+
+<span>Export Log</span>
+
+</button>
+
+<button class="h-10 px-3 border border-outline-variant hover:bg-surface-container-low text-primary rounded-lg font-label-lg text-label-lg flex items-center justify-center" title="Filter Presets">
+
+<span class="material-symbols-outlined text-base">tune</span>
+
+</button>
+
+</div>
+
+</div>
+
+<!-- Active Filter Indicator Pills -->
+
+<div class="flex items-center gap-2 pt-2 border-t border-outline-variant/30 text-xs">
+
+<span class="font-caption text-caption text-on-surface-variant font-semibold uppercase">Active Filters:</span>
+
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-surface-container text-on-surface font-label-tabular">
+
+            Date: 14-AUG-2024
+
+            <span class="material-symbols-outlined text-xs cursor-pointer hover:text-error">close</span>
+
+</span>
+
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-surface-container text-on-surface font-label-tabular">
+
+            Sector: Alpha (All Subzones)
+
+            <span class="material-symbols-outlined text-xs cursor-pointer hover:text-error">close</span>
+
+</span>
+
+<button class="text-xs text-secondary hover:underline font-medium ml-1">Clear all filters</button>
+
+</div>
+
+</div>
+
+<!-- ======================================================== -->
+
+<!-- AUDIT LOG TIMELINE TABLE                                 -->
+
+<!-- ======================================================== -->
+
+<div class="mt-6 bg-surface-container-lowest rounded-xl border border-outline-variant/40 shadow-sm overflow-hidden">
+
+<!-- Table Control & Live Stream Indicator Bar -->
+
+<div class="px-5 py-3.5 bg-surface-container-low border-b border-outline-variant/40 flex items-center justify-between">
+
+<div class="flex items-center gap-2.5">
+
+<div class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-ping"></div>
+
+<span class="font-label-lg text-label-lg font-bold text-primary">Live Audit Stream</span>
+
+<span class="font-label-tabular text-label-tabular text-xs text-on-surface-variant ml-2">Synced with Mangaluru EOC Node #03</span>
+
+</div>
+
+<div class="flex items-center gap-3">
+
+<span class="font-caption text-caption text-on-surface-variant">Displaying 6 of 1,482 events</span>
+
+<button class="text-xs font-semibold text-primary flex items-center gap-1 hover:underline">
+
+<span class="material-symbols-outlined text-sm">refresh</span> Refresh Stream
+
+            </button>
+
+</div>
+
+</div>
+
+<!-- Structured Tabular View -->
+
+<div class="overflow-x-auto">
+
+<table class="w-full text-left border-collapse">
+
+<thead>
+
+<tr class="bg-surface-container/50 border-b-2 border-outline-variant text-primary">
+
+<th class="py-3 px-4 font-caption text-caption uppercase tracking-wider w-28">Timestamp</th>
+
+<th class="py-3 px-4 font-caption text-caption uppercase tracking-wider w-64">Household / Subject</th>
+
+<th class="py-3 px-4 font-caption text-caption uppercase tracking-wider w-64">Action Performed</th>
+
+<th class="py-3 px-4 font-caption text-caption uppercase tracking-wider w-64">Performed By (Actor)</th>
+
+<th class="py-3 px-4 font-caption text-caption uppercase tracking-wider">System Rule / Audit Reason</th>
+
+<th class="py-3 px-4 font-caption text-caption uppercase tracking-wider text-right w-40">Verified Status</th>
+
+</tr>
+
+</thead>
+
+<tbody class="divide-y divide-outline-variant/30 text-body-md font-body-md">
+
+<!-- ROW 1 -->
+
+<tr class="hover:bg-surface-container-low/60 transition-colors">
+
+<!-- Timestamp -->
+
+<td class="py-3.5 px-4 font-label-tabular text-label-tabular text-primary font-semibold align-top whitespace-nowrap">
+
+                  14:26:04
+
+                  <span class="block font-caption text-caption text-on-surface-variant font-normal">T+06:42:04</span>
+
+</td>
+
+<!-- Household / Subject -->
+
+<td class="py-3.5 px-4 align-top">
+
+<div class="font-semibold text-primary">Household #HH-4019</div>
+
+<div class="font-body-sm text-body-sm text-on-surface-variant">Ramesh • 3 pax</div>
+
+<div class="font-label-tabular text-xs text-on-surface-variant/80 mt-0.5">+91 XXXXX XXXXX</div>
+
+</td>
+
+<!-- Action Performed -->
+
+<td class="py-3.5 px-4 align-top">
+
+<div class="font-semibold text-primary flex items-center gap-1.5">
+
+<span class="material-symbols-outlined text-base text-blue-600">directions_boat</span>
+
+<span>Driver Acceptance</span>
+
+</div>
+
+<span class="font-caption text-caption text-on-surface-variant">Field Unit Dispatch ID #DISP-992</span>
+
+</td>
+
+<!-- Performed by -->
+
+<td class="py-3.5 px-4 align-top">
+
+<div class="font-medium text-primary">Manoj</div>
+
+<div class="font-body-sm text-body-sm text-on-surface-variant">NDRF Boat-01 (Sector 4 Riverine)</div>
+
+</td>
+
+<!-- System Note -->
+
+<td class="py-3.5 px-4 align-top">
+
+<p class="text-on-surface font-body-sm text-body-sm leading-relaxed">
+
+                    Driver accepted rescue mission via Driver App. Resident callback triggered.
+
+                  </p>
+
+<span class="inline-flex items-center gap-1 mt-1 font-label-tabular text-xs text-on-surface-variant bg-surface-container-high px-2 py-0.5 rounded">
+
+<span class="material-symbols-outlined text-xs">gps_fixed</span> Coord: 12.8681° N, 74.8436° E
+
+                  </span>
+
+</td>
+
+<!-- Status badge: Driver accepted -->
+
+<td class="py-3.5 px-4 align-top text-right">
+
+<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-blue-50 text-blue-800 border border-blue-200">
+
+<span class="w-2 h-2 rounded-full bg-blue-600"></span>
+
+                    Driver accepted
+
+                  </span>
+
+</td>
+
+</tr>
+
+<!-- ROW 2 -->
+
+<tr class="hover:bg-surface-container-low/60 transition-colors bg-surface-container-low/20">
+
+<!-- Timestamp -->
+
+<td class="py-3.5 px-4 font-label-tabular text-label-tabular text-primary font-semibold align-top whitespace-nowrap">
+
+                  14:18:42
+
+                  <span class="block font-caption text-caption text-on-surface-variant font-normal">T+06:34:42</span>
+
+</td>
+
+<!-- Household / Subject -->
+
+<td class="py-3.5 px-4 align-top">
+
+<div class="font-semibold text-primary">Household #HH-4019</div>
+
+<div class="font-body-sm text-body-sm text-on-surface-variant">Ramesh • 3 pax</div>
+
+<div class="font-label-tabular text-xs text-on-surface-variant/80 mt-0.5">+91 XXXXX XXXXX</div>
+
+</td>
+
+<!-- Action Performed -->
+
+<td class="py-3.5 px-4 align-top">
+
+<div class="font-semibold text-primary flex items-center gap-1.5">
+
+<span class="material-symbols-outlined text-base text-secondary">trending_up</span>
+
+<span>Status Change: Escalated to Field Visit Queue</span>
+
+</div>
+
+<span class="font-caption text-caption text-secondary font-medium">Automatic Threshold Triggered</span>
+
+</td>
+
+<!-- Performed by: Highlighted Pill with Shield/Gear -->
+
+<td class="py-3.5 px-4 align-top">
+
+<div class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-secondary-fixed text-on-secondary-fixed border border-secondary-fixed-dim text-xs font-semibold">
+
+<span class="material-symbols-outlined text-sm">settings_suggest</span>
+
+<span>Changed by system rules, not AI</span>
+
+</div>
+
+<div class="font-caption text-caption text-on-surface-variant mt-1">Engine v4.2.1 • Policy #DDMA-SOP-09</div>
+
+</td>
+
+<!-- System Note -->
+
+<td class="py-3.5 px-4 align-top">
+
+<p class="text-on-surface font-body-sm text-body-sm leading-relaxed">
+
+<span class="font-label-tabular font-semibold text-primary">Rule #RULE-IVR-MAX-RETRY:</span> 3 unanswered calls reached. Auto-routed to on-ground ASHA / Field Worker queue.
+
+                  </p>
+
+<span class="inline-block mt-1 font-caption text-caption text-on-surface-variant">Queue: Someshwara Ward Field Recon Team</span>
+
+</td>
+
+<!-- Status badge: Escalated -->
+
+<td class="py-3.5 px-4 align-top text-right">
+
+<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-amber-50 text-amber-900 border border-amber-200">
+
+<span class="w-2 h-2 rounded-full bg-amber-600"></span>
+
+                    Escalated
+
+                  </span>
+
+</td>
+
+</tr>
+
+<!-- ROW 3 -->
+
+<tr class="hover:bg-surface-container-low/60 transition-colors">
+
+<!-- Timestamp -->
+
+<td class="py-3.5 px-4 font-label-tabular text-label-tabular text-primary font-semibold align-top whitespace-nowrap">
+
+                  14:18:40
+
+                  <span class="block font-caption text-caption text-on-surface-variant font-normal">T+06:34:40</span>
+
+</td>
+
+<!-- Household / Subject -->
+
+<td class="py-3.5 px-4 align-top">
+
+<div class="font-semibold text-primary">Household #HH-4019</div>
+
+<div class="font-body-sm text-body-sm text-on-surface-variant">Ramesh • 3 pax</div>
+
+<div class="font-label-tabular text-xs text-on-surface-variant/80 mt-0.5">+91 XXXXX XXXXX</div>
+
+</td>
+
+<!-- Action Performed -->
+
+<td class="py-3.5 px-4 align-top">
+
+<div class="font-semibold text-primary flex items-center gap-1.5">
+
+<span class="material-symbols-outlined text-base text-on-surface-variant">ring_volume</span>
+
+<span>Call Attempt #3 (IVR Audio Broadcast)</span>
+
+</div>
+
+<span class="font-caption text-caption text-on-surface-variant">Telephony Call Session #TEL-91820</span>
+
+</td>
+
+<!-- Performed by -->
+
+<td class="py-3.5 px-4 align-top">
+
+<div class="font-medium text-primary">Telecom Automated Gateway</div>
+
+<div class="font-body-sm text-body-sm text-on-surface-variant">BSNL/Jio Primary Rate Interface (PRI)</div>
+
+</td>
+
+<!-- System Note -->
+
+<td class="py-3.5 px-4 align-top">
+
+<p class="text-on-surface font-body-sm text-body-sm leading-relaxed">
+
+                    Outbound IVR call no answer after 45s. Audio triage: Kannada template 04.
+
+                  </p>
+
+<span class="inline-flex items-center gap-1 mt-1 font-label-tabular text-xs text-on-surface-variant">
+
+<span class="material-symbols-outlined text-xs">record_voice_over</span> Dur: 00:45 • Code: SIP_480_NO_RESPONSE
+
+                  </span>
+
+</td>
+
+<!-- Status badge: No Answer -->
+
+<td class="py-3.5 px-4 align-top text-right">
+
+<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 text-gray-800 border border-gray-300">
+
+<span class="w-2 h-2 rounded-full bg-gray-400"></span>
+
+                    No Answer
+
+                  </span>
+
+</td>
+
+</tr>
+
+<!-- ROW 4 -->
+
+<tr class="hover:bg-surface-container-low/60 transition-colors bg-surface-container-low/20">
+
+<!-- Timestamp -->
+
+<td class="py-3.5 px-4 font-label-tabular text-label-tabular text-primary font-semibold align-top whitespace-nowrap">
+
+                  14:12:15
+
+                  <span class="block font-caption text-caption text-on-surface-variant font-normal">T+06:28:15</span>
+
+</td>
+
+<!-- Household / Subject -->
+
+<td class="py-3.5 px-4 align-top">
+
+<div class="font-semibold text-primary">Sector 4 Evacuation Sub-zone</div>
+
+<div class="font-body-sm text-body-sm text-on-surface-variant">Someshwara Riverbank Reach</div>
+
+<div class="font-label-tabular text-xs text-on-surface-variant/80 mt-0.5">Affected population est. 420 pax</div>
+
+</td>
+
+<!-- Action Performed -->
+
+<td class="py-3.5 px-4 align-top">
+
+<div class="font-semibold text-primary flex items-center gap-1.5">
+
+<span class="material-symbols-outlined text-base text-emerald-700">verified</span>
+
+<span>Dispatcher Approval: Fleet Priority Zone Someshwara</span>
+
+</div>
+
+<span class="font-caption text-caption text-emerald-800 font-medium">Command Elevation Authorized</span>
+
+</td>
+
+<!-- Performed by -->
+
+<td class="py-3.5 px-4 align-top">
+
+<div class="font-medium text-primary">Dispatcher Rajesh M.</div>
+
+<div class="font-body-sm text-body-sm text-on-surface-variant">DDMA Console #02 (Badge #DDMA-884)</div>
+
+</td>
+
+<!-- System Note -->
+
+<td class="py-3.5 px-4 align-top">
+
+<p class="text-on-surface font-body-sm text-body-sm leading-relaxed">
+
+                    Manual priority elevation approved for low-lying riverbank zone.
+
+                  </p>
+
+<span class="inline-block mt-1 font-caption text-caption text-on-surface-variant">Authorization Hash: #AUTH-DDMA-2024-884-01</span>
+
+</td>
+
+<!-- Status badge: Approved -->
+
+<td class="py-3.5 px-4 align-top text-right">
+
+<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-800 border border-emerald-200">
+
+<span class="w-2 h-2 rounded-full bg-emerald-600"></span>
+
+                    Approved
+
+                  </span>
+
+</td>
+
+</tr>
+
+<!-- ROW 5 -->
+
+<tr class="hover:bg-surface-container-low/60 transition-colors">
+
+<!-- Timestamp -->
+
+<td class="py-3.5 px-4 font-label-tabular text-label-tabular text-primary font-semibold align-top whitespace-nowrap">
+
+                  14:02:18
+
+                  <span class="block font-caption text-caption text-on-surface-variant font-normal">T+06:18:18</span>
+
+</td>
+
+<!-- Household / Subject -->
+
+<td class="py-3.5 px-4 align-top">
+
+<div class="font-semibold text-primary">Household #HH-4019</div>
+
+<div class="font-body-sm text-body-sm text-on-surface-variant">Ramesh • 3 pax</div>
+
+<div class="font-label-tabular text-xs text-on-surface-variant/80 mt-0.5">+91 XXXXX XXXXX</div>
+
+</td>
+
+<!-- Action Performed -->
+
+<td class="py-3.5 px-4 align-top">
+
+<div class="font-semibold text-primary flex items-center gap-1.5">
+
+<span class="material-symbols-outlined text-base text-on-surface-variant">phone_forwarded</span>
+
+<span>Call Attempt #2 (Automated Redial)</span>
+
+</div>
+
+<span class="font-caption text-caption text-on-surface-variant">Telephony Call Session #TEL-91740</span>
+
+</td>
+
+<!-- Performed by -->
+
+<td class="py-3.5 px-4 align-top">
+
+<div class="font-medium text-primary">Telecom Automated Gateway</div>
+
+<div class="font-body-sm text-body-sm text-on-surface-variant">BSNL Core Cellular Trunk</div>
+
+</td>
+
+<!-- System Note -->
+
+<td class="py-3.5 px-4 align-top">
+
+<p class="text-on-surface font-body-sm text-body-sm leading-relaxed">
+
+                    Network timeout / line busy. Redial timer scheduled for +15 mins.
+
+                  </p>
+
+<span class="inline-flex items-center gap-1 mt-1 font-label-tabular text-xs text-on-surface-variant">
+
+<span class="material-symbols-outlined text-xs">schedule</span> Next redial set for: 14:17:18
+
+                  </span>
+
+</td>
+
+<!-- Status badge: Busy / Timeout -->
+
+<td class="py-3.5 px-4 align-top text-right">
+
+<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 text-gray-800 border border-gray-300">
+
+<span class="w-2 h-2 rounded-full bg-gray-400"></span>
+
+                    Busy / Timeout
+
+                  </span>
+
+</td>
+
+</tr>
+
+<!-- ROW 6 -->
+
+<tr class="hover:bg-surface-container-low/60 transition-colors bg-surface-container-low/20">
+
+<!-- Timestamp -->
+
+<td class="py-3.5 px-4 font-label-tabular text-label-tabular text-primary font-semibold align-top whitespace-nowrap">
+
+                  13:58:30
+
+                  <span class="block font-caption text-caption text-on-surface-variant font-normal">T+06:14:30</span>
+
+</td>
+
+<!-- Household / Subject -->
+
+<td class="py-3.5 px-4 align-top">
+
+<div class="font-semibold text-primary">Household #HH-4024</div>
+
+<div class="font-body-sm text-body-sm text-on-surface-variant">Geetha • 2 pax</div>
+
+<div class="font-label-tabular text-xs text-on-surface-variant/80 mt-0.5">+91 XXXXX XXXXX</div>
+
+</td>
+
+<!-- Action Performed -->
+
+<td class="py-3.5 px-4 align-top">
+
+<div class="font-semibold text-error flex items-center gap-1.5">
+
+<span class="material-symbols-outlined text-base">emergency</span>
+
+<span>Status Change: Needs Help Flagged</span>
+
+</div>
+
+<span class="font-caption text-caption text-error font-medium">DTMF Response Received</span>
+
+</td>
+
+<!-- Performed by: Highlighted Pill with Shield/Gear -->
+
+<td class="py-3.5 px-4 align-top">
+
+<div class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-secondary-fixed text-on-secondary-fixed border border-secondary-fixed-dim text-xs font-semibold">
+
+<span class="material-symbols-outlined text-sm">settings_suggest</span>
+
+<span>Changed by system rules, not AI</span>
+
+</div>
+
+<div class="font-caption text-caption text-on-surface-variant mt-1">Engine v4.2.1 • Rule Trigger #DTMF-01</div>
+
+</td>
+
+<!-- System Note -->
+
+<td class="py-3.5 px-4 align-top">
+
+<p class="text-on-surface font-body-sm text-body-sm leading-relaxed">
+
+<span class="font-label-tabular font-semibold text-primary">Rule #RULE-DTMF-1:</span> Resident pressed key 1 during automated call. Marked 'Needs help'.
+
+                  </p>
+
+<span class="inline-flex items-center gap-1 mt-1 font-label-tabular text-xs text-error font-medium">
+
+<span class="material-symbols-outlined text-xs">priority_high</span> Evacuation Queue Priority: Tier 1 Immediate
+
+                  </span>
+
+</td>
+
+<!-- Status badge: Needs help -->
+
+<td class="py-3.5 px-4 align-top text-right">
+
+<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-red-50 text-red-800 border border-red-200">
+
+<span class="w-2 h-2 rounded-full bg-red-600"></span>
+
+                    Needs help
+
+                  </span>
+
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+<!-- Pagination & Audit Integrity Verification Footer -->
+
+<div class="px-5 py-3.5 bg-surface-container-low border-t border-outline-variant/40 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-on-surface-variant">
+
+<div class="flex items-center gap-2">
+
+<span class="material-symbols-outlined text-base text-primary">lock</span>
+
+<span class="font-label-tabular text-label-tabular">Ledger Block #88291 • Merkle Root: 4a9f...e102 • Append-Only</span>
+
+</div>
+
+<div class="flex items-center gap-2">
+
+<button class="px-3 py-1 rounded border border-outline-variant bg-white text-primary font-medium hover:bg-surface-container-low disabled:opacity-40" disabled="">Previous</button>
+
+<span class="font-label-tabular font-semibold text-primary">Page 1 of 247</span>
+
+<button class="px-3 py-1 rounded border border-outline-variant bg-white text-primary font-medium hover:bg-surface-container-low">Next</button>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- Additional Traceability Telemetry Bento Panels -->
+
+<div class="mt-6 grid grid-cols-1 md:grid-cols-3 gap-4">
+
+<!-- Panel 1: Telecom Carrier Health -->
+
+<div class="p-4 rounded-xl bg-surface-container-lowest border border-outline-variant/40 shadow-sm">
+
+<div class="flex items-center justify-between">
+
+<div class="flex items-center gap-2">
+
+<span class="material-symbols-outlined text-primary text-xl">cell_tower</span>
+
+<span class="font-label-lg text-label-lg font-bold text-primary">Telecom PRI Trunks</span>
+
+</div>
+
+<span class="px-2 py-0.5 rounded text-xs font-label-tabular bg-emerald-100 text-emerald-800 font-semibold">ALL OPERATIONAL</span>
+
+</div>
+
+<div class="mt-3 space-y-2 text-xs font-label-tabular">
+
+<div class="flex justify-between text-on-surface-variant">
+
+<span>BSNL Trunk #1 (Primary)</span>
+
+<span class="font-bold text-primary">30/30 Channels Active</span>
+
+</div>
+
+<div class="flex justify-between text-on-surface-variant">
+
+<span>Airtel Disaster Trunk #2</span>
+
+<span class="font-bold text-primary">28/30 Channels Active</span>
+
+</div>
+
+<div class="flex justify-between text-on-surface-variant">
+
+<span>Jio PRI Backup Trunk #3</span>
+
+<span class="font-bold text-primary">Standby Ready</span>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- Panel 2: Deterministic Rule Integrity -->
+
+<div class="p-4 rounded-xl bg-surface-container-lowest border border-outline-variant/40 shadow-sm">
+
+<div class="flex items-center justify-between">
+
+<div class="flex items-center gap-2">
+
+<span class="material-symbols-outlined text-secondary text-xl">rule</span>
+
+<span class="font-label-lg text-label-lg font-bold text-primary">Active Decision Rules</span>
+
+</div>
+
+<span class="px-2 py-0.5 rounded text-xs font-label-tabular bg-surface-container-high text-primary font-semibold">v4.2.1 AUDITED</span>
+
+</div>
+
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-2">
+
+            No unverified code changes permitted during active emergency. All 14 life-safety decision matrices locked by District Magistrate order.
+
+          </p>
+
+<div class="mt-2 text-xs font-label-tabular text-secondary font-semibold">
+
+            Last Hash Check: 14:25:00 UTC+5:30 (PASS)
+
+          </div>
+
+</div>
+
+<!-- Panel 3: Privacy & Data Redaction Standard -->
+
+<div class="p-4 rounded-xl bg-surface-container-lowest border border-outline-variant/40 shadow-sm">
+
+<div class="flex items-center justify-between">
+
+<div class="flex items-center gap-2">
+
+<span class="material-symbols-outlined text-primary text-xl">admin_panel_settings</span>
+
+<span class="font-label-lg text-label-lg font-bold text-primary">Privacy Enforcement</span>
+
+</div>
+
+<span class="px-2 py-0.5 rounded text-xs font-label-tabular bg-blue-100 text-blue-800 font-semibold">DPDP ACT 2023</span>
+
+</div>
+
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-2">
+
+            Citizen phone numbers masked in control logs. Full resident identity access restricted to authorized Incident Commander Level 3.
+
+          </p>
+
+<div class="mt-2 text-xs font-label-tabular text-on-surface-variant">
+
+            Data Retain Policy: 90 Days post-de-escalation
+
+          </div>
+
+</div>
+
+</div>
+
+</main>
+
+</div>
+
+
+
+
+
+
+<script>
+function exportAuditCSV() {
+  fetch('/api/audit')
+    .then(r => r.json())
+    .then(data => {
+      const csv = 'Timestamp,Actor,ActorType,Action,Household,Detail\n' +
+        (data.logs || []).map(l => `"${l.timestamp}","${l.actor}","${l.actor_type}","${l.action}","${l.household_id || ''}","${(l.detail || '').replace(/"/g, '""')}"`).join('\n');
+      const blob = new Blob([csv], { type: 'text/csv' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'audit_log.csv';
+      a.click();
+    });
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  document.querySelectorAll('button').forEach(btn => {
+    if (btn.textContent.includes('Export Log')) {
+      btn.onclick = exportAuditCSV;
+    } else if (btn.textContent.includes('Refresh Stream')) {
+      btn.onclick = () => window.location.reload();
+    } else if (btn.textContent.includes('Clear all filters')) {
+      btn.onclick = () => {
+        document.querySelectorAll('input').forEach(i => i.value = '');
+        document.querySelectorAll('tbody tr').forEach(r => r.style.display = '');
+      };
+    }
+  });
+
+  const filterInput = document.querySelector('input[placeholder*="Filter by Household"]');
+  if (filterInput) {
+    filterInput.addEventListener('input', (e) => {
+      const val = e.target.value.toLowerCase().trim();
+      document.querySelectorAll('tbody tr').forEach(r => {
+        r.style.display = r.textContent.toLowerCase().includes(val) ? '' : 'none';
+      });
+    });
+  }
+});
+</script>
+
+</body></html>

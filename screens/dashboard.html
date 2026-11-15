@@ -1,0 +1,1004 @@
+<!-- Dispatcher Dashboard - Abhay DDMA -->
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>ABHAY DDMA COMMAND - Dispatcher Dashboard</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "tertiary-fixed-dim": "#b4c5ff",
+            "on-primary-fixed-variant": "#314769",
+            "on-error": "#ffffff",
+            "inverse-primary": "#b1c7f0",
+            "error-container": "#ffdad6",
+            "inverse-on-surface": "#eef0ff",
+            "primary": "#001026",
+            "on-background": "#131b2e",
+            "surface-tint": "#495f82",
+            "primary-container": "#0b2545",
+            "on-tertiary-fixed-variant": "#003ea8",
+            "on-surface": "#131b2e",
+            "inverse-surface": "#283044",
+            "tertiary-fixed": "#dbe1ff",
+            "error": "#ba1a1a",
+            "on-tertiary-container": "#5885ff",
+            "surface-container-lowest": "#ffffff",
+            "primary-fixed": "#d5e3ff",
+            "on-secondary": "#ffffff",
+            "on-tertiary": "#ffffff",
+            "outline": "#74777f",
+            "surface-container-high": "#e2e7ff",
+            "secondary": "#855300",
+            "on-secondary-fixed": "#2a1700",
+            "on-error-container": "#93000a",
+            "on-primary": "#ffffff",
+            "secondary-container": "#fea619",
+            "secondary-fixed-dim": "#ffb95f",
+            "on-primary-container": "#778db2",
+            "surface-container-low": "#f2f3ff",
+            "surface": "#faf8ff",
+            "surface-variant": "#dae2fd",
+            "on-secondary-container": "#684000",
+            "surface-bright": "#faf8ff",
+            "surface-container-highest": "#dae2fd",
+            "on-secondary-fixed-variant": "#653e00",
+            "on-primary-fixed": "#001c3b",
+            "tertiary": "#000c31",
+            "surface-container": "#eaedff",
+            "outline-variant": "#c4c6cf",
+            "secondary-fixed": "#ffddb8",
+            "on-tertiary-fixed": "#00174b",
+            "on-surface-variant": "#44474e",
+            "surface-dim": "#d2d9f4",
+            "primary-fixed-dim": "#b1c7f0",
+            "tertiary-container": "#001f5e",
+            "background": "#faf8ff"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+          "spacing": {
+            "margin-lg": "2rem",
+            "gutter": "1rem",
+            "margin": "1rem",
+            "space-xs": "0.25rem",
+            "space-lg": "1.5rem",
+            "space-xl": "2rem",
+            "space-md": "1rem",
+            "margin-md": "1.5rem",
+            "space-sm": "0.5rem",
+            "space-2xl": "3rem",
+            "gutter-lg": "1.5rem"
+          },
+          "fontFamily": {
+            "caption": ["Inter"],
+            "body-lg": ["Inter"],
+            "headline-md": ["Inter"],
+            "label-lg": ["Inter"],
+            "headline-lg-mobile": ["Inter"],
+            "body-md": ["Inter"],
+            "headline-sm": ["Inter"],
+            "body-sm": ["Inter"],
+            "label-tabular": ["JetBrains Mono"],
+            "label-md": ["Inter"],
+            "display-lg-mobile": ["Inter"],
+            "display-lg": ["Inter"],
+            "headline-lg": ["Inter"]
+          },
+          "fontSize": {
+            "caption": ["11px", { "lineHeight": "14px", "letterSpacing": "0.04em", "fontWeight": "500" }],
+            "body-lg": ["16px", { "lineHeight": "24px", "letterSpacing": "0em", "fontWeight": "400" }],
+            "headline-md": ["22px", { "lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+            "label-lg": ["14px", { "lineHeight": "18px", "letterSpacing": "0.01em", "fontWeight": "600" }],
+            "headline-lg-mobile": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "700" }],
+            "body-md": ["14px", { "lineHeight": "20px", "letterSpacing": "0em", "fontWeight": "400" }],
+            "headline-sm": ["18px", { "lineHeight": "24px", "letterSpacing": "0em", "fontWeight": "600" }],
+            "body-sm": ["12px", { "lineHeight": "16px", "letterSpacing": "0.01em", "fontWeight": "400" }],
+            "label-tabular": ["13px", { "lineHeight": "18px", "letterSpacing": "-0.01em", "fontWeight": "500" }],
+            "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "600" }],
+            "display-lg-mobile": ["28px", { "lineHeight": "36px", "letterSpacing": "-0.01em", "fontWeight": "700" }],
+            "display-lg": ["40px", { "lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+            "headline-lg": ["30px", { "lineHeight": "38px", "letterSpacing": "-0.015em", "fontWeight": "700" }]
+          }
+        }
+      }
+    }
+  </script>
+<style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      display: inline-block;
+      vertical-align: middle;
+      line-height: 1;
+    }
+    /* Ambient map and radar styling */
+    .tactical-grid {
+      background-size: 32px 32px;
+      background-image: 
+        linear-gradient(to right, rgba(148, 163, 184, 0.15) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(148, 163, 184, 0.15) 1px, transparent 1px);
+    }
+  </style>
+<!-- Leaflet CSS & JS CDN -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+<style>
+  #map {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+  }
+  .tactical-overlay {
+    z-index: 500 !important;
+  }
+  .leaflet-pane {
+    z-index: 200 !important;
+  }
+  .leaflet-top, .leaflet-bottom {
+    z-index: 300 !important;
+  }
+  .pulse-emergency-marker {
+    animation: markerEmergencyPulse 1.6s infinite ease-in-out;
+  }
+  @keyframes markerEmergencyPulse {
+    0% { r: 9px; stroke-width: 2px; }
+    50% { r: 13px; stroke-width: 5px; stroke: #ff4d4d; }
+    100% { r: 9px; stroke-width: 2px; }
+  }
+  .leaflet-popup-content-wrapper {
+    border-radius: 8px;
+    box-shadow: 0 4px 14px rgba(11, 37, 69, 0.25);
+    border: 1px solid #c4c6cf;
+    padding: 0;
+  }
+  .leaflet-popup-content {
+    margin: 10px 12px;
+    line-height: 1.4;
+  }
+  .leaflet-vehicle-divicon {
+    background: transparent;
+    border: none;
+  }
+</style>
+</head>
+<body class="bg-background text-on-surface antialiased flex flex-col h-screen overflow-hidden select-none">
+{% set active_page = "dashboard" %}
+{% include "nav.html" %}
+<!-- MAIN DISPATCH ENVIRONMENT (THREE-COLUMN DESKTOP COMMAND LAYOUT) -->
+<main class="flex-1 flex overflow-hidden bg-background">
+<!-- LEFT COLUMN: Emergency Queue & Household Directory (~340px) -->
+<section class="w-[340px] shrink-0 border-r border-outline-variant/60 bg-surface-container-lowest flex flex-col z-20">
+<!-- Pinned Life-Threat Directive Strip (Shown only if an emergency household exists) -->
+<div id="life-threat-strip" class="bg-error text-on-error p-space-sm border-b border-error/40 flex items-start gap-space-xs shadow-sm" style="display: none;">
+<span class="material-symbols-outlined text-on-error text-lg mt-0.5 animate-pulse" data-icon="e911_emergency" style="font-variation-settings: 'FILL' 1;">e911_emergency</span>
+<div class="flex-1 min-w-0">
+<div class="flex items-center justify-between">
+<span class="font-caption text-caption tracking-wider uppercase bg-on-error text-error px-1.5 py-0.2 rounded font-bold">1 Life-Threat Priority</span>
+<span id="life-threat-badge" class="font-label-tabular text-caption text-on-error/90">Immediate</span>
+</div>
+<p id="life-threat-name" class="font-label-md text-label-md font-semibold truncate mt-0.5">--</p>
+<p id="life-threat-desc" class="font-body-sm text-body-sm text-on-error/90 leading-tight">--</p>
+</div>
+<button id="btn-assign-life-threat" class="bg-on-error text-error text-caption font-bold px-2 py-1 rounded hover:bg-error-container transition-colors shadow-xs">
+          Assign
+        </button>
+</div>
+<!-- Search & Filtration Sub-header -->
+<div class="p-space-sm border-b border-outline-variant/40 bg-surface-container-low flex flex-col gap-space-xs">
+<div class="relative">
+<span class="material-symbols-outlined absolute left-2.5 top-2.5 text-on-surface-variant text-lg" data-icon="search">search</span>
+<input id="household-search-input" class="w-full h-9 pl-9 pr-3 text-body-sm font-body-sm rounded border border-outline-variant bg-surface-container-lowest text-on-surface focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary placeholder:text-on-surface-variant/70" placeholder="Search household, landmark..." type="text"/>
+</div>
+<!-- Filter Tabs with live real counts -->
+<div id="filter-tabs-container" class="flex items-center gap-1 overflow-x-auto pb-0.5 scrollbar-none">
+<button data-filter="all" class="filter-tab-btn font-caption text-caption px-2.5 py-1 rounded bg-primary text-on-primary whitespace-nowrap font-medium transition-colors">All (<span id="count-all">0</span>)</button>
+<button data-filter="needs_help" class="filter-tab-btn font-caption text-caption px-2 py-1 rounded bg-surface-container hover:bg-surface-container-high text-on-surface-variant whitespace-nowrap transition-colors">Needs help (<span id="count-needs-help">0</span>)</button>
+<button data-filter="can_help" class="filter-tab-btn font-caption text-caption px-2 py-1 rounded bg-surface-container hover:bg-surface-container-high text-on-surface-variant whitespace-nowrap transition-colors">Can help (<span id="count-can-help">0</span>)</button>
+<button data-filter="evacuated" class="filter-tab-btn font-caption text-caption px-2 py-1 rounded bg-surface-container hover:bg-surface-container-high text-on-surface-variant whitespace-nowrap transition-colors">Evacuated (<span id="count-evacuated">0</span>)</button>
+<button data-filter="not_reached" class="filter-tab-btn font-caption text-caption px-2 py-1 rounded bg-surface-container hover:bg-surface-container-high text-on-surface-variant whitespace-nowrap transition-colors">Not reached (<span id="count-not-reached">0</span>)</button>
+</div>
+</div>
+<!-- Household Queue Scrollable Directory (Populated dynamically from GET /api/households) -->
+<div id="household-list-container" class="flex-1 overflow-y-auto divide-y divide-outline-variant/30">
+<!-- Dynamic household cards will be injected here -->
+</div>
+<!-- Queue Action Dock -->
+<div class="p-space-sm border-t border-outline-variant/60 bg-surface-container-lowest flex items-center justify-between">
+<span class="font-caption text-caption text-on-surface-variant">Direct Telephony Bridge</span>
+<button id="btn-sync-feed" class="text-caption font-label-md text-primary hover:underline flex items-center gap-1">
+<span class="material-symbols-outlined text-sm" data-icon="refresh">refresh</span>
+          Sync CDR Feed
+        </button>
+</div>
+</section>
+<!-- CENTER COLUMN: Large GIS Tactical Map -->
+<section class="flex-1 relative flex flex-col bg-surface-container-highest overflow-hidden">
+<!-- Real Leaflet OSM Map Canvas -->
+<div id="map" class="absolute inset-0"></div>
+
+<!-- MAP FLOATING OVERLAYS -->
+<!-- Top-Left Tactical HUD / Coordinate Readout -->
+<div class="tactical-overlay absolute top-space-md left-space-md flex items-center gap-space-sm pointer-events-auto">
+<div class="bg-primary/95 text-on-primary backdrop-blur px-3 py-1.5 rounded border border-outline/40 shadow-sm flex items-center gap-3">
+<div class="flex items-center gap-1.5">
+<span class="w-2 h-2 rounded-full bg-green-400"></span>
+<span id="map-coord-readout" class="font-label-tabular text-caption font-semibold">12.8900° N  75.0300° E</span>
+</div>
+<span class="text-outline">|</span>
+<span class="font-caption text-caption text-on-primary-container">DATUM: WGS-84</span>
+<span class="text-outline">|</span>
+<span class="font-caption text-caption text-secondary-fixed">ELEVATION: 36m MSL</span>
+</div>
+</div>
+
+<!-- Top-Right Map Layer Controls -->
+<div class="tactical-overlay absolute top-space-md right-space-md bg-surface-container-lowest/95 backdrop-blur p-1.5 rounded border border-outline-variant shadow-md flex items-center gap-1 pointer-events-auto">
+<button class="px-2.5 py-1 rounded bg-primary text-on-primary font-caption text-caption font-semibold flex items-center gap-1 shadow-xs">
+<span class="material-symbols-outlined text-sm" data-icon="layers">layers</span>
+          Live GIS
+        </button>
+<button id="btn-toggle-vehicles" class="px-2.5 py-1 rounded text-on-surface hover:bg-surface-container font-caption text-caption flex items-center gap-1 transition-colors">
+<span class="material-symbols-outlined text-sm" data-icon="directions_boat">directions_boat</span>
+          Vehicles (<span id="veh-count-badge">6</span>)
+        </button>
+<button id="btn-filter-emergency" class="px-2.5 py-1 rounded text-error hover:bg-error-container/30 font-caption text-caption font-semibold flex items-center gap-1 transition-colors">
+<span class="material-symbols-outlined text-sm" data-icon="e911_emergency">e911_emergency</span>
+          Distress Focus
+        </button>
+</div>
+
+<!-- Bottom-Right Zoom & Navigation Control Cluster -->
+<div class="tactical-overlay absolute bottom-space-md right-space-md flex flex-col gap-1 shadow-md pointer-events-auto">
+<div class="bg-surface-container-lowest rounded border border-outline-variant flex flex-col overflow-hidden">
+<button id="btn-zoom-in" class="w-9 h-9 flex items-center justify-center hover:bg-surface-container text-primary border-b border-outline-variant transition-colors" title="Zoom In">
+<span class="material-symbols-outlined" data-icon="add">add</span>
+</button>
+<button id="btn-zoom-out" class="w-9 h-9 flex items-center justify-center hover:bg-surface-container text-primary transition-colors" title="Zoom Out">
+<span class="material-symbols-outlined" data-icon="remove">remove</span>
+</button>
+</div>
+<button id="btn-recenter" class="w-9 h-9 bg-surface-container-lowest rounded border border-outline-variant flex items-center justify-center hover:bg-surface-container text-primary transition-colors" title="Recenter View (Bantwal 12.89, 75.03)">
+<span class="material-symbols-outlined text-base" data-icon="my_location">my_location</span>
+</button>
+</div>
+
+<!-- Bottom-Left Tactical Map Legend -->
+<div class="tactical-overlay absolute bottom-space-md left-space-md bg-surface-container-lowest/95 backdrop-blur p-2.5 rounded border border-outline-variant shadow-md pointer-events-auto">
+<span class="font-caption text-caption text-on-surface-variant uppercase tracking-wider block font-bold mb-1.5">Map Telemetry Key</span>
+<div class="grid grid-cols-2 gap-x-4 gap-y-1.5">
+<div class="flex items-center gap-1.5 text-caption font-body-sm">
+<span class="w-2.5 h-2.5 rounded-full bg-[#DC2626]"></span>
+<span>Needs help</span>
+</div>
+<div class="flex items-center gap-1.5 text-caption font-body-sm">
+<span class="w-2.5 h-2.5 rounded-full bg-[#EA580C]"></span>
+<span>Can help</span>
+</div>
+<div class="flex items-center gap-1.5 text-caption font-body-sm">
+<span class="w-2.5 h-2.5 rounded-full bg-[#16A34A]"></span>
+<span>Evacuated</span>
+</div>
+<div class="flex items-center gap-1.5 text-caption font-body-sm">
+<span class="w-2.5 h-2.5 rounded-full bg-[#9CA3AF]"></span>
+<span>Not reached</span>
+</div>
+<div class="flex items-center gap-1.5 text-caption font-body-sm">
+<span class="w-2.5 h-2.5 rounded-full bg-[#2563EB]"></span>
+<span>Driver accepted / On run</span>
+</div>
+<div class="flex items-center gap-1.5 text-caption font-body-sm">
+<span class="w-2.5 h-2.5 rounded bg-[#0B2545] border border-white"></span>
+<span>Rescue Vehicle</span>
+</div>
+<div class="flex items-center gap-1.5 text-caption font-body-sm col-span-2 pt-1 border-t border-outline-variant/40">
+<span class="w-3 h-3 rounded-full border-2 border-red-600 bg-red-400 animate-pulse"></span>
+<span class="font-semibold text-error">Pulsing / Enlarged: Emergency Priority</span>
+</div>
+</div>
+</div>
+</section>
+<!-- RIGHT COLUMN: District Summary & Telemetry (~300px) -->
+<aside class="w-[300px] shrink-0 border-l border-outline-variant/60 bg-surface-container-lowest flex flex-col p-space-sm gap-space-sm overflow-y-auto z-20">
+<!-- Section Header -->
+<div class="flex items-center justify-between pb-1 border-b border-outline-variant/40">
+<h2 class="font-label-lg text-label-lg font-bold text-primary uppercase tracking-tight">District Telemetry</h2>
+<span class="font-label-tabular text-caption text-secondary font-bold">LIVE ROSTER</span>
+</div>
+<!-- Metrics Summary Cards (12px rounded, high-contrast) -->
+<div class="grid grid-cols-2 gap-2">
+<!-- Total Homes -->
+<div class="col-span-2 bg-surface-container-low border border-outline-variant/50 p-2.5 rounded-xl flex items-center justify-between shadow-xs">
+<div>
+<span class="font-caption text-caption text-on-surface-variant uppercase tracking-wider">Total Homes Surveyed</span>
+<p id="metric-total-homes" class="font-headline-md text-headline-md font-bold text-primary font-label-tabular">0</p>
+</div>
+<div class="w-10 h-10 rounded-lg bg-surface-container-high flex items-center justify-center text-primary">
+<span class="material-symbols-outlined" data-icon="location_city">location_city</span>
+</div>
+</div>
+<!-- Needs Help (Red) -->
+<div class="bg-[#FEF2F2] border border-[#FECACA] p-2.5 rounded-xl flex flex-col justify-between">
+<div class="flex items-center justify-between">
+<span class="font-caption text-caption text-[#991B1B] font-semibold">Needs help</span>
+<span class="w-2 h-2 rounded-full bg-[#DC2626]"></span>
+</div>
+<p id="metric-needs-help" class="font-headline-md text-headline-md font-bold text-[#DC2626] font-label-tabular mt-1">0</p>
+<span id="metric-needs-help-sub" class="font-caption text-[10px] text-[#991B1B]">0 Critical alerts</span>
+</div>
+<!-- Can Help (Orange) -->
+<div class="bg-[#FFF7ED] border border-[#FFEDD5] p-2.5 rounded-xl flex flex-col justify-between">
+<div class="flex items-center justify-between">
+<span class="font-caption text-caption text-[#9A3412] font-semibold">Can help</span>
+<span class="w-2 h-2 rounded-full bg-[#EA580C]"></span>
+</div>
+<p id="metric-can-help" class="font-headline-md text-headline-md font-bold text-[#EA580C] font-label-tabular mt-1">0</p>
+<span id="metric-can-help-sub" class="font-caption text-[10px] text-[#9A3412]">Available assets</span>
+</div>
+<!-- Evacuated (Green) -->
+<div class="bg-[#F0FDF4] border border-[#BBF7D0] p-2.5 rounded-xl flex flex-col justify-between">
+<div class="flex items-center justify-between">
+<span class="font-caption text-caption text-[#166534] font-semibold">Evacuated</span>
+<span class="w-2 h-2 rounded-full bg-[#16A34A]"></span>
+</div>
+<p id="metric-evacuated" class="font-headline-md text-headline-md font-bold text-[#16A34A] font-label-tabular mt-1">0</p>
+<span id="metric-evacuated-sub" class="font-caption text-[10px] text-[#166534]">Verified at shelter</span>
+</div>
+<!-- Not Reached (Grey) -->
+<div class="bg-[#F3F4F6] border border-[#E5E7EB] p-2.5 rounded-xl flex flex-col justify-between">
+<div class="flex items-center justify-between">
+<span class="font-caption text-caption text-[#374151] font-semibold">Not reached</span>
+<span class="w-2 h-2 rounded-full bg-[#9CA3AF]"></span>
+</div>
+<p id="metric-not-reached" class="font-headline-md text-headline-md font-bold text-[#374151] font-label-tabular mt-1">0</p>
+<span id="metric-not-reached-sub" class="font-caption text-[10px] text-[#6B7280]">Queue priority</span>
+</div>
+</div>
+<!-- Contacted Progress Bar Card -->
+<div class="bg-white border border-outline-variant/50 p-space-sm rounded-xl shadow-xs">
+<div class="flex items-center justify-between">
+<span class="font-label-md text-label-md font-semibold text-primary">Contact Progress</span>
+<span id="progress-pct" class="font-label-tabular text-label-tabular font-bold text-primary">0%</span>
+</div>
+<p id="progress-counts" class="font-caption text-caption text-on-surface-variant mt-0.5">Contacted: 0 / 0 households</p>
+<!-- Segmented Multi-Color Progress Track -->
+<div class="w-full h-3 rounded-full bg-gray-200 mt-2.5 overflow-hidden flex">
+<!-- Evacuated: Green -->
+<div id="bar-evacuated" class="bg-[#16A34A] transition-all duration-300" style="width: 0%" title="Evacuated"></div>
+<!-- Needs Help: Red -->
+<div id="bar-needs-help" class="bg-[#DC2626] transition-all duration-300" style="width: 0%" title="Needs help"></div>
+<!-- Can Help: Orange -->
+<div id="bar-can-help" class="bg-[#EA580C] transition-all duration-300" style="width: 0%" title="Can help"></div>
+<!-- Not Reached: Grey -->
+<div id="bar-not-reached" class="bg-gray-300 transition-all duration-300" style="width: 100%" title="Not reached"></div>
+</div>
+<div class="mt-2 flex items-center justify-between text-[10px] font-label-tabular text-on-surface-variant">
+<span id="target-roster-label">Target Roster</span>
+<span id="pending-calls-label" class="text-error font-medium">0 Pending calls</span>
+</div>
+</div>
+</aside>
+</main>\n<!-- Real-time Synchronization Script for Clock & Status Micro-interactions -->
+<script>
+    function updateClock() {
+      const now = new Date();
+      const hours = String(now.getHours()).padStart(2, '0');
+      const minutes = String(now.getMinutes()).padStart(2, '0');
+      const seconds = String(now.getSeconds()).padStart(2, '0');
+      const clockElement = document.getElementById('live-ist-clock');
+      if (clockElement) {
+        clockElement.textContent = `IST ${hours}:${minutes}:${seconds}`;
+      }
+    }
+    setInterval(updateClock, 1000);
+</script>
+
+<!-- Real Leaflet Map Engine & Live Dashboard Data Controller -->
+<script>
+  (function() {
+    // 1. Initialize Map centered on Bantwal (12.89, 75.03) at zoom 14
+    const map = L.map('map', {
+      zoomControl: false,
+      attributionControl: true
+    }).setView([12.89, 75.03], 14);
+
+    // OpenStreetMap standard tile layer
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 19,
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(map);
+
+    // Coordinate HUD readout
+    map.on('mousemove', function(e) {
+      const el = document.getElementById('map-coord-readout');
+      if (el) {
+        el.textContent = `${e.latlng.lat.toFixed(4)}° N  ${e.latlng.lng.toFixed(4)}° E`;
+      }
+    });
+
+    // Custom Zoom & Recenter controls
+    document.getElementById('btn-zoom-in')?.addEventListener('click', () => map.zoomIn());
+    document.getElementById('btn-zoom-out')?.addEventListener('click', () => map.zoomOut());
+    document.getElementById('btn-recenter')?.addEventListener('click', () => map.setView([12.89, 75.03], 14));
+
+    // Marker stores and local cache
+    const householdMarkers = new Map();
+    const vehicleMarkers = new Map();
+    let allHouseholds = [];
+    let currentFilter = 'all';
+    let searchQuery = '';
+
+    // Status styling helpers
+    function getStatusColor(status) {
+      switch (status) {
+        case 'needs_help':
+        case 'request_recorded':
+          return '#DC2626';
+        case 'can_help':
+          return '#EA580C';
+        case 'evacuated':
+          return '#16A34A';
+        case 'not_reached':
+          return '#9CA3AF';
+        case 'driver_accepted':
+        case 'on_run':
+        case 'picked_up':
+          return '#2563EB';
+        default:
+          return '#9CA3AF';
+      }
+    }
+
+    function getStatusLabel(status) {
+      switch (status) {
+        case 'needs_help':
+          return 'Needs help';
+        case 'request_recorded':
+          return 'Request recorded, no driver accepted yet';
+        case 'can_help':
+          return 'Can help';
+        case 'evacuated':
+          return 'At shelter / Evacuated';
+        case 'not_reached':
+          return 'Not reached';
+        case 'driver_accepted':
+          return 'Driver accepted';
+        case 'on_run':
+          return 'On run';
+        case 'picked_up':
+          return 'Picked up';
+        default:
+          return status || 'Unrecorded';
+      }
+    }
+
+    function getChipStyles(status) {
+      switch (status) {
+        case 'needs_help':
+        case 'request_recorded':
+          return {
+            bg: 'bg-[#FEF2F2]',
+            border: 'border-[#FECACA]',
+            text: 'text-[#991B1B]',
+            dot: 'bg-[#DC2626]',
+            leftBorder: 'border-error'
+          };
+        case 'can_help':
+          return {
+            bg: 'bg-[#FFF7ED]',
+            border: 'border-[#FFEDD5]',
+            text: 'text-[#9A3412]',
+            dot: 'bg-[#EA580C]',
+            leftBorder: 'border-[#EA580C]'
+          };
+        case 'evacuated':
+          return {
+            bg: 'bg-[#F0FDF4]',
+            border: 'border-[#BBF7D0]',
+            text: 'text-[#166534]',
+            dot: 'bg-[#16A34A]',
+            leftBorder: 'border-[#16A34A]'
+          };
+        case 'driver_accepted':
+        case 'on_run':
+        case 'picked_up':
+          return {
+            bg: 'bg-[#EFF6FF]',
+            border: 'border-[#BFDBFE]',
+            text: 'text-[#1E40AF]',
+            dot: 'bg-[#2563EB]',
+            leftBorder: 'border-[#2563EB]'
+          };
+        case 'not_reached':
+        default:
+          return {
+            bg: 'bg-[#F3F4F6]',
+            border: 'border-[#E5E7EB]',
+            text: 'text-[#374151]',
+            dot: 'bg-[#9CA3AF]',
+            leftBorder: 'border-[#9CA3AF]'
+          };
+      }
+    }
+
+    // Popup format: first name, status label, landmark and member count only
+    // NO phone, NO surname, NO exact coordinates
+    function createHouseholdPopup(h) {
+      const color = getStatusColor(h.status);
+      const label = getStatusLabel(h.status);
+      const rawName = (h.first_name || 'Resident').trim();
+      const firstName = rawName.split(/\s+/)[0]; // First name only
+      const landmark = h.landmark || 'Bantwal sector';
+      const members = h.members || 1;
+      const isEmergency = Boolean(h.is_emergency);
+
+      return `
+        <div style="font-family: Inter, sans-serif; min-width: 170px;">
+          <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 4px;">
+            <span style="font-size: 14px; font-weight: 700; color: #0B2545;">${firstName}</span>
+            ${isEmergency ? '<span style="background: #DC2626; color: #fff; font-size: 9px; font-weight: 800; padding: 1px 5px; border-radius: 4px;">EMERGENCY</span>' : ''}
+          </div>
+          <div style="display: inline-block; padding: 2px 7px; border-radius: 9999px; font-size: 11px; font-weight: 600; color: ${color}; background-color: ${color}15; border: 1px solid ${color}40; margin-bottom: 6px;">
+            ${label}
+          </div>
+          <div style="font-size: 12px; color: #475569; margin-top: 2px;">
+            <strong>Landmark:</strong> ${landmark}
+          </div>
+          <div style="font-size: 12px; color: #475569; margin-top: 2px;">
+            <strong>Members:</strong> ${members}
+          </div>
+        </div>
+      `;
+    }
+
+    // 2. Render Left Panel Household Directory
+    function renderHouseholdList() {
+      const container = document.getElementById('household-list-container');
+      if (!container) return;
+
+      // Filter households by tab and search
+      const filtered = allHouseholds.filter(h => {
+        // Tab filter
+        let matchesTab = true;
+        if (currentFilter === 'needs_help') {
+          matchesTab = (h.status === 'needs_help' || h.status === 'request_recorded');
+        } else if (currentFilter === 'can_help') {
+          matchesTab = (h.status === 'can_help');
+        } else if (currentFilter === 'evacuated') {
+          matchesTab = (h.status === 'evacuated');
+        } else if (currentFilter === 'not_reached') {
+          matchesTab = (h.status === 'not_reached');
+        }
+
+        // Search query filter (first name or landmark)
+        let matchesSearch = true;
+        if (searchQuery) {
+          const q = searchQuery.toLowerCase();
+          const fn = (h.first_name || '').toLowerCase();
+          const lm = (h.landmark || '').toLowerCase();
+          matchesSearch = fn.includes(q) || lm.includes(q);
+        }
+
+        return matchesTab && matchesSearch;
+      });
+
+      // Empty State
+      if (filtered.length === 0) {
+        container.innerHTML = `
+          <div class="p-8 text-center text-on-surface-variant flex flex-col items-center justify-center">
+            <span class="material-symbols-outlined text-4xl text-outline mb-2">person_search</span>
+            <p class="font-label-md font-semibold text-primary">No households found</p>
+            <p class="font-caption text-caption text-on-surface-variant mt-1">No households match the current filter or search criteria.</p>
+          </div>
+        `;
+        return;
+      }
+
+      // Build cards
+      let htmlCards = '';
+      filtered.forEach(h => {
+        const rawName = (h.first_name || 'Resident').trim();
+        const firstName = rawName.split(/\s+/)[0];
+        const landmark = h.landmark || 'Bantwal sector';
+        const members = h.members || 1;
+        const chip = getChipStyles(h.status);
+        const label = getStatusLabel(h.status);
+
+        // Additional deterministic sentence or context
+        let subDetails = '';
+        if (h.status === 'needs_help' || h.status === 'request_recorded') {
+          subDetails = `<div class="mt-1.5 flex items-center justify-between pt-1 border-t border-dashed border-outline-variant/40 font-caption text-on-surface-variant">
+            <span class="text-error font-medium truncate">${label}</span>
+          </div>`;
+        } else if (h.status === 'can_help') {
+          subDetails = `<div class="mt-1 text-caption text-[#9A3412] font-medium bg-[#FFF7ED] px-2 py-0.5 rounded inline-block">
+            Volunteer Resource Registered
+          </div>`;
+        } else if (h.status === 'driver_accepted' || h.status === 'on_run') {
+          subDetails = `<div class="mt-1 flex items-center justify-between text-caption text-on-surface-variant">
+            <span class="text-primary font-semibold">Rescue Unit Active</span>
+            <span class="font-label-tabular text-label-tabular text-secondary font-bold">In Transit</span>
+          </div>`;
+        }
+
+        htmlCards += `
+          <div class="household-card p-space-sm hover:bg-surface-container-low transition-colors cursor-pointer border-l-4 ${chip.leftBorder}" data-id="${h.id}" data-lat="${h.lat}" data-lng="${h.lng}">
+            <div class="flex items-center justify-between gap-1">
+              <span class="font-label-md text-label-md text-on-surface font-semibold">${firstName}</span>
+              <span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full ${chip.bg} border ${chip.border} ${chip.text} font-label-md text-label-md">
+                <span class="w-1.5 h-1.5 rounded-full ${chip.dot}"></span>
+                ${label}
+              </span>
+            </div>
+            <div class="mt-1 flex items-center justify-between text-body-sm text-on-surface-variant">
+              <span class="truncate">${landmark}</span>
+              <span class="font-label-tabular text-caption shrink-0 ml-1">${members} Member${members > 1 ? 's' : ''}</span>
+            </div>
+            ${subDetails}
+          </div>
+        `;
+      });
+
+      container.innerHTML = htmlCards;
+
+      // Card click: Centers map on household and opens /call/<id>
+      container.querySelectorAll('.household-card').forEach(card => {
+        card.addEventListener('click', () => {
+          const hhId = card.getAttribute('data-id');
+          const lat = parseFloat(card.getAttribute('data-lat'));
+          const lng = parseFloat(card.getAttribute('data-lng'));
+
+          if (!isNaN(lat) && !isNaN(lng)) {
+            map.setView([lat, lng], 16);
+            if (householdMarkers.has(hhId)) {
+              householdMarkers.get(hhId).openPopup();
+            }
+          }
+          // Navigate to call detail
+          setTimeout(() => {
+            window.location.href = `/call/${hhId}`;
+          }, 250);
+        });
+      });
+    }
+
+    // 3. Update Left Panel Filter Tab Counts
+    function updateFilterTabCounts() {
+      const total = allHouseholds.length;
+      const needsHelp = allHouseholds.filter(h => h.status === 'needs_help' || h.status === 'request_recorded').length;
+      const canHelp = allHouseholds.filter(h => h.status === 'can_help').length;
+      const evacuated = allHouseholds.filter(h => h.status === 'evacuated').length;
+      const notReached = allHouseholds.filter(h => h.status === 'not_reached').length;
+
+      const setVal = (id, val) => {
+        const el = document.getElementById(id);
+        if (el) el.textContent = val;
+      };
+
+      setVal('count-all', total);
+      setVal('count-needs-help', needsHelp);
+      setVal('count-can-help', canHelp);
+      setVal('count-evacuated', evacuated);
+      setVal('count-not-reached', notReached);
+    }
+
+    // 4. Update Life-Threat Strip (Highest priority emergency only if one exists)
+    function updateLifeThreatStrip() {
+      const strip = document.getElementById('life-threat-strip');
+      if (!strip) return;
+
+      const emergencyHousehold = allHouseholds.find(h => Boolean(h.is_emergency) && h.status !== 'evacuated');
+
+      if (emergencyHousehold) {
+        strip.style.display = 'flex';
+        const rawName = (emergencyHousehold.first_name || 'Resident').trim();
+        const firstName = rawName.split(/\s+/)[0];
+        const landmark = emergencyHousehold.landmark || 'Bantwal sector';
+        const members = emergencyHousehold.members || 1;
+
+        const nameEl = document.getElementById('life-threat-name');
+        const descEl = document.getElementById('life-threat-desc');
+        const btn = document.getElementById('btn-assign-life-threat');
+
+        if (nameEl) nameEl.textContent = firstName;
+        if (descEl) descEl.textContent = `${landmark} - ${members} Member${members > 1 ? 's' : ''}`;
+        if (btn) {
+          btn.onclick = (e) => {
+            e.stopPropagation();
+            if (emergencyHousehold.lat && emergencyHousehold.lng) {
+              map.setView([emergencyHousehold.lat, emergencyHousehold.lng], 16);
+            }
+            window.location.href = `/call/${emergencyHousehold.id}`;
+          };
+        }
+      } else {
+        strip.style.display = 'none';
+      }
+    }
+
+    // 5. Update Right Panel Summary Cards and Progress Bar from live database
+    function updateRightPanelMetrics() {
+      const total = allHouseholds.length;
+      const needsHelp = allHouseholds.filter(h => h.status === 'needs_help' || h.status === 'request_recorded').length;
+      const criticalCount = allHouseholds.filter(h => (h.status === 'needs_help' || h.status === 'request_recorded') && h.is_emergency).length;
+      const canHelp = allHouseholds.filter(h => h.status === 'can_help').length;
+      const evacuated = allHouseholds.filter(h => h.status === 'evacuated').length;
+      const notReached = allHouseholds.filter(h => h.status === 'not_reached').length;
+      const contacted = total - notReached;
+
+      const setVal = (id, val) => {
+        const el = document.getElementById(id);
+        if (el) el.textContent = val;
+      };
+
+      setVal('metric-total-homes', total);
+      setVal('metric-needs-help', needsHelp);
+      setVal('metric-needs-help-sub', `${criticalCount} Critical alert${criticalCount === 1 ? '' : 's'}`);
+      setVal('metric-can-help', canHelp);
+      setVal('metric-can-help-sub', `Available assets`);
+      setVal('metric-evacuated', evacuated);
+      setVal('metric-evacuated-sub', `Verified at shelter`);
+      setVal('metric-not-reached', notReached);
+      setVal('metric-not-reached-sub', `Queue priority`);
+
+      // Contact progress bar
+      const pct = total > 0 ? ((contacted / total) * 100).toFixed(1) : 0;
+      setVal('progress-pct', `${pct}%`);
+      setVal('progress-counts', `Contacted: ${contacted} / ${total} households`);
+      setVal('pending-calls-label', `${notReached} Pending calls`);
+
+      if (total > 0) {
+        const barEvac = document.getElementById('bar-evacuated');
+        const barNeeds = document.getElementById('bar-needs-help');
+        const barCan = document.getElementById('bar-can-help');
+        const barNot = document.getElementById('bar-not-reached');
+
+        if (barEvac) barEvac.style.width = `${((evacuated / total) * 100).toFixed(1)}%`;
+        if (barNeeds) barNeeds.style.width = `${((needsHelp / total) * 100).toFixed(1)}%`;
+        if (barCan) barCan.style.width = `${((canHelp / total) * 100).toFixed(1)}%`;
+        if (barNot) barNot.style.width = `${((notReached / total) * 100).toFixed(1)}%`;
+      }
+    }
+
+    // 6. Fetch and render households (Map + Left + Right)
+    async function loadHouseholds() {
+      try {
+        const res = await fetch('/api/households');
+        const data = await res.json();
+        allHouseholds = data.households || [];
+
+        // Render map markers
+        allHouseholds.forEach(h => {
+          if (typeof h.lat !== 'number' || typeof h.lng !== 'number') return;
+          const color = getStatusColor(h.status);
+          const isEmergency = Boolean(h.is_emergency);
+          const radius = isEmergency ? 11 : 7;
+          const popupContent = createHouseholdPopup(h);
+
+          if (householdMarkers.has(h.id)) {
+            const m = householdMarkers.get(h.id);
+            m.setLatLng([h.lat, h.lng]);
+            m.setStyle({
+              fillColor: color,
+              color: '#FFFFFF',
+              weight: isEmergency ? 3 : 2,
+              radius: radius,
+              className: isEmergency ? 'pulse-emergency-marker' : ''
+            });
+            m.setPopupContent(popupContent);
+            m._householdData = h;
+          } else {
+            const marker = L.circleMarker([h.lat, h.lng], {
+              radius: radius,
+              fillColor: color,
+              color: '#FFFFFF',
+              weight: isEmergency ? 3 : 2,
+              opacity: 1,
+              fillOpacity: 0.9,
+              className: isEmergency ? 'pulse-emergency-marker' : ''
+            }).bindPopup(popupContent);
+
+            marker._householdData = h;
+            marker.addTo(map);
+            householdMarkers.set(h.id, marker);
+          }
+        });
+
+        // Update UI panels
+        updateFilterTabCounts();
+        renderHouseholdList();
+        updateLifeThreatStrip();
+        updateRightPanelMetrics();
+
+      } catch (err) {
+        console.warn('Error loading households:', err);
+      }
+    }
+
+    // 7. Create custom DivIcon for vehicles
+    function createVehicleDivIcon(v) {
+      const isBoat = (v.type || '').toLowerCase().includes('boat');
+      const iconName = isBoat ? 'directions_boat' : 'directions_car';
+      const desig = v.designation || 'Unit';
+      return L.divIcon({
+        className: 'leaflet-vehicle-divicon',
+        html: `
+          <div style="display: inline-flex; align-items: center; gap: 4px; padding: 3px 8px; background: #0B2545; color: #ffffff; border: 1.5px solid #ffffff; border-radius: 6px; box-shadow: 0 3px 8px rgba(0,0,0,0.35); font-family: Inter, sans-serif; font-size: 11px; font-weight: 700; white-space: nowrap;">
+            <span class="material-symbols-outlined" style="font-size: 14px; vertical-align: middle;">${iconName}</span>
+            <span>${desig}</span>
+          </div>
+        `,
+        iconSize: [120, 26],
+        iconAnchor: [60, 13]
+      });
+    }
+
+    function createVehiclePopup(v) {
+      return `
+        <div style="font-family: Inter, sans-serif; min-width: 160px;">
+          <div style="font-size: 13px; font-weight: 700; color: #0B2545; margin-bottom: 4px;">
+            ${v.designation}
+          </div>
+          <div style="font-size: 12px; color: #475569;">
+            <strong>Driver:</strong> ${v.driver_name || 'Assigned'}
+          </div>
+          <div style="font-size: 12px; color: #475569; margin-top: 2px;">
+            <strong>Status:</strong> ${v.status}
+          </div>
+          <div style="font-size: 12px; color: #475569; margin-top: 2px;">
+            <strong>Capacity:</strong> ${v.capacity} persons
+          </div>
+        </div>
+      `;
+    }
+
+    // 8. Fetch and render vehicles
+    async function loadVehicles() {
+      try {
+        const res = await fetch('/api/vehicles');
+        const data = await res.json();
+        const list = data.vehicles || [];
+
+        const badge = document.getElementById('veh-count-badge');
+        if (badge) badge.textContent = list.length;
+
+        list.forEach(v => {
+          if (typeof v.lat !== 'number' || typeof v.lng !== 'number') return;
+          const icon = createVehicleDivIcon(v);
+          const popupContent = createVehiclePopup(v);
+
+          if (vehicleMarkers.has(v.id)) {
+            const m = vehicleMarkers.get(v.id);
+            m.setLatLng([v.lat, v.lng]);
+            m.setIcon(icon);
+            m.setPopupContent(popupContent);
+          } else {
+            const marker = L.marker([v.lat, v.lng], { icon: icon })
+              .bindPopup(popupContent)
+              .addTo(map);
+            vehicleMarkers.set(v.id, marker);
+          }
+        });
+      } catch (err) {
+        console.warn('Error loading vehicles on map:', err);
+      }
+    }
+
+    // 9. Wire filter tabs and search inputs
+    function setupInteractions() {
+      // Filter tabs
+      document.querySelectorAll('.filter-tab-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          document.querySelectorAll('.filter-tab-btn').forEach(b => {
+            b.className = 'filter-tab-btn font-caption text-caption px-2 py-1 rounded bg-surface-container hover:bg-surface-container-high text-on-surface-variant whitespace-nowrap transition-colors';
+          });
+          btn.className = 'filter-tab-btn font-caption text-caption px-2.5 py-1 rounded bg-primary text-on-primary whitespace-nowrap font-medium transition-colors';
+          currentFilter = btn.getAttribute('data-filter') || 'all';
+          renderHouseholdList();
+        });
+      });
+
+      // Search input
+      const searchInput = document.getElementById('household-search-input');
+      if (searchInput) {
+        searchInput.addEventListener('input', (e) => {
+          searchQuery = e.target.value.trim();
+          renderHouseholdList();
+        });
+      }
+
+      // Sync CDR feed button
+      document.getElementById('btn-sync-feed')?.addEventListener('click', () => {
+        loadHouseholds();
+        loadVehicles();
+      });
+
+      // Distress Focus button: zooms to bounding box of households needing help
+      document.getElementById('btn-filter-emergency')?.addEventListener('click', () => {
+        const emergencyPoints = [];
+        householdMarkers.forEach(m => {
+          const d = m._householdData;
+          if (d && (d.is_emergency || d.status === 'needs_help' || d.status === 'request_recorded')) {
+            emergencyPoints.push(m.getLatLng());
+          }
+        });
+        if (emergencyPoints.length > 0) {
+          const bounds = L.latLngBounds(emergencyPoints);
+          map.fitBounds(bounds, { padding: [40, 40], maxZoom: 16 });
+        }
+      });
+    }
+
+    // 10. Live Server-Sent Events (SSE) listener
+    function setupLiveEvents() {
+      if (!window.EventSource) return;
+      const sse = new EventSource('/api/events');
+
+      sse.addEventListener('update', function(e) {
+        try {
+          const payload = JSON.parse(e.data);
+          const evData = payload.data || {};
+
+          // If event has household_id, update local object immediately
+          if (evData.household_id) {
+            const h = allHouseholds.find(item => item.id === evData.household_id);
+            if (h && evData.status) {
+              h.status = evData.status;
+            }
+          }
+
+          // Full background re-sync from API to guarantee complete consistency
+          loadHouseholds();
+          loadVehicles();
+        } catch (err) {
+          console.warn('SSE update parse error:', err);
+        }
+      });
+
+      sse.onerror = function() {
+        // Automatic reconnection by browser EventSource
+      };
+    }
+
+    // Initialize
+    setupInteractions();
+    loadHouseholds();
+    loadVehicles();
+    setupLiveEvents();
+
+  })();
+</script>
+\n
+<script>
+function exportDashboardAudit() {
+  fetch('/api/audit')
+    .then(r => r.json())
+    .then(data => {
+      const csv = 'Timestamp,Actor,ActorType,Action,Household,Detail\n' +
+        (data.logs || []).map(l => `"${l.timestamp}","${l.actor}","${l.actor_type}","${l.action}","${l.household_id || ''}","${(l.detail || '').replace(/"/g, '""')}"`).join('\n');
+      const blob = new Blob([csv], { type: 'text/csv' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'abhay_audit_log.csv';
+      a.click();
+    });
+}
+</script>
+
+</body></html>

@@ -1,0 +1,801 @@
+<!-- Household Needs - Abhay Citizen -->
+
+<!DOCTYPE html><html class="light" lang="kn"><head>
+
+<meta charset="utf-8">
+
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
+
+<title>ಅಭಯ / ABHAY DDMA - Household Needs</title>
+
+<!-- Fonts -->
+
+<link href="https://fonts.googleapis.com" rel="preconnect">
+
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@500;600&amp;display=swap" rel="stylesheet">
+
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+
+<!-- Tailwind CSS -->
+
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+
+<script id="tailwind-config">
+
+    tailwind.config = {
+
+      darkMode: "class",
+
+      theme: {
+
+        extend: {
+
+          "colors": {
+
+            "secondary-fixed": "#ffddb8",
+
+            "on-secondary-fixed-variant": "#653e00",
+
+            "on-error": "#ffffff",
+
+            "inverse-surface": "#283044",
+
+            "inverse-on-surface": "#eef0ff",
+
+            "tertiary-fixed": "#dbe1ff",
+
+            "tertiary-container": "#001f5e",
+
+            "surface-container-lowest": "#ffffff",
+
+            "inverse-primary": "#b1c7f0",
+
+            "surface-tint": "#495f82",
+
+            "on-tertiary": "#ffffff",
+
+            "surface-container": "#eaedff",
+
+            "on-secondary-fixed": "#2a1700",
+
+            "primary-fixed": "#d5e3ff",
+
+            "on-surface": "#131b2e",
+
+            "surface-container-highest": "#dae2fd",
+
+            "tertiary-fixed-dim": "#b4c5ff",
+
+            "background": "#faf8ff",
+
+            "on-primary-container": "#778db2",
+
+            "on-secondary-container": "#684000",
+
+            "on-surface-variant": "#44474e",
+
+            "error": "#ba1a1a",
+
+            "error-container": "#ffdad6",
+
+            "secondary": "#855300",
+
+            "surface-container-low": "#f2f3ff",
+
+            "surface-dim": "#d2d9f4",
+
+            "on-error-container": "#93000a",
+
+            "surface": "#faf8ff",
+
+            "primary": "#001026",
+
+            "outline-variant": "#c4c6cf",
+
+            "on-secondary": "#ffffff",
+
+            "primary-container": "#0b2545",
+
+            "outline": "#74777f",
+
+            "surface-variant": "#dae2fd",
+
+            "surface-container-high": "#e2e7ff",
+
+            "on-tertiary-fixed": "#00174b",
+
+            "tertiary": "#000c31",
+
+            "on-tertiary-container": "#5885ff",
+
+            "on-tertiary-fixed-variant": "#003ea8",
+
+            "on-primary-fixed": "#001c3b",
+
+            "surface-bright": "#faf8ff",
+
+            "secondary-container": "#fea619",
+
+            "on-primary": "#ffffff",
+
+            "secondary-fixed-dim": "#ffb95f",
+
+            "on-primary-fixed-variant": "#314769",
+
+            "primary-fixed-dim": "#b1c7f0",
+
+            "on-background": "#131b2e"
+
+          },
+
+          "borderRadius": {
+
+            "DEFAULT": "0.25rem",
+
+            "lg": "0.5rem",
+
+            "xl": "0.75rem",
+
+            "full": "9999px"
+
+          },
+
+          "spacing": {
+
+            "space-sm": "0.5rem",
+
+            "margin-md": "1.5rem",
+
+            "space-lg": "1.5rem",
+
+            "gutter": "1rem",
+
+            "space-xs": "0.25rem",
+
+            "space-xl": "2rem",
+
+            "gutter-lg": "1.5rem",
+
+            "space-2xl": "3rem",
+
+            "margin": "1rem",
+
+            "space-md": "1rem",
+
+            "margin-lg": "2rem"
+
+          },
+
+          "fontFamily": {
+
+            "headline-lg-mobile": ["Inter"],
+
+            "display-lg": ["Inter"],
+
+            "display-lg-mobile": ["Inter"],
+
+            "body-sm": ["Inter"],
+
+            "label-md": ["Inter"],
+
+            "caption": ["Inter"],
+
+            "headline-md": ["Inter"],
+
+            "headline-lg": ["Inter"],
+
+            "body-lg": ["Inter"],
+
+            "label-lg": ["Inter"],
+
+            "body-md": ["Inter"],
+
+            "headline-sm": ["Inter"],
+
+            "label-tabular": ["JetBrains Mono"]
+
+          },
+
+          "fontSize": {
+
+            "headline-lg-mobile": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "700" }],
+
+            "display-lg": ["40px", { "lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+
+            "display-lg-mobile": ["28px", { "lineHeight": "36px", "letterSpacing": "-0.01em", "fontWeight": "700" }],
+
+            "body-sm": ["12px", { "lineHeight": "16px", "letterSpacing": "0.01em", "fontWeight": "400" }],
+
+            "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "600" }],
+
+            "caption": ["11px", { "lineHeight": "14px", "letterSpacing": "0.04em", "fontWeight": "500" }],
+
+            "headline-md": ["22px", { "lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+
+            "headline-lg": ["30px", { "lineHeight": "38px", "letterSpacing": "-0.015em", "fontWeight": "700" }],
+
+            "body-lg": ["16px", { "lineHeight": "24px", "letterSpacing": "0em", "fontWeight": "400" }],
+
+            "label-lg": ["14px", { "lineHeight": "18px", "letterSpacing": "0.01em", "fontWeight": "600" }],
+
+            "body-md": ["14px", { "lineHeight": "20px", "letterSpacing": "0em", "fontWeight": "400" }],
+
+            "headline-sm": ["18px", { "lineHeight": "24px", "letterSpacing": "0em", "fontWeight": "600" }],
+
+            "label-tabular": ["13px", { "lineHeight": "18px", "letterSpacing": "-0.01em", "fontWeight": "500" }]
+
+          }
+
+        }
+
+      }
+
+    }
+
+  </script>
+
+</head>
+
+<body class="bg-background text-on-surface antialiased flex justify-center min-h-screen">
+
+<!-- Outer Mobile Viewport Frame (Strict 390px Mobile Canvas simulation) -->
+
+<main class="w-full max-w-[390px] min-h-screen bg-background relative flex flex-col pb-24 border-x border-outline-variant/30 shadow-2xl">
+
+<!-- TopAppBar (Shared Component Implementation) -->
+
+<header class="bg-primary dark:bg-primary-container text-on-primary dark:text-inverse-primary border-b border-outline-variant dark:border-outline shadow-sm flex justify-between items-center w-full px-4 h-14 fixed top-0 left-0 max-w-[390px] mx-auto right-0 z-50">
+
+<div class="flex items-center gap-2.5">
+
+<button aria-label="ಹಿಂದಕ್ಕೆ / Go Back" class="text-on-primary hover:bg-primary-container p-1.5 rounded-lg transition-colors duration-150 active:scale-95 flex items-center justify-center" type="button">
+
+<span class="material-symbols-outlined text-[20px]">arrow_back</span>
+
+</button>
+
+<div class="flex items-center gap-1.5">
+
+<span class="material-symbols-outlined text-[20px] text-secondary-container" style="font-variation-settings: 'FILL' 1;">shield</span>
+
+<span class="text-headline-sm font-headline-sm font-bold text-on-primary dark:text-inverse-primary tracking-tight">ಅಭಯ / ABHAY DDMA</span>
+
+</div>
+
+</div>
+
+<div class="flex items-center">
+
+<button class="text-label-lg font-label-lg px-2.5 py-1 rounded bg-primary-container/80 text-secondary-fixed border border-secondary-container/30 transition-colors duration-150 active:scale-95" type="button">
+
+          EN | ಕನ್ನ
+
+        </button>
+
+</div>
+
+</header>
+
+<!-- Page Content Container with top clearance for fixed header -->
+
+<div class="mt-14 px-4 pt-3 flex flex-col gap-4">
+
+<!-- Stepper / Progress Header Block -->
+
+<section aria-label="ಪ್ರಗತಿ / Progress" class="bg-surface-container-lowest rounded-xl p-3.5 border border-outline-variant/60 shadow-sm">
+
+<div class="flex justify-between items-center mb-1.5">
+
+<span class="text-label-md font-label-md text-primary font-bold">ಹಂತ 2 / 3: ವೈದ್ಯಕೀಯ ಮತ್ತು ಚಲನಶೀಲತೆಯ ಅಗತ್ಯಗಳು</span>
+
+<span class="text-label-tabular font-label-tabular text-on-surface-variant font-semibold">66.6%</span>
+
+</div>
+
+<p class="text-body-sm font-body-sm text-on-surface-variant font-medium mb-2.5">
+
+          Step 2 of 3: Household Needs &amp; Evacuation Assistance
+
+        </p>
+
+<!-- Segmented 2/3 Tactical Progress Track -->
+
+<div aria-valuemax="100" aria-valuemin="0" aria-valuenow="66" class="w-full bg-surface-container-high rounded-full h-2 overflow-hidden flex" role="progressbar">
+
+<div class="bg-secondary-container h-full rounded-full transition-all duration-300" style="width: 66.6%;"></div>
+
+</div>
+
+<!-- Contextual Operational Subtitle -->
+
+<div class="mt-3 flex items-start gap-2 bg-surface-container-low p-2.5 rounded-lg border-l-4 border-secondary-container">
+
+<span class="material-symbols-outlined text-secondary text-[18px] mt-0.5 shrink-0" style="font-variation-settings: 'FILL' 1;">cloud_download</span>
+
+<div>
+
+<h1 class="text-body-sm font-body-sm font-bold text-on-surface">ಪಾರುಗಾಣಿಕಾ ತಂಡಕ್ಕೆ ಅಗತ್ಯವಿರುವ ವಿಶೇಷ ಕಾಳಜಿಗಳು</h1>
+
+<p class="text-caption font-caption text-on-surface-variant leading-tight">Specific priority mobility flags transmitted directly to DDMA field dispatch units.</p>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- Member Manifest Cards Container -->
+
+<div class="flex flex-col gap-3.5">
+
+<!-- MEMBER 1: Elderly Senior (Parvathi) -->
+
+<section aria-labelledby="member-1-heading" class="bg-surface-container-lowest rounded-xl border-2 border-secondary-container/70 shadow-sm overflow-hidden">
+
+<!-- Card Header Strip -->
+
+<div class="bg-surface-container-low px-3.5 py-2.5 flex items-center justify-between border-b border-outline-variant/50">
+
+<div class="flex items-center gap-2">
+
+<span class="material-symbols-outlined text-primary text-[20px]" style="font-variation-settings: 'FILL' 1;">elderly</span>
+
+<div>
+
+<h2 class="text-label-lg font-label-lg font-bold text-on-surface" id="member-1-heading">ಸದಸ್ಯ 1: ಹಿರಿಯ ನಾಗರಿಕರು</h2>
+
+<span class="text-caption font-caption text-on-surface-variant">Member 1 — Elderly Senior (Parvathi)</span>
+
+</div>
+
+</div>
+
+<!-- Priority Indicator Tag -->
+
+<span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-caption font-caption font-bold bg-[#FEF2F2] border border-[#FECACA] text-[#991B1B]">
+
+<span class="w-1.5 h-1.5 rounded-full bg-[#DC2626]"></span>
+
+              High Priority
+
+            </span>
+
+</div>
+
+<div class="p-3.5 flex flex-col gap-3">
+
+<!-- Sleeping Room Location Selector -->
+
+<div>
+
+<label class="block text-caption font-caption font-bold text-on-surface mb-1" for="room-select-1">
+
+                ಮಲಗುವ ಕೋಣೆ / SLEEPING ROOM LOCATION <span class="text-error">*</span>
+
+</label>
+
+<div class="relative">
+
+<select class="w-full h-11 pl-3 pr-8 rounded-lg border border-outline-variant bg-surface-container-lowest text-on-surface text-body-md font-body-md focus:border-primary-container focus:ring-2 focus:ring-secondary-container appearance-none font-medium" id="room-select-1">
+
+<option selected="" value="ground-front">ನೆಲ ಮಹಡಿ - ಮುಂಭಾಗ (Ground Floor - Front Room)</option>
+
+<option value="ground-back">ನೆಲ ಮಹಡಿ - ಹಿಂಭಾಗ (Ground Floor - Back Room)</option>
+
+<option value="first-floor">ಮೊದಲ ಮಹಡಿ (First Floor)</option>
+
+<option value="terrace">ಟೆರೇಸ್ / ಮೇಲ್ಛಾವಣಿ (Terrace Rooftop)</option>
+
+</select>
+
+<span class="material-symbols-outlined absolute right-2.5 top-2.5 pointer-events-none text-outline text-[20px]">expand_more</span>
+
+</div>
+
+<p class="text-caption font-caption text-on-surface-variant mt-1">Ground floor room ensures rapid stretcher access via front portico.</p>
+
+</div>
+
+<!-- Accessibility & Medical Checkboxes -->
+
+<fieldset class="flex flex-col gap-2 pt-1 border-t border-outline-variant/30">
+
+<legend class="text-caption font-caption font-bold text-outline uppercase tracking-wider mb-1">
+
+                ಚಲನಶೀಲತೆ &amp; ವೈದ್ಯಕೀಯ ಸ್ಥಿತಿ (Medical &amp; Mobility Flags)
+
+              </legend>
+
+<!-- Checkbox Item 1 (Checked) -->
+
+<label class="flex items-start gap-2.5 p-2 rounded-lg bg-[#FEF2F2]/60 border border-[#FECACA] cursor-pointer">
+
+<input checked="" class="mt-0.5 rounded text-primary focus:ring-secondary-container border-outline w-4 h-4 text-primary-container" type="checkbox">
+
+<div class="flex-1">
+
+<span class="text-label-md font-label-md font-bold text-[#991B1B] block">ನಡೆಯಲು ಸಾಧ್ಯವಿಲ್ಲ</span>
+
+<span class="text-caption font-caption text-[#991B1B]/90">Cannot walk independently</span>
+
+</div>
+
+<span class="material-symbols-outlined text-[18px] text-[#DC2626]">not_accessible</span>
+
+</label>
+
+<!-- Checkbox Item 2 (Unchecked) -->
+
+<label class="flex items-start gap-2.5 p-2 rounded-lg bg-surface-container-low/40 border border-outline-variant/40 hover:bg-surface-container-low cursor-pointer">
+
+<input class="mt-0.5 rounded text-primary focus:ring-secondary-container border-outline w-4 h-4" type="checkbox">
+
+<div class="flex-1">
+
+<span class="text-body-md font-body-md font-medium text-on-surface block leading-tight">ಗಾಲಿಕುರ್ಚಿ ಬಳಸುತ್ತಾರೆ - ಮ್ಯಾನುಯಲ್/ಪವರ್</span>
+
+<span class="text-caption font-caption text-on-surface-variant">Uses wheelchair - manual or power</span>
+
+</div>
+
+<span class="material-symbols-outlined text-[18px] text-outline">accessible</span>
+
+</label>
+
+<!-- Checkbox Item 3 (Checked) -->
+
+<label class="flex items-start gap-2.5 p-2 rounded-lg bg-[#FEF2F2]/60 border border-[#FECACA] cursor-pointer">
+
+<input checked="" class="mt-0.5 rounded text-primary focus:ring-secondary-container border-outline w-4 h-4 text-primary-container" type="checkbox">
+
+<div class="flex-1">
+
+<span class="text-label-md font-label-md font-bold text-[#991B1B] block">ಹಾಸಿಗೆ ಹಿಡಿದಿದ್ದಾರೆ / ಸ್ಟ್ರೆಚರ್ ಬೇಕು</span>
+
+<span class="text-caption font-caption text-[#991B1B]/90">Bedridden / Special stretcher equipment required</span>
+
+</div>
+
+<span class="material-symbols-outlined text-[18px] text-[#DC2626]">bed</span>
+
+</label>
+
+<!-- Checkbox Item 4 (Checked) -->
+
+<label class="flex items-start gap-2.5 p-2 rounded-lg bg-surface-container-low/80 border border-outline-variant/70 cursor-pointer">
+
+<input checked="" class="mt-0.5 rounded text-primary focus:ring-secondary-container border-outline w-4 h-4 text-primary-container" type="checkbox">
+
+<div class="flex-1">
+
+<span class="text-label-md font-label-md font-bold text-on-surface block">ಹಿರಿಯ ನಾಗರಿಕರು 60+</span>
+
+<span class="text-caption font-caption text-on-surface-variant">Elderly Citizen</span>
+
+</div>
+
+<span class="material-symbols-outlined text-[18px] text-outline">elderly_woman</span>
+
+</label>
+
+<!-- Checkbox Item 5 (Unchecked) -->
+
+<label class="flex items-start gap-2.5 p-2 rounded-lg bg-surface-container-low/40 border border-outline-variant/40 hover:bg-surface-container-low cursor-pointer">
+
+<input class="mt-0.5 rounded text-primary focus:ring-secondary-container border-outline w-4 h-4" type="checkbox">
+
+<div class="flex-1">
+
+<span class="text-body-md font-body-md font-medium text-on-surface block leading-tight">ಗರ್ಭಿಣಿ</span>
+
+<span class="text-caption font-caption text-on-surface-variant">Pregnant</span>
+
+</div>
+
+<span class="material-symbols-outlined text-[18px] text-outline">pregnant_woman</span>
+
+</label>
+
+<!-- Checkbox Item 6 (Checked) -->
+
+<label class="flex items-start gap-2.5 p-2 rounded-lg bg-[#FEF2F2]/60 border border-[#FECACA] cursor-pointer">
+
+<input checked="" class="mt-0.5 rounded text-primary focus:ring-secondary-container border-outline w-4 h-4 text-primary-container" type="checkbox">
+
+<div class="flex-1"><span class="text-label-md font-label-md font-bold text-[#991B1B] block">ಔಷಧಿ ಅಥವಾ ಆಮ್ಲಜನಕ ಬೇಕು</span>
+
+<span class="text-caption font-caption text-[#991B1B]/90">Needs medicine or oxygen</span></div>
+
+<span class="material-symbols-outlined text-[18px] text-[#DC2626]">medication</span>
+
+</label>
+
+</fieldset>
+
+</div>
+
+</section>
+
+<!-- MEMBER 2: Adult Son -->
+
+<section aria-labelledby="member-2-heading" class="bg-surface-container-lowest rounded-xl border border-outline-variant/70 shadow-sm overflow-hidden">
+
+<div class="bg-surface-container-low px-3.5 py-2.5 flex items-center justify-between border-b border-outline-variant/50">
+
+<div class="flex items-center gap-2">
+
+<span class="material-symbols-outlined text-outline text-[20px]">person</span>
+
+<div>
+
+<h2 class="text-label-lg font-label-lg font-bold text-on-surface" id="member-2-heading">ಸದಸ್ಯ 2: ವಯಸ್ಕ</h2>
+
+<span class="text-caption font-caption text-on-surface-variant">Member 2 — Adult (Son)</span>
+
+</div>
+
+</div>
+
+<!-- Mobility Tag -->
+
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-caption font-caption font-semibold bg-[#F0FDF4] border border-[#BBF7D0] text-[#166534]">
+
+<span class="w-1.5 h-1.5 rounded-full bg-[#16A34A]"></span>
+
+              Able to assist
+
+            </span>
+
+</div>
+
+<div class="p-3.5 flex flex-col gap-3">
+
+<div>
+
+<label class="block text-caption font-caption font-bold text-on-surface mb-1" for="room-select-2">
+
+                ಮಲಗುವ ಕೋಣೆ / SLEEPING ROOM LOCATION
+
+              </label>
+
+<div class="relative">
+
+<select class="w-full h-11 pl-3 pr-8 rounded-lg border border-outline-variant bg-surface-container-lowest text-on-surface text-body-md font-body-md focus:border-primary-container appearance-none font-medium" id="room-select-2">
+
+<option selected="" value="ground-back">ನೆಲ ಮಹಡಿ - ಹಿಂಭಾಗ (Ground Floor - Back Room)</option>
+
+<option value="ground-front">ನೆಲ ಮಹಡಿ - ಮುಂಭಾಗ (Ground Floor - Front Room)</option>
+
+<option value="first-floor">ಮೊದಲ ಮಹಡಿ (First Floor)</option>
+
+</select>
+
+<span class="material-symbols-outlined absolute right-2.5 top-2.5 pointer-events-none text-outline text-[20px]">expand_more</span>
+
+</div>
+
+</div>
+
+<!-- Quick Mobility Confirmation -->
+
+<div class="flex items-center justify-between p-2 rounded-lg bg-surface-container-low border border-outline-variant/40">
+
+<div class="flex items-center gap-2">
+
+<span class="material-symbols-outlined text-[#16A34A] text-[18px]">check_circle</span>
+
+<span class="text-body-sm font-body-sm font-medium text-on-surface">ಸಾಮಾನ್ಯ ಚಲನಶೀಲತೆ (Normal Mobility)</span>
+
+</div>
+
+<span class="text-caption font-caption font-bold text-outline">NO FLAGS</span>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- MEMBER 3: Adult Daughter-in-law -->
+
+<section aria-labelledby="member-3-heading" class="bg-surface-container-lowest rounded-xl border border-outline-variant/70 shadow-sm overflow-hidden">
+
+<div class="bg-surface-container-low px-3.5 py-2.5 flex items-center justify-between border-b border-outline-variant/50">
+
+<div class="flex items-center gap-2">
+
+<span class="material-symbols-outlined text-outline text-[20px]">person_outline</span>
+
+<div>
+
+<h2 class="text-label-lg font-label-lg font-bold text-on-surface" id="member-3-heading">ಸದಸ್ಯ 3: ವಯಸ್ಕ</h2>
+
+<span class="text-caption font-caption text-on-surface-variant">Member 3 — Adult (Daughter-in-law)</span>
+
+</div>
+
+</div>
+
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-caption font-caption font-semibold bg-[#F0FDF4] border border-[#BBF7D0] text-[#166534]">
+
+<span class="w-1.5 h-1.5 rounded-full bg-[#16A34A]"></span>
+
+              Able to assist
+
+            </span>
+
+</div>
+
+<div class="p-3.5 flex flex-col gap-3">
+
+<div>
+
+<label class="block text-caption font-caption font-bold text-on-surface mb-1" for="room-select-3">
+
+                ಮಲಗುವ ಕೋಣೆ / SLEEPING ROOM LOCATION
+
+              </label>
+
+<div class="relative">
+
+<select class="w-full h-11 pl-3 pr-8 rounded-lg border border-outline-variant bg-surface-container-lowest text-on-surface text-body-md font-body-md focus:border-primary-container appearance-none font-medium" id="room-select-3">
+
+<option selected="" value="first-floor">ಮೊದಲ ಮಹಡಿ (First Floor)</option>
+
+<option value="ground-front">ನೆಲ ಮಹಡಿ - ಮುಂಭಾಗ (Ground Floor - Front)</option>
+
+<option value="ground-back">ನೆಲ ಮಹಡಿ - ಹಿಂಭಾಗ (Ground Floor - Back)</option>
+
+</select>
+
+<span class="material-symbols-outlined absolute right-2.5 top-2.5 pointer-events-none text-outline text-[20px]">expand_more</span>
+
+</div>
+
+</div>
+
+<!-- Quick Mobility Confirmation -->
+
+<div class="flex items-center justify-between p-2 rounded-lg bg-surface-container-low border border-outline-variant/40">
+
+<div class="flex items-center gap-2">
+
+<span class="material-symbols-outlined text-[#16A34A] text-[18px]">check_circle</span>
+
+<span class="text-body-sm font-body-sm font-medium text-on-surface">ಸಾಮಾನ್ಯ ಚಲನಶೀಲತೆ (Normal Mobility)</span>
+
+</div>
+
+<span class="text-caption font-caption font-bold text-outline">NO FLAGS</span>
+
+</div>
+
+</div>
+
+</section>
+
+</div>
+
+<!-- Mandatory Consent Card (Prominent Border as mandated) -->
+
+<section aria-label="ಕಾನೂನು ಸಮ್ಮತಿ / Legal Consent" class="bg-surface-container-lowest rounded-xl border-2 border-primary p-3.5 shadow-sm bg-gradient-to-b from-white to-surface-container-low/30">
+
+<label class="flex items-start gap-3 cursor-pointer">
+
+<input checked="" class="mt-1 rounded text-primary focus:ring-secondary-container border-2 border-primary w-5 h-5 cursor-pointer" type="checkbox">
+
+<div class="flex-1">
+
+<span class="text-caption font-caption font-bold text-primary uppercase tracking-wide flex items-center gap-1 mb-1">
+
+<span class="material-symbols-outlined text-[16px] text-primary" style="font-variation-settings: 'FILL' 1;">verified_user</span>
+
+              ಕಡ್ಡಾಯ ಸಮ್ಮತಿ / Mandatory Consent
+
+            </span>
+
+<p class="text-body-sm font-body-sm font-bold text-on-surface leading-snug">
+
+              ತುರ್ತು ಪಾರುಗಾಣಿಕಾ ಸಮನ್ವಯಕ್ಕಾಗಿ ಮಾತ್ರ ನನ್ನ ವಿವರಗಳನ್ನು ಬಳಸಲು ನಾನು ಒಪ್ಪುತ್ತೇನೆ ಮತ್ತು ಘಟನೆಯ ನಂತರ ಸ್ವಯಂಚಾಲಿತವಾಗಿ ಅಳಿಸಲಾಗುತ್ತದೆ.
+
+            </p>
+
+<p class="text-caption font-caption text-on-surface-variant mt-1">
+
+              I agree to my details being used only for evacuation coordination and deleted automatically after the incident.
+
+            </p>
+
+</div>
+
+</label>
+
+</section>
+
+<!-- Primary Action CTA Cluster -->
+
+<div class="flex flex-col gap-2.5 pt-1">
+
+<button class="w-full min-h-[48px] px-4 py-3 bg-primary hover:bg-primary-container text-on-primary font-bold rounded-lg shadow-md transition-all duration-150 active:scale-[0.98] flex items-center justify-center gap-2 text-label-lg font-label-lg" type="button">
+
+<span>ನೋಂದಣಿ ಪೂರ್ಣಗೊಳಿಸಿ / Submit Household Details</span>
+
+<span class="material-symbols-outlined text-[20px]">check</span>
+
+</button>
+
+<!-- District Emergency Hotline Notice -->
+
+<div class="text-center py-1">
+
+<p class="text-caption font-caption font-semibold text-on-surface">
+
+            ತುರ್ತು ಸಂದರ್ಭದಲ್ಲಿ <a class="text-error font-bold underline underline-offset-2" href="tel:1077">1077</a> ಸಹಾಯವಾಣಿಗೆ ಕರೆ ಮಾಡಿ.
+
+          </p>
+
+<p class="text-caption font-caption text-on-surface-variant">DDMA 24/7 District Emergency Operations Center (DEOC)</p>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- BottomNavBar (Shared Component Execution for Active Household 'ಕುಟುಂಬ / House' Destination) -->
+
+<nav aria-label="Main Navigation" class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-2 py-2 h-16 bg-surface-container-lowest dark:bg-surface-container-high border-t border-outline-variant dark:border-outline max-w-[390px] mx-auto right-0 shadow-md">
+
+<!-- Nav Item 1: ಸಿದ್ಧತೆ / Ready (Inactive) -->
+
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline px-3 py-1 transition-transform duration-150 active:scale-95" href="#ready">
+
+<span class="material-symbols-outlined text-[20px]">verified_user</span>
+
+<span class="text-caption font-caption mt-0.5">ಸಿದ್ಧತೆ / Ready</span>
+
+</a>
+
+<!-- Nav Item 2: ಕುಟುಂಬ / House (ACTIVE: Current Household Needs Screen) -->
+
+<a aria-current="page" class="flex flex-col items-center justify-center text-primary dark:text-secondary-fixed font-bold bg-primary-fixed dark:bg-primary-container rounded-lg px-3 py-1 transition-transform duration-150 active:scale-95" href="#house">
+
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">groups</span>
+
+<span class="text-caption font-caption mt-0.5">ಕುಟುಂಬ / House</span>
+
+</a>
+
+<!-- Nav Item 3: ತುರ್ತು / IVR (Inactive) -->
+
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline px-3 py-1 transition-transform duration-150 active:scale-95" href="#ivr">
+
+<span class="material-symbols-outlined text-[20px]">ring_volume</span>
+
+<span class="text-caption font-caption mt-0.5">ತುರ್ತು / IVR</span>
+
+</a>
+
+<!-- Nav Item 4: ಸ್ಥಿತಿ / Status (Inactive) -->
+
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline px-3 py-1 transition-transform duration-150 active:scale-95" href="#status">
+
+<span class="material-symbols-outlined text-[20px]">task_alt</span>
+
+<span class="text-caption font-caption mt-0.5">ಸ್ಥಿತಿ / Status</span>
+
+</a>
+
+</nav>
+
+</main>
+
+
+
+
+
+</body></html>

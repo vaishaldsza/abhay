@@ -1,0 +1,725 @@
+<!-- House Card - Abhay DDMA -->
+
+<!DOCTYPE html><html lang="en"><head>
+
+<meta charset="utf-8">
+
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+<title>House Card - Abhay DDMA</title>
+
+<!-- Material Symbols Outlined -->
+
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&amp;family=JetBrains+Mono:wght@100..900&amp;display=swap" rel="stylesheet">
+
+<!-- Tailwind CSS v3 with plugins -->
+
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+
+<script id="tailwind-config">
+
+    tailwind.config = {
+
+      darkMode: "class",
+
+      theme: {
+
+        extend: {
+
+          "colors": {
+
+            "surface-container": "#eaedff",
+
+            "error": "#ba1a1a",
+
+            "surface": "#faf8ff",
+
+            "inverse-on-surface": "#eef0ff",
+
+            "error-container": "#ffdad6",
+
+            "surface-tint": "#495f82",
+
+            "on-tertiary-fixed": "#00174b",
+
+            "on-primary-container": "#778db2",
+
+            "on-tertiary-container": "#5885ff",
+
+            "secondary": "#855300",
+
+            "on-error-container": "#93000a",
+
+            "tertiary-container": "#001f5e",
+
+            "on-tertiary": "#ffffff",
+
+            "on-primary-fixed": "#001c3b",
+
+            "surface-container-lowest": "#ffffff",
+
+            "on-tertiary-fixed-variant": "#003ea8",
+
+            "on-surface-variant": "#44474e",
+
+            "on-secondary-fixed": "#2a1700",
+
+            "surface-variant": "#dae2fd",
+
+            "secondary-fixed-dim": "#ffb95f",
+
+            "outline": "#74777f",
+
+            "on-primary": "#ffffff",
+
+            "inverse-primary": "#b1c7f0",
+
+            "tertiary-fixed-dim": "#b4c5ff",
+
+            "secondary-container": "#fea619",
+
+            "primary-container": "#0b2545",
+
+            "primary-fixed-dim": "#b1c7f0",
+
+            "tertiary": "#000c31",
+
+            "outline-variant": "#c4c6cf",
+
+            "primary-fixed": "#d5e3ff",
+
+            "surface-bright": "#faf8ff",
+
+            "on-secondary-fixed-variant": "#653e00",
+
+            "surface-dim": "#d2d9f4",
+
+            "on-secondary": "#ffffff",
+
+            "surface-container-highest": "#dae2fd",
+
+            "background": "#faf8ff",
+
+            "inverse-surface": "#283044",
+
+            "on-error": "#ffffff",
+
+            "on-primary-fixed-variant": "#314769",
+
+            "surface-container-low": "#f2f3ff",
+
+            "tertiary-fixed": "#dbe1ff",
+
+            "secondary-fixed": "#ffddb8",
+
+            "on-secondary-container": "#684000",
+
+            "surface-container-high": "#e2e7ff",
+
+            "primary": "#001026",
+
+            "on-background": "#131b2e",
+
+            "on-surface": "#131b2e"
+
+          },
+
+          "borderRadius": {
+
+            "DEFAULT": "0.25rem",
+
+            "lg": "0.5rem",
+
+            "xl": "0.75rem",
+
+            "full": "9999px"
+
+          },
+
+          "spacing": {
+
+            "space-lg": "1.5rem",
+
+            "space-sm": "0.5rem",
+
+            "margin-md": "1.5rem",
+
+            "gutter": "1rem",
+
+            "space-md": "1rem",
+
+            "gutter-lg": "1.5rem",
+
+            "margin": "1rem",
+
+            "space-xs": "0.25rem",
+
+            "margin-lg": "2rem",
+
+            "space-xl": "2rem",
+
+            "space-2xl": "3rem"
+
+          },
+
+          "fontFamily": {
+
+            "body-lg": ["Inter"],
+
+            "label-tabular": ["JetBrains Mono"],
+
+            "headline-lg": ["Inter"],
+
+            "caption": ["Inter"],
+
+            "display-lg-mobile": ["Inter"],
+
+            "body-sm": ["Inter"],
+
+            "label-md": ["Inter"],
+
+            "headline-lg-mobile": ["Inter"],
+
+            "display-lg": ["Inter"],
+
+            "headline-md": ["Inter"],
+
+            "body-md": ["Inter"],
+
+            "headline-sm": ["Inter"],
+
+            "label-lg": ["Inter"]
+
+          },
+
+          "fontSize": {
+
+            "body-lg": ["16px", { "lineHeight": "24px", "letterSpacing": "0em", "fontWeight": "400" }],
+
+            "label-tabular": ["13px", { "lineHeight": "18px", "letterSpacing": "-0.01em", "fontWeight": "500" }],
+
+            "headline-lg": ["30px", { "lineHeight": "38px", "letterSpacing": "-0.015em", "fontWeight": "700" }],
+
+            "caption": ["11px", { "lineHeight": "14px", "letterSpacing": "0.04em", "fontWeight": "500" }],
+
+            "display-lg-mobile": ["28px", { "lineHeight": "36px", "letterSpacing": "-0.01em", "fontWeight": "700" }],
+
+            "body-sm": ["12px", { "lineHeight": "16px", "letterSpacing": "0.01em", "fontWeight": "400" }],
+
+            "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "600" }],
+
+            "headline-lg-mobile": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "700" }],
+
+            "display-lg": ["40px", { "lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+
+            "headline-md": ["22px", { "lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+
+            "body-md": ["14px", { "lineHeight": "20px", "letterSpacing": "0em", "fontWeight": "400" }],
+
+            "headline-sm": ["18px", { "lineHeight": "24px", "letterSpacing": "0em", "fontWeight": "600" }],
+
+            "label-lg": ["14px", { "lineHeight": "18px", "letterSpacing": "0.01em", "fontWeight": "600" }]
+
+          }
+
+        }
+
+      }
+
+    }
+
+  </script>
+
+</head>
+
+<body class="bg-background text-on-surface antialiased min-h-screen flex justify-center selection:bg-secondary-container selection:text-primary">
+
+<!-- Mobile Viewport Wrapper (390px specified) -->
+
+<main class="w-full max-w-[390px] min-h-screen bg-surface flex flex-col relative pb-32">
+
+<!-- Top Operational Sub-Header (Task-Focused with Back action: Global Nav Bottom Bar correctly suppressed per mandate) -->
+
+<header class="sticky top-0 z-40 bg-surface-container-lowest shadow-sm px-4 pt-3 pb-2.5 flex flex-col gap-2">
+
+<div class="flex items-center justify-between">
+
+<!-- Return Button -->
+
+<a class="inline-flex items-center gap-1 text-primary hover:text-primary-container active:scale-95 transition-transform" href="/field">
+
+<span class="material-symbols-outlined text-[18px]">arrow_back</span>
+
+<span class="font-label-md text-label-md">&lt; Back to Field Visits</span>
+
+</a>
+
+<!-- DDMA Institutional Tag -->
+
+<div class="flex items-center gap-1 text-on-surface-variant font-caption text-caption uppercase tracking-wider">
+
+<span class="material-symbols-outlined text-[14px]">shield</span>
+
+<span>Abhay Field Ops</span>
+
+</div>
+
+</div>
+
+<!-- Title & Quick Status Strip -->
+
+<div class="flex items-center justify-between pt-0.5">
+
+<h1 class="font-headline-sm text-headline-sm text-primary font-bold tracking-tight">House Card #HH-4019</h1>
+
+<!-- Status Chip: Not Reached Yet / Pending Verification -->
+
+<div class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-surface-container-high border border-outline-variant">
+
+<span class="w-1.5 h-1.5 rounded-full bg-outline"></span>
+
+<span class="font-caption text-caption text-on-surface-variant font-semibold">Pending Field Verification</span>
+
+</div>
+
+</div>
+
+</header>
+
+<!-- Main Operational Canvas -->
+
+<div class="p-4 flex flex-col gap-4">
+
+<!-- DPDP & Geo Notice Banner -->
+
+<section class="bg-surface-container-low rounded-lg p-2.5 border border-outline-variant flex items-start gap-2.5">
+
+<span class="material-symbols-outlined text-primary text-[18px] mt-0.5 shrink-0">lock</span>
+
+<div class="flex flex-col">
+
+<div class="flex items-center gap-2">
+
+<span class="font-label-md text-label-md text-primary">Ward 4 Sector Assessment</span>
+
+<span class="text-caption font-caption bg-surface-container text-on-surface-variant px-1 rounded">DPDP MASKED</span>
+
+</div>
+
+<span class="font-body-sm text-body-sm text-on-surface-variant">Identity redaction active under DPDP Act 2023. Field triage token: #T-9921</span>
+
+</div>
+
+</section>
+
+<!-- Main Profile Card -->
+
+<section class="bg-surface-container-lowest rounded-xl p-4 border border-outline-variant shadow-sm flex flex-col gap-3.5">
+
+<!-- Head of Household & Headcount -->
+
+<div class="flex items-start justify-between pb-3 border-b border-surface-container-high">
+
+<div>
+
+<div class="text-caption font-caption text-on-surface-variant uppercase tracking-wider">Head of Household (First Name Only)</div>
+
+<div class="flex items-baseline gap-2 mt-0.5">
+
+<span class="font-headline-md text-headline-md text-primary font-bold">Ramesh</span>
+
+<span class="font-caption text-caption text-outline font-label-tabular">[Surname Redacted]</span>
+
+</div>
+
+</div>
+
+<div class="bg-surface-container px-2.5 py-1.5 rounded-lg flex flex-col items-end">
+
+<span class="font-caption text-caption text-on-surface-variant">Occupants</span>
+
+<span class="font-label-tabular text-label-tabular text-primary font-bold">3 People</span>
+
+</div>
+
+</div>
+
+<!-- Household Composition Detail -->
+
+<div class="flex items-center gap-2 text-on-surface">
+
+<span class="material-symbols-outlined text-primary text-[18px]">group</span>
+
+<span class="font-body-md text-body-md font-medium">3 People (1 Bedridden Senior, 2 Adults)</span>
+
+</div>
+
+<!-- Language Preference -->
+
+<div class="flex items-start gap-2 text-on-surface">
+
+<span class="material-symbols-outlined text-secondary text-[18px] shrink-0 mt-0.5">translate</span>
+
+<div>
+
+<span class="font-caption text-caption text-on-surface-variant block">Spoken Language</span>
+
+<span class="font-body-md text-body-md font-semibold text-primary">Kannada (ಕನ್ನಡ) • Primary / English • Secondary</span>
+
+</div>
+
+</div>
+
+<!-- Physical Landmark -->
+
+<div class="flex items-start gap-2 text-on-surface">
+
+<span class="material-symbols-outlined text-primary text-[18px] shrink-0 mt-0.5">pin_drop</span>
+
+<div>
+
+<span class="font-caption text-caption text-on-surface-variant block">Navigation Landmark</span>
+
+<span class="font-body-md text-body-md text-on-surface">Near Someshwara Temple, Ward 4, Old Bridge Road</span>
+
+</div>
+
+</div>
+
+<!-- Mobility & Special Needs Section (Tactical Highlight) -->
+
+<div class="mt-1 pt-3 border-t border-surface-container-high flex flex-col gap-2">
+
+<div class="flex items-center justify-between">
+
+<span class="font-label-md text-label-md text-error flex items-center gap-1">
+
+<span class="material-symbols-outlined text-error text-[16px]">priority_high</span>
+
+              Critical Mobility &amp; Life Support Needs
+
+            </span>
+
+</div>
+
+<!-- Urgency Accent Chips -->
+
+<div class="flex flex-col gap-2">
+
+<!-- Chip 1: Stretcher Need (Needs Help High Urgency) -->
+
+<div class="flex items-start gap-2 bg-[#FEF2F2] border border-[#FECACA] rounded-lg p-2.5">
+
+<span class="w-2 h-2 rounded-full bg-[#DC2626] mt-1.5 shrink-0"></span>
+
+<span class="font-label-md text-label-md text-[#991B1B]">
+
+                Bedridden (Needs special stretcher equipment)
+
+              </span>
+
+</div>
+
+<!-- Chip 2: Oxygen Support -->
+
+<div class="flex items-start gap-2 bg-[#FFF7ED] border border-[#FFEDD5] rounded-lg p-2.5">
+
+<span class="w-2 h-2 rounded-full bg-[#EA580C] mt-1.5 shrink-0"></span>
+
+<span class="font-label-md text-label-md text-[#9A3412]">
+
+                Continuous Oxygen Concentrator support
+
+              </span>
+
+</div>
+
+</div>
+
+<!-- Sleeping Room Location Specifics -->
+
+<div class="bg-surface-container-low rounded-lg p-2.5 mt-1 border border-outline-variant flex items-start gap-2">
+
+<span class="material-symbols-outlined text-primary text-[18px] shrink-0 mt-0.5">meeting_room</span>
+
+<div class="flex flex-col">
+
+<span class="font-caption text-caption text-on-surface-variant">Sleeping room location</span>
+
+<span class="font-body-md text-body-md font-semibold text-primary">Ground floor front room (Direct portico access)</span>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- Helper & Caregiver Contact Card -->
+
+<section class="bg-surface-container-lowest rounded-xl p-4 border border-outline-variant shadow-sm flex flex-col gap-3">
+
+<div class="flex items-center justify-between">
+
+<div class="flex items-center gap-1.5">
+
+<span class="material-symbols-outlined text-secondary text-[20px]">person_alert</span>
+
+<h2 class="font-headline-sm text-headline-sm text-primary font-bold">Helper &amp; Caregiver Contact</h2>
+
+</div>
+
+<span class="font-caption text-caption px-1.5 py-0.5 bg-surface-container text-on-surface-variant rounded">Verified Neighbor</span>
+
+</div>
+
+<div class="bg-surface-container-low rounded-lg p-3 border border-outline-variant flex flex-col gap-2.5">
+
+<div class="flex justify-between items-baseline">
+
+<span class="font-caption text-caption text-on-surface-variant">Designated Local Helper / Neighbor</span>
+
+<span class="font-body-md text-body-md font-bold text-primary">Suresh (Neighbor)</span>
+
+</div>
+
+<div class="flex items-center justify-between pt-1">
+
+<div>
+
+<span class="font-caption text-caption text-on-surface-variant block">Helper Masked Relay</span>
+
+<span class="font-label-tabular text-label-tabular text-on-surface font-semibold">+91 XXXXX XXXXX</span>
+
+</div>
+
+<!-- Call Relay Button -->
+
+<button class="bg-primary text-on-primary hover:bg-[#133968] active:scale-95 px-3 py-1.5 rounded-lg flex items-center gap-1.5 transition-all shadow-sm">
+
+<span class="material-symbols-outlined text-[16px]">call</span>
+
+<span class="font-label-md text-label-md font-semibold">Call Masked Relay</span>
+
+</button>
+
+</div>
+
+</div>
+
+<!-- Household Phone Line Masked -->
+
+<div class="flex items-center justify-between px-3 py-2 bg-surface-container-lowest rounded-lg border border-outline-variant">
+
+<div>
+
+<span class="font-caption text-caption text-on-surface-variant block">Masked Head of Household Phone</span>
+
+<span class="font-label-tabular text-label-tabular text-on-surface">+91 XXXXX XXXXX</span>
+
+</div>
+
+<span class="material-symbols-outlined text-outline text-[18px]">lock</span>
+
+</div>
+
+</section>
+
+<!-- Automated IVR Call History & Automated Telephony Telemetry -->
+
+<section class="bg-surface-container-lowest rounded-xl p-4 border border-outline-variant shadow-sm flex flex-col gap-3">
+
+<div>
+
+<div class="flex items-center justify-between">
+
+<h2 class="font-headline-sm text-headline-sm text-primary font-bold flex items-center gap-1.5">
+
+<span class="material-symbols-outlined text-secondary text-[20px]">phone_in_talk</span>
+
+              Automated IVR Call History (Retry Count: 3)
+
+            </h2>
+
+</div>
+
+<p class="font-caption text-caption text-on-surface-variant mt-0.5">
+
+            System automated voice broadcast logs before field worker dispatch
+
+          </p>
+
+</div>
+
+<!-- Telemetry Logs Container -->
+
+<div class="border border-outline-variant rounded-lg overflow-hidden bg-surface-container-low flex flex-col divide-y divide-outline-variant">
+
+<!-- Attempt 1 -->
+
+<div class="p-2.5 flex items-start gap-2 bg-surface-container-lowest">
+
+<span class="font-caption text-caption font-label-tabular bg-surface-container text-primary font-bold px-1.5 py-0.5 rounded shrink-0">
+
+              LOG 01
+
+            </span>
+
+<div class="flex-1">
+
+<div class="font-label-tabular text-label-tabular text-on-surface">13:45:10 - Ringing (No Answer after 45s) • DTMF: None</div>
+
+<div class="font-caption text-caption text-on-surface-variant">Gatekeeper: PBX-Cluster-02 • Cell Tower Ward 4 Sector B</div>
+
+</div>
+
+</div>
+
+<!-- Attempt 2 -->
+
+<div class="p-2.5 flex items-start gap-2 bg-surface-container-lowest">
+
+<span class="font-caption text-caption font-label-tabular bg-surface-container text-primary font-bold px-1.5 py-0.5 rounded shrink-0">
+
+              LOG 02
+
+            </span>
+
+<div class="flex-1">
+
+<div class="font-label-tabular text-label-tabular text-on-surface">14:02:18 - Automated Redial • Line Dropped / Network Congestion</div>
+
+<div class="font-caption text-caption text-error">Signal degradation: Carrier Base Station Switch Over</div>
+
+</div>
+
+</div>
+
+<!-- Attempt 3 -->
+
+<div class="p-2.5 flex items-start gap-2 bg-surface-container-lowest">
+
+<span class="font-caption text-caption font-label-tabular bg-error-container text-on-error-container font-bold px-1.5 py-0.5 rounded shrink-0">
+
+              LOG 03
+
+            </span>
+
+<div class="flex-1">
+
+<div class="font-label-tabular text-label-tabular text-error font-semibold">14:18:40 - Automated Redial • No Answer (Retry limit reached -&gt; Escalated to Field Visit)</div>
+
+<div class="font-caption text-caption text-on-surface-variant">Auto-transition rule triggered: ID-R404-AUTO</div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- Deterministic Status Notice (Rule not AI) -->
+
+<div class="flex items-center gap-1.5 text-caption font-caption text-on-surface-variant bg-surface-container px-2.5 py-1.5 rounded-lg">
+
+<span class="material-symbols-outlined text-[15px] text-primary">rule</span>
+
+<span>Status: Unanswered. Changed by system rules, not AI.</span>
+
+</div>
+
+</section>
+
+<!-- DPDP Compliance Notice -->
+
+<footer class="pt-1 pb-4 flex flex-col items-center text-center gap-1">
+
+<div class="flex items-center gap-1 text-on-surface-variant">
+
+<span class="material-symbols-outlined text-[14px]">verified_user</span>
+
+<span class="font-caption text-caption font-semibold">Statutory Operational Privacy Protection</span>
+
+</div>
+
+<p class="font-caption text-caption text-outline max-w-[340px]">
+
+          Citizen data cached locally for active mission. Deleted automatically after incident close.
+
+        </p>
+
+</footer>
+
+</div>
+
+<!-- Fixed Bottom Action Bar: In-person Field Action Controls -->
+
+<aside class="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-[390px] z-50 bg-surface-container-lowest border-t border-outline-variant p-3 shadow-lg flex flex-col gap-2">
+
+<!-- Primary Affirmative Action -->
+
+<button class="w-full bg-[#0B2545] text-white hover:bg-[#133968] active:scale-[0.98] transition-all h-[44px] rounded-lg font-label-lg text-label-lg flex items-center justify-center gap-2 shadow-sm font-semibold">
+
+<span class="material-symbols-outlined text-[20px]">check_circle</span>
+
+<span>Confirm In-Person Assessment</span>
+
+</button>
+
+<!-- Dual Split Action Row -->
+
+<div class="grid grid-cols-2 gap-2">
+
+<!-- Secondary Action: Not Home -->
+
+<button class="bg-surface-container-lowest border border-outline text-[#0B2545] hover:bg-surface-container-low active:scale-[0.98] transition-all h-[44px] rounded-lg font-label-md text-label-md flex items-center justify-center gap-1.5">
+
+<span class="material-symbols-outlined text-[18px]">person_off</span>
+
+<span>Mark as Not Home</span>
+
+</button>
+
+<!-- Urgent Trigger: Needs Rescue -->
+
+<button class="bg-[#DC2626] text-white hover:bg-[#B91C1C] active:scale-[0.98] transition-all h-[44px] rounded-lg font-label-md text-label-md flex items-center justify-center gap-1 text-center font-bold px-1 leading-tight shadow-sm"><span class="material-symbols-outlined text-[18px] shrink-0">directions_car</span>
+
+<span class="truncate">Create ride request</span></button>
+
+</div>
+
+</aside>
+
+</main>
+
+<script>
+
+    // Lightweight field micro-interactions
+
+    document.querySelectorAll('button').forEach(btn => {
+
+      btn.addEventListener('click', function(e) {
+
+        // Operational tactile feedback vibration if supported on field handhelds
+
+        if (navigator.vibrate) {
+
+          navigator.vibrate(30);
+
+        }
+
+      });
+
+    });
+
+  </script>
+
+
+
+
+
+</body></html>

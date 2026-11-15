@@ -1,0 +1,131 @@
+<!-- Demo Mode Global Warning Banner -->
+<div class="bg-amber-400 text-slate-950 px-4 py-1 text-xs font-bold text-center tracking-wide shadow-sm z-50 shrink-0">
+  Demo mode: sample accounts, no real data.
+</div>
+
+<!-- Shared Reusable Navigation Bar -->
+<header class="w-full bg-[#001026] text-white border-b border-slate-800 px-4 py-2 flex items-center justify-between z-40 shrink-0 shadow-md">
+  <!-- Brand & Logo -->
+  <div class="flex items-center gap-3">
+    <a href="{% if session.get('role') == 'driver' %}/driver{% elif session.get('role') == 'field_worker' %}/field{% elif session.get('role') == 'resident' %}/ready{% else %}/dashboard{% endif %}" class="flex items-center gap-2">
+      <div class="w-8 h-8 rounded bg-[#fea619] flex items-center justify-center font-bold text-base text-[#001026] shadow">
+        अभ
+      </div>
+      <div>
+        <span class="font-bold text-sm tracking-tight text-white flex items-center gap-1.5">
+          ABHAY DDMA
+          <span class="text-[10px] px-1.5 py-0.2 rounded bg-slate-800 text-amber-300 border border-slate-700 font-mono">
+            {{ incident_name or 'Bantwal Flood' }}
+          </span>
+        </span>
+      </div>
+    </a>
+  </div>
+
+  <!-- Role-Filtered Navigation Links -->
+  <nav class="hidden md:flex items-center gap-1 text-xs font-medium">
+    {% set role = session.get('role', 'dispatcher') %}
+    
+    {% if role == 'dispatcher' %}
+      <a href="/dashboard" class="px-2.5 py-1.5 rounded transition {% if active_page == 'dashboard' %}bg-[#0b2545] text-amber-400 font-semibold border border-amber-400/30{% else %}text-slate-300 hover:text-white hover:bg-slate-800{% endif %}">
+        {{ t_nav('Operations Center') }}
+      </a>
+      <a href="/call-floor" class="px-2.5 py-1.5 rounded transition {% if active_page == 'call-floor' %}bg-[#0b2545] text-amber-400 font-semibold border border-amber-400/30{% else %}text-slate-300 hover:text-white hover:bg-slate-800{% endif %}">
+        {{ t_nav('Call floor') }}
+      </a>
+      <a href="/fleet" class="px-2.5 py-1.5 rounded transition {% if active_page == 'fleet' %}bg-[#0b2545] text-amber-400 font-semibold border border-amber-400/30{% else %}text-slate-300 hover:text-white hover:bg-slate-800{% endif %}">
+        {{ t_nav('Fleet') }}
+      </a>
+      <a href="/simulate" class="px-2.5 py-1.5 rounded transition {% if active_page == 'simulate' %}bg-[#0b2545] text-amber-400 font-semibold border border-amber-400/30{% else %}text-slate-300 hover:text-white hover:bg-slate-800{% endif %}">
+        {{ t_nav('Simulate call') }}
+      </a>
+      <a href="/audit" class="px-2.5 py-1.5 rounded transition {% if active_page == 'audit' %}bg-[#0b2545] text-amber-400 font-semibold border border-amber-400/30{% else %}text-slate-300 hover:text-white hover:bg-slate-800{% endif %}">
+        {{ t_nav('Telephony Audit Logs') }}
+      </a>
+      <a href="/privacy" class="px-2.5 py-1.5 rounded transition {% if active_page == 'privacy' %}bg-[#0b2545] text-amber-400 font-semibold border border-amber-400/30{% else %}text-slate-300 hover:text-white hover:bg-slate-800{% endif %}">
+        {{ t_nav('System Data & Privacy') }}
+      </a>
+      <a href="/under-the-hood" class="px-2.5 py-1.5 rounded transition {% if active_page == 'under-the-hood' %}bg-[#0b2545] text-amber-400 font-semibold border border-amber-400/30{% else %}text-slate-300 hover:text-white hover:bg-slate-800{% endif %}">
+        {{ t_nav('Under the Hood') }}
+      </a>
+      <a href="/evals" class="px-2.5 py-1.5 rounded transition {% if active_page == 'evals' %}bg-[#0b2545] text-amber-400 font-semibold border border-amber-400/30{% else %}text-slate-300 hover:text-white hover:bg-slate-800{% endif %}">
+        {{ t_nav('Evals') }}
+      </a>
+      <a href="/" class="px-2.5 py-1.5 rounded transition text-slate-300 hover:text-white hover:bg-slate-800" title="{{ t_nav('Incident select') }}">
+        {{ t_nav('Incident select') }}
+      </a>
+
+    {% elif role == 'driver' %}
+      <a href="/driver" class="px-2.5 py-1.5 rounded transition {% if active_page == 'driver' %}bg-[#0b2545] text-amber-400 font-semibold border border-amber-400/30{% else %}text-slate-300 hover:text-white hover:bg-slate-800{% endif %}">
+        {{ t_nav('Driver') }} Offers
+      </a>
+      <a href="/run/req-001" class="px-2.5 py-1.5 rounded transition {% if active_page == 'run' %}bg-[#0b2545] text-amber-400 font-semibold border border-amber-400/30{% else %}text-slate-300 hover:text-white hover:bg-slate-800{% endif %}">
+        Active Run
+      </a>
+
+    {% elif role == 'field_worker' %}
+      <a href="/field" class="px-2.5 py-1.5 rounded transition {% if active_page == 'field' %}bg-[#0b2545] text-amber-400 font-semibold border border-amber-400/30{% else %}text-slate-300 hover:text-white hover:bg-slate-800{% endif %}">
+        {{ t_nav('Field Visits') }}
+      </a>
+      <a href="/house-card" class="px-2.5 py-1.5 rounded transition {% if active_page == 'house-card' %}bg-[#0b2545] text-amber-400 font-semibold border border-amber-400/30{% else %}text-slate-300 hover:text-white hover:bg-slate-800{% endif %}">
+        Household Card
+      </a>
+
+    {% elif role == 'resident' %}
+      <a href="/ready" class="px-2.5 py-1.5 rounded transition {% if active_page == 'ready' %}bg-[#0b2545] text-amber-400 font-semibold border border-amber-400/30{% else %}text-slate-300 hover:text-white hover:bg-slate-800{% endif %}">
+        {{ t_nav('Ready Sign-Up') }}
+      </a>
+      <a href="/household-needs" class="px-2.5 py-1.5 rounded transition {% if active_page == 'household-needs' %}bg-[#0b2545] text-amber-400 font-semibold border border-amber-400/30{% else %}text-slate-300 hover:text-white hover:bg-slate-800{% endif %}">
+        Household Needs
+      </a>
+      <a href="/confirmation" class="px-2.5 py-1.5 rounded transition {% if active_page == 'confirmation' %}bg-[#0b2545] text-amber-400 font-semibold border border-amber-400/30{% else %}text-slate-300 hover:text-white hover:bg-slate-800{% endif %}">
+        Registration Pass
+      </a>
+      <a href="/phone" class="px-2.5 py-1.5 rounded transition {% if active_page == 'phone' %}bg-[#0b2545] text-amber-400 font-semibold border border-amber-400/30{% else %}text-slate-300 hover:text-white hover:bg-slate-800{% endif %}">
+        {{ t_nav('Resident Phone') }}
+      </a>
+    {% endif %}
+  </nav>
+
+  <!-- Right Controls: Language Switcher, Role Badge, Logout -->
+  <div class="flex items-center gap-2">
+    <!-- Language Switcher -->
+    <div class="flex items-center bg-slate-800 p-0.5 rounded border border-slate-700 text-xs">
+      <button onclick="setAppLanguage('en')" class="px-1.5 py-0.5 rounded transition {% if current_lang == 'en' %}bg-[#001026] text-amber-400 font-bold{% else %}text-slate-300 hover:text-white{% endif %}">EN</button>
+      <button onclick="setAppLanguage('hi')" class="px-1.5 py-0.5 rounded transition {% if current_lang == 'hi' %}bg-[#001026] text-amber-400 font-bold{% else %}text-slate-300 hover:text-white{% endif %}">हिं</button>
+      <button onclick="setAppLanguage('kn')" class="px-1.5 py-0.5 rounded transition {% if current_lang == 'kn' %}bg-[#001026] text-amber-400 font-bold{% else %}text-slate-300 hover:text-white{% endif %}">ಕನ್ನ</button>
+    </div>
+
+    <!-- Role Badge -->
+    <div class="hidden sm:flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-slate-800 border border-slate-700 text-xs">
+      <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+      <span class="font-semibold text-slate-200 capitalize">
+        {% if session.get('role') == 'dispatcher' %}
+          Duty officer (Dispatcher)
+        {% elif session.get('role') == 'driver' %}
+          Driver Suresh (NDRF-1)
+        {% elif session.get('role') == 'field_worker' %}
+          ASHA Worker Suma (Field worker)
+        {% elif session.get('role') == 'resident' %}
+          Citizen Parvathi (Resident)
+        {% else %}
+          Duty officer
+        {% endif %}
+      </span>
+    </div>
+
+    <!-- Logout Button -->
+    <a href="/logout" class="px-2.5 py-1 rounded bg-slate-800 hover:bg-red-900/60 hover:text-red-200 text-slate-300 border border-slate-700 text-xs font-semibold transition" title="Logout">
+      {{ t_nav('Logout') }}
+    </a>
+  </div>
+</header>
+
+<script>
+function setAppLanguage(lang) {
+  fetch('/api/set-lang/' + lang, { method: 'POST' })
+    .then(r => r.json())
+    .then(() => window.location.reload())
+    .catch(() => window.location.reload());
+}
+</script>

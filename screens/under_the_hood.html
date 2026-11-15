@@ -1,0 +1,1622 @@
+<!-- Under the Hood - Abhay DDMA -->
+
+<!DOCTYPE html><html lang="en"><head>
+
+<meta charset="utf-8">
+
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+<title>ABHAY DDMA COMMAND - Under the Hood Architecture</title>
+
+<!-- Material Symbols Outlined -->
+
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+
+<!-- Fonts -->
+
+<link href="https://fonts.googleapis.com" rel="preconnect">
+
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;600&amp;display=swap" rel="stylesheet">
+
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+
+<!-- Tailwind CSS CDN -->
+
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+
+<!-- Tailwind Configuration Verbatim -->
+
+<script id="tailwind-config">
+
+    tailwind.config = {
+
+      darkMode: "class",
+
+      theme: {
+
+        extend: {
+
+          "colors": {
+
+            "tertiary-fixed": "#dbe1ff",
+
+            "on-tertiary-fixed-variant": "#003ea8",
+
+            "on-surface": "#131b2e",
+
+            "outline-variant": "#c4c6cf",
+
+            "secondary": "#855300",
+
+            "surface-bright": "#faf8ff",
+
+            "background": "#faf8ff",
+
+            "on-tertiary-fixed": "#00174b",
+
+            "surface": "#faf8ff",
+
+            "on-background": "#131b2e",
+
+            "on-error-container": "#93000a",
+
+            "on-tertiary-container": "#5885ff",
+
+            "on-secondary-fixed": "#2a1700",
+
+            "surface-container-low": "#f2f3ff",
+
+            "on-primary-fixed-variant": "#314769",
+
+            "on-secondary-container": "#684000",
+
+            "outline": "#74777f",
+
+            "on-primary": "#ffffff",
+
+            "tertiary-container": "#001f5e",
+
+            "surface-container-high": "#e2e7ff",
+
+            "on-secondary": "#ffffff",
+
+            "on-primary-fixed": "#001c3b",
+
+            "secondary-fixed": "#ffddb8",
+
+            "on-tertiary": "#ffffff",
+
+            "primary-fixed-dim": "#b1c7f0",
+
+            "surface-dim": "#d2d9f4",
+
+            "primary-container": "#0b2545",
+
+            "error": "#ba1a1a",
+
+            "inverse-primary": "#b1c7f0",
+
+            "inverse-on-surface": "#eef0ff",
+
+            "surface-container-lowest": "#ffffff",
+
+            "on-error": "#ffffff",
+
+            "surface-container": "#eaedff",
+
+            "primary-fixed": "#d5e3ff",
+
+            "on-secondary-fixed-variant": "#653e00",
+
+            "secondary-fixed-dim": "#ffb95f",
+
+            "secondary-container": "#fea619",
+
+            "error-container": "#ffdad6",
+
+            "on-primary-container": "#778db2",
+
+            "tertiary": "#000c31",
+
+            "primary": "#001026",
+
+            "surface-container-highest": "#dae2fd",
+
+            "inverse-surface": "#283044",
+
+            "on-surface-variant": "#44474e",
+
+            "tertiary-fixed-dim": "#b4c5ff",
+
+            "surface-tint": "#495f82",
+
+            "surface-variant": "#dae2fd"
+
+          },
+
+          "borderRadius": {
+
+            "DEFAULT": "0.25rem",
+
+            "lg": "0.5rem",
+
+            "xl": "0.75rem",
+
+            "full": "9999px"
+
+          },
+
+          "spacing": {
+
+            "space-sm": "0.5rem",
+
+            "gutter-lg": "1.5rem",
+
+            "margin": "1rem",
+
+            "space-lg": "1.5rem",
+
+            "space-xs": "0.25rem",
+
+            "margin-md": "1.5rem",
+
+            "space-xl": "2rem",
+
+            "margin-lg": "2rem",
+
+            "gutter": "1rem",
+
+            "space-md": "1rem",
+
+            "space-2xl": "3rem"
+
+          },
+
+          "fontFamily": {
+
+            "caption": [
+
+              "Inter"
+
+            ],
+
+            "headline-sm": [
+
+              "Inter"
+
+            ],
+
+            "body-sm": [
+
+              "Inter"
+
+            ],
+
+            "label-lg": [
+
+              "Inter"
+
+            ],
+
+            "display-lg": [
+
+              "Inter"
+
+            ],
+
+            "display-lg-mobile": [
+
+              "Inter"
+
+            ],
+
+            "headline-lg-mobile": [
+
+              "Inter"
+
+            ],
+
+            "headline-lg": [
+
+              "Inter"
+
+            ],
+
+            "label-tabular": [
+
+              "JetBrains Mono"
+
+            ],
+
+            "body-lg": [
+
+              "Inter"
+
+            ],
+
+            "headline-md": [
+
+              "Inter"
+
+            ],
+
+            "label-md": [
+
+              "Inter"
+
+            ],
+
+            "body-md": [
+
+              "Inter"
+
+            ]
+
+          },
+
+          "fontSize": {
+
+            "caption": [
+
+              "11px",
+
+              {
+
+                "lineHeight": "14px",
+
+                "letterSpacing": "0.04em",
+
+                "fontWeight": "500"
+
+              }
+
+            ],
+
+            "headline-sm": [
+
+              "18px",
+
+              {
+
+                "lineHeight": "24px",
+
+                "letterSpacing": "0em",
+
+                "fontWeight": "600"
+
+              }
+
+            ],
+
+            "body-sm": [
+
+              "12px",
+
+              {
+
+                "lineHeight": "16px",
+
+                "letterSpacing": "0.01em",
+
+                "fontWeight": "400"
+
+              }
+
+            ],
+
+            "label-lg": [
+
+              "14px",
+
+              {
+
+                "lineHeight": "18px",
+
+                "letterSpacing": "0.01em",
+
+                "fontWeight": "600"
+
+              }
+
+            ],
+
+            "display-lg": [
+
+              "40px",
+
+              {
+
+                "lineHeight": "48px",
+
+                "letterSpacing": "-0.02em",
+
+                "fontWeight": "700"
+
+              }
+
+            ],
+
+            "display-lg-mobile": [
+
+              "28px",
+
+              {
+
+                "lineHeight": "36px",
+
+                "letterSpacing": "-0.01em",
+
+                "fontWeight": "700"
+
+              }
+
+            ],
+
+            "headline-lg-mobile": [
+
+              "24px",
+
+              {
+
+                "lineHeight": "32px",
+
+                "letterSpacing": "-0.01em",
+
+                "fontWeight": "700"
+
+              }
+
+            ],
+
+            "headline-lg": [
+
+              "30px",
+
+              {
+
+                "lineHeight": "38px",
+
+                "letterSpacing": "-0.015em",
+
+                "fontWeight": "700"
+
+              }
+
+            ],
+
+            "label-tabular": [
+
+              "13px",
+
+              {
+
+                "lineHeight": "18px",
+
+                "letterSpacing": "-0.01em",
+
+                "fontWeight": "500"
+
+              }
+
+            ],
+
+            "body-lg": [
+
+              "16px",
+
+              {
+
+                "lineHeight": "24px",
+
+                "letterSpacing": "0em",
+
+                "fontWeight": "400"
+
+              }
+
+            ],
+
+            "headline-md": [
+
+              "22px",
+
+              {
+
+                "lineHeight": "28px",
+
+                "letterSpacing": "-0.01em",
+
+                "fontWeight": "600"
+
+              }
+
+            ],
+
+            "label-md": [
+
+              "12px",
+
+              {
+
+                "lineHeight": "16px",
+
+                "letterSpacing": "0.02em",
+
+                "fontWeight": "600"
+
+              }
+
+            ],
+
+            "body-md": [
+
+              "14px",
+
+              {
+
+                "lineHeight": "20px",
+
+                "letterSpacing": "0em",
+
+                "fontWeight": "400"
+
+              }
+
+            ]
+
+          }
+
+        },
+
+      },
+
+    }
+
+  </script>
+
+</head>
+
+<body class="bg-background text-on-surface antialiased min-h-screen overflow-x-hidden selection:bg-secondary-fixed selection:text-on-secondary-fixed">
+
+<!-- ================= TOP APP BAR (Shared Component Execution) ================= -->
+
+<header class="fixed top-0 left-0 right-0 z-50 h-14 bg-primary text-on-primary border-b border-outline px-margin-lg flex items-center justify-between shadow-sm">
+
+<div class="flex items-center gap-space-lg">
+
+<!-- Product Brand -->
+
+<div class="font-headline-sm text-headline-sm font-bold tracking-tight text-on-primary flex items-center gap-space-sm">
+
+<span class="material-symbols-outlined text-secondary-container" data-icon="shield">shield</span>
+
+<span>ABHAY DDMA COMMAND</span>
+
+</div>
+
+<!-- Quick Search Indicator -->
+
+<div class="relative hidden lg:flex items-center">
+
+<span class="material-symbols-outlined absolute left-2.5 text-outline text-body-sm" data-icon="search">search</span>
+
+<input class="h-8 pl-8 pr-3 text-body-sm bg-primary-container text-on-primary placeholder:text-on-primary-container rounded border border-outline focus:outline-none focus:border-secondary-container w-64" placeholder="Telemetry query / ward code..." readonly="" type="text" value="SYS://TRUNK-01/TELEPHONY">
+
+</div>
+
+</div>
+
+<!-- Navigation Links Cluster -->
+
+<nav class="hidden md:flex items-center gap-space-lg h-full">
+
+<a class="text-on-primary-container font-label-lg text-label-lg hover:text-on-primary transition-colors duration-150" href="/dashboard">Live GIS Map</a>
+
+<a class="text-on-primary-container font-label-lg text-label-lg hover:text-on-primary transition-colors duration-150" href="/dashboard">Dispatch Queue</a>
+
+<a class="text-on-primary-container font-label-lg text-label-lg hover:text-on-primary transition-colors duration-150" href="/dashboard">Rescue Assets</a>
+
+<a class="text-secondary-fixed font-label-lg text-label-lg border-b-2 border-secondary-fixed pb-1" href="/dashboard">System Architecture</a>
+
+<a class="text-on-primary-container font-label-lg text-label-lg hover:text-on-primary transition-colors duration-150" href="/dashboard">Model Evals</a>
+
+</nav>
+
+<!-- Trailing Actions & State Icons -->
+
+<div class="flex items-center gap-space-md">
+
+<!-- Language Switcher -->
+
+<div class="flex items-center bg-primary-container rounded p-0.5 border border-outline">
+
+<button class="px-2 py-0.5 rounded text-caption bg-secondary-container text-primary font-bold">EN</button>
+
+<button class="px-2 py-0.5 rounded text-caption text-on-primary-container hover:text-on-primary">हिं</button>
+
+<button class="px-2 py-0.5 rounded text-caption text-on-primary-container hover:text-on-primary">ಕನ್ನ</button>
+
+</div>
+
+<!-- Secondary Trailing Action -->
+
+<button class="hidden xl:inline-flex items-center gap-1.5 px-3 py-1.5 bg-primary-container text-on-primary border border-outline rounded text-label-md font-label-md hover:bg-surface-variant hover:text-primary transition-colors active:scale-95 duration-100">
+
+<span class="material-symbols-outlined text-sm" data-icon="tune">tune</span>
+
+<span>Simulate Incident</span>
+
+</button>
+
+<!-- Primary Trailing Action -->
+
+<button class="inline-flex items-center gap-1.5 px-3.5 py-1.5 bg-error text-on-error rounded text-label-md font-label-md hover:bg-on-error-container transition-colors active:scale-95 duration-100 font-semibold shadow-sm">
+
+<span class="material-symbols-outlined text-sm" data-icon="crisis_alert">crisis_alert</span>
+
+<span>Emergency Broadcast</span>
+
+</button>
+
+<!-- Icon Actions & Profile -->
+
+<div class="flex items-center gap-space-sm pl-2 border-l border-outline">
+
+<button class="text-on-primary-container hover:text-on-primary p-1" title="Active Alerts">
+
+<span class="material-symbols-outlined" data-icon="notifications_active">notifications_active</span>
+
+</button>
+
+<button class="text-on-primary-container hover:text-on-primary p-1" title="Clock Sync (IST)">
+
+<span class="material-symbols-outlined" data-icon="schedule">schedule</span>
+
+</button>
+
+<div class="h-7 w-7 rounded bg-secondary-container text-primary font-bold flex items-center justify-center text-caption tracking-wider" title="Incident Commander Badge">
+
+          IC-1
+
+        </div>
+
+</div>
+
+</div>
+
+</header>
+
+<!-- ================= TACTICAL LEFT SIDEBAR ================= -->
+
+<aside class="fixed top-14 left-0 bottom-0 w-64 border-r border-outline-variant bg-surface-container-lowest flex flex-col justify-between z-40">
+
+<div class="flex flex-col">
+
+<!-- Header / SDMA Crest Info -->
+
+<div class="p-space-md border-b border-outline-variant bg-surface-container-low">
+
+<div class="flex items-center gap-space-sm">
+
+<span class="material-symbols-outlined text-primary text-headline-sm" data-icon="account_balance">account_balance</span>
+
+<div>
+
+<h2 class="font-headline-sm text-headline-sm font-bold text-primary">DDMA Control Hub</h2>
+
+<p class="font-body-sm text-body-sm text-on-surface-variant flex items-center gap-1.5">
+
+<span class="h-2 w-2 rounded-full bg-secondary-container inline-block animate-pulse"></span>
+
+              Sector 4 • High Alert IST
+
+            </p>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- Main Navigation Tabs -->
+
+<nav class="p-space-sm space-y-1">
+
+<a class="flex items-center gap-space-sm px-space-md py-space-sm text-on-surface-variant font-label-md text-label-md hover:bg-surface-container hover:text-on-surface rounded" href="/dashboard">
+
+<span class="material-symbols-outlined text-lg" data-icon="crisis_alert">crisis_alert</span>
+
+<span>Operations Center</span>
+
+</a>
+
+<a class="flex items-center gap-space-sm px-space-md py-space-sm text-on-surface-variant font-label-md text-label-md hover:bg-surface-container hover:text-on-surface rounded" href="/dashboard">
+
+<span class="material-symbols-outlined text-lg" data-icon="format_list_bulleted">format_list_bulleted</span>
+
+<span>Evacuation Manifest</span>
+
+</a>
+
+<a class="flex items-center gap-space-sm px-space-md py-space-sm text-on-surface-variant font-label-md text-label-md hover:bg-surface-container hover:text-on-surface rounded" href="/dashboard">
+
+<span class="material-symbols-outlined text-lg" data-icon="local_shipping">local_shipping</span>
+
+<span>Active Dispatches</span>
+
+</a>
+
+<a class="flex items-center gap-space-sm px-space-md py-space-sm text-on-surface-variant font-label-md text-label-md hover:bg-surface-container hover:text-on-surface rounded" href="/dashboard">
+
+<span class="material-symbols-outlined text-lg" data-icon="shield">shield</span>
+
+<span>System Data &amp; Privacy</span>
+
+</a>
+
+<a class="flex items-center gap-space-sm px-space-md py-space-sm text-on-surface-variant font-label-md text-label-md hover:bg-surface-container hover:text-on-surface rounded" href="/dashboard">
+
+<span class="material-symbols-outlined text-lg" data-icon="phone_in_talk">phone_in_talk</span>
+
+<span>Telephony Audit Logs</span>
+
+</a>
+
+<!-- ACTIVE TAB: Under the Hood -->
+
+<a class="flex items-center gap-space-sm px-space-md py-space-sm bg-surface-container-high text-primary font-label-lg text-label-lg rounded border-l-4 border-secondary-container shadow-sm" href="/dashboard">
+
+<span class="material-symbols-outlined text-lg text-secondary" data-icon="memory">memory</span>
+
+<span>Under the Hood</span>
+
+</a>
+
+</nav>
+
+</div>
+
+<!-- Bottom Actions & System Config -->
+
+<div class="p-space-sm border-t border-outline-variant bg-surface-container-low">
+
+<div class="space-y-1 mb-space-sm">
+
+<a class="flex items-center gap-space-sm px-space-md py-1.5 text-on-surface-variant hover:text-on-surface text-label-md font-label-md rounded hover:bg-surface-container" href="/dashboard">
+
+<span class="material-symbols-outlined text-base" data-icon="radio">radio</span>
+
+<span>Comms Feed</span>
+
+</a>
+
+<a class="flex items-center gap-space-sm px-space-md py-1.5 text-on-surface-variant hover:text-on-surface text-label-md font-label-md rounded hover:bg-surface-container" href="/dashboard">
+
+<span class="material-symbols-outlined text-base" data-icon="settings">settings</span>
+
+<span>System Config</span>
+
+</a>
+
+</div>
+
+<button class="w-full h-10 px-3 bg-secondary-container text-on-primary-fixed rounded text-label-md font-label-md font-semibold flex items-center justify-center gap-2 hover:bg-secondary-fixed-dim transition-colors active:scale-95 duration-100 shadow-sm">
+
+<span class="material-symbols-outlined text-sm font-bold" data-icon="warning">warning</span>
+
+<span>Initiate Evacuation Order</span>
+
+</button>
+
+</div>
+
+</aside>
+
+<!-- ================= MAIN CANVAS CONTENT ================= -->
+
+<main class="  min-h-screen bg-background p-space-xl space-y-space-xl">
+
+<!-- 1. Header Section -->
+
+<div class="border-b border-outline-variant pb-space-lg flex flex-col md:flex-row md:items-end justify-between gap-space-md">
+
+<div>
+
+<div class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded bg-surface-container-high text-primary border border-outline-variant font-label-tabular text-caption uppercase mb-space-xs font-semibold">
+
+<span class="material-symbols-outlined text-xs text-secondary" data-icon="schema">schema</span>
+
+          SYSTEM PIPELINE &amp; ARCHITECTURE
+
+        </div>
+
+<h1 class="font-headline-lg text-headline-lg text-primary tracking-tight">
+
+          Under the Hood: Deterministic Telephony &amp; Voice Triage Pipeline
+
+        </h1>
+
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-4xl mt-1">
+
+          End-to-end operational flow from carrier PRI trunk to automated citizen response, separating probabilistic generative speech from deterministic state transitions.
+
+        </p>
+
+</div>
+
+<!-- Quick Telemetry Stamp -->
+
+<div class="bg-surface-container-lowest p-space-sm rounded-lg border border-outline-variant flex items-center gap-space-md shadow-sm"><div class="flex items-center gap-2"><span class="h-2.5 w-2.5 rounded-full bg-emerald-600 animate-ping"></span><span class="font-label-tabular text-label-tabular text-on-surface font-semibold">SYSTEM://ACTIVE</span></div><div class="h-4 w-px bg-outline-variant"></div><div class="text-caption font-label-tabular text-on-surface-variant font-semibold">MVP: recorded audio input, Python backend</div></div>
+
+</div>
+
+<!-- 2. Prominent Callout Box (Warning/Alert Styling with Deep Navy & Saffron) -->
+
+<section class="bg-primary text-on-primary rounded-lg border-l-4 border-l-secondary-container p-space-lg shadow-sm">
+
+<div class="flex items-start gap-space-md">
+
+<div class="p-2 bg-primary-container rounded border border-outline text-secondary-container flex items-center justify-center shrink-0">
+
+<span class="material-symbols-outlined text-2xl" data-icon="gavel">gavel</span>
+
+</div>
+
+<div class="space-y-1.5">
+
+<div class="flex items-center gap-space-sm flex-wrap">
+
+<span class="text-caption font-label-tabular uppercase tracking-wider text-secondary-fixed bg-primary-container px-2 py-0.5 rounded border border-outline">
+
+              Deterministic Mandate 01-A
+
+            </span>
+
+<span class="text-caption font-label-tabular text-on-primary-container">
+
+              ZERO-HALLUCINATION ENFORCEMENT
+
+            </span>
+
+</div>
+
+<h2 class="font-headline-md text-headline-md text-on-primary font-bold">
+
+            "Status changes only through code, never the AI. The agent never says help is coming until a driver has accepted."
+
+          </h2>
+
+<p class="font-body-md text-body-md text-on-primary-container leading-relaxed">Deterministic rule gates govern queue transitions, vehicle assignments, and verification thresholds to prevent false promises during active emergencies. Probabilistic models are strictly restricted to transcription and slot parsing; they have zero write-access to the operational dispatch ledger.</p>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- 3. Pipeline Flow Diagram (Step-by-Step Visualization) -->
+
+<section class="space-y-space-md">
+
+<div class="flex items-center justify-between">
+
+<div>
+
+<h2 class="font-headline-md text-headline-md text-primary font-bold">
+
+            Telephony &amp; Synthesis Sequence
+
+          </h2>
+
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+
+            Chronological audio ingestion, entity tokenization, rule evaluation, safety gating, and acoustic playback.
+
+          </p>
+
+</div>
+
+<div class="flex items-center gap-2 font-label-tabular text-caption text-on-surface-variant bg-surface-container px-3 py-1 rounded">
+
+<span class="material-symbols-outlined text-xs" data-icon="timer">timer</span>
+
+          Total Budget &lt; 800ms
+
+        </div>
+
+</div>
+
+<!-- Flow Nodes Grid -->
+
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-space-sm relative">
+
+<!-- STEP 1: Call Audio -->
+
+<div class="bg-surface-container-lowest border border-outline-variant rounded-lg p-space-md flex flex-col justify-between h-full relative group hover:border-primary transition-colors">
+
+<div>
+
+<div class="flex items-center justify-between mb-space-sm">
+
+<span class="h-6 w-6 rounded bg-surface-container text-primary font-label-tabular text-caption font-bold flex items-center justify-center">01</span>
+
+<span class="px-2 py-0.5 rounded bg-surface-container-high text-on-surface-variant text-caption font-label-tabular font-medium">8 kHz PSTN</span>
+
+</div>
+
+<div class="flex items-center gap-1.5 mb-1 text-primary">
+
+<span class="material-symbols-outlined text-lg" data-icon="call">call</span>
+
+<h3 class="font-label-lg text-label-lg font-bold">Call Audio</h3>
+
+</div>
+
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+
+              Carrier PRI / SIP Trunk, 8 kHz PSTN incoming citizen call stream, circular audio buffer.
+
+            </p>
+
+</div>
+
+<div class="mt-space-md pt-space-xs border-t border-outline-variant flex items-center justify-between text-caption font-label-tabular text-on-surface-variant">
+
+<span>Latency</span>
+
+<span class="text-primary font-bold">~0ms (Realtime)</span>
+
+</div>
+
+</div>
+
+<!-- STEP 2: Gnani Prisma -->
+
+<div class="bg-surface-container-lowest border border-outline-variant rounded-lg p-space-md flex flex-col justify-between h-full relative group hover:border-primary transition-colors">
+
+<div>
+
+<div class="flex items-center justify-between mb-space-sm">
+
+<span class="h-6 w-6 rounded bg-surface-container text-primary font-label-tabular text-caption font-bold flex items-center justify-center">02</span>
+
+<span class="px-2 py-0.5 rounded bg-surface-container-high text-primary text-caption font-label-tabular font-medium">ASR Chunk</span>
+
+</div>
+
+<div class="flex items-center gap-1.5 mb-1 text-primary">
+
+<span class="material-symbols-outlined text-lg" data-icon="graphic_eq">graphic_eq</span>
+
+<h3 class="font-label-lg text-label-lg font-bold">Gnani Prisma</h3>
+
+</div>
+
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+
+              Speech-to-Text / Multilingual ASR for noisy Indian telephony audio, real-time chunk streaming.
+
+            </p>
+
+</div>
+
+<div class="mt-space-md pt-space-xs border-t border-outline-variant flex items-center justify-between text-caption font-label-tabular text-on-surface-variant">
+
+<span>Latency</span>
+
+<span class="text-primary font-bold">~320ms</span>
+
+</div>
+
+</div>
+
+<!-- STEP 3: Gnani Evon -->
+
+<div class="bg-surface-container-lowest border border-outline-variant rounded-lg p-space-md flex flex-col justify-between h-full relative group hover:border-primary transition-colors">
+
+<div>
+
+<div class="flex items-center justify-between mb-space-sm">
+
+<span class="h-6 w-6 rounded bg-surface-container text-primary font-label-tabular text-caption font-bold flex items-center justify-center">03</span>
+
+<span class="px-2 py-0.5 rounded bg-surface-container-high text-primary text-caption font-label-tabular font-medium">NLU Parse</span>
+
+</div>
+
+<div class="flex items-center gap-1.5 mb-1 text-primary">
+
+<span class="material-symbols-outlined text-lg" data-icon="hub">hub</span>
+
+<h3 class="font-label-lg text-label-lg font-bold">Gnani Evon</h3>
+
+</div>
+
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+
+              NLU &amp; Intent / Entity Extraction: landmarks, mobility constraints, bedridden flags, headcount.
+
+            </p>
+
+</div>
+
+<div class="mt-space-md pt-space-xs border-t border-outline-variant flex items-center justify-between text-caption font-label-tabular text-on-surface-variant">
+
+<span>Latency</span>
+
+<span class="text-primary font-bold">~180ms</span>
+
+</div>
+
+</div>
+
+<!-- STEP 4: Status Engine (HIGHLIGHTED / DETERMINISTIC) -->
+
+<div class="bg-surface-container-lowest border-2 border-secondary-container rounded-lg p-space-md flex flex-col justify-between h-full relative shadow-sm">
+
+<div>
+
+<div class="flex items-center justify-between mb-space-sm">
+
+<span class="h-6 w-6 rounded bg-secondary-container text-primary font-label-tabular text-caption font-bold flex items-center justify-center">04</span>
+
+<span class="px-1.5 py-0.5 rounded bg-primary text-secondary-container text-[10px] font-label-tabular font-bold tracking-tight">NO AI DECISIONING</span>
+
+</div>
+
+<div class="flex items-center gap-1.5 mb-1 text-primary">
+
+<span class="material-symbols-outlined text-lg text-secondary" data-icon="terminal">terminal</span>
+
+<h3 class="font-label-lg text-label-lg font-bold">Status Engine (Code)</h3>
+
+</div>
+
+<p class="font-body-sm text-body-sm text-on-surface-variant">Strictly deterministic Python backend: triage priority evaluation, DB commit, DTMF fallback handling.</p>
+
+</div>
+
+<div class="mt-space-md pt-space-xs border-t border-outline-variant flex items-center justify-between text-caption font-label-tabular text-on-surface-variant">
+
+<span>Latency</span>
+
+<span class="text-primary font-bold">~12ms</span>
+
+</div>
+
+</div>
+
+<!-- STEP 5: Template & Honesty Guard -->
+
+<div class="bg-surface-container-lowest border border-outline-variant rounded-lg p-space-md flex flex-col justify-between h-full relative group hover:border-primary transition-colors">
+
+<div>
+
+<div class="flex items-center justify-between mb-space-sm">
+
+<span class="h-6 w-6 rounded bg-surface-container text-primary font-label-tabular text-caption font-bold flex items-center justify-center">05</span>
+
+<span class="px-2 py-0.5 rounded bg-error-container text-error text-caption font-label-tabular font-bold">SAFETY GATE</span>
+
+</div>
+
+<div class="flex items-center gap-1.5 mb-1 text-primary">
+
+<span class="material-symbols-outlined text-lg text-error" data-icon="verified_user">verified_user</span>
+
+<h3 class="font-label-lg text-label-lg font-bold">Honesty Guard</h3>
+
+</div>
+
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+
+              Deterministic safety gate: verifies speech templates, enforces hard life-safety constraints, blocks unverified promises.
+
+            </p>
+
+</div>
+
+<div class="mt-space-md pt-space-xs border-t border-outline-variant flex items-center justify-between text-caption font-label-tabular text-on-surface-variant">
+
+<span>Latency</span>
+
+<span class="text-primary font-bold">~8ms</span>
+
+</div>
+
+</div>
+
+<!-- STEP 6: Gnani Timbre -->
+
+<div class="bg-surface-container-lowest border border-outline-variant rounded-lg p-space-md flex flex-col justify-between h-full relative group hover:border-primary transition-colors">
+
+<div>
+
+<div class="flex items-center justify-between mb-space-sm">
+
+<span class="h-6 w-6 rounded bg-surface-container text-primary font-label-tabular text-caption font-bold flex items-center justify-center">06</span>
+
+<span class="px-2 py-0.5 rounded bg-surface-container-high text-primary text-caption font-label-tabular font-medium">Neural TTS</span>
+
+</div>
+
+<div class="flex items-center gap-1.5 mb-1 text-primary">
+
+<span class="material-symbols-outlined text-lg" data-icon="record_voice_over">record_voice_over</span>
+
+<h3 class="font-label-lg text-label-lg font-bold">Gnani Timbre</h3>
+
+</div>
+
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+
+              Text-to-Speech / Natural low-latency localized voice synthesis in Kannada, Hindi, English telephony channels.
+
+            </p>
+
+</div>
+
+<div class="mt-space-md pt-space-xs border-t border-outline-variant flex items-center justify-between text-caption font-label-tabular text-on-surface-variant">
+
+<span>Latency</span>
+
+<span class="text-primary font-bold">~210ms</span>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- 4. Model Detail Cards (Deep Dive on Core Engine Components) -->
+
+<section class="space-y-space-md">
+
+<div>
+
+<h2 class="font-headline-md text-headline-md text-primary font-bold">
+
+          Architecture Module Specifications
+
+        </h2>
+
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+
+          Technical specifications, runtime isolation, and operational design rationale across the stack.
+
+        </p>
+
+</div>
+
+<!-- Bento-style Card Layout -->
+
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-space-md">
+
+<!-- Card 1: Gnani Prisma -->
+
+<div class="bg-surface-container-lowest rounded-lg border border-outline-variant p-space-lg flex flex-col justify-between shadow-sm">
+
+<div>
+
+<div class="flex items-center justify-between border-b border-outline-variant pb-space-sm mb-space-md">
+
+<div class="flex items-center gap-2">
+
+<span class="material-symbols-outlined text-primary" data-icon="hearing">hearing</span>
+
+<span class="font-label-lg text-label-lg text-primary font-bold">Gnani Prisma</span>
+
+</div>
+
+<span class="text-caption font-label-tabular bg-surface-container px-2 py-0.5 rounded text-on-surface-variant">MULTILINGUAL STT / ASR</span>
+
+</div>
+
+<div class="space-y-space-sm">
+
+<div>
+
+<span class="font-label-md text-label-md text-on-surface font-semibold block">Operational Role:</span>
+
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+
+                  Transcribes low-bandwidth 8 kHz carrier audio with regional dialect adaptation (Kannada, Hindi, Hinglish, Tulu) on live telephony buffers.
+
+                </p>
+
+</div>
+
+<div>
+
+<span class="font-label-md text-label-md text-on-surface font-semibold block">Why This Architecture:</span>
+
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+
+                  Telephony-grade acoustic robustness without external cloud latency. Handles packet drop and background urban disaster ambient acoustics.
+
+                </p>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="mt-space-md pt-space-sm border-t border-outline-variant flex items-center justify-between text-caption font-label-tabular text-on-surface-variant">
+
+<span>Sampling: 8 kHz PCM</span>
+
+<span class="text-primary font-semibold">Dialect Adaptation</span>
+
+</div>
+
+</div>
+
+<!-- Card 2: Gnani Evon -->
+
+<div class="bg-surface-container-lowest rounded-lg border border-outline-variant p-space-lg flex flex-col justify-between shadow-sm">
+
+<div>
+
+<div class="flex items-center justify-between border-b border-outline-variant pb-space-sm mb-space-md">
+
+<div class="flex items-center gap-2">
+
+<span class="material-symbols-outlined text-primary" data-icon="filter_alt">filter_alt</span>
+
+<span class="font-label-lg text-label-lg text-primary font-bold">Gnani Evon</span>
+
+</div>
+
+<span class="text-caption font-label-tabular bg-surface-container px-2 py-0.5 rounded text-on-surface-variant">INTENT &amp; SLOT EXTRACTION</span>
+
+</div>
+
+<div class="space-y-space-sm">
+
+<div>
+
+<span class="font-label-md text-label-md text-on-surface font-semibold block">Operational Role:</span>
+
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+
+                  Identifies structured data fields (first name only, landmark, headcount, stretcher needs, water level) from raw transcription streams.
+
+                </p>
+
+</div>
+
+<div>
+
+<span class="font-label-md text-label-md text-on-surface font-semibold block">Why This Architecture:</span>
+
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+
+                  Parses conversational answers into strict schema inputs. Never hallucinates entities; triggers affirmative DTMF confirmation if confidence is &lt;0.82.
+
+                </p>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="mt-space-md pt-space-sm border-t border-outline-variant flex items-center justify-between text-caption font-label-tabular text-on-surface-variant">
+
+<span>Output: JSON Schema</span>
+
+<span class="text-primary font-semibold">Strict Slot Mask</span>
+
+</div>
+
+</div>
+
+<!-- Card 3: Status Engine (Deterministic Code Execution) -->
+
+<div class="bg-surface-container-lowest rounded-lg border-2 border-primary p-space-lg flex flex-col justify-between shadow-sm"><div><div class="flex items-center justify-between border-b border-outline-variant pb-space-sm mb-space-md"><div class="flex items-center gap-2"><span class="material-symbols-outlined text-secondary" data-icon="code_blocks">code_blocks</span><span class="font-label-lg text-label-lg text-primary font-bold">Status Engine</span></div><span class="text-caption font-label-tabular bg-primary text-secondary-fixed px-2 py-0.5 rounded font-bold">PYTHON BACKEND</span></div><div class="space-y-space-sm"><div><span class="font-label-md text-label-md text-on-surface font-semibold block">Operational Role:</span><p class="font-body-sm text-body-sm text-on-surface-variant">Evaluates priority triage matrices, scheduled redials, vehicle assignments, and queue state transitions in memory via Python backend.</p></div><div><span class="font-label-md text-label-md text-on-surface font-semibold block">Why This Architecture:</span><p class="font-body-sm text-body-sm text-on-surface-variant">Critical life-safety states must never be handed to LLM hallucinations or probabilistic models. State mutations require hard database transactions.</p></div></div></div><div class="mt-space-md pt-space-sm border-t border-outline-variant flex items-center justify-between text-caption font-label-tabular text-on-surface-variant"><span>State: Postgres ACID</span><span class="text-error font-bold">No AI Write-Access</span></div></div>
+
+<!-- Card 4: Template & Honesty Guard -->
+
+<div class="bg-surface-container-lowest rounded-lg border border-outline-variant p-space-lg flex flex-col justify-between shadow-sm">
+
+<div>
+
+<div class="flex items-center justify-between border-b border-outline-variant pb-space-sm mb-space-md">
+
+<div class="flex items-center gap-2">
+
+<span class="material-symbols-outlined text-error" data-icon="security">security</span>
+
+<span class="font-label-lg text-label-lg text-primary font-bold">Honesty Guard</span>
+
+</div>
+
+<span class="text-caption font-label-tabular bg-error-container text-error px-2 py-0.5 rounded font-bold">HARD RULE INTERCEPTOR</span>
+
+</div>
+
+<div class="space-y-space-sm">
+
+<div>
+
+<span class="font-label-md text-label-md text-on-surface font-semibold block">Operational Role:</span>
+
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+
+                  Validates candidate TTS scripts against active dispatch tables before generation. Intercepts false assurances before audio synthesis.
+
+                </p>
+
+</div>
+
+<div>
+
+<span class="font-label-md text-label-md text-on-surface font-semibold block">Why This Architecture:</span>
+
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+
+                  Absolute zero-tolerance for premature rescue promises. If a unit has not accepted, the synthesizer can only acknowledge manifest receipt.
+
+                </p>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="mt-space-md pt-space-sm border-t border-outline-variant flex items-center justify-between text-caption font-label-tabular text-on-surface-variant">
+
+<span>Safety Rule: PASS/FAIL</span>
+
+<span class="text-error font-semibold">Zero False Pledges</span>
+
+</div>
+
+</div>
+
+<!-- Card 5: Gnani Timbre -->
+
+<div class="bg-surface-container-lowest rounded-lg border border-outline-variant p-space-lg flex flex-col justify-between shadow-sm">
+
+<div>
+
+<div class="flex items-center justify-between border-b border-outline-variant pb-space-sm mb-space-md">
+
+<div class="flex items-center gap-2">
+
+<span class="material-symbols-outlined text-primary" data-icon="volume_up">volume_up</span>
+
+<span class="font-label-lg text-label-lg text-primary font-bold">Gnani Timbre</span>
+
+</div>
+
+<span class="text-caption font-label-tabular bg-surface-container px-2 py-0.5 rounded text-on-surface-variant">NEURAL MULTILINGUAL TTS</span>
+
+</div>
+
+<div class="space-y-space-sm">
+
+<div>
+
+<span class="font-label-md text-label-md text-on-surface font-semibold block">Operational Role:</span>
+
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+
+                  Generates calm, clear localized audio broadcasts with native Indian accent cadence across Hindi, Kannada, and Indian English.
+
+                </p>
+
+</div>
+
+<div>
+
+<span class="font-label-md text-label-md text-on-surface font-semibold block">Why This Architecture:</span>
+
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+
+                  High intelligibility over degraded cellular and landline connections. Eliminates robotic cadence to calm distressed citizens during emergency calls.
+
+                </p>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="mt-space-md pt-space-sm border-t border-outline-variant flex items-center justify-between text-caption font-label-tabular text-on-surface-variant">
+
+<span>Synthesis: G.711 / μ-law</span>
+
+<span class="text-primary font-semibold">Localized Cadence</span>
+
+</div>
+
+</div>
+
+<!-- Card 6: Architectural Truth Matrix -->
+
+<div class="bg-surface-container-low rounded-lg border border-outline-variant p-space-lg flex flex-col justify-between shadow-sm">
+
+<div>
+
+<div class="flex items-center justify-between border-b border-outline-variant pb-space-sm mb-space-md">
+
+<div class="flex items-center gap-2">
+
+<span class="material-symbols-outlined text-primary" data-icon="policy">policy</span>
+
+<span class="font-label-lg text-label-lg text-primary font-bold">Operational Boundaries</span>
+
+</div>
+
+<span class="text-caption font-label-tabular bg-surface-container-high px-2 py-0.5 rounded text-primary">STATE BOUNDARIES</span>
+
+</div>
+
+<div class="space-y-2">
+
+<div class="flex items-start gap-2">
+
+<span class="material-symbols-outlined text-sm text-error shrink-0 mt-0.5" data-icon="cancel">cancel</span>
+
+<span class="font-body-sm text-body-sm text-on-surface"><strong>Prohibited:</strong> "Help is on the way" / "Help is coming" before driver acceptance.</span>
+
+</div>
+
+<div class="flex items-start gap-2">
+
+<span class="material-symbols-outlined text-sm text-emerald-700 shrink-0 mt-0.5" data-icon="check_circle">check_circle</span>
+
+<span class="font-body-sm text-body-sm text-on-surface"><strong>Permitted:</strong> "Manifest recorded. Sector 4 dispatch notified. Standby on this line."</span>
+
+</div>
+
+<div class="flex items-start gap-2">
+
+<span class="material-symbols-outlined text-sm text-emerald-700 shrink-0 mt-0.5" data-icon="check_circle">check_circle</span>
+
+<span class="font-body-sm text-body-sm text-on-surface"><strong>Permitted:</strong> "Driver Unit 04 accepted. ETA 18 minutes."</span>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="mt-space-md pt-space-sm border-t border-outline-variant text-caption font-label-tabular text-on-surface-variant">
+
+            Verified DDMA State Logic
+
+          </div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- 5. Technical Specs & Safeguard Matrix -->
+
+<section class="bg-surface-container-lowest p-space-lg rounded-lg border border-outline-variant shadow-sm"><div class="flex flex-col md:flex-row md:items-center justify-between gap-space-md border-b border-outline-variant pb-space-md mb-space-md"><div class="flex items-center gap-3"><div class="p-2 bg-surface-container rounded border border-outline-variant text-primary"><span class="material-symbols-outlined text-xl" data-icon="developer_board">developer_board</span></div><div><h3 class="font-headline-sm text-headline-sm font-bold text-primary">MVP System Architecture</h3><p class="font-body-sm text-body-sm text-on-surface-variant">MVP: recorded audio input, Python backend</p></div></div><div class="flex items-center gap-2"><span class="px-3 py-1 rounded bg-secondary-fixed text-on-secondary-fixed font-label-tabular text-caption font-bold">MVP RELEASE MODE</span></div></div><div class="grid grid-cols-1 md:grid-cols-2 gap-space-md"><div class="p-space-sm bg-surface-container-low rounded border border-outline-variant"><span class="font-label-md text-label-md text-primary font-semibold block">Number Masking Protocol</span><p class="font-body-sm text-body-sm text-on-surface-variant">Incoming CLI masked across dispatch operators: <span class="font-label-tabular text-label-tabular font-bold text-on-surface">+91 XXXXX XXXXX</span>. Unmasked only on physical SMS gateway relay.</p></div><div class="p-space-sm bg-surface-container-low rounded border border-outline-variant"><span class="font-label-md text-label-md text-primary font-semibold block">Minimal PII Persistence</span><p class="font-body-sm text-body-sm text-on-surface-variant">Transcripts store <span class="font-semibold text-on-surface">First Names Only</span> (e.g., "Rajesh", "Amina"). Aadhaar numbers and surnames are excluded from operational manifests.</p></div></div></section>
+
+<!-- Operational State Matrix Table -->
+
+<section class="bg-surface-container-lowest rounded-lg border border-outline-variant overflow-hidden shadow-sm">
+
+<div class="p-space-md bg-surface-container-low border-b border-outline-variant flex items-center justify-between">
+
+<div>
+
+<h3 class="font-headline-sm text-headline-sm font-bold text-primary">State Mutation vs. Vocal Authorization Rules</h3>
+
+<p class="font-body-sm text-body-sm text-on-surface-variant">Deterministic validation table governing voice agent responses at each operational lifecycle stage.</p>
+
+</div>
+
+<span class="font-label-tabular text-caption px-2.5 py-1 bg-surface-container-highest text-primary font-bold rounded">
+
+          RULESET v4.2.1
+
+        </span>
+
+</div>
+
+<div class="overflow-x-auto">
+
+<table class="w-full text-left border-collapse">
+
+<thead>
+
+<tr class="bg-surface-container text-caption font-label-tabular uppercase tracking-wider text-on-surface-variant border-b-2 border-outline-variant">
+
+<th class="py-3 px-4">State Token</th>
+
+<th class="py-3 px-4">Database Trigger</th>
+
+<th class="py-3 px-4">Deterministic Logic</th>
+
+<th class="py-3 px-4">Permitted Agent Voice Response</th>
+
+<th class="py-3 px-4 text-right">Guard Status</th>
+
+</tr>
+
+</thead>
+
+<tbody class="divide-y divide-outline-variant text-body-sm">
+
+<!-- Row 1 -->
+
+<tr class="hover:bg-surface-container-low transition-colors">
+
+<td class="py-3 px-4 font-label-tabular font-bold text-primary">ST_CALL_INTAKE</td>
+
+<td class="py-3 px-4 text-on-surface-variant">PSTN Ringing / Answer</td>
+
+<td class="py-3 px-4 text-on-surface">Session initialize, allocate scratchpad RAM</td>
+
+<td class="py-3 px-4 font-body-sm text-on-surface italic">"Namaskara, Abhay DDMA Control Room. Tell us your location and headcount."</td>
+
+<td class="py-3 px-4 text-right">
+
+<span class="inline-flex items-center gap-1 text-caption font-label-tabular px-2 py-0.5 rounded bg-surface-container-high text-primary font-bold">
+
+<span class="h-1.5 w-1.5 rounded-full bg-primary"></span>
+
+                  GATED
+
+                </span>
+
+</td>
+
+</tr>
+
+<!-- Row 2 -->
+
+<tr class="hover:bg-surface-container-low transition-colors">
+
+<td class="py-3 px-4 font-label-tabular font-bold text-secondary">ST_MANIFEST_REC</td>
+
+<td class="py-3 px-4 text-on-surface-variant">Evon Slot Fill (headcount &gt; 0)</td>
+
+<td class="py-3 px-4 text-on-surface">Commit row to `evacuation_manifest` table</td>
+
+<td class="py-3 px-4 font-body-sm text-on-surface italic">"Your report is logged for Sector 4. Please remain on elevated ground."</td>
+
+<td class="py-3 px-4 text-right">
+
+<span class="inline-flex items-center gap-1 text-caption font-label-tabular px-2 py-0.5 rounded bg-secondary-fixed text-on-secondary-fixed font-bold">
+
+<span class="h-1.5 w-1.5 rounded-full bg-secondary"></span>
+
+                  RECORDED
+
+                </span>
+
+</td>
+
+</tr>
+
+<!-- Row 3 -->
+
+<tr class="hover:bg-surface-container-low transition-colors bg-red-50/30">
+
+<td class="py-3 px-4 font-label-tabular font-bold text-error">PROHIBITED_STATE</td>
+
+<td class="py-3 px-4 text-on-surface-variant">Queue Pending / No Fleet Lock</td>
+
+<td class="py-3 px-4 text-error font-semibold">Honesty Guard throws hard exception if agent attempts promise</td>
+
+<td class="py-3 px-4 text-error font-body-sm font-semibold">PROHIBITED: "Rescue vehicle is on its way" / "Help is coming"</td>
+
+<td class="py-3 px-4 text-right">
+
+<span class="inline-flex items-center gap-1 text-caption font-label-tabular px-2 py-0.5 rounded bg-error-container text-error font-bold">
+
+<span class="h-1.5 w-1.5 rounded-full bg-error"></span>
+
+                  BLOCKED
+
+                </span>
+
+</td>
+
+</tr>
+
+<!-- Row 4 -->
+
+<tr class="hover:bg-surface-container-low transition-colors">
+
+<td class="py-3 px-4 font-label-tabular font-bold text-emerald-800">ST_DRIVER_ACK</td>
+
+<td class="py-3 px-4 text-on-surface-variant">Driver Tablet clicks "ACCEPT"</td>
+
+<td class="py-3 px-4 text-on-surface">DB status mutates to `DRIVER_ACCEPTED`, calculate ETA</td>
+
+<td class="py-3 px-4 font-body-sm text-on-surface italic">"NDRF Boat Unit 04 has accepted your dispatch. ETA is 18 minutes."</td>
+
+<td class="py-3 px-4 text-right">
+
+<span class="inline-flex items-center gap-1 text-caption font-label-tabular px-2 py-0.5 rounded bg-emerald-100 text-emerald-900 font-bold">
+
+<span class="h-1.5 w-1.5 rounded-full bg-emerald-600"></span>
+
+                  DISPATCHED
+
+                </span>
+
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+</section>
+
+</main>
+
+
+
+
+
+
+<!-- State Transition Matrix Modal -->
+<div id="stateMatrixModal" class="fixed inset-0 z-50 bg-slate-950/70 backdrop-blur-sm hidden flex items-center justify-center p-4">
+  <div class="w-full max-w-2xl bg-surface-container-lowest rounded-xl border border-outline shadow-2xl p-5 space-y-4">
+    <div class="flex items-center justify-between border-b border-outline-variant/60 pb-3">
+      <h3 class="font-bold text-lg text-primary">Core Legal State Transitions (core/status.py)</h3>
+      <button onclick="document.getElementById('stateMatrixModal').classList.add('hidden')" class="p-1 rounded text-on-surface-variant hover:text-on-surface">
+        <span class="material-symbols-outlined">close</span>
+      </button>
+    </div>
+    <div class="overflow-x-auto text-xs">
+      <table class="w-full text-left border-collapse border border-outline-variant">
+        <thead>
+          <tr class="bg-surface-container-low font-bold">
+            <th class="p-2 border border-outline-variant">Current Status</th>
+            <th class="p-2 border border-outline-variant">Allowed Next Statuses</th>
+            <th class="p-2 border border-outline-variant">Allowed Actor Types</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td class="p-2 border font-mono">not_reached</td><td class="p-2 border">needs_help, can_help, not_reached</td><td class="p-2 border">system, ivr, field_worker, citizen</td></tr>
+          <tr><td class="p-2 border font-mono">needs_help</td><td class="p-2 border">request_recorded, can_help</td><td class="p-2 border">dispatcher, system</td></tr>
+          <tr><td class="p-2 border font-mono">request_recorded</td><td class="p-2 border">driver_accepted, needs_help</td><td class="p-2 border">driver, dispatcher</td></tr>
+          <tr><td class="p-2 border font-mono">driver_accepted</td><td class="p-2 border">on_run, request_recorded</td><td class="p-2 border">driver</td></tr>
+          <tr><td class="p-2 border font-mono">on_run</td><td class="p-2 border">picked_up, driver_accepted</td><td class="p-2 border">driver</td></tr>
+          <tr><td class="p-2 border font-mono">picked_up</td><td class="p-2 border">evacuated</td><td class="p-2 border">driver</td></tr>
+          <tr><td class="p-2 border font-mono">evacuated</td><td class="p-2 border">(Terminal)</td><td class="p-2 border">-</td></tr>
+          <tr><td class="p-2 border font-mono">can_help</td><td class="p-2 border">needs_help</td><td class="p-2 border">citizen, dispatcher</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="flex justify-end pt-2">
+      <button onclick="document.getElementById('stateMatrixModal').classList.add('hidden')" class="px-3 py-1.5 bg-primary text-white text-xs rounded">Close</button>
+    </div>
+  </div>
+</div>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  document.querySelectorAll('button').forEach(btn => {
+    if (btn.textContent.includes('State Transition Matrix')) {
+      btn.onclick = () => document.getElementById('stateMatrixModal').classList.remove('hidden');
+    } else if (btn.textContent.includes('Download System Spec')) {
+      btn.title = 'Not available in this demo';
+      btn.onclick = () => alert('Not available in this demo');
+    }
+  });
+});
+</script>
+
+</body></html>

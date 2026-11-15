@@ -1,0 +1,639 @@
+<!-- Resident Phone Simulator - Abhay Citizen -->
+
+<!DOCTYPE html><html lang="en"><head>
+
+<meta charset="utf-8">
+
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+<title>ಅಭಯ / ABHAY DDMA - Resident Phone Simulator</title>
+
+<link href="https://fonts.googleapis.com" rel="preconnect">
+
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@500;600&amp;display=swap" rel="stylesheet">
+
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+
+<script id="tailwind-config">
+
+    tailwind.config = {
+
+      darkMode: "class",
+
+      theme: {
+
+        extend: {
+
+          "colors": {
+
+            "secondary-fixed": "#ffddb8",
+
+            "on-secondary-fixed-variant": "#653e00",
+
+            "on-error": "#ffffff",
+
+            "inverse-surface": "#283044",
+
+            "inverse-on-surface": "#eef0ff",
+
+            "tertiary-fixed": "#dbe1ff",
+
+            "tertiary-container": "#001f5e",
+
+            "surface-container-lowest": "#ffffff",
+
+            "inverse-primary": "#b1c7f0",
+
+            "surface-tint": "#495f82",
+
+            "on-tertiary": "#ffffff",
+
+            "surface-container": "#eaedff",
+
+            "on-secondary-fixed": "#2a1700",
+
+            "primary-fixed": "#d5e3ff",
+
+            "on-surface": "#131b2e",
+
+            "surface-container-highest": "#dae2fd",
+
+            "tertiary-fixed-dim": "#b4c5ff",
+
+            "background": "#faf8ff",
+
+            "on-primary-container": "#778db2",
+
+            "on-secondary-container": "#684000",
+
+            "on-surface-variant": "#44474e",
+
+            "error": "#ba1a1a",
+
+            "error-container": "#ffdad6",
+
+            "secondary": "#855300",
+
+            "surface-container-low": "#f2f3ff",
+
+            "surface-dim": "#d2d9f4",
+
+            "on-error-container": "#93000a",
+
+            "surface": "#faf8ff",
+
+            "primary": "#001026",
+
+            "outline-variant": "#c4c6cf",
+
+            "on-secondary": "#ffffff",
+
+            "primary-container": "#0b2545",
+
+            "outline": "#74777f",
+
+            "surface-variant": "#dae2fd",
+
+            "surface-container-high": "#e2e7ff",
+
+            "on-tertiary-fixed": "#00174b",
+
+            "tertiary": "#000c31",
+
+            "on-tertiary-container": "#5885ff",
+
+            "on-tertiary-fixed-variant": "#003ea8",
+
+            "on-primary-fixed": "#001c3b",
+
+            "surface-bright": "#faf8ff",
+
+            "secondary-container": "#fea619",
+
+            "on-primary": "#ffffff",
+
+            "secondary-fixed-dim": "#ffb95f",
+
+            "on-primary-fixed-variant": "#314769",
+
+            "primary-fixed-dim": "#b1c7f0",
+
+            "on-background": "#131b2e"
+
+          },
+
+          "borderRadius": {
+
+            "DEFAULT": "0.25rem",
+
+            "lg": "0.5rem",
+
+            "xl": "0.75rem",
+
+            "full": "9999px"
+
+          },
+
+          "spacing": {
+
+            "space-sm": "0.5rem",
+
+            "margin-md": "1.5rem",
+
+            "space-lg": "1.5rem",
+
+            "gutter": "1rem",
+
+            "space-xs": "0.25rem",
+
+            "space-xl": "2rem",
+
+            "gutter-lg": "1.5rem",
+
+            "space-2xl": "3rem",
+
+            "margin": "1rem",
+
+            "space-md": "1rem",
+
+            "margin-lg": "2rem"
+
+          },
+
+          "fontFamily": {
+
+            "headline-lg-mobile": ["Inter"],
+
+            "display-lg": ["Inter"],
+
+            "display-lg-mobile": ["Inter"],
+
+            "body-sm": ["Inter"],
+
+            "label-md": ["Inter"],
+
+            "caption": ["Inter"],
+
+            "headline-md": ["Inter"],
+
+            "headline-lg": ["Inter"],
+
+            "body-lg": ["Inter"],
+
+            "label-lg": ["Inter"],
+
+            "body-md": ["Inter"],
+
+            "headline-sm": ["Inter"],
+
+            "label-tabular": ["JetBrains Mono"]
+
+          },
+
+          "fontSize": {
+
+            "headline-lg-mobile": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "700" }],
+
+            "display-lg": ["40px", { "lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+
+            "display-lg-mobile": ["28px", { "lineHeight": "36px", "letterSpacing": "-0.01em", "fontWeight": "700" }],
+
+            "body-sm": ["12px", { "lineHeight": "16px", "letterSpacing": "0.01em", "fontWeight": "400" }],
+
+            "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "600" }],
+
+            "caption": ["11px", { "lineHeight": "14px", "letterSpacing": "0.04em", "fontWeight": "500" }],
+
+            "headline-md": ["22px", { "lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+
+            "headline-lg": ["30px", { "lineHeight": "38px", "letterSpacing": "-0.015em", "fontWeight": "700" }],
+
+            "body-lg": ["16px", { "lineHeight": "24px", "letterSpacing": "0em", "fontWeight": "400" }],
+
+            "label-lg": ["14px", { "lineHeight": "18px", "letterSpacing": "0.01em", "fontWeight": "600" }],
+
+            "body-md": ["14px", { "lineHeight": "20px", "letterSpacing": "0em", "fontWeight": "400" }],
+
+            "headline-sm": ["18px", { "lineHeight": "24px", "letterSpacing": "0em", "fontWeight": "600" }],
+
+            "label-tabular": ["13px", { "lineHeight": "18px", "letterSpacing": "-0.01em", "fontWeight": "500" }]
+
+          }
+
+        },
+
+      },
+
+    }
+
+  </script>
+
+</head>
+
+<body class="bg-slate-900 text-on-surface flex justify-center items-center min-h-screen p-0 sm:p-4 font-body-md">
+
+<!-- 390px Mobile Viewport Canvas Frame -->
+
+<div class="w-full max-w-[390px] h-[844px] bg-background relative flex flex-col shadow-2xl rounded-none sm:rounded-[36px] overflow-hidden border border-outline-variant/40">
+
+<!-- Phone Hardware Notch / Status Bar -->
+
+{% set active_page = "phone" %}
+{% include "nav.html" %}
+
+<!-- TopAppBar (from Shared Components JSON) -->
+
+<div class="bg-primary dark:bg-primary-container text-on-primary dark:text-inverse-primary border-b border-outline-variant dark:border-outline shadow-sm flex justify-between items-center w-full px-4 h-14 z-40 transition-colors duration-150">
+
+<div class="flex items-center gap-2">
+
+<span class="material-symbols-outlined text-secondary-container" data-icon="shield">shield</span>
+
+<span class="text-headline-sm font-headline-sm font-bold text-on-primary dark:text-inverse-primary tracking-wider">ಅಭಯ / ABHAY DDMA</span>
+
+</div>
+
+<button class="px-2.5 py-1 rounded bg-primary-container border border-outline-variant/30 text-label-lg font-label-lg hover:bg-primary-container dark:hover:bg-primary hover:text-on-primary-container transition-colors duration-150 active:scale-95 text-on-primary">
+
+        EN | ಕನ್ನ
+
+      </button>
+
+</div>
+
+<!-- Scrollable Phone Screen Simulation Area -->
+
+<main class="flex-1 overflow-y-auto pb-20 pt-2 px-3 space-y-3.5 bg-surface-container-lowest">
+
+<!-- Operational Context Pill -->
+
+<div class="flex items-center justify-between bg-surface-container px-3 py-1.5 rounded-lg border border-outline-variant/40">
+
+<div class="flex items-center gap-1.5">
+
+<span class="w-2 h-2 rounded-full bg-amber-500 animate-ping"></span>
+
+<span class="font-caption text-caption text-on-surface-variant font-bold">DISASTER TELEMETRY SIMULATOR</span>
+
+</div>
+
+<span class="font-label-tabular text-[11px] text-primary-container font-semibold bg-primary-fixed px-1.5 py-0.5 rounded">WARD 142</span>
+
+</div>
+
+<!-- INCOMING ACTIVE CALL CARD (Simulated Dialler/Call Screen) -->
+
+<section class="bg-surface-container-lowest rounded-xl border border-outline-variant/50 shadow-sm p-3.5 space-y-3">
+
+<!-- Caller Metadata Block -->
+
+<div class="flex items-start gap-3">
+
+<div class="relative w-12 h-12 rounded-full bg-primary-container flex items-center justify-center text-white border-2 border-secondary-container flex-shrink-0">
+
+<span class="material-symbols-outlined text-2xl text-secondary-fixed" data-icon="policy">policy</span>
+
+<span class="absolute -bottom-1 -right-0.5 w-4 h-4 bg-emerald-600 border-2 border-white rounded-full flex items-center justify-center">
+
+<span class="w-1.5 h-1.5 bg-white rounded-full"></span>
+
+</span>
+
+</div>
+
+<div class="flex-1 min-w-0">
+
+<div class="flex items-center gap-1.5">
+
+<span class="font-label-lg text-label-lg text-on-surface font-bold truncate">ಅಭಯ / ABHAY DDMA</span>
+
+<span class="text-[10px] font-caption font-bold bg-amber-100 text-amber-900 border border-amber-300 px-1 rounded uppercase tracking-wider">OFFICIAL</span>
+
+</div>
+
+<p class="font-body-sm text-body-sm text-on-surface-variant truncate">District Emergency Operation Center</p>
+
+<p class="font-label-tabular text-[11px] text-primary-container font-semibold">+91 XXXXX XXXXX</p>
+
+</div>
+
+</div>
+
+<!-- Active Call Duration Tracker -->
+
+<div class="bg-primary/5 rounded-lg px-3 py-2 flex items-center justify-between border border-outline-variant/30">
+
+<div class="flex items-center gap-2">
+
+<span class="w-2.5 h-2.5 rounded-full bg-emerald-600 animate-pulse"></span>
+
+<span class="font-label-md text-label-md text-primary font-bold">ಕರೆ ಚಾಲ್ತಿಯಲ್ಲಿದೆ / Call in progress</span>
+
+</div>
+
+<span class="font-label-tabular text-label-tabular font-bold text-on-surface tracking-wider bg-white px-2 py-0.5 rounded border border-outline-variant/40">00:34</span>
+
+</div>
+
+<!-- High-visibility Live Bilingual Captions Box -->
+
+<div class="bg-surface-container-low rounded-xl p-3 border-l-4 border-l-secondary-container border-y border-r border-outline-variant/40 space-y-2">
+
+<div class="flex items-center justify-between border-b border-outline-variant/30 pb-1.5">
+
+<div class="flex items-center gap-1.5 text-primary">
+
+<span class="material-symbols-outlined text-base text-secondary-container animate-pulse" data-icon="graphic_eq">graphic_eq</span>
+
+<span class="font-caption text-caption font-bold uppercase tracking-wider text-primary">AI Automated Voice Broadcast</span>
+
+</div>
+
+<span class="font-caption text-caption text-on-surface-variant">Live DTMF IVR</span>
+
+</div>
+
+<!-- Mandatory Operational Copy (Kannada + English verbatim without rescue guarantee) -->
+
+<div class="space-y-1.5 text-on-surface"><p class="font-body-md text-body-md font-semibold leading-snug">"ನಿಮ್ಮ ವಿನಂತಿಯನ್ನು ದಾಖಲಿಸಲಾಗಿದೆ. ಇನ್ನೂ ಯಾವುದೇ ಚಾಲಕರು ಒಪ್ಪಿಕೊಂಡಿಲ್ಲ."</p><p class="font-body-sm text-body-sm text-on-surface-variant leading-snug">"Your request is recorded. No driver has accepted yet."</p></div>
+
+<div class="pt-1 flex items-center gap-1 text-[11px] font-caption text-error font-medium">
+
+<span class="material-symbols-outlined text-sm" data-icon="info">info</span>
+
+<span>CRITICAL: Dispatch pending driver match. Remain vigilant.</span>
+
+</div>
+
+</div>
+
+<!-- Interactive DTMF Fallback Numeric Buttons -->
+
+<div class="space-y-1.5 pt-1">
+
+<p class="font-caption text-caption font-bold text-on-surface-variant uppercase tracking-wider flex items-center gap-1">
+
+<span class="material-symbols-outlined text-xs" data-icon="dialpad">dialpad</span>
+
+<span>Press Keypad Number to Respond (DTMF)</span>
+
+</p>
+
+<div class="grid grid-cols-1 gap-1.5">
+
+<!-- Button 1: Selected / Highlighted State -->
+
+<button class="w-full text-left bg-primary text-white border-2 border-secondary-container rounded-lg p-2.5 flex items-center justify-between shadow-sm active:scale-95 transition-all">
+
+<div class="flex items-center gap-2.5">
+
+<span class="w-7 h-7 rounded-md bg-secondary-container text-on-secondary-container font-label-tabular font-bold flex items-center justify-center text-sm">1</span>
+
+<div>
+
+<div class="font-label-md text-label-md font-bold leading-tight">1: ನನಗೆ ಸಹಾಯ ಬೇಕು</div>
+
+<div class="font-caption text-caption text-secondary-fixed leading-tight">I need help</div>
+
+</div>
+
+</div>
+
+<span class="flex items-center gap-1 font-caption text-[11px] font-bold bg-secondary-container/20 text-secondary-fixed border border-secondary-container/40 px-2 py-0.5 rounded">
+
+<span class="material-symbols-outlined text-xs" data-icon="check_circle">check_circle</span>
+
+                SELECTED
+
+              </span>
+
+</button>
+
+<!-- Button 2 -->
+
+<button class="w-full text-left bg-surface-container-lowest text-on-surface border border-outline-variant/60 hover:bg-surface-container rounded-lg p-2.5 flex items-center justify-between active:scale-95 transition-all">
+
+<div class="flex items-center gap-2.5">
+
+<span class="w-7 h-7 rounded-md bg-surface-container-high text-on-surface font-label-tabular font-bold flex items-center justify-center text-sm border border-outline-variant/40">2</span>
+
+<div>
+
+<div class="font-label-md text-label-md font-semibold text-on-surface leading-tight">2: ನಾನು ಇತರರಿಗೆ ಸಹಾಯ ಮಾಡಬಲ್ಲೆ</div>
+
+<div class="font-caption text-caption text-on-surface-variant leading-tight">I can help others</div>
+
+</div>
+
+</div>
+
+<span class="font-caption text-[11px] text-outline">Press 2</span>
+
+</button>
+
+<!-- Button 3 -->
+
+<button class="w-full text-left bg-surface-container-lowest text-on-surface border border-outline-variant/60 hover:bg-surface-container rounded-lg p-2.5 flex items-center justify-between active:scale-95 transition-all">
+
+<div class="flex items-center gap-2.5">
+
+<span class="w-7 h-7 rounded-md bg-surface-container-high text-on-surface font-label-tabular font-bold flex items-center justify-center text-sm border border-outline-variant/40">3</span>
+
+<div>
+
+<div class="font-label-md text-label-md font-semibold text-on-surface leading-tight">3: ನಾನು ಸುರಕ್ಷಿತವಾಗಿ ಸ್ಥಳಾಂತರಗೊಂಡಿದ್ದೇನೆ</div>
+
+<div class="font-caption text-caption text-on-surface-variant leading-tight">I have left / evacuated</div>
+
+</div>
+
+</div>
+
+<span class="font-caption text-[11px] text-outline">Press 3</span>
+
+</button>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- INCOMING SMS TEXT MESSAGE THREAD (Simulated Mobile SMS Viewer) -->
+
+<section class="bg-surface-container-lowest rounded-xl border border-outline-variant/50 shadow-sm p-3.5 space-y-2.5">
+
+<div class="flex items-center justify-between border-b border-outline-variant/30 pb-2">
+
+<div class="flex items-center gap-2">
+
+<span class="material-symbols-outlined text-primary text-lg" data-icon="sms">sms</span>
+
+<div>
+
+<span class="font-label-md text-label-md font-bold text-on-surface">VM-DDMAKT</span>
+
+<span class="block font-caption text-[10px] text-on-surface-variant leading-none">Government Emergency Broadcast Gateway</span>
+
+</div>
+
+</div>
+
+<span class="font-caption text-[10px] font-bold text-emerald-800 bg-emerald-50 border border-emerald-200 px-1.5 py-0.5 rounded">AUTHENTICATED</span>
+
+</div>
+
+<!-- SMS Message Bubble -->
+
+<div class="space-y-1">
+
+<div class="bg-surface-container-low rounded-2xl rounded-tl-sm p-3 border border-outline-variant/40 space-y-2">
+
+<p class="font-body-sm text-body-sm text-on-surface font-medium leading-relaxed">
+
+              ಅಭಯ ಡಿಡಿಎಂಎ: ನಿಮ್ಮ ಸ್ಥಳಾಂತರ ವಿನಂತಿಯನ್ನು ದಾಖಲಿಸಲಾಗಿದೆ (<span class="font-label-tabular font-bold text-primary">#KA-BNT-8821</span>). ಯಾವುದೇ ಚಾಲಕರು ಒಪ್ಪಿಕೊಂಡ ನಂತರವೇ ನಿಮಗೆ ಮುಂದಿನ ಸಂದೇಶ ಬರಲಿದೆ. ಸಹಾಯವಾಣಿ: <span class="font-label-tabular font-bold text-primary">1077</span>.
+
+            </p>
+
+<div class="border-t border-outline-variant/30 pt-1.5">
+
+<p class="font-caption text-caption text-on-surface-variant leading-snug">
+
+                (ABHAY DDMA: Your evacuation request is recorded. Notice: Resident will be informed only after a driver accepts. Emergency Helpline: 1077)
+
+              </p>
+
+</div>
+
+</div>
+
+<div class="flex items-center justify-between px-1 text-[11px] font-caption text-on-surface-variant">
+
+<span class="font-label-tabular">14:26 IST • Delivered via Cell Broadcast</span>
+
+<span class="flex items-center gap-0.5 text-primary">
+
+<span class="material-symbols-outlined text-xs" data-icon="done_all">done_all</span>
+
+<span>2G SMS</span>
+
+</span>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- Network Resilience Notice Banner -->
+
+<footer class="bg-surface-container-high rounded-lg p-2.5 flex items-center gap-2 border border-outline-variant/40">
+
+<span class="material-symbols-outlined text-secondary text-lg flex-shrink-0" data-icon="cell_tower">cell_tower</span>
+
+<p class="font-caption text-caption text-on-surface-variant font-medium leading-tight">
+
+          Automated IVR fallback operational even with low 2G connectivity. No mobile data or 4G required for emergency acknowledgments.
+
+        </p>
+
+</footer>
+
+</main>
+
+<!-- BottomNavBar (from Shared Components JSON with active IVR tab lock) -->
+
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-2 py-2 h-16 bg-surface-container-lowest dark:bg-surface-container-high border-t border-outline-variant dark:border-outline shadow-md">
+
+<!-- Item 1: Ready -->
+
+<button class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline px-3 py-1 transition-transform duration-150 active:scale-95 hover:text-primary">
+
+<span class="material-symbols-outlined text-xl" data-icon="verified_user">verified_user</span>
+
+<span class="text-caption font-caption">ಸಿದ್ಧತೆ / Ready</span>
+
+</button>
+
+<!-- Item 2: House -->
+
+<button class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline px-3 py-1 transition-transform duration-150 active:scale-95 hover:text-primary">
+
+<span class="material-symbols-outlined text-xl" data-icon="groups">groups</span>
+
+<span class="text-caption font-caption">ಕುಟುಂಬ / House</span>
+
+</button>
+
+<!-- Item 3: IVR (Active lock mapped to resident call simulator intent) -->
+
+<button class="flex flex-col items-center justify-center text-primary dark:text-secondary-fixed font-bold bg-primary-fixed dark:bg-primary-container rounded-lg px-3 py-1 transition-transform duration-150 active:scale-95">
+
+<span class="material-symbols-outlined text-xl" data-icon="ring_volume" style="font-variation-settings: 'FILL' 1;">ring_volume</span>
+
+<span class="text-caption font-caption">ತುರ್ತು / IVR</span>
+
+</button>
+
+<!-- Item 4: Status -->
+
+<button class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline px-3 py-1 transition-transform duration-150 active:scale-95 hover:text-primary">
+
+<span class="material-symbols-outlined text-xl" data-icon="task_alt">task_alt</span>
+
+<span class="text-caption font-caption">ಸ್ಥಿತಿ / Status</span>
+
+</button>
+
+</nav>
+
+</div>
+
+
+
+
+
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const key1 = Array.from(document.querySelectorAll('button')).find(b => b.textContent.trim().startsWith('1'));
+  const key2 = Array.from(document.querySelectorAll('button')).find(b => b.textContent.trim().startsWith('2'));
+  const key3 = Array.from(document.querySelectorAll('button')).find(b => b.textContent.trim().startsWith('3'));
+  
+  if (key1) key1.onclick = () => {
+    fetch('/api/dtmf', { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({ household_id: 'hh-001', key: '1' }) })
+      .then(r => r.json()).then(d => alert('Key 1 Registered: Needs Help status recorded.'));
+  };
+  if (key2) key2.onclick = () => {
+    fetch('/api/dtmf', { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({ household_id: 'hh-001', key: '2' }) })
+      .then(r => r.json()).then(d => alert('Key 2 Registered: Can Help status recorded.'));
+  };
+  if (key3) key3.onclick = () => {
+    fetch('/api/dtmf', { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({ household_id: 'hh-001', key: '3' }) })
+      .then(r => r.json()).then(d => alert('Key 3 Registered: Voice message replay initiated.'));
+  };
+
+  // Other keys disabled with tooltip
+  document.querySelectorAll('button').forEach(b => {
+    const txt = b.textContent.trim();
+    if (['4','5','6','7','8','9','*','0','#'].some(k => txt.startsWith(k))) {
+      b.title = 'Not available in this demo';
+      b.onclick = () => alert('Not available in this demo (DTMF keys 1, 2, 3 active)');
+    } else if (txt.includes('End Call')) {
+      b.onclick = () => window.location.reload();
+    }
+  });
+});
+</script>
+
+</body></html>
+</USER_REQUEST>
+<ADDITIONAL_METADATA>
+The current local time is: 2026-11-15T11:14:09+05:30.
+</ADDITIONAL_METADATA>

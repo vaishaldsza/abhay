@@ -1,0 +1,26 @@
+{
+  "timestamp": "2026-11-15T06:15:14.315596+00:00",
+  "mode": "mock mode",
+  "mock_mode": true,
+  "note": "USE_MOCK_GNANI=true. Real numbers shown as '--' until a real run exists.",
+  "total_test_calls": "-- (mock mode)",
+  "models_evaluated": {
+    "stt": "Gnani Prisma STT (mock mode)",
+    "llm": "Gnani Evon Disaster NLU Extractor (mock mode)",
+    "tts": "Gnani Timbre Neural TTS (mock mode)"
+  },
+  "metrics": {
+    "average_wer": "--",
+    "wer_percentage": "-- (mock mode)",
+    "overall_extraction_accuracy_pct": "-- (mock mode)",
+    "field_extraction_accuracy": {
+      "emergency": "-- (mock mode)",
+      "cannot_walk": "-- (mock mode)",
+      "can_help_others": "-- (mock mode)"
+    },
+    "honesty_guard_pass_rate_pct": "-- (mock mode)",
+    "forbidden_promises_detected": "-- (mock mode)",
+    "zero_false_promises_guaranteed": "-- (mock mode)"
+  },
+  "detailed_results": []
+}

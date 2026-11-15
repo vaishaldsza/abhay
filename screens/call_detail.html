@@ -1,0 +1,553 @@
+<!-- Call Detail Panel - Abhay DDMA -->
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>ABHAY DDMA COMMAND - Incident Dispatch Detail</title>
+<!-- Material Symbols Outlined -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "error-container": "#ffdad6",
+            "on-error-container": "#93000a",
+            "tertiary": "#000c31",
+            "inverse-surface": "#283044",
+            "on-tertiary-container": "#5885ff",
+            "on-primary": "#ffffff",
+            "surface-container-lowest": "#ffffff",
+            "surface-bright": "#faf8ff",
+            "surface-container-high": "#e2e7ff",
+            "tertiary-fixed-dim": "#b4c5ff",
+            "surface-dim": "#d2d9f4",
+            "primary-container": "#0b2545",
+            "on-primary-fixed": "#001c3b",
+            "surface-tint": "#495f82",
+            "surface-container-low": "#f2f3ff",
+            "secondary": "#855300",
+            "primary-fixed": "#d5e3ff",
+            "outline": "#74777f",
+            "surface": "#faf8ff",
+            "inverse-primary": "#b1c7f0",
+            "surface-container-highest": "#dae2fd",
+            "inverse-on-surface": "#eef0ff",
+            "on-error": "#ffffff",
+            "on-secondary-container": "#684000",
+            "tertiary-fixed": "#dbe1ff",
+            "on-primary-fixed-variant": "#314769",
+            "error": "#ba1a1a",
+            "on-secondary": "#ffffff",
+            "surface-variant": "#dae2fd",
+            "on-background": "#131b2e",
+            "tertiary-container": "#001f5e",
+            "background": "#faf8ff",
+            "primary": "#001026",
+            "on-tertiary-fixed-variant": "#003ea8",
+            "on-primary-container": "#778db2",
+            "on-tertiary-fixed": "#00174b",
+            "on-secondary-fixed-variant": "#653e00",
+            "on-surface-variant": "#44474e",
+            "outline-variant": "#c4c6cf",
+            "surface-container": "#eaedff",
+            "on-tertiary": "#ffffff",
+            "secondary-fixed-dim": "#ffb95f",
+            "on-surface": "#131b2e",
+            "secondary-fixed": "#ffddb8",
+            "on-secondary-fixed": "#2a1700",
+            "primary-fixed-dim": "#b1c7f0",
+            "secondary-container": "#fea619"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+          "spacing": {
+            "margin": "1rem",
+            "gutter": "1rem",
+            "margin-md": "1.5rem",
+            "margin-lg": "2rem",
+            "space-lg": "1.5rem",
+            "space-xl": "2rem",
+            "gutter-lg": "1.5rem",
+            "space-md": "1rem",
+            "space-2xl": "3rem",
+            "space-xs": "0.25rem",
+            "space-sm": "0.5rem"
+          },
+          "fontFamily": {
+            "label-lg": ["Inter"],
+            "body-md": ["Inter"],
+            "caption": ["Inter"],
+            "label-md": ["Inter"],
+            "headline-sm": ["Inter"],
+            "body-sm": ["Inter"],
+            "label-tabular": ["JetBrains Mono"],
+            "body-lg": ["Inter"],
+            "headline-lg-mobile": ["Inter"],
+            "display-lg": ["Inter"],
+            "headline-lg": ["Inter"],
+            "headline-md": ["Inter"],
+            "display-lg-mobile": ["Inter"]
+          },
+          "fontSize": {
+            "label-lg": ["14px", { "lineHeight": "18px", "letterSpacing": "0.01em", "fontWeight": "600" }],
+            "body-md": ["14px", { "lineHeight": "20px", "letterSpacing": "0em", "fontWeight": "400" }],
+            "caption": ["11px", { "lineHeight": "14px", "letterSpacing": "0.04em", "fontWeight": "500" }],
+            "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "600" }],
+            "headline-sm": ["18px", { "lineHeight": "24px", "letterSpacing": "0em", "fontWeight": "600" }],
+            "body-sm": ["12px", { "lineHeight": "16px", "letterSpacing": "0.01em", "fontWeight": "400" }],
+            "label-tabular": ["13px", { "lineHeight": "18px", "letterSpacing": "-0.01em", "fontWeight": "500" }],
+            "body-lg": ["16px", { "lineHeight": "24px", "letterSpacing": "0em", "fontWeight": "400" }],
+            "headline-lg-mobile": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "700" }],
+            "display-lg": ["40px", { "lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+            "headline-lg": ["30px", { "lineHeight": "38px", "letterSpacing": "-0.015em", "fontWeight": "700" }],
+            "headline-md": ["22px", { "lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+            "display-lg-mobile": ["28px", { "lineHeight": "36px", "letterSpacing": "-0.01em", "fontWeight": "700" }]
+          }
+        },
+      },
+    }
+  </script>
+</head>
+<body class="bg-background text-on-surface antialiased overflow-hidden select-none font-body-md text-body-md h-screen w-screen flex flex-col">
+<!-- TOP COMMAND APP BAR (Shared Component: TopNavBar execution) -->
+{% set active_page = "call-floor" %}
+{% include "nav.html" %}
+<!-- MAIN OPERATIONAL WORKSPACE (DIMMED BACKGROUND WITH LIVE GIS MAP & DISPATCH DATA) -->
+<div class="relative flex-1 flex overflow-hidden">
+
+<!-- MAIN DASHBOARD CONTENT (SIMULATED & DIMMED UNDER OVERLAY) -->
+<main class="flex-1 flex flex-col overflow-hidden relative bg-[#F8FAFC]">
+<!-- Background Map Canvas with River Vector Graphic -->
+<div class="absolute inset-0 z-0 bg-[#e5ecf6]" data-location="Bantwal, Karnataka, India" style="">
+<!-- SVG Vector Map Representation of Netravati River Flood Zone -->
+<svg class="w-full h-full object-cover opacity-60" fill="none" viewbox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
+<!-- Grid Lines -->
+<defs>
+<pattern height="60" id="tactical-grid" patternunits="userSpaceOnUse" width="60">
+<path d="M 60 0 L 0 0 0 60" fill="none" stroke="#CBD5E1" stroke-width="0.75"></path>
+</pattern>
+</defs>
+<rect fill="url(#tactical-grid)" height="100%" width="100%"></rect>
+<!-- Flood Inundation Contour -->
+<path d="M -50 420 C 150 430, 280 490, 480 440 C 680 390, 850 480, 1050 460 C 1150 450, 1250 470, 1300 480 L 1300 600 L -50 600 Z" fill="#93C5FD" fill-opacity="0.35"></path>
+<path d="M -50 440 C 160 450, 300 510, 500 460 C 700 410, 880 500, 1100 480 L 1300 490 L 1300 560 L -50 560 Z" fill="#60A5FA" fill-opacity="0.4"></path>
+<!-- Netravati River Core -->
+<path d="M -50 460 C 170 470, 320 520, 520 470 C 720 420, 900 510, 1120 490 L 1300 500" fill="none" stroke="#2563EB" stroke-linecap="round" stroke-width="28"></path>
+<!-- Road NH-73 & Taluk arteries -->
+<path d="M 200 -50 L 350 350 L 520 470 L 680 750" fill="none" stroke="#94A3B8" stroke-dasharray="8 4" stroke-width="6"></path>
+<path d="M 800 -50 L 720 300 L 520 470 L 400 850" fill="none" stroke="#94A3B8" stroke-width="4"></path>
+<!-- Pinned Incident Target: Parvathi -->
+<g transform="translate(540, 430)">
+<circle class="animate-ping" cx="0" cy="0" fill="#DC2626" fill-opacity="0.2" r="32"></circle>
+<circle cx="0" cy="0" fill="#DC2626" r="14"></circle>
+<circle cx="0" cy="0" fill="#FFFFFF" r="6"></circle>
+<!-- Map Callout Tag -->
+<rect fill="#0B2545" height="42" rx="4" width="180" x="22" y="-24"></rect>
+<text fill="#FFFFFF" font-family="Inter" font-size="11" font-weight="700" x="32" y="-8">PARVATHI (3)</text>
+<text fill="#F59E0B" font-family="JetBrains Mono" font-size="10" x="32" y="8">WATER AT WINDOW LEVEL</text>
+</g>
+<!-- Other Incident Pins -->
+<g transform="translate(340, 320)">
+<circle cx="0" cy="0" fill="#EA580C" r="8"></circle>
+<rect fill="#FFFFFF" height="24" rx="4" stroke="#CBD5E1" width="110" x="14" y="-12"></rect>
+<text fill="#0B2545" font-family="Inter" font-size="10" font-weight="600" x="22" y="4">Ward 2 Shelter (6)</text>
+</g>
+<g transform="translate(820, 390)">
+<circle cx="0" cy="0" fill="#2563EB" r="8"></circle>
+<rect fill="#FFFFFF" height="24" rx="4" stroke="#CBD5E1" width="120" x="14" y="-12"></rect>
+<text fill="#0B2545" font-family="Inter" font-size="10" font-weight="600" x="22" y="4">SDRF Boat Unit #02</text>
+</g>
+</svg>
+<!-- Live Telemetry Overlays on Map Background -->
+<div class="absolute top-4 left-4 flex flex-col gap-2">
+<div class="bg-surface-container-lowest/90 backdrop-blur-md p-3 rounded border border-outline-variant shadow-sm w-72">
+<div class="text-xs font-label-md text-on-surface-variant uppercase tracking-wider mb-1">Telemetry Sensor: Bantwal Bridge</div>
+<div class="flex items-baseline justify-between">
+<span class="font-headline-sm text-headline-sm font-bold text-[#DC2626]">8.92 m</span>
+<span class="text-xs font-label-tabular text-[#DC2626] font-semibold">+0.4m/hr (Danger Mark 8.5m)</span>
+</div>
+<div class="w-full bg-slate-200 h-1.5 rounded-full mt-2 overflow-hidden">
+<div class="bg-[#DC2626] h-full w-[92%]"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- SEMI-TRANSPARENT BACKDROP OVERLAY OVER MAIN TACTICAL MAP -->
+<div class="absolute inset-0 bg-slate-950/45 backdrop-blur-[2px] z-10 transition-opacity"></div>
+<!-- RIGHT SLIDE-OVER PANEL: CALL DETAIL (WIDTH ~520px) -->
+<aside class="absolute top-0 right-0 bottom-0 w-[520px] max-w-full bg-surface-container-lowest z-20 flex flex-col shadow-2xl border-l border-outline-variant overflow-hidden">
+<!-- PANEL HEADER -->
+<div class="p-4 border-b border-outline-variant bg-[#F8FAFC] flex flex-col gap-2 shrink-0">
+<div class="flex items-start justify-between">
+<div class="flex items-center gap-2">
+<span class="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-bold tracking-wide uppercase bg-[#FEF2F2] border border-[#FECACA] text-[#991B1B]">
+<span class="inline-block w-2 h-2 rounded-full bg-[#DC2626] mr-1.5 animate-pulse"></span>
+                Life-Threat Priority
+              </span>
+<span class="text-xs text-on-surface-variant font-label-tabular">CALL-REF #{{ call.id if call else "KA-BNT-8821" }}</span>
+</div>
+<a href="/dashboard" class="p-1 rounded text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors" title="Close Panel">
+<span class="material-symbols-outlined text-xl" data-icon="close">close</span>
+</a>
+</div>
+<div>
+<h1 class="font-headline-md text-headline-md font-bold text-primary tracking-tight">{{ household.first_name if household else "Parvathi" }}</h1>
+<div class="flex items-center gap-1.5 text-xs text-on-surface-variant font-label-md mt-0.5">
+<span class="material-symbols-outlined text-sm text-[#0B2545]" data-icon="location_on">location_on</span>
+<span>Ward 4, Bantwal Taluk, Dakshina Kannada</span>
+</div>
+</div>
+</div>
+<!-- SCROLLABLE CONTENT BODY -->
+<div class="flex-1 overflow-y-auto p-4 space-y-4">
+<!-- GREY STATUS BANNER (EXACT COPY MANDATE) -->
+<div class="bg-[#F3F4F6] border border-[#E5E7EB] rounded-lg p-3 flex items-center gap-2.5">
+<span class="inline-block w-2.5 h-2.5 rounded-full bg-[#9CA3AF] shrink-0"></span>
+<span class="font-label-md text-label-md text-[#374151]">Request recorded. No driver has accepted yet.</span>
+</div>
+<!-- CRITICAL METADATA CARD (Landmark, Language, Household Members) -->
+<div class="border border-outline-variant rounded-lg p-3.5 bg-white space-y-3 text-xs">
+<!-- Landmark address -->
+<div>
+<div class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider text-[10px] mb-1">Landmark Address &amp; GPS</div>
+<div class="font-body-md text-body-md text-on-surface font-medium leading-relaxed">
+                {{ household.landmark if household else "Behind Someshwara Temple, Cross Road 3, Low-lying riverbank zone" }}
+                <span class="block font-label-tabular text-label-tabular text-secondary font-semibold mt-0.5">(GPS: {{ household.lat if household else "12.8942" }}° N, {{ household.lng if household else "75.0351" }}° E)</span>
+</div>
+</div>
+<!-- Inbound Language Metadata -->
+<div class="pt-2 border-t border-slate-100 flex items-center justify-between">
+<span class="text-on-surface-variant font-label-md text-label-md">Language:</span>
+<span class="font-label-md text-label-md text-primary font-semibold flex items-center gap-1">
+<span class="material-symbols-outlined text-sm text-secondary-container" data-icon="mic">mic</span>
+                ಕನ್ನಡ (Kannada) - Audio recorded via IVR inbound
+              </span>
+</div>
+<!-- Members List -->
+<div class="pt-2 border-t border-slate-100">
+<div class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider text-[10px] mb-1">Manifest Inhabitants</div>
+<div class="bg-surface-container-low p-2 rounded text-on-surface leading-tight font-medium">
+                {{ household.members if household else 3 }} Total Member{% if household and household.members > 1 %}s{% endif %}: {{ household.first_name if household else 'Parvathi' }}
+              </div>
+</div>
+</div>
+<!-- LIVE TRANSCRIPT & AUDIO PLAYBACK SECTION -->
+<div class="border border-outline-variant rounded-lg p-3.5 bg-white space-y-3">
+<div class="flex items-center justify-between">
+<span class="font-headline-sm text-sm font-bold text-primary flex items-center gap-1.5">
+<span class="material-symbols-outlined text-sm text-primary" data-icon="graphic_eq">graphic_eq</span>
+                Live Audio &amp; Distress Transcript
+              </span>
+<span class="font-label-tabular text-label-tabular text-xs text-on-surface-variant">Caller: +91 XXXXX XXXXX</span>
+</div>
+{% if has_real_audio %}
+              <!-- Real Call Audio Player with Waveform -->
+              <div class="bg-slate-50 border border-slate-200 rounded p-2.5 flex items-center gap-3">
+                <button class="w-8 h-8 rounded-full bg-[#0B2545] hover:bg-[#133968] text-white flex items-center justify-center shrink-0 active:scale-95 transition-transform" title="Play recording">
+                  <span class="material-symbols-outlined text-lg" data-icon="play_arrow">play_arrow</span>
+                </button>
+                <div class="flex-1 flex items-center gap-1 h-7">
+                  <span class="w-1 h-3 bg-secondary-container rounded-full"></span>
+                  <span class="w-1 h-5 bg-secondary-container rounded-full"></span>
+                  <span class="w-1 h-6 bg-[#0B2545] rounded-full"></span>
+                  <span class="w-1 h-4 bg-[#0B2545] rounded-full"></span>
+                  <span class="w-1 h-7 bg-[#0B2545] rounded-full"></span>
+                  <span class="w-1 h-5 bg-[#0B2545] rounded-full"></span>
+                  <span class="w-1 h-3 bg-slate-300 rounded-full"></span>
+                  <span class="w-1 h-6 bg-slate-300 rounded-full"></span>
+                  <span class="w-1 h-4 bg-slate-300 rounded-full"></span>
+                  <span class="w-1 h-7 bg-slate-300 rounded-full"></span>
+                  <span class="w-1 h-5 bg-slate-300 rounded-full"></span>
+                  <span class="w-1 h-3 bg-slate-300 rounded-full"></span>
+                  <span class="w-1 h-6 bg-slate-300 rounded-full"></span>
+                  <span class="w-1 h-4 bg-slate-300 rounded-full"></span>
+                  <span class="w-1 h-2 bg-slate-300 rounded-full"></span>
+                </div>
+                <div class="font-label-tabular text-label-tabular text-xs text-on-surface-variant font-medium shrink-0">
+                  00:{{ "%.0f"|format(call.duration_seconds or 15) }}
+                </div>
+              </div>
+              {% endif %}
+<!-- Original Kannada Audio Transcript -->
+<div class="bg-[#FFFDF7] border-l-4 border-secondary-container p-2.5 rounded-r">
+<div class="text-[10px] font-label-md text-secondary uppercase font-bold tracking-wider mb-0.5">Original IVR Speech (Kannada)</div>
+<p class="text-sm font-medium text-slate-800 leading-snug">
+                "ನಮ್ಮ ಮನೆಗೆ ನೀರು ಬಂದಿದೆ, ಕಿಟಕಿ ಮಟ್ಟಕ್ಕೆ ನೀರಿದೆ. ಅಮ್ಮ ಮಲಗಿದ್ದಾರೆ, ನಡೆಯಲು ಸಾಧ್ಯವಿಲ್ಲ. ದಯವಿಟ್ಟು ಬೋಟ್ ಕಳುಹಿಸಿ."
+              </p>
+</div>
+<!-- Verified English Translation -->
+<div class="bg-[#F0FDF4] border-l-4 border-[#16A34A] p-2.5 rounded-r">
+<div class="text-[10px] font-label-md text-[#166534] uppercase font-bold tracking-wider mb-0.5">Verified English Translation</div>
+<p class="text-sm text-slate-800 leading-snug font-medium">
+                "Water has entered our house and reached window level. Mother is bedridden and cannot walk. Please send a boat."
+              </p>
+</div>
+</div>
+<!-- EXTRACTED FIELDS CARD (STRUCTURED OPERATIONAL DATA) -->
+<div class="border border-outline-variant rounded-lg p-3.5 bg-white space-y-3">
+<div class="flex items-center justify-between pb-2 border-b border-slate-100">
+<div class="font-headline-sm text-sm font-bold text-primary flex items-center gap-1.5">
+<span class="material-symbols-outlined text-sm text-secondary" data-icon="fact_check">fact_check</span>
+                Extracted Fields Telemetry
+              </div>
+<button class="text-xs text-primary font-label-md text-label-md hover:underline flex items-center gap-1">
+<span class="material-symbols-outlined text-xs" data-icon="edit">edit</span>
+                Edit Fields
+              </button>
+</div>
+<div class="space-y-2 text-xs">
+<!-- Field 1 -->
+<div class="flex flex-col gap-0.5">
+<span class="text-on-surface-variant font-label-md text-[11px]">Location &amp; Coordinates</span>
+<div class="p-2 bg-slate-50 border border-slate-200 rounded font-label-tabular text-label-tabular text-on-surface flex justify-between items-center">
+<span>Bantwal Ward 4, Near Someshwara Temple</span>
+<span class="text-secondary font-bold">12.8942, 75.0351</span>
+</div>
+</div>
+<!-- Field 2 & 3 in grid -->
+<div class="grid grid-cols-2 gap-2">
+<div class="flex flex-col gap-0.5">
+<span class="text-on-surface-variant font-label-md text-[11px]">Headcount</span>
+<div class="p-2 bg-slate-50 border border-slate-200 rounded font-label-tabular text-label-tabular text-on-surface font-semibold">
+                    3 persons
+                  </div>
+</div>
+<div class="flex flex-col gap-0.5">
+<span class="text-on-surface-variant font-label-md text-[11px]">Mobility Impairment</span>
+<div class="p-2 bg-red-50 border border-red-200 text-[#991B1B] rounded font-label-tabular text-label-tabular font-bold">
+                    1 person
+                  </div>
+</div>
+</div>
+<!-- Field 3 Details -->
+<div class="flex flex-col gap-0.5">
+<span class="text-on-surface-variant font-label-md text-[11px]">Who cannot walk</span>
+<div class="p-2 bg-slate-50 border border-slate-200 rounded text-on-surface font-medium">
+                  1 - Parvathi (Bedridden, severe mobility impairment)
+                </div>
+</div>
+<!-- Field 4 -->
+<div class="flex flex-col gap-0.5">
+<span class="text-on-surface-variant font-label-md text-[11px]">Medical Needs</span>
+<div class="p-2 bg-red-50 border border-red-200 text-[#991B1B] rounded font-medium">
+                  Critical: Oxygen concentrator off-grid, cardiac hypertension
+                </div>
+</div>
+<!-- Field 5 & 6 in grid -->
+<div class="grid grid-cols-2 gap-2">
+<div class="flex flex-col gap-0.5">
+<span class="text-on-surface-variant font-label-md text-[11px]">Emergency Flag</span>
+<div class="p-2 bg-[#FEF2F2] border border-[#FECACA] text-[#DC2626] font-bold rounded flex items-center gap-1 font-label-tabular text-[11px]">
+<span class="w-1.5 h-1.5 rounded-full bg-[#DC2626]"></span>
+                    RED - Water Rescue
+                  </div>
+</div>
+<div class="flex flex-col gap-0.5">
+<span class="text-on-surface-variant font-label-md text-[11px]">Can help others</span>
+<div class="p-2 bg-slate-50 border border-slate-200 text-on-surface-variant rounded font-medium text-[11px]">
+                    No - Evacuation Required
+                  </div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- BOTTOM ACTION BUTTON BAR -->
+<div class="p-4 border-t border-outline-variant bg-[#F8FAFC] space-y-2 shrink-0">
+<!-- Primary Action: Assign Vehicle -->
+<button id="btn-open-assign-modal" onclick="document.getElementById('assignVehicleModal').classList.remove('hidden')" class="w-full h-11 bg-[#0B2545] hover:bg-[#133968] active:bg-[#06162B] text-white rounded-lg font-label-lg text-label-lg font-semibold flex items-center justify-center gap-2 shadow-sm transition-all active:scale-[0.98]">
+<span class="material-symbols-outlined text-lg" data-icon="directions_boat">directions_boat</span>
+<span>Assign vehicle</span>
+</button>
+<!-- Dual Secondary Actions -->
+<div class="grid grid-cols-2 gap-2">
+<!-- Warning / Field Visit -->
+<button class="h-10 bg-[#FFF7ED] hover:bg-[#FFEDD5] border border-[#FFEDD5] text-[#9A3412] rounded-lg font-label-md text-label-md font-semibold flex items-center justify-center gap-1.5 transition-colors active:scale-[0.98]">
+<span class="material-symbols-outlined text-base" data-icon="directions_walk">directions_walk</span>
+<span>Flag for field visit</span>
+</button>
+<!-- Retry Call Outline -->
+<button class="h-10 bg-white hover:bg-slate-50 border border-slate-300 text-[#0B2545] rounded-lg font-label-md text-label-md font-semibold flex items-center justify-center gap-1.5 transition-colors active:scale-[0.98]">
+<span class="material-symbols-outlined text-base" data-icon="phone_callback">phone_callback</span>
+<span>Retry call</span>
+</button>
+</div>
+</div>
+</aside>
+</main>
+</div>
+
+<!-- ==================== VEHICLE ASSIGNMENT MODAL ==================== -->
+<div id="assignVehicleModal" class="fixed inset-0 z-50 bg-slate-950/70 backdrop-blur-sm hidden flex items-center justify-center p-4">
+  <div class="w-full max-w-2xl bg-surface-container-lowest rounded-xl border border-outline shadow-2xl flex flex-col max-h-[88vh] overflow-hidden">
+    <!-- Modal Header -->
+    <div class="px-5 py-4 bg-primary-container text-on-primary flex items-center justify-between border-b border-outline/30 shrink-0">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-lg bg-surface-container-highest/20 border border-secondary-container/40 flex items-center justify-center text-secondary-container">
+          <span class="material-symbols-outlined text-2xl" data-icon="directions_boat">directions_boat</span>
+        </div>
+        <div>
+          <h3 class="font-headline-sm text-lg font-bold text-on-primary tracking-tight">Assign Rescue Asset</h3>
+          <p class="font-body-sm text-xs text-on-primary-container mt-0.5">
+            Target: <span class="font-semibold text-white">{{ household.first_name if household else "Parvathi" }}</span> • {{ household.landmark if household else "Ward 4, Bantwal" }} ({{ household.members if household else 1 }} Souls)
+          </p>
+        </div>
+      </div>
+      <button onclick="document.getElementById('assignVehicleModal').classList.add('hidden')" class="w-8 h-8 flex items-center justify-center rounded-lg text-on-primary-container hover:text-on-primary hover:bg-primary/50 transition-colors">
+        <span class="material-symbols-outlined text-lg" data-icon="close">close</span>
+      </button>
+    </div>
+
+    <!-- Vehicles List -->
+    <div class="flex-1 overflow-y-auto p-4 space-y-3 bg-background">
+      <div class="flex items-center justify-between pb-1 text-xs text-on-surface-variant font-medium">
+        <span>Available Fleet (Straight-line distance computed from coordinates)</span>
+        <span class="font-label-tabular">Zero ETAs until driver accepts</span>
+      </div>
+
+      {% if vehicles %}
+        {% for v in vehicles %}
+        <div class="p-3 bg-surface-container-lowest rounded-lg border border-outline-variant hover:border-primary-container transition-all flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-xs">
+          <div class="space-y-1">
+            <div class="flex items-center gap-2">
+              <span class="font-label-lg font-bold text-primary">{{ v.designation }}</span>
+              <span class="px-2 py-0.5 rounded text-[11px] font-bold uppercase bg-surface-container-high text-primary border border-outline-variant/60">
+                {{ v.type }}
+              </span>
+              <span class="font-label-tabular text-xs font-semibold text-secondary flex items-center gap-0.5">
+                <span class="material-symbols-outlined text-xs" data-icon="straighten">straighten</span>
+                {{ v.distance_km }}
+              </span>
+            </div>
+            <div class="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-on-surface-variant">
+              <span><strong>Capacity:</strong> {{ v.capacity }} souls</span>
+              <span><strong>Stretcher:</strong> {{ 'Available (1 space)' if v.stretcher else 'None' }}</span>
+              <span><strong>Wheelchair:</strong> {{ 'Accessible' if v.wheelchair else 'None' }}</span>
+              <span><strong>Driver:</strong> {{ v.driver_name }}</span>
+            </div>
+          </div>
+          <button onclick="dispatchVehicle('{{ v.id }}', '{{ v.designation }}')" class="px-4 py-2 rounded-lg bg-primary hover:bg-primary-container text-on-primary font-label-md text-xs font-semibold shrink-0 shadow-xs active:scale-95 transition-transform flex items-center justify-center gap-1.5">
+            <span class="material-symbols-outlined text-sm" data-icon="send">send</span>
+            <span>Assign & Dispatch</span>
+          </button>
+        </div>
+        {% endfor %}
+      {% else %}
+        <div class="p-6 text-center text-on-surface-variant text-sm">
+          No available rescue vehicles.
+        </div>
+      {% endif %}
+    </div>
+
+    <!-- Modal Footer -->
+    <div class="px-5 py-3 bg-surface-container-lowest border-t border-outline-variant flex items-center justify-between text-xs text-on-surface-variant">
+      <span class="italic text-[11px]">* Standard Operating Policy: Exact travel time estimates are generated only after verified driver acceptance.</span>
+      <button onclick="document.getElementById('assignVehicleModal').classList.add('hidden')" class="px-3 py-1.5 rounded border border-outline-variant hover:bg-surface-container font-label-md text-xs text-on-surface">
+        Cancel
+      </button>
+    </div>
+  </div>
+</div>
+
+<script>
+async function dispatchVehicle(vehicleId, designation) {
+  try {
+    const hhId = "{{ household.id if household else 'hh-001' }}";
+    const res = await fetch('/api/assign', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        household_id: hhId,
+        vehicle_id: vehicleId,
+        dispatcher_name: 'Duty officer'
+      })
+    });
+    const data = await res.json();
+    if (data.success) {
+      alert(`Assignment offer successfully dispatched to driver for ${designation}.\nPre-acceptance status: Request recorded, no driver accepted yet.`);
+      document.getElementById('assignVehicleModal').classList.add('hidden');
+      window.location.reload();
+    } else {
+      alert('Assignment failed: ' + (data.error || 'Unknown error'));
+    }
+  } catch (err) {
+    console.error('Assignment error:', err);
+    alert('Network error while assigning vehicle.');
+  }
+}
+</script>
+
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const flagBtn = Array.from(document.querySelectorAll('button')).find(b => b.textContent.includes('Flag for field visit'));
+  if (flagBtn) {
+    flagBtn.onclick = () => {
+      const hhId = "{{ household.id if household else 'hh-001' }}";
+      fetch('/api/field-visits', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ household_id: hhId })
+      })
+      .then(r => r.json())
+      .then(data => {
+        alert('Household flagged for urgent field visit.');
+        window.location.href = '/field';
+      });
+    };
+  }
+
+  const retryBtn = Array.from(document.querySelectorAll('button')).find(b => b.textContent.includes('Retry call'));
+  if (retryBtn) {
+    retryBtn.onclick = () => {
+      const hhId = "{{ household.id if household else 'hh-001' }}";
+      fetch('/api/unanswered-retry', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ household_id: hhId })
+      })
+      .then(r => r.json())
+      .then(data => {
+        alert('Call redial scheduled through retry ladder.');
+      });
+    };
+  }
+
+  const editBtn = Array.from(document.querySelectorAll('button')).find(b => b.textContent.includes('Edit Fields'));
+  if (editBtn) {
+    editBtn.onclick = () => {
+      const newLandmark = prompt("Edit Landmark Address:", "{{ household.landmark if household else 'Behind Someshwara Temple' }}");
+      const newMembers = prompt("Edit Member Count:", "{{ household.members if household else 3 }}");
+      if (newLandmark || newMembers) {
+        const hhId = "{{ household.id if household else 'hh-001' }}";
+        fetch('/api/households/' + hhId + '/fields', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ landmark: newLandmark, members: newMembers })
+        })
+        .then(r => r.json())
+        .then(data => {
+          alert('Operational fields updated successfully.');
+          window.location.reload();
+        });
+      }
+    };
+  }
+});
+</script>
+
+</body></html>

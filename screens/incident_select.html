@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Abhay - Disaster Incident Selection</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col font-sans">
+  {% include 'nav.html' %}
+
+  <main class="flex-1 max-w-5xl mx-auto px-4 py-12 w-full">
+    <div class="text-center max-w-2xl mx-auto mb-12">
+      <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-orange-500/10 border border-orange-500/30 text-orange-400 text-xs font-semibold uppercase tracking-wider mb-4">
+        <i class="fa-solid fa-tower-broadcast"></i> Indian District Disaster Voice AI
+      </div>
+      <h1 class="text-4xl font-extrabold tracking-tight text-white mb-3">District Control Room</h1>
+      <p class="text-slate-400 text-sm">Select an active emergency disaster incident to launch voice coordination, fleet evacuation, and resident triage.</p>
+    </div>
+
+    <!-- Active Incidents Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12" id="incidents-container">
+      <!-- Demo Flood Card -->
+      <div class="bg-slate-900 border-2 border-orange-500/40 hover:border-orange-500 rounded-xl p-6 transition shadow-xl relative overflow-hidden group">
+        <div class="absolute top-0 right-0 bg-red-600 text-white text-[11px] font-bold px-3 py-1 rounded-bl-lg tracking-wider uppercase flex items-center gap-1.5">
+          <span class="w-1.5 h-1.5 rounded-full bg-white animate-ping"></span> Active Level 3
+        </div>
+        <div class="flex items-start space-x-4">
+          <div class="w-14 h-14 rounded-xl bg-orange-600/20 border border-orange-500/30 flex items-center justify-center text-orange-400 text-2xl flex-shrink-0">
+            <i class="fa-solid fa-water"></i>
+          </div>
+          <div>
+            <h3 class="text-xl font-bold text-white group-hover:text-orange-400 transition">Demo Flood, Bantwal</h3>
+            <p class="text-xs text-slate-400 font-mono mt-0.5">Dakshina Kannada • Netravati River Basin</p>
+            <div class="mt-3 flex flex-wrap gap-2 text-xs">
+              <span class="px-2.5 py-1 rounded bg-slate-800 text-slate-300 border border-slate-700">
+                <i class="fa-solid fa-house-chimney mr-1 text-blue-400"></i> ~40 Households
+              </span>
+              <span class="px-2.5 py-1 rounded bg-slate-800 text-slate-300 border border-slate-700">
+                <i class="fa-solid fa-ship mr-1 text-teal-400"></i> 6 Fleet Units
+              </span>
+              <span class="px-2.5 py-1 rounded bg-slate-800 text-slate-300 border border-slate-700">
+                <i class="fa-solid fa-language mr-1 text-amber-400"></i> Kannada / Hindi / Hinglish
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-6 pt-5 border-t border-slate-800 flex items-center justify-between">
+          <div class="text-xs text-slate-400">
+            <i class="fa-solid fa-clock mr-1"></i> Triggered 2 hrs ago
+          </div>
+          <a href="/dashboard" class="inline-flex items-center space-x-2 px-5 py-2.5 rounded-lg bg-orange-600 hover:bg-orange-500 text-white text-sm font-semibold shadow-lg shadow-orange-600/20 transition">
+            <span>Enter Control Room</span>
+            <i class="fa-solid fa-arrow-right text-xs"></i>
+          </a>
+        </div>
+      </div>
+
+      <!-- Create New Incident Card -->
+      <div class="bg-slate-900/60 border border-slate-800 hover:border-slate-700 border-dashed rounded-xl p-6 flex flex-col justify-between">
+        <div>
+          <div class="w-12 h-12 rounded-xl bg-slate-800 flex items-center justify-center text-slate-400 text-xl mb-4">
+            <i class="fa-solid fa-plus"></i>
+          </div>
+          <h3 class="text-lg font-bold text-slate-200">Declare New Incident</h3>
+          <p class="text-xs text-slate-400 mt-1">Configure emergency boundary, activate Gnani voice pipelines, and alert local disaster teams.</p>
+        </div>
+        <form id="new-incident-form" class="mt-4 space-y-3" onsubmit="createNewIncident(event)">
+          <input type="text" id="inc-name" placeholder="e.g. Cyclone Biparjoy Triage, Ullal" class="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-orange-500" required>
+          <div class="flex gap-2">
+            <select id="inc-hazard" class="bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-xs text-slate-300 focus:outline-none focus:border-orange-500 flex-1">
+              <option value="flood">Flood</option>
+              <option value="cyclone">Cyclone</option>
+              <option value="landslide">Landslide</option>
+            </select>
+            <button type="submit" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold rounded-lg transition">Create</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    async function createNewIncident(e) {
+      e.preventDefault();
+      const name = document.getElementById("inc-name").value;
+      const hazard = document.getElementById("inc-hazard").value;
+      const res = await fetch("/api/incidents", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({ name, hazard })
+      });
+      const data = await res.json();
+      if(data.success) {
+        window.location.href = "/dashboard";
+      } else {
+        alert("Failed to create incident: " + (data.error || "Unknown"));
+      }
+    }
+  </script>
+</body>
+</html>

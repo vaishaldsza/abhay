@@ -67,7 +67,7 @@ def create_app():
     def check_role_access():
         path = request.path
         # Allow static files, audio cache, login and logout
-        if path.startswith("/static/") or path.startswith("/audio-cache/") or path in ("/login", "/logout", "/register") or path.startswith("/api/set-lang/"):
+        if path.startswith("/static/") or path.startswith("/audio-cache/") or path in ("/", "/login", "/logout", "/register", "/under-the-hood") or path.startswith("/api/set-lang/"):
             return None
 
         # If DEMO_MODE is disabled, allow access without demo role enforcement
@@ -83,7 +83,7 @@ def create_app():
 
         # Page-level role whitelist
         ROLE_PAGE_WHITELIST = {
-            "dispatcher": ["/", "/dashboard", "/call-floor", "/call/", "/simulate", "/fleet", "/audit", "/privacy", "/under-the-hood", "/evals"],
+            "dispatcher": ["/incidents", "/dashboard", "/call-floor", "/call/", "/simulate", "/fleet", "/audit", "/privacy", "/under-the-hood", "/evals"],
             "driver": ["/driver", "/run/"],
             "field_worker": ["/field", "/house/", "/house-card"],
             "resident": ["/ready", "/household-needs", "/confirmation", "/phone"]
@@ -364,8 +364,12 @@ def create_app():
         return jsonify({"success": True, "user_name": full_name, "role": session.get("role")})
 
     @app.route("/")
+    def page_landing():
+        return render_template("landing.html")
+
+    @app.route("/incidents")
     def page_incident_select():
-        return render_template("incident_select.html")
+        return render_template("incident_select.html", active_page="incidents")
 
     @app.route("/dashboard")
     def page_dashboard():

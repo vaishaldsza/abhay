@@ -147,7 +147,8 @@ python evals/run_evals.py
 
 | Route | Screen / Template | Purpose |
 | :--- | :--- | :--- |
-| `/` | `screens/incident_select.html` | Incident selection portal (Level 3 Demo Flood Bantwal). |
+| `/` | `screens/landing.html` | Public landing page explaining the prototype, the honesty rule, and prototype limits. |
+| `/incidents` | `screens/incident_select.html` | Incident selection portal (Level 3 Demo Flood Bantwal; Dispatcher only). |
 | `/dashboard` | `screens/dashboard.html` | Dispatcher tactical command center with map, live queue, and vehicle positions from seed data. |
 | `/call-floor` | `screens/call_floor.html` | Call floor agent view with audio playback and transcription stream. |
 | `/call/<id>` | `screens/call_detail.html` | Incident detail panel with extracted fields and vehicle assignment modal. |

@@ -841,6 +841,302 @@ UI_TRANSLATIONS = {
         "hi": "प्रोफ़ाइल परिवर्तन सहेजें",
         "kn": "ಪ್ರೊಫೈಲ್ ಉಳಿಸಿ"
     },
+    # Landing page translations (needs native-speaker review for HI and KN)
+    "Demo mode: sample accounts, no real data": {
+        "en": "Demo mode: sample accounts, no real data",
+        "hi": "डेमो मोड: नमूना खाते, कोई वास्तविक डेटा नहीं", # needs native-speaker review
+        "kn": "ಡೆಮೊ ಮೋಡ್: ಮಾದರಿ ಖಾತೆಗಳು, ಯಾವುದೇ ನೈಜ ಡೇಟಾ ಇಲ್ಲ", # needs native-speaker review
+    },
+    "Reach every home. Promise nothing you can't deliver.": {
+        "en": "Reach every home. Promise nothing you can't deliver.",
+        "hi": "हर घर तक पहुंचें। ऐसा कोई वादा न करें जो पूरा न हो सके।", # needs native-speaker review
+        "kn": "ಪ್ರತಿಯೊಂದು ಮನೆಗೂ ತಲುಪಿ. ಈಡೇರಿಸಲಾಗದ ಭರವಸೆಯನ್ನು ನೀಡಬೇಡಿ.", # needs native-speaker review
+    },
+    "Abhay is a voice-first evacuation coordination prototype for district disaster teams. It contacts every household in a flood warning zone, finds out who needs help, and helps a human dispatcher assign rescuers.": {
+        "en": "Abhay is a voice-first evacuation coordination prototype for district disaster teams. It contacts every household in a flood warning zone, finds out who needs help, and helps a human dispatcher assign rescuers.",
+        "hi": "अभय जिला आपदा टीमों के लिए एक वॉयस-फर्स्ट निकासी समन्वय प्रोटोटाइप है। यह बाढ़ चेतावनी क्षेत्र के प्रत्येक परिवार से संपर्क करता है, पता लगाता है कि किसे मदद की आवश्यकता है, और मानव प्रेषक को बचाव दल सौंपने में सहायता करता है।", # needs native-speaker review
+        "kn": "ಅಭಯ್ ಜಿಲ್ಲಾ ವಿಪತ್ತು ನಿರ್ವಹಣಾ ತಂಡಗಳಿಗಾಗಿ ಧ್ವನಿ-ಆಧಾರಿತ ಸ್ಥಳಾಂತರ ಸಮನ್ವಯ ಮೂಲಮಾದರಿಯಾಗಿದೆ. ಇದು ಪ್ರವಾಹ ಎಚ್ಚರಿಕೆ ವಲಯದಲ್ಲಿರುವ ಪ್ರತಿ ಮನೆಯನ್ನೂ ಸಂಪರ್ಕಿಸಿ, ಯಾರಿಗೆ ನೆರವು ಅಗತ್ಯವಿದೆ ಎಂದು ಪತ್ತೆಹಚ್ಚಿ, ರಕ್ಷಕರನ್ನು ನಿಯೋಜಿಸಲು ಮಾನವ ನಿಯಂತ್ರಕರಿಗೆ ನೆರವಾಗುತ್ತದೆ.", # needs native-speaker review
+    },
+    "Try the demo": {
+        "en": "Try the demo",
+        "hi": "डेमो आज़माएं", # needs native-speaker review
+        "kn": "ಡೆಮೊ ಪ್ರಯತ್ನಿಸಿ", # needs native-speaker review
+    },
+    "How it works": {
+        "en": "How it works",
+        "hi": "यह कैसे काम करता है", # needs native-speaker review
+        "kn": "ಇದು ಹೇಗೆ ಕಾರ್ಯನಿರ್ವಹಿಸುತ್ತದೆ", # needs native-speaker review
+    },
+    "Go to my dashboard": {
+        "en": "Go to my dashboard",
+        "hi": "मेरे डैशबोर्ड पर जाएं", # needs native-speaker review
+        "kn": "ನನ್ನ ಡ್ಯಾಶ್‌ಬೋರ್ಡ್‌ಗೆ ಹೋಗಿ", # needs native-speaker review
+    },
+    "The Problem": {
+        "en": "The Problem",
+        "hi": "समस्या", # needs native-speaker review
+        "kn": "ಸಮಸ್ಯೆ", # needs native-speaker review
+    },
+    "The Evacuation Coordination Bottleneck": {
+        "en": "The Evacuation Coordination Bottleneck",
+        "hi": "निकासी समन्वय की बाधाएं", # needs native-speaker review
+        "kn": "ಸ್ಥಳಾಂತರ ಸಮನ್ವಯತೆಯ ತೊಡಕುಗಳು", # needs native-speaker review
+    },
+    "During floods and cyclones, elderly, disabled, and bedridden residents often cannot leave on their own, and emergency helplines get overwhelmed. The critical shortage is usually information and coordination, not vehicles.": {
+        "en": "During floods and cyclones, elderly, disabled, and bedridden residents often cannot leave on their own, and emergency helplines get overwhelmed. The critical shortage is usually information and coordination, not vehicles.",
+        "hi": "बाढ़ और चक्रवात के दौरान, बुजुर्ग, दिव्यांग और बिस्तर पर पड़े निवासी अक्सर अपने दम पर नहीं निकल पाते हैं, और आपातकालीन हेल्पलाइन व्यस्त हो जाती हैं। असल कमी आमतौर पर जानकारी और समन्वय की होती है, वाहनों की नहीं।", # needs native-speaker review
+        "kn": "ಪ್ರವಾಹ ಮತ್ತು ಚಂಡಮಾರುತದ ಸಮಯದಲ್ಲಿ, ಹಿರಿಯರು, ವಿಕಲಚೇತನರು ಮತ್ತು ಹಾಸಿಗೆ ಹಿಡಿದಿರುವ ನಿವಾಸಿಗಳು ತಾವಾಗಿಯೇ ಹೊರಬರಲು ಸಾಧ್ಯವಾಗುವುದಿಲ್ಲ, ಮತ್ತು ತುರ್ತು ಸಹಾಯವಾಣಿಗಳು ದಟ್ಟಣೆಯಿಂದ ಸ್ಥಗಿತಗೊಳ್ಳುತ್ತವೆ. ವಾಸ್ತವದಲ್ಲಿ ವಾಹನಗಳ ಕೊರತೆಗಿಂತ ಮಾಹಿತಿ ಮತ್ತು ಸಮನ್ವಯತೆಯ ಕೊರತೆಯೇ ಪ್ರಮುಖವಾಗಿರುತ್ತದೆ.", # needs native-speaker review
+    },
+    "1. Every home is called": {
+        "en": "1. Every home is called",
+        "hi": "1. हर घर में कॉल किया जाता है", # needs native-speaker review
+        "kn": "1. ಪ್ರತಿ ಮನೆಗೂ ಕರೆ ಮಾಡಲಾಗುತ್ತದೆ", # needs native-speaker review
+    },
+    "A voice agent speaks the resident's language (Gnani Prisma hears, Gnani Timbre speaks).": {
+        "en": "A voice agent speaks the resident's language (Gnani Prisma hears, Gnani Timbre speaks).",
+        "hi": "एक वॉयस एजेंट निवासी की भाषा में बात करता है (Gnani Prisma सुनता है, Gnani Timbre बोलता है)।", # needs native-speaker review
+        "kn": "ಧ್ವನಿ ಏಜೆಂಟ್ ನಿವಾಸಿಯ ಭಾಷೆಯಲ್ಲೇ ಸಂಭಾಷಿಸುತ್ತದೆ (ಜ್ಞಾನಿ ಪ್ರಿಸ್ಮಾ ಆಲಿಸುತ್ತದೆ, ಜ್ಞಾನಿ ತಿಂಬ್ರೆ ಮಾತನಾಡುತ್ತದೆ).", # needs native-speaker review
+    },
+    "2. Needs become structured": {
+        "en": "2. Needs become structured",
+        "hi": "2. आवश्यकताएं संरचित होती हैं", # needs native-speaker review
+        "kn": "2. ಅಗತ್ಯತೆಗಳು ವ್ಯವಸ್ಥಿತ ದತ್ತಾಂಶವಾಗುತ್ತವೆ", # needs native-speaker review
+    },
+    "Gnani Evon extracts location, headcount and needs.": {
+        "en": "Gnani Evon extracts location, headcount and needs.",
+        "hi": "Gnani Evon स्थान, सदस्यों की संख्या और जरूरतों का विश्लेषण करता है।", # needs native-speaker review
+        "kn": "ಜ್ಞಾನಿ ಇವೋನ್ ಸ್ಥಳ, ಸದಸ್ಯರ ಸಂಖ್ಯೆ ಮತ್ತು ಅಗತ್ಯತೆಗಳನ್ನು ಹೊರತೆಗೆಯುತ್ತದೆ.", # needs native-speaker review
+    },
+    "3. A dispatcher decides": {
+        "en": "3. A dispatcher decides",
+        "hi": "3. डिस्पैचर निर्णय लेता है", # needs native-speaker review
+        "kn": "3. ನಿಯಂತ್ರಕರು ನಿರ್ಧರಿಸುತ್ತಾರೆ", # needs native-speaker review
+    },
+    "Homes appear on a live map by status, and a human approves every vehicle assignment.": {
+        "en": "Homes appear on a live map by status, and a human approves every vehicle assignment.",
+        "hi": "घर स्थिति के अनुसार लाइव नक्शे पर दिखाई देते हैं, और एक मानव अधिकारी प्रत्येक वाहन असाइनमेंट को मंजूरी देता है।", # needs native-speaker review
+        "kn": "ಮನೆಗಳು ಸ್ಥಿತಿಯ ಆಧಾರದ ಮೇಲೆ ನಕ್ಷೆಯಲ್ಲಿ ಕಾಣಿಸಿಕೊಳ್ಳುತ್ತವೆ, ಮತ್ತು ಪ್ರತಿಯೊಂದು ವಾಹನ ನಿಯೋಜನೆಯನ್ನು ಮಾನವ ಅಧಿಕಾರಿಯೇ ಅನುಮೋದಿಸುತ್ತಾರೆ.", # needs native-speaker review
+    },
+    "4. A driver accepts": {
+        "en": "4. A driver accepts",
+        "hi": "4. चालक स्वीकार करता है", # needs native-speaker review
+        "kn": "4. ಚಾಲಕರು ಸ್ವೀಕರಿಸುತ್ತಾರೆ", # needs native-speaker review
+    },
+    "Only then is the resident told a driver has accepted.": {
+        "en": "Only then is the resident told a driver has accepted.",
+        "hi": "केवल तभी निवासी को बताया जाता है कि चालक ने अनुरोध स्वीकार कर लिया है।", # needs native-speaker review
+        "kn": "ಚಾಲಕರು ಸ್ವೀಕರಿಸಿದ ನಂತರವಷ್ಟೇ ನಿವಾಸಿಗೆ ಚಾಲಕರು ಸ್ವೀಕರಿಸಿದ್ದಾರೆಂದು ತಿಳಿಸಲಾಗುತ್ತದೆ.", # needs native-speaker review
+    },
+    "The Honesty Rule": {
+        "en": "The Honesty Rule",
+        "hi": "ईमानदारी का नियम", # needs native-speaker review
+        "kn": "ಪ್ರಾಮಾಣಿಕತೆಯ ನಿಯಮ", # needs native-speaker review
+    },
+    "The agent never says help is coming until a driver has accepted. Status changes only through code, never the AI. Rescue sentences come from fixed templates, and a guard blocks any promise the AI invents.": {
+        "en": "The agent never says help is coming until a driver has accepted. Status changes only through code, never the AI. Rescue sentences come from fixed templates, and a guard blocks any promise the AI invents.",
+        "hi": "चालक द्वारा स्वीकार किए जाने तक एजेंट कभी नहीं कहता कि मदद आ रही है। स्थिति केवल कोड के माध्यम से बदलती है, कभी भी एआई द्वारा नहीं। बचाव संदेश निश्चित टेम्प्लेट से आते हैं, और एक गार्ड एआई द्वारा बनाए गए किसी भी वादे को रोकता है।", # needs native-speaker review
+        "kn": "ಚಾಲಕರು ಸ್ವೀಕರಿಸುವವರೆಗೆ ಏಜೆಂಟ್ ಎಂದಿಗೂ ಸಹಾಯ ಬರುತ್ತಿದೆ ಎಂದು ಹೇಳುವುದಿಲ್ಲ. ಸ್ಥಿತಿಯು ಕೋಡ್ ಮೂಲಕ ಮಾತ್ರ ಬದಲಾಗುತ್ತದೆ, ಎಂದಿಗೂ ಎಐ ಮೂಲಕ ಅಲ್ಲ. ರಕ್ಷಣಾ ವಾಕ್ಯಗಳು ನಿಗದಿತ ಟೆಂಪ್ಲೇಟ್‌ಗಳಿಂದ ಮಾತ್ರ ಬರುತ್ತವೆ, ಮತ್ತು ಎಐ ನೀಡುವ ಯಾವುದೇ ಭರವಸೆಯನ್ನು ಗಾರ್ಡ್ ತಡೆಯುತ್ತದೆ.", # needs native-speaker review
+    },
+    "Resident asks:": {
+        "en": "Resident asks:",
+        "hi": "निवासी पूछता है:", # needs native-speaker review
+        "kn": "ನಿವಾಸಿ ಕೇಳುತ್ತಾರೆ:", # needs native-speaker review
+    },
+    "Is help coming?": {
+        "en": "Is help coming?",
+        "hi": "क्या मदद आ रही है?", # needs native-speaker review
+        "kn": "ಸಹಾಯ ಬರುತ್ತಿದೆಯೇ?", # needs native-speaker review
+    },
+    "Abhay Verified Response:": {
+        "en": "Abhay Verified Response:",
+        "hi": "अभय सत्यापित उत्तर:", # needs native-speaker review
+        "kn": "ಅಭಯ್ ಪರಿಶೀಲಿಸಿದ ಉತ್ತರ:", # needs native-speaker review
+    },
+    "What the agent never says (Blocked):": {
+        "en": "What the agent never says (Blocked):",
+        "hi": "एजेंट कभी नहीं कहता (अवरुद्ध):", # needs native-speaker review
+        "kn": "ಏಜೆಂಟ್ ಎಂದಿಗೂ ಹೇಳದಿರುವುದು (ನಿರ್ಬಂಧಿತ):", # needs native-speaker review
+    },
+    "Help is coming and a vehicle has been dispatched.": {
+        "en": "Help is coming and a vehicle has been dispatched.",
+        "hi": "मदद आ रही है और एक वाहन भेजा गया है।", # needs native-speaker review
+        "kn": "ಸಹಾಯ ಬರುತ್ತಿದೆ ಮತ್ತು ವಾಹನವನ್ನು ಕಳುಹಿಸಲಾಗಿದೆ.", # needs native-speaker review
+    },
+    "Status Legend": {
+        "en": "Status Legend",
+        "hi": "स्थिति विवरण", # needs native-speaker review
+        "kn": "ಸ್ಥಿತಿಯ ವಿವರಣೆ", # needs native-speaker review
+    },
+    "Eight deterministic states tracking resident journey through safe rescue:": {
+        "en": "Eight deterministic states tracking resident journey through safe rescue:",
+        "hi": "बचाव यात्रा पर नज़र रखने वाली आठ निश्चित स्थितियाँ:", # needs native-speaker review
+        "kn": "ರಕ್ಷಣಾ ಪ್ರಕ್ರಿಯೆಯನ್ನು ಪತ್ತೆಹಚ್ಚುವ ಎಂಟು ನಿಖರ ಸ್ಥಿತಿಗಳು:", # needs native-speaker review
+    },
+    "Unanswered call; scheduled for automatic retry and physical field verification.": {
+        "en": "Unanswered call; scheduled for automatic retry and physical field verification.",
+        "hi": "अनुत्तरित कॉल; स्वचालित पुन: प्रयास और भौतिक जमीनी सत्यापन के लिए निर्धारित।", # needs native-speaker review
+        "kn": "ಉತ್ತರಿಸದ ಕರೆ; ಸ್ವಯಂಚಾಲಿತ ಮರುಕರೆ ಮತ್ತು ಆಶಾ ಕಾರ್ಯಕರ್ತೆಯರ ಪರಿಶೀಲನೆಗೆ ನಿಗದಿಪಡಿಸಲಾಗಿದೆ.", # needs native-speaker review
+    },
+    "Resident confirmed requiring evacuation ride, mobility aid, or medical support.": {
+        "en": "Resident confirmed requiring evacuation ride, mobility aid, or medical support.",
+        "hi": "निवासी को निकासी सवारी, गतिशीलता सहायता या चिकित्सा सहायता की आवश्यकता है।", # needs native-speaker review
+        "kn": "ನಿವಾಸಿಗಳಿಗೆ ಸ್ಥಳಾಂತರ ವಾಹನ, ಚಲನಶೀಲತೆಯ ನೆರವು ಅಥವಾ ವೈದ್ಯಕೀಯ ಬೆಂಬಲ ಅಗತ್ಯವಿದೆ.", # needs native-speaker review
+    },
+    "Resident confirmed able to assist neighbors with shelter or supplies.": {
+        "en": "Resident confirmed able to assist neighbors with shelter or supplies.",
+        "hi": "निवासी आश्रय या आपूर्ति के साथ पड़ोसियों की सहायता करने में सक्षम है।", # needs native-speaker review
+        "kn": "ನಿವಾಸಿಗಳು ಆಶ್ರಯ ಅಥವಾ ಸಾಮಗ್ರಿಗಳೊಂದಿಗೆ ನೆರೆಹೊರೆಯವರಿಗೆ ಸಹಾಯ ಮಾಡಲು ಸಿದ್ಧರಿದ್ದಾರೆ.", # needs native-speaker review
+    },
+    "Request logged in control room; awaiting dispatcher review and vehicle offer.": {
+        "en": "Request logged in control room; awaiting dispatcher review and vehicle offer.",
+        "hi": "अनुरोध नियंत्रण कक्ष में दर्ज; प्रेषक समीक्षा और वाहन प्रस्ताव की प्रतीक्षा है।", # needs native-speaker review
+        "kn": "ನಿಯಂತ್ರಣ ಕೊಠಡಿಯಲ್ಲಿ ವಿನಂತಿ ದಾಖಲಾಗಿದೆ; ಅಧಿಕಾರಿಯ ಪರಿಶೀಲನೆ ಮತ್ತು ವಾಹನ ಪ್ರಸ್ತಾಪದ ನಿರೀಕ್ಷೆಯಲ್ಲಿದೆ.", # needs native-speaker review
+    },
+    "A driver in an identified vehicle has formally accepted the ride offer.": {
+        "en": "A driver in an identified vehicle has formally accepted the ride offer.",
+        "hi": "पहचाने गए वाहन में चालक ने औपचारिक रूप से सवारी प्रस्ताव स्वीकार कर लिया है।", # needs native-speaker review
+        "kn": "ಗುರುತಿಸಲಾದ ವಾಹನದ ಚಾಲಕರು ರಕ್ಷಣಾ ವಿನಂತಿಯನ್ನು ಅಧಿಕೃತವಾಗಿ ಸ್ವೀಕರಿಸಿದ್ದಾರೆ.", # needs native-speaker review
+    },
+    "Assigned vehicle is actively traveling towards the household.": {
+        "en": "Assigned vehicle is actively traveling towards the household.",
+        "hi": "असाइन किया गया वाहन सक्रिय रूप से घर की ओर यात्रा कर रहा है।", # needs native-speaker review
+        "kn": "ನಿಯೋಜಿತ ವಾಹನವು ಮನೆಯ ಸ್ಥಳದ ಕಡೆಗೆ ಚಲಿಸುತ್ತಿದೆ.", # needs native-speaker review
+    },
+    "Household members are on board the vehicle traveling to relief camp.": {
+        "en": "Household members are on board the vehicle traveling to relief camp.",
+        "hi": "परिवार के सदस्य वाहन में सवार हैं और राहत शिविर जा रहे हैं।", # needs native-speaker review
+        "kn": "ಕುಟುಂಬದ ಸದಸ್ಯರು ವಾಹನದಲ್ಲಿದ್ದು ಪರಿಹಾರ ಶಿಬಿರಕ್ಕೆ ಪ್ರಯಾಣಿಸುತ್ತಿದ್ದಾರೆ.", # needs native-speaker review
+    },
+    "Household arrived and registered at designated relief shelter.": {
+        "en": "Household arrived and registered at designated relief shelter.",
+        "hi": "परिवार निर्दिष्ट राहत शिविर में पहुंच गया है और पंजीकृत है।", # needs native-speaker review
+        "kn": "ಕುಟುಂಬವು ಗೊತ್ತುಪಡಿಸಿದ ಪರಿಹಾರ ಶಿಬಿರಕ್ಕೆ ತಲುಪಿದೆ ಮತ್ತು ದಾಖಲಾಗಿದೆ.", # needs native-speaker review
+    },
+    "Who It's For": {
+        "en": "Who It's For",
+        "hi": "यह किसके लिए है", # needs native-speaker review
+        "kn": "ಇದು ಯಾರಿಗಾಗಿ", # needs native-speaker review
+    },
+    "Dedicated interfaces designed for every human participant in the district disaster chain.": {
+        "en": "Dedicated interfaces designed for every human participant in the district disaster chain.",
+        "hi": "जिला आपदा श्रृंखला में प्रत्येक मानवीय प्रतिभागी के लिए तैयार किए गए समर्पित इंटरफ़ेस।", # needs native-speaker review
+        "kn": "ಜಿಲ್ಲಾ ವಿಪತ್ತು ನಿರ್ವಹಣಾ ವ್ಯವಸ್ಥೆಯ ಪ್ರತಿಯೊಬ್ಬ ಭಾಗವಹಿಸುವವರಿಗಾಗಿ ರೂಪಿಸಲಾದ ಇಂಟರ್ಫೇಸ್ಗಳು.", # needs native-speaker review
+    },
+    "Dispatcher": {
+        "en": "Dispatcher",
+        "hi": "प्रेषक (डिस्पैचर)", # needs native-speaker review
+        "kn": "ನಿಯಂತ್ರಕ (ಡಿಸ್ಪ್ಯಾಚರ್)", # needs native-speaker review
+    },
+    "Reviews incoming household triage on the map, pairs vulnerable families with vehicles, and monitors fleet capacity.": {
+        "en": "Reviews incoming household triage on the map, pairs vulnerable families with vehicles, and monitors fleet capacity.",
+        "hi": "नक्शे पर आने वाले परिवारों की स्थिति की समीक्षा करता है, जरूरतमंद परिवारों को वाहनों से जोड़ता है और बेड़े की क्षमता की निगरानी करता है।", # needs native-speaker review
+        "kn": "ನಕ್ಷೆಯಲ್ಲಿ ಬರುವ ಪರಿಶೀಲನಾ ವರದಿಗಳನ್ನು ಪರಿಶೀಲಿಸಿ, ಸಂಕಷ್ಟದಲ್ಲಿರುವ ಕುಟುಂಬಗಳಿಗೆ ವಾಹನಗಳನ್ನು ಜೋಡಿಸಿ, ವಾಹನ ಸಾಮರ್ಥ್ಯವನ್ನು ಗಮನಿಸುತ್ತಾರೆ.", # needs native-speaker review
+    },
+    "Enter as demo Dispatcher": {
+        "en": "Enter as demo Dispatcher",
+        "hi": "डेमो प्रेषक के रूप में प्रवेश करें", # needs native-speaker review
+        "kn": "ಡೆಮೊ ನಿಯಂತ್ರಕರಾಗಿ ಪ್ರವೇಶಿಸಿ", # needs native-speaker review
+    },
+    "Driver": {
+        "en": "Driver",
+        "hi": "चालक (ड्राइवर)", # needs native-speaker review
+        "kn": "ಚಾಲಕ (ಡ್ರೈವರ್)", # needs native-speaker review
+    },
+    "Receives mission beacons on mobile terminal, accepts runs, and reports pickup and delivery to shelter.": {
+        "en": "Receives mission beacons on mobile terminal, accepts runs, and reports pickup and delivery to shelter.",
+        "hi": "मोबाइल टर्मिनल पर मिशन सूचना प्राप्त करता है, रन स्वीकार करता है, और पिकअप और शिविर में पहुंचाने की रिपोर्ट करता है।", # needs native-speaker review
+        "kn": "ಮೊಬೈಲ್ ಟರ್ಮಿನಲ್‌ನಲ್ಲಿ ಕಾರ್ಯಾಚರಣೆಯ ಸಂದೇಶಗಳನ್ನು ಪಡೆದು, ವಿನಂತಿಗಳನ್ನು ಸ್ವೀಕರಿಸಿ, ಪ್ರಯಾಣಿಕರ ಪಿಕಪ್ ಮತ್ತು ಶಿಬಿರ ತಲುಪುವಿಕೆಯನ್ನು ವರದಿ ಮಾಡುತ್ತಾರೆ.", # needs native-speaker review
+    },
+    "Enter as demo Driver": {
+        "en": "Enter as demo Driver",
+        "hi": "डेमो चालक के रूप में प्रवेश करें", # needs native-speaker review
+        "kn": "ಡೆಮೊ ಚಾಲಕರಾಗಿ ಪ್ರವೇಶಿಸಿ", # needs native-speaker review
+    },
+    "Field worker": {
+        "en": "Field worker",
+        "hi": "फील्ड वर्कर (आशा कार्यकर्ता)", # needs native-speaker review
+        "kn": "ಕ್ಷೇತ್ರ ಕಾರ್ಯಕರ್ತ (ಆಶಾ ಕಾರ್ಯಕರ್ತೆ)", # needs native-speaker review
+    },
+    "Conducts physical door-to-door verification for households that could not be reached by phone.": {
+        "en": "Conducts physical door-to-door verification for households that could not be reached by phone.",
+        "hi": "जिन परिवारों से फोन द्वारा संपर्क नहीं हो सका, उनके लिए घर-घर जाकर भौतिक सत्यापन करता है।", # needs native-speaker review
+        "kn": "ದೂರವಾಣಿ ಮೂಲಕ ಸಂಪರ್ಕಿಸಲಾಗದ ಮನೆಗಳಿಗೆ ಖುದ್ದಾಗಿ ಭೇಟಿ ನೀಡಿ ಸುರಕ್ಷತೆಯನ್ನು ಪರಿಶೀಲಿಸುತ್ತಾರೆ.", # needs native-speaker review
+    },
+    "Enter as demo Field worker": {
+        "en": "Enter as demo Field worker",
+        "hi": "डेमो फील्ड वर्कर के रूप में प्रवेश करें", # needs native-speaker review
+        "kn": "ಡೆಮೊ ಕ್ಷೇತ್ರ ಕಾರ್ಯಕರ್ತರಾಗಿ ಪ್ರವೇಶಿಸಿ", # needs native-speaker review
+    },
+    "Resident": {
+        "en": "Resident",
+        "hi": "निवासी", # needs native-speaker review
+        "kn": "ನಿವಾಸಿ", # needs native-speaker review
+    },
+    "Registers household medical or mobility needs in advance, or responds to automated check-in calls.": {
+        "en": "Registers household medical or mobility needs in advance, or responds to automated check-in calls.",
+        "hi": "चिकित्सा या गतिशीलता संबंधी जरूरतों को पहले से दर्ज करता है, या स्वचालित कॉल का जवाब देता है।", # needs native-speaker review
+        "kn": "ವೈದ್ಯಕೀಯ ಅಥವಾ ಚಲನಶೀಲತೆಯ ಅಗತ್ಯತೆಗಳನ್ನು ಮುಂಚಿತವಾಗಿ ನೋಂದಾಯಿಸುತ್ತಾರೆ ಅಥವಾ ಸ್ವಯಂಚಾಲಿತ ಕರೆಗಳಿಗೆ ಉತ್ತರಿಸುತ್ತಾರೆ.", # needs native-speaker review
+    },
+    "Enter as demo Resident": {
+        "en": "Enter as demo Resident",
+        "hi": "डेमो निवासी के रूप में प्रवेश करें", # needs native-speaker review
+        "kn": "ಡೆಮೊ ನಿವಾಸಿಯಾಗಿ ಪ್ರವೇಶಿಸಿ", # needs native-speaker review
+    },
+    "Privacy by Design": {
+        "en": "Privacy by Design",
+        "hi": "प्राइवेसी बाय डिज़ाइन", # needs native-speaker review
+        "kn": "ವಿನ್ಯಾಸದಲ್ಲೇ ಗೌಪ್ಯತೆ", # needs native-speaker review
+    },
+    "Designed around DPDP Act 2023 principles: first names only, masked telephone numbers (+91 XXXXX XXXXX), explicit consent during sign-up, and automatic deletion of operational records after an incident closes.": {
+        "en": "Designed around DPDP Act 2023 principles: first names only, masked telephone numbers (+91 XXXXX XXXXX), explicit consent during sign-up, and automatic deletion of operational records after an incident closes.",
+        "hi": "DPDP अधिनियम 2023 के सिद्धांतों के आधार पर तैयार: केवल पहला नाम, मास्क किए गए फोन नंबर (+91 XXXXX XXXXX), साइन-अप पर सहमति, और घटना समाप्त होने के बाद स्वचालित डेटा विलोपन।", # needs native-speaker review
+        "kn": "ಡಿಪಿಡಿಪಿ ಕಾಯ್ದೆ 2023 ರ ತತ್ವಗಳ ಆಧಾರದ ಮೇಲೆ ವಿನ್ಯಾಸಗೊಳಿಸಲಾಗಿದೆ: ಮೊದಲ ಹೆಸರು ಮಾತ್ರ, ಮರೆಮಾಚಲಾದ ದೂರವಾಣಿ ಸಂಖ್ಯೆಗಳು (+91 XXXXX XXXXX), ನೋಂದಣಿ ವೇಳೆ ಸ್ಪಷ್ಟ ಸಮ್ಮತಿ, ಮತ್ತು ತುರ್ತು ಪರಿಸ್ಥಿತಿ ಮುಕ್ತಾಯದ ನಂತರ ಸ್ವಯಂಚಾಲಿತ ಅಳಿಸುವಿಕೆ.", # needs native-speaker review
+    },
+    "Prototype Status & Limits": {
+        "en": "Prototype Status & Limits",
+        "hi": "प्रोटोटाइप स्थिति और सीमाएं", # needs native-speaker review
+        "kn": "ಮೂಲಮಾದರಿ ಸ್ಥಿತಿ ಮತ್ತು ಮಿತಿಗಳು", # needs native-speaker review
+    },
+    "This is a prototype built for the Gnani AI Great Indian AI Internship Challenge. Households and calls are synthetic demo data. Calls are simulated from recorded audio, there is no live telephony, routing or ETA, and safety answers are placeholders until a district authority approves them.": {
+        "en": "This is a prototype built for the Gnani AI Great Indian AI Internship Challenge. Households and calls are synthetic demo data. Calls are simulated from recorded audio, there is no live telephony, routing or ETA, and safety answers are placeholders until a district authority approves them.",
+        "hi": "यह Gnani AI ग्रेट इंडियन AI इंटर्नशिप चैलेंज के लिए बनाया गया एक प्रोटोटाइप है। घर और कॉल सिंथेटिक डेमो डेटा हैं। कॉल रिकॉर्ड किए गए ऑडियो से सिम्युलेट किए गए हैं, कोई लाइव टेलीफोनी, रूटिंग या ईटीए नहीं है, और सुरक्षा उत्तर तब तक प्लेसहोल्डर हैं जब तक कि कोई जिला प्राधिकरण उन्हें अनुमोदित नहीं करता।", # needs native-speaker review
+        "kn": "ಇದು ಜ್ಞಾನಿ ಎಐ ಗ್ರೇಟ್ ಇಂಡಿಯನ್ ಎಐ ಇಂಟರ್ನ್‌ಶಿಪ್ ಚಾಲೆಂಜ್‌ಗಾಗಿ ನಿರ್ಮಿಸಲಾದ ಮೂಲಮಾದರಿಯಾಗಿದೆ. ಮನೆಗಳು ಮತ್ತು ಕರೆಗಳು ಕೃತಕ ಡೆಮೊ ಡೇಟಾವಾಗಿದೆ. ರೆಕಾರ್ಡ್ ಮಾಡಿದ ಆಡಿಯೊದಿಂದ ಕರೆಗಳನ್ನು ಸಿಮ್ಯುಲೇಶನ್ ಮಾಡಲಾಗಿದೆ, ಯಾವುದೇ ಲೈವ್ ಟೆಲಿಫೋನಿ, ರೂಟಿಂಗ್ ಅಥವಾ ಇಟಿಎ ಇಲ್ಲ, ಮತ್ತು ಜಿಲ್ಲಾ ಪ್ರಾಧಿಕಾರವು ಅನುಮೋದಿಸುವವರೆಗೆ ಸುರಕ್ಷತಾ ಉತ್ತರಗಳು ಪ್ಲೇಸ್‌ಹೋಲ್ಡರ್‌ಗಳಾಗಿವೆ.", # needs native-speaker review
+    },
+    "Running in mock mode: Gnani models are simulated.": {
+        "en": "Running in mock mode: Gnani models are simulated.",
+        "hi": "मॉक मोड में चल रहा है: ज्ञानी मॉडल सिम्युलेटेड हैं।", # needs native-speaker review
+        "kn": "ಮಾಕ್ ಮೋಡ್‌ನಲ್ಲಿ ಚಾಲನೆಯಲ್ಲಿದೆ: ಜ್ಞಾನಿ ಮಾದರಿಗಳು ಸಿಮ್ಯುಲೇಶನ್ ಆಗಿವೆ.", # needs native-speaker review
+    },
+    "Login / Access Demo": {
+        "en": "Login / Access Demo",
+        "hi": "लॉगिन / डेमो एक्सेस", # needs native-speaker review
+        "kn": "ಲಾಗಿನ್ / ಡೆಮೊ ಪ್ರವೇಶ", # needs native-speaker review
+    },
+    "Under the Hood (Architecture)": {
+        "en": "Under the Hood (Architecture)",
+        "hi": "अंडर द हुड (आर्किटेक्चर)", # needs native-speaker review
+        "kn": "ತಾಂತ್ರಿಕ ವಿನ್ಯಾಸ (ಆರ್ಕಿಟೆಕ್ಚರ್)", # needs native-speaker review
+    },
+    "GitHub Repository": {
+        "en": "GitHub Repository",
+        "hi": "गिटहब रिपॉजिटरी", # needs native-speaker review
+        "kn": "ಗಿಟ್‌ಹಬ್ ರೆಪೊಸಿಟರಿ", # needs native-speaker review
+    },
+    "Built with Gnani Prisma, Evon and Timbre": {
+        "en": "Built with Gnani Prisma, Evon and Timbre",
+        "hi": "Gnani Prisma, Evon और Timbre के साथ निर्मित", # needs native-speaker review
+        "kn": "ಜ್ಞಾನಿ ಪ್ರಿಸ್ಮಾ, ಇವೋನ್ ಮತ್ತು ತಿಂಬ್ರೆ ಜೊತೆಗೆ ನಿರ್ಮಿಸಲಾಗಿದೆ", # needs native-speaker review
+    },
+    "Demo mode: no real data": {
+        "en": "Demo mode: no real data",
+        "hi": "डेमो मोड: कोई वास्तविक डेटा नहीं", # needs native-speaker review
+        "kn": "ಡೆಮೊ ಮೋಡ್: ಯಾವುದೇ ನೈಜ ಡೇಟಾ ಇಲ್ಲ", # needs native-speaker review
+    },
+    "Incident select": {
+        "en": "Incident select",
+        "hi": "घटना चयन",
+        "kn": "ಘಟನೆ ಆಯ್ಕೆ"
+    }
 }
 
 def t(key: str, lang: str = "en") -> str:

@@ -11,6 +11,8 @@ from werkzeug.security import generate_password_hash
 
 def create_sample_wav(filepath: str, duration_sec: float = 2.0, freq: float = 440.0):
     """Generates a small valid WAV file for sample audio playback."""
+    if os.path.exists(filepath) and os.path.getsize(filepath) > 1000:
+        return
     os.makedirs(os.path.dirname(filepath), exist_ok=True)
     sample_rate = 8000
     n_samples = int(sample_rate * duration_sec)

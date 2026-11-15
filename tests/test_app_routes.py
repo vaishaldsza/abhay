@@ -22,6 +22,7 @@ def client():
 def test_all_15_page_routes_return_200(client):
     routes = [
         "/",
+        "/incidents",
         "/dashboard",
         "/call-floor",
         "/call/call-001",

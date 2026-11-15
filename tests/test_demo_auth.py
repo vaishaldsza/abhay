@@ -23,6 +23,15 @@ def test_unauthenticated_redirects_to_login(auth_app):
     assert res.status_code == 302
     assert "/login" in res.headers["Location"]
 
+    # Incidents is protected for unauthenticated
+    res_inc = client.get("/incidents", follow_redirects=False)
+    assert res_inc.status_code == 302
+    assert "/login" in res_inc.headers["Location"]
+
+    # "/" and "/under-the-hood" are public without login
+    assert client.get("/").status_code == 200
+    assert client.get("/under-the-hood").status_code == 200
+
 def test_dispatcher_login_and_access(auth_app):
     client = auth_app.test_client()
     # Login as dispatcher
@@ -31,7 +40,7 @@ def test_dispatcher_login_and_access(auth_app):
     assert res.headers["Location"] == "/dashboard"
 
     # Can access dispatcher pages
-    for page in ["/dashboard", "/call-floor", "/fleet", "/simulate", "/audit", "/privacy", "/under-the-hood", "/evals"]:
+    for page in ["/incidents", "/dashboard", "/call-floor", "/fleet", "/simulate", "/audit", "/privacy", "/under-the-hood", "/evals"]:
         r = client.get(page)
         assert r.status_code == 200, f"Dispatcher failed to access {page}"
 
@@ -53,7 +62,7 @@ def test_driver_login_and_access(auth_app):
     assert r.status_code == 200
 
     # Blocked from dispatcher pages
-    for blocked_page in ["/dashboard", "/call-floor", "/fleet", "/simulate"]:
+    for blocked_page in ["/incidents", "/dashboard", "/call-floor", "/fleet", "/simulate"]:
         r = client.get(blocked_page, follow_redirects=False)
         assert r.status_code == 302
         assert "/login" in r.headers["Location"]
@@ -475,3 +484,76 @@ def test_resident_screens_language_switcher_and_get_redirect(auth_app):
     html_phone = res_phone.data.decode("utf-8")
     assert "Emergency Call in Progress..." in html_phone
     assert "1: I need rescue help" in html_phone
+
+
+def test_landing_page_public_access_and_honesty_text(auth_app):
+    client = auth_app.test_client()
+    # 1. Unauthenticated gets 200
+    res = client.get("/")
+    assert res.status_code == 200
+    html = res.data.decode("utf-8")
+
+    # Honesty rule text present
+    assert "The agent never says help is coming until a driver has accepted" in html
+    # Prototype limits box present
+    assert "This is a prototype built for the Gnani AI Great Indian AI Internship Challenge" in html
+    assert "Running in mock mode: Gnani models are simulated." in html
+
+    # Unauthenticated button
+    assert "Try the demo" in html
+
+    # When logged in, header button shows "Go to my dashboard"
+    client.post("/login", data={"role": "dispatcher"})
+    res_logged = client.get("/")
+    assert res_logged.status_code == 200
+    html_logged = res_logged.data.decode("utf-8")
+    assert "Go to my dashboard" in html_logged
+
+def test_incidents_requires_dispatcher_role(auth_app):
+    client = auth_app.test_client()
+    # Unauthenticated is blocked
+    r_unauth = client.get("/incidents", follow_redirects=False)
+    assert r_unauth.status_code == 302
+    assert "/login" in r_unauth.headers["Location"]
+
+    # Driver is blocked
+    client.post("/login", data={"role": "driver"})
+    r_driver = client.get("/incidents", follow_redirects=False)
+    assert r_driver.status_code == 302
+    assert "/login" in r_driver.headers["Location"]
+
+    # Resident is blocked
+    client.post("/login", data={"role": "resident"})
+    r_res = client.get("/incidents", follow_redirects=False)
+    assert r_res.status_code == 302
+    assert "/login" in r_res.headers["Location"]
+
+    # Dispatcher is allowed
+    client.post("/login", data={"role": "dispatcher"})
+    r_disp = client.get("/incidents")
+    assert r_disp.status_code == 200
+    assert "District Control Room" in r_disp.data.decode("utf-8")
+
+def test_landing_page_no_compliance_or_invented_statistics(auth_app):
+    client = auth_app.test_client()
+    res = client.get("/")
+    html = res.data.decode("utf-8")
+    for bad in ["compliant", "certified", "iso", "%"]:
+        assert bad not in html.lower(), f"Forbidden word '{bad}' found on rendered landing page"
+
+def test_landing_page_language_switch_changes_hero(auth_app):
+    client = auth_app.test_client()
+    # EN
+    client.post("/api/set-lang/en")
+    res_en = client.get("/")
+    assert "Reach every home. Promise nothing you can't deliver." in res_en.data.decode("utf-8")
+
+    # HI
+    client.post("/api/set-lang/hi")
+    res_hi = client.get("/")
+    assert "हर घर तक पहुंचें। ऐसा कोई वादा न करें जो पूरा न हो सके।" in res_hi.data.decode("utf-8")
+
+    # KN
+    client.post("/api/set-lang/kn")
+    res_kn = client.get("/")
+    assert "ಪ್ರತಿಯೊಂದು ಮನೆಗೂ ತಲುಪಿ. ಈಡೇರಿಸಲಾಗದ ಭರವಸೆಯನ್ನು ನೀಡಬೇಡಿ." in res_kn.data.decode("utf-8")

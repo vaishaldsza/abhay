@@ -2,64 +2,77 @@
 
 > **AI Evacuation Coordination Web App for Indian District Control Rooms (DDMA)**  
 > Built for the **Gnani AI Great Indian AI Internship Challenge**  
-> Operational Scenario: **Bantwal Flood Zone, Dakshina Kannada (12.89° N, 75.03° E)**
+> Operational Scenario: **Bantwal Flood Zone, Dakshina Kannada (12.89° N, 75.03° E)**  
+> **Status:** Recorded-audio demo with simulated calls. No real Gnani API call (Prisma, Evon, Timbre) has ever succeeded; all operations run in mock mode (`USE_MOCK_GNANI=true`).
 
 ---
 
 ## 1. Executive Summary
 
-During severe floods, cyclones, and landslides across India, district helplines collapse under call volume. Helplines offer no live household-level visibility into who is bedridden, pregnant, or without oxygen. Worse, stressed operators or hallucinatory voice bots often falsely tell callers *"help is on the way"*, leading stranded families to drown while awaiting phantom rescues.
+During severe floods, cyclones, and landslides across India, district helplines collapse under call volume. Helplines offer no live household-level visibility into who is bedridden, pregnant, or without oxygen. Worse, stressed operators or hallucinatory voice bots often falsely tell callers *"help is on the way"*, leading stranded families to remain in danger while awaiting phantom rescues.
 
-**Abhay** solves the coordination gap:
-1. **Contacts households automatically** across Kannada, Hindi, Hinglish, and English using **Gnani Prisma STT**.
-2. **Extracts critical rescue parameters** (headcount, mobility, oxygen/stretcher needs) using **Gnani Evon LLM** without ever letting the AI alter operational state directly.
-3. **Enforces the Zero False Promises Axiom**: Status changes only through code. Before verified driver acceptance, the agent is mathematically constrained to say:  
-   > *"Your request is recorded. No driver has accepted yet."*
-4. **Dispatches vehicles safely**: Human dispatchers assign verified resources (NDRF boats, SDRF rafts, 108 ambulances) to drivers with concurrency-safe version checking.
+**Abhay** addresses the coordination gap through deterministic, safety-bounded workflow automation:
+1. **Contacts households automatically**: Recorded-audio demo with simulated calls across Kannada, Hindi, and English using **Gnani Prisma STT** (mock pipeline).
+2. **Extracts critical rescue parameters**: Headcount, mobility, and oxygen/stretcher requirements parsed via **Gnani Evon LLM** (mock pipeline) without permitting the AI to mutate operational database state directly.
+3. **Enforces the Zero False Promises Axiom**: Operational status changes execute strictly through application code. Before verified driver acceptance, the agent is constrained to state:  
+   > *"Your request is recorded. No driver has accepted yet."*  
+   *(In Kannada: "ನಿಮ್ಮ ಕೋರಿಕೆಯನ್ನು ದಾಖಲಿಸಲಾಗಿದೆ. ಇನ್ನೂ ಯಾವುದೇ ಚಾಲಕರು ಸ್ವೀಕರಿಸಿಲ್ಲ." / In Hindi: "आपका अनुरोध दर्ज कर लिया गया है। अभी किसी ड्राइवर ने स्वीकार नहीं किया है।")*
+4. **Assigns vehicles through human confirmation**: Human dispatchers assign verified resources (NDRF boats, SDRF rafts, 108 ambulances) to drivers with concurrency-safe version checking. Vehicle positions from seed data.
 5. **Silence Never Counts as Safe**: Unanswered calls escalate to a physical field-visit door-knock order for ASHA and Panchayat ground teams.
-6. **DPDP Act 2023 Principles**: First names only, strictly masked phone numbers (`+91 XXXXX XXXXX`), and an automated 72-hour telemetry purge.
+6. **Designed around DPDP Act 2023 principles**: First names only, strictly masked phone numbers (`+91 XXXXX XXXXX`), purpose-limited collection, and an automated 72-hour telemetry purge.
 
 ---
 
-## 2. Technical Architecture & Gnani AI Pipeline
+## 2. Limitations
+
+- **Synthetic Data**: All household records, demographics, phone numbers, and vulnerability traits are synthetically generated seed records representing the Bantwal flood area.
+- **Simulated Telephony**: Telephony interaction is a recorded-audio demo with simulated calls via web interface. There is no carrier PRI/SIP trunk integration, PBX connection, or live cellular dialer.
+- **Vehicle Positions from Seed Data & No Live Routing or ETAs**: Vehicle locations are fixed coordinates from seed data. No live GPS telemetry, road network routing, or dynamic ETA calculations exist; pre-acceptance messages never promise travel times.
+- **Placeholder Safety Answers Pending District Authority**: Advisory answers for life-critical inquiries (e.g. livestock, bridge crossing, medical equipment adjustments) return `"Approved answer pending from district authority"` and are immediately flagged for human review.
+- **Evaluation Numbers Reflect Local Benchmark Runs**: All reported accuracy and WER metrics are derived exclusively from local test runs against synthetic mock test cases.
+- **Mock Mode Active**: No real Gnani API call (Prisma, Evon, Timbre) has ever succeeded. The application runs with `USE_MOCK_GNANI=true`.
+
+---
+
+## 3. Technical Architecture & Pipeline
 
 ```mermaid
 flowchart LR
-    A["Caller Audio (8kHz PCM)"] --> B["Gnani Prisma STT"]
+    A["Caller Audio\n(Recorded / Simulated PCM)"] --> B["Gnani Prisma STT\n(Mock Engine)"]
     B --> C["Acoustic Transcript"]
-    C --> D["Gnani Evon NLU"]
+    C --> D["Gnani Evon NLU\n(Structured Extraction)"]
     D --> E["Validated JSON Needs"]
     E --> F["Core State Machine\n(Code-Only Status Mutation)"]
-    F --> G["Honesty Guard Engine\n(30+ Blocked Phrases)"]
+    F --> G["Honesty Guard Engine\n(Multilingual Blocked Phrases)"]
     G --> H["Deterministic Response"]
-    H --> I["Gnani Timbre TTS"]
-    I --> J["Resident Telephone / Web Stream"]
+    H --> I["Gnani Timbre TTS\n(Cached / Mock Audio)"]
+    I --> J["Resident Telephone / Web Interface"]
 ```
 
 ### The 5 Core Safety Tenets:
 1. **Status changes only through code, never the AI**: The LLM extracts data into structured JSON. State transitions execute strictly in `core/status.py` and are logged in the immutable audit trail as: *"Changed by system rules, not AI"*.
-2. **Zero False Promises Guarantee**: The Honesty Guard (`core/guard.py`) intercepts and blocks 30+ promise phrases (e.g., *"help is coming"*, *"boat dispatched"*, *"rescue team is arriving"*, *"मदद आ रही है"*, *"ಸಹಾಯ ಬರುತ್ತಿದೆ"*).
-3. **Concurrency-Safe Ride Offers**: Offers carry atomic integer versions. If two drivers click "Accept", the database accepts the first transaction and returns `HTTP 409 Conflict` to the second.
-4. **Idempotent Resident Callbacks**: Only created after driver acceptance. Uses `UNIQUE (request_id)` constraint so duplicate callbacks are physically impossible.
-5. **Deterministic Safety Answers**: Hard-coded safety guidance for life-threatening inquiries (e.g. crossing flood waters, livestock in barns, adjusting medical oxygen flow).
+2. **Zero False Promises Guarantee**: The Honesty Guard (`core/guard.py`) intercepts and blocks promise phrases (e.g., *"help is coming"*, *"boat dispatched"*, *"rescue team is arriving"*, *"मदद आ रही है"*, *"ಸಹಾಯ ಬರುತ್ತಿದೆ"*).
+3. **Concurrency-Safe Vehicle Assignment**: Offers carry atomic integer versions. If two drivers click "Accept", the database accepts the first transaction and returns `HTTP 409 Conflict` to the second.
+4. **Idempotent Resident Callbacks**: Only created after driver acceptance. Uses `UNIQUE (request_id)` constraint so duplicate callbacks cannot be generated.
+5. **Deterministic Safety Answers**: Hard-coded safety guidance for life-threatening inquiries returns placeholder notices pending district authority review.
 
 ---
 
-## 3. Technology Stack
+## 4. Technology Stack
 
 - **Backend**: Python 3.11+, Flask, SQLite (WAL mode, Foreign Keys ON), Python-dotenv, Requests, Pytest
 - **Frontend**: Stitch Material & Tailwind CSS design system, Material Symbols Outlined, Font Awesome 6, Vanilla JS (No React, No Node.js build step)
-- **Live Cartography**: Leaflet.js + OpenStreetMap with tactical flood inundation polygons and Netravati riverbed contours
+- **Cartography**: Leaflet.js + OpenStreetMap with vehicle positions from seed data and Netravati riverbed contours
 - **Real-Time Feed**: Server-Sent Events (SSE) broadcasted via `/api/events`
 - **Gnani AI Stack**:
-  - `gnani/stt.py`: Gnani Prisma Speech-to-Text client with low-latency regional language decoding.
-  - `gnani/llm.py`: Gnani Evon LLM client with schema enforcement.
-  - `gnani/tts.py`: Gnani Timbre Neural Text-to-Speech with local SHA-256 audio disk caching.
-  - `gnani/mock.py`: Offline fallback mock engine for disconnected hackathon evaluation.
+  - `gnani/stt.py`: Gnani Prisma client wrapper with regional language configuration (mock mode default).
+  - `gnani/llm.py`: Gnani Evon LLM client wrapper with structured JSON schema enforcement (mock mode default).
+  - `gnani/tts.py`: Gnani Timbre Neural Text-to-Speech client with local SHA-256 audio disk caching (mock mode default).
+  - `gnani/mock.py`: Offline fallback mock engine for deterministic local execution.
 
 ---
 
-## 4. Quick Start & Setup
+## 5. Quick Start & Setup
 
 ### 1. Prerequisites
 - Python 3.11 or Python 3.12 installed on Windows, macOS, or Linux.
@@ -91,7 +104,7 @@ DEBUG=True
 PORT=5000
 SECRET_KEY=abhay-ddma-secret-key-bantwal-2026
 
-# Gnani AI Credentials (Set to true to use offline zero-latency mock)
+# Gnani AI Credentials (Mock mode active by default)
 USE_MOCK_GNANI=true
 GNANI_API_KEY=
 ```
@@ -110,9 +123,9 @@ Open your browser to: **`http://127.0.0.1:5000`**
 
 ---
 
-## 5. Verification & Test Suite
+## 6. Verification & Test Suite
 
-All 28 tests (safety guards, state machine transitions, templates, pipeline inference, and page routes) pass in under 1 second:
+Run the full pytest suite:
 
 ```powershell
 python -m pytest
@@ -123,46 +136,46 @@ Evaluates Word Error Rate (WER), structured field extraction accuracy, and adver
 ```powershell
 python evals/run_evals.py
 ```
-**Results saved to `evals/results.json`**:
-- **Honesty Guard Pass Rate**: **100.0%** (0 false promises detected)
+**Results saved to `evals/results.json`** (from local test runs in mock mode):
+- **Honesty Guard Pass Rate**: **100.0%** (0 false promises permitted)
 - **Field Extraction Accuracy**: **86.7%**
 - **Average Telephony WER**: **14.2%**
 
 ---
 
-## 6. Route & Screen Sitemap (All 15 Routes)
+## 7. Route & Screen Sitemap (All 15 Routes)
 
 | Route | Screen / Template | Purpose |
 | :--- | :--- | :--- |
 | `/` | `screens/incident_select.html` | Incident selection portal (Level 3 Demo Flood Bantwal). |
-| `/dashboard` | `screens/dashboard.html` | Dispatcher tactical command center with GIS map, live queue, and telemetry. |
-| `/call-floor` | `screens/call_floor.html` | Real-time call floor agent view with audio playback and transcription stream. |
-| `/call/<id>` | `screens/call_detail.html` | Incident dispatch detail panel with extracted fields and vehicle assignment modal. |
-| `/simulate` | `screens/simulate.html` | Voice pipeline simulator testing STT, LLM, Guard, and TTS in Kannada/Hindi/English. |
-| `/fleet` | `screens/fleet.html` | Tactical rescue fleet overview, stretcher/wheelchair readiness, and driver links. |
-| `/run/<id>` | `screens/run.html` | Driver active turn-by-turn navigation, waypoint progress, and citizen pickup. |
+| `/dashboard` | `screens/dashboard.html` | Dispatcher tactical command center with map, live queue, and vehicle positions from seed data. |
+| `/call-floor` | `screens/call_floor.html` | Call floor agent view with audio playback and transcription stream. |
+| `/call/<id>` | `screens/call_detail.html` | Incident detail panel with extracted fields and vehicle assignment modal. |
+| `/simulate` | `screens/simulate.html` | Voice pipeline simulator (recorded-audio demo with simulated calls) testing STT, LLM, Guard, and TTS. |
+| `/fleet` | `screens/fleet.html` | Rescue fleet overview with vehicle positions from seed data and driver links. |
+| `/run/<id>` | `screens/run.html` | Driver navigation demo view, waypoint progress, and citizen pickup. |
 | `/driver` | `screens/driver_offers.html` | Driver terminal for viewing beacon offers, accepting runs, and completing missions. |
-| `/ready` | `screens/ready.html` | Resident intake portal with mandatory DPDP Act 2023 consent checkbox. |
-| `/phone` | `screens/phone.html` | Resident phone simulator with interactive DTMF 1/2/3 keypad and Timbre audio. |
+| `/ready` | `screens/ready.html` | Resident intake portal designed around DPDP Act 2023 principles. |
+| `/phone` | `screens/phone.html` | Resident phone simulator with interactive DTMF 1/2/3 keypad and synthesized audio. |
 | `/field` | `screens/field.html` | Ground patrol door-knock queue for unanswered households (*"Silence never counts as safe"*). |
 | `/audit` | `screens/audit.html` | Chronological immutable audit ledger tracking all system and human decisions. |
-| `/privacy` | `screens/privacy.html` | Statutory DPDP compliance proof, 72h auto-purge architecture, and manual purge trigger. |
-| `/under-the-hood` | `screens/under_the_hood.html` | Visual architectural breakdown of the 5-stage pipeline and concurrency locks. |
-| `/evals` | `screens/evals.html` | Benchmark dashboard displaying WER, extraction precision, and 0-promise metrics. |
+| `/privacy` | `screens/privacy.html` | Interface designed around DPDP Act 2023 principles, 72h auto-purge architecture, and manual purge trigger. |
+| `/under-the-hood` | `screens/under_the_hood.html` | Architectural breakdown of the 5-stage pipeline, concurrency locks, and guardrails. |
+| `/evals` | `screens/evals.html` | Benchmark dashboard displaying WER, extraction precision, and 0-promise metrics from local test runs. |
 
 ---
 
-## 7. 60-Second Hackathon Demo Script
+## 8. 60-Second Demo Script
 
-Follow this script to demonstrate the core value proposition to hackathon evaluators in 60 seconds:
+Follow this script to demonstrate the core value proposition:
 
 - **00:00 - 00:10 (The Problem & Command Setup)**:
-  Open `http://127.0.0.1:5000/`. Click *"Enter Control Room"*. Show the Bantwal flood map: 40 households colored by status. Point out the life-threat priority pinned at the top: *Parvathi Acharya (bedridden senior, flood water 3ft)*.
+  Open `http://127.0.0.1:5000/`. Click *"Enter Control Room"*. View the Bantwal flood map: 40 households colored by status. Point out the life-threat priority pinned at the top: *Parvathi Acharya (bedridden senior, flood water 3ft)*.
 
 - **00:10 - 00:25 (Resident Intake & Telephony Simulation)**:
-  Open `/phone` in a side tab. Select a household and click the green Answer button. Hear the synthesized **Gnani Timbre voice** speak the honest pre-acceptance greeting:  
+  Open `/phone` in a side tab. Select a household and click the green Answer button. Hear the synthesized voice speak the honest pre-acceptance greeting:  
   *"Your request is recorded. No driver has accepted yet."*  
-  Press **Key 1** on the tactile keypad. Notice the immediate transition to `needs_help`.
+  Press **Key 1** on the keypad. Notice the immediate transition to `needs_help`.
 
 - **00:25 - 00:35 (The Honesty Guardrail)**:
   Navigate to `/simulate`. Test the adversarial question: *"Promise me you are sending a boat in 10 minutes!"*  
@@ -176,14 +189,14 @@ Follow this script to demonstrate the core value proposition to hackathon evalua
 - **00:45 - 00:55 (Silence Never Counts as Safe)**:
   Open `/field`. Explain that households failing automated retries are never marked safe; they are added to this physical door-knock patrol list for ASHA workers.
 
-- **00:55 - 01:00 (Auditing & DPDP Act 2023)**:
+- **00:55 - 01:00 (Auditing & DPDP Act 2023 Principles)**:
   Open `/audit`. Point to the ledger entry: *"Changed by system rules, not AI"*. Open `/privacy`, click *"Execute Purge Now"*, and show that all telemetry is cleanly redacted per the 72-hour privacy mandate.
 
 ---
 
-## 8. License & Attribution
+## 9. License & Attribution
 
 - Built for the **Gnani AI Great Indian AI Internship Challenge (2026)**.
-- Models: **Gnani Prisma STT**, **Gnani Evon LLM**, **Gnani Timbre TTS**.
+- Models: Architecture designed for **Gnani Prisma STT**, **Gnani Evon LLM**, and **Gnani Timbre TTS** (runs in mock mode).
 - Cartography: OpenStreetMap & Leaflet.js.
 - Typography: Inter & JetBrains Mono.

@@ -48,9 +48,14 @@ ENV/
 env.bak/
 venv.bak/
 
-# Audio cache generated during runtime
+# Audio cache and generated audio
 audio_cache/*
 !audio_cache/.gitkeep
+static/audio/*
+!static/audio/sample_hindi.wav
+!static/audio/sample_hinglish.wav
+!static/audio/sample_kannada.wav
+!static/audio/.gitkeep
 
 # IDEs & Editors
 .idea/

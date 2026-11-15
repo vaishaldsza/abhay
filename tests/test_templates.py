@@ -23,20 +23,29 @@ def test_pre_acceptance_templates_strictly_honest():
 def test_pre_acceptance_templates_forbidden_words_and_advice():
     """
     Fails if a pre-acceptance template contains advice, timing,
-    or the words safe, coming, on the way, dispatched.
+    or the words safe, coming, on the way, dispatched, in English, Hindi, or Kannada.
     """
-    forbidden_terms = ["safe", "coming", "on the way", "dispatched", "higher ground", "minutes", "mins", "hours", "soon", "wait"]
-    advice_terms = ["move to", "stay in", "keep your phone", "take your", "run to", "go to"]
+    forbidden_terms_by_lang = {
+        "en": ["safe", "coming", "on the way", "dispatched", "ground", "minutes", "mins", "hours", "soon", "wait"],
+        "kn": ["ಸುರಕ್ಷಿತ", "ಬರುತ್ತಿದೆ", "ದಾರಿಯಲ್ಲಿದೆ", "ಕಳುಹಿಸಲಾಗಿದೆ", "ಸ್ಥಳ", "ನಿಮಿಷ", "ಗಂಟೆ", "ಶೀಘ್ರದಲ್ಲೇ", "ಕಾಯಿರಿ"],
+        "hi": ["सुरक्षित", "आ रही", "रास्ते में", "भेजी गई", "स्थान", "मिनट", "घंटे", "जल्द", "प्रतीक्षा", "रुको"]
+    }
+    advice_terms_by_lang = {
+        "en": ["move to", "stay in", "keep your phone", "take your", "run to", "go to"],
+        "kn": ["ಸ್ಥಳಾಂತರಿಸಿ", "ಹೋಗಿ", "ತೆರಳಿ", "ಇರಿ", "ತೆಗೆದುಕೊಳ್ಳಿ"],
+        "hi": ["जाएं", "रहें", "चलें", "रखें", "लें"]
+    }
     
     for status in ("needs_help", "request_recorded"):
-        for lang, template in RIDE_TEMPLATES[status].items():
+        for lang in ("en", "kn", "hi"):
+            template = get_template(status, lang)
             t_lower = template.lower()
-            for word in forbidden_terms:
+            for word in forbidden_terms_by_lang[lang]:
                 assert word not in t_lower, f"Forbidden term '{word}' found in pre-acceptance template for {status} ({lang}): {template}"
-            for advice in advice_terms:
+            for advice in advice_terms_by_lang[lang]:
                 assert advice not in t_lower, f"Advice term '{advice}' found in pre-acceptance template for {status} ({lang}): {template}"
             # Ensure no timing regex pattern
-            assert not re.search(r'\b\d+\s*(m|min|minutes|hrs|hours)\b', t_lower), f"Timing pattern found in template: {template}"
+            assert not re.search(r'\b\d+\s*(m|min|minutes|hrs|hours|ನಿಮಿಷ|ಗಂಟೆ|मिनट|घंटे)\b', t_lower), f"Timing pattern found in template: {template}"
 
 def test_driver_accepted_template_format():
     tmpl_en = get_template(

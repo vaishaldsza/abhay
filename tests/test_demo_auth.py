@@ -312,3 +312,55 @@ def test_driver_and_resident_screens_layout_and_navigation(auth_app):
     assert 'href="/household-needs"' in html_ready
     assert 'href="/confirmation"' in html_ready
     assert 'max-w-2xl' in html_ready
+
+
+def test_field_worker_nav_and_logout_present(auth_app):
+    client = auth_app.test_client()
+    client.post("/login", data={"role": "field_worker"})
+    res = client.get("/field")
+    assert res.status_code == 200
+    html = res.data.decode("utf-8")
+    assert 'lang-dropdown-wrapper' in html
+    assert 'href="/logout"' in html
+    assert 'ASHA Worker' in html
+
+def test_driver_manifest_and_comms_modals(auth_app):
+    client = auth_app.test_client()
+    client.post("/login", data={"role": "driver"})
+    res = client.get("/driver")
+    assert res.status_code == 200
+    html = res.data.decode("utf-8")
+    assert 'id="driver-manifest-modal"' in html
+    assert 'id="driver-comms-modal"' in html
+    assert 'window.openDriverManifestModal = function' in html
+    assert 'window.openDriverCommsModal = function' in html
+
+def test_resident_page_language_switching(auth_app):
+    client = auth_app.test_client()
+    client.post("/login", data={"role": "resident"})
+    
+    # English
+    client.post("/api/set-lang/en")
+    res_en = client.get("/ready")
+    assert res_en.status_code == 200
+    html_en = res_en.data.decode("utf-8")
+    assert "Disaster Evacuation Preparedness Form" in html_en
+    assert "Step 1 of 3: Basic Details" in html_en
+    assert "Head of Household First Name" in html_en
+    
+    # Hindi
+    client.post("/api/set-lang/hi")
+    res_hi = client.get("/ready")
+    assert res_hi.status_code == 200
+    html_hi = res_hi.data.decode("utf-8")
+    assert "आपदा आपातकालीन निकासी तैयारी प्रपत्र" in html_hi
+    assert "चरण 1 / 3: बुनियादी विवरण" in html_hi
+    assert "परिवार के मुखिया का पहला नाम" in html_hi
+
+    # Kannada
+    client.post("/api/set-lang/kn")
+    res_kn = client.get("/ready")
+    assert res_kn.status_code == 200
+    html_kn = res_kn.data.decode("utf-8")
+    assert "ತುರ್ತು ಸನ್ನದ್ಧತಾ ನಮೂನೆ" in html_kn
+    assert "ಹಂತ 1 / 3: ಪ್ರಾಥಮಿಕ ವಿವರಗಳು" in html_kn

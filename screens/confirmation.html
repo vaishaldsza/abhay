@@ -1,6 +1,6 @@
 <!-- Confirmation - Abhay Citizen -->
 
-<!DOCTYPE html><html class="light" lang="kn"><head>
+<!DOCTYPE html><html class="light" lang="{{ current_lang or 'en' }}"><head>
 
 <meta charset="utf-8">
 
@@ -265,7 +265,7 @@
 
 <span class="w-1.5 h-1.5 rounded-full bg-[#16A34A]"></span>
 
-        ನೋಂದಾಯಿಸಲಾಗಿದೆ / Registered
+        {{ t("Registered at DDMA") }}
 
       </span>
 
@@ -507,7 +507,7 @@
 
 <span class="material-symbols-outlined text-[18px]" data-icon="radar">radar</span>
 
-<span>ಸ್ಥಿತಿ ನವೀಕರಣ ಪರಿಶೀಲಿಸಿ / Check Live Status</span>
+<span>{{ t("Check Live Status") }}</span>
 
 </button>
 
@@ -517,11 +517,11 @@
 
 <span class="material-symbols-outlined text-[18px] text-[#DC2626]" data-icon="call">call</span>
 
-<span class="font-bold">ತುರ್ತು ಸಹಾಯವಾಣಿ ಕರೆ (Call 1077 Helpline)</span>
+<span class="font-bold">{{ t("Call 1077 Helpline") }}</span>
 
 </a>
 
-<button onclick="cancelRegistration()" class="w-full h-11 border border-error/50 text-error hover:bg-error/10 rounded-lg font-label-lg text-label-lg flex items-center justify-center gap-2 transition-all mt-2" type="button"><span class="material-symbols-outlined text-[18px]">cancel</span><span>ನೋಂದಣಿ ರದ್ದುಮಾಡಿ / Cancel Registration</span></button>
+<button onclick="cancelRegistration()" class="w-full h-11 border border-error/50 text-error hover:bg-error/10 rounded-lg font-label-lg text-label-lg flex items-center justify-center gap-2 transition-all mt-2" type="button"><span class="material-symbols-outlined text-[18px]">cancel</span><span>{{ t("Cancel Registration") }}</span></button>
 
 </section>
 
@@ -532,25 +532,25 @@
   <!-- 1. Ready Destination -->
   <a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-slate-400 hover:bg-surface-container-low dark:hover:bg-slate-800 px-3 py-1 transition-transform duration-150 active:scale-95 rounded-lg" href="/ready">
     <span class="material-symbols-outlined text-[20px]" data-icon="verified_user">verified_user</span>
-    <span class="text-caption font-caption mt-0.5">ಸಿದ್ಧತೆ / Ready</span>
+    <span class="text-caption font-caption mt-0.5">{{ t("Ready Tab") }}</span>
   </a>
 
   <!-- 2. House Destination -->
   <a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-slate-400 hover:bg-surface-container-low dark:hover:bg-slate-800 px-3 py-1 transition-transform duration-150 active:scale-95 rounded-lg" href="/household-needs">
     <span class="material-symbols-outlined text-[20px]" data-icon="groups">groups</span>
-    <span class="text-caption font-caption mt-0.5">ಕುಟುಂಬ / House</span>
+    <span class="text-caption font-caption mt-0.5">{{ t("House Tab") }}</span>
   </a>
 
   <!-- 3. IVR Destination -->
   <a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-slate-400 hover:bg-surface-container-low dark:hover:bg-slate-800 px-3 py-1 transition-transform duration-150 active:scale-95 rounded-lg" href="/phone">
     <span class="material-symbols-outlined text-[20px]" data-icon="ring_volume">ring_volume</span>
-    <span class="text-caption font-caption mt-0.5">ತುರ್ತು / IVR</span>
+    <span class="text-caption font-caption mt-0.5">{{ t("IVR Tab") }}</span>
   </a>
 
   <!-- 4. Status Destination (ACTIVE) -->
   <a class="flex flex-col items-center justify-center text-primary dark:text-secondary-fixed font-bold bg-primary-fixed dark:bg-primary-container rounded-lg px-3 py-1 transition-transform duration-150 active:scale-95" href="/confirmation">
     <span class="material-symbols-outlined text-[20px]" data-icon="task_alt" style="font-variation-settings: 'FILL' 1;">task_alt</span>
-    <span class="text-caption font-caption mt-0.5">ಸ್ಥಿತಿ / Status</span>
+    <span class="text-caption font-caption mt-0.5">{{ t("Status Tab") }}</span>
   </a>
 </nav></div>
 

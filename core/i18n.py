@@ -423,7 +423,128 @@ UI_TRANSLATIONS = {
         "en": "Create Account & Sign In",
         "hi": "खाता बनाएं और साइन इन करें",
         "kn": "ಖಾತೆ ರಚಿಸಿ ಮತ್ತು ಸೈನ್ ಇನ್ ಮಾಡಿ"
-    }
+    },
+    # Resident & Citizen Portal Strings
+    "Disaster Evacuation Preparedness Form": {
+        "en": "Disaster Evacuation Preparedness Form",
+        "hi": "आपदा आपातकालीन निकासी तैयारी प्रपत्र",
+        "kn": "ತುರ್ತು ಸನ್ನದ್ಧತಾ ನಮೂನೆ"
+    },
+    "Monsoon Alert Level-2": {
+        "en": "Monsoon Alert Level-2 • Bantwal Sector",
+        "hi": "मानसून चेतावनी स्तर-2 • बंटवाल सेक्टर",
+        "kn": "ಮುಂಗಾರು ಮುನ್ನೆಚ್ಚರಿಕೆ ಹಂತ-2 • ಬಂಟ್ವಾಳ ವಲಯ"
+    },
+    "Disaster Preparedness Subtitle": {
+        "en": "Register household details with Bantwal Taluk Disaster Management Authority (DDMA) for immediate rescue coordination during floods.",
+        "hi": "बाढ़ के दौरान तत्काल बचाव समन्वय के लिए बंटवाल तालुक आपदा प्रबंधन प्राधिकरण (DDMA) में परिवार की जानकारी दर्ज करें।",
+        "kn": "ಪ್ರವಾಹ ಅಥವಾ ನೈಸರ್ಗಿಕ ವಿಕೋಪ ಸಂದರ್ಭದಲ್ಲಿ ತಕ್ಷಣದ ಸಂಪರ್ಕಕ್ಕಾಗಿ ಬಂಟ್ವಾಳ ತಾಲೂಕು ವಿಪತ್ತು ನಿರ್ವಹಣಾ ಪ್ರಾಧಿಕಾರಕ್ಕೆ (DDMA) ಮನೆ ಮಾಹಿತಿ ನೋಂದಾಯಿಸಿ."
+    },
+    "Step 1 of 3: Basic Details": {
+        "en": "Step 1 of 3: Basic Details",
+        "hi": "चरण 1 / 3: बुनियादी विवरण",
+        "kn": "ಹಂತ 1 / 3: ಪ್ರಾಥಮಿಕ ವಿವರಗಳು"
+    },
+    "Step 2 of 3: Household Needs & Evacuation Assistance": {
+        "en": "Step 2 of 3: Household Needs & Evacuation Assistance",
+        "hi": "चरण 2 / 3: चिकित्सा और विशेष आवश्यकताएं",
+        "kn": "ಹಂತ 2 / 3: ವೈದ್ಯಕೀಯ ಮತ್ತು ಚಲನಶೀಲತೆಯ ಅಗತ್ಯಗಳು"
+    },
+    "Step 3 of 3: Evacuation Pass & Confirmation": {
+        "en": "Step 3 of 3: Evacuation Pass & Confirmation",
+        "hi": "चरण 3 / 3: निकासी पास और पुष्टि",
+        "kn": "ಹಂತ 3 / 3: ಸ್ಥಳಾಂತರ ಪಾಸ್ ಮತ್ತು ದೃಢೀಕರಣ"
+    },
+    "Head of Household First Name (First Name only)": {
+        "en": "Head of Household First Name (First Name only)",
+        "hi": "परिवार के मुखिया का पहला नाम (केवल पहला नाम)",
+        "kn": "ಕುಟುಂಬದ ಮುಖ್ಯಸ್ಥರ ಮೊದಲ ಹೆಸರು (ಮೊದಲ ಹೆಸರು ಮಾತ್ರ)"
+    },
+    "No surname needed for privacy": {
+        "en": "No surname needed for privacy.",
+        "hi": "गोपनीयता के लिए उपनाम की आवश्यकता नहीं है।",
+        "kn": "ಗೌಪ್ಯತೆ ರಕ್ಷಣೆಗಾಗಿ ಪೂರ್ಣ ಉಪನಾಮ ಅಗತ್ಯವಿಲ್ಲ."
+    },
+    "Mobile Number": {
+        "en": "Mobile Number",
+        "hi": "मोबाइल नंबर",
+        "kn": "ಮೊಬೈಲ್ ಸಂಖ್ಯೆ"
+    },
+    "Used for automated IVR and SMS emergency alerts": {
+        "en": "Used for automated IVR and SMS emergency alerts.",
+        "hi": "स्वचालित आईवीआर और एसएमएस आपातकालीन अलर्ट के लिए उपयोग।",
+        "kn": "ಸ್ವಯಂಚಾಲಿತ IVR ಮತ್ತು SMS ಎಚ್ಚರಿಕೆಗೆ ಬಳಸಲಾಗುವುದು."
+    },
+    "Landmark": {
+        "en": "Landmark (Nearest recognizable place for rescue boats/teams)",
+        "hi": "पहचान चिह्न (बचाव नौका या टीम के लिए निकटतम स्थल)",
+        "kn": "ಪ್ರಮುಖ ಗುರುತು (ದೋಣಿ ಅಥವಾ ರಕ್ಷಣಾ ತಂಡಕ್ಕೆ ಗುರುತಿಸಬಹುದಾದ ಜಾಗ)"
+    },
+    "PIN Code": {
+        "en": "PIN Code",
+        "hi": "पिन कोड",
+        "kn": "ಪಿನ್ಕೋಡ್"
+    },
+    "GPS Location": {
+        "en": "Accurate GPS Location (Flood Zone Mapping)",
+        "hi": "सटीक जीपीएस स्थान (बाढ़ क्षेत्र मैपिंग)",
+        "kn": "ನಿಖರವಾದ ಜಿಪಿಎಸ್ ಸ್ಥಳ (ನೆತ್ರಾವತಿ ನದಿ ಪ್ರವಾಹ ವಲಯ)"
+    },
+    "Total Family Members in house": {
+        "en": "Total Family Members in house",
+        "hi": "घर में कुल परिवार के सदस्य",
+        "kn": "ಕುಟುಂಬದ ಸದಸ್ಯರ ಸಂಖ್ಯೆ"
+    },
+    "Next Step: Medical & Special Assistance Needs": {
+        "en": "Next Step: Medical & Special Assistance Needs",
+        "hi": "अगला चरण: स्वास्थ्य और विशेष सहायता आवश्यकताएं",
+        "kn": "ಮುಂದಿನ ಹಂತ: ಆರೋಗ್ಯ ಮತ್ತು ಸಹಾಯದ ಅಗತ್ಯಗಳು"
+    },
+    "Complete Registration / Submit Details": {
+        "en": "Complete Registration / Submit Details",
+        "hi": "पंजीकरण पूरा करें / विवरण जमा करें",
+        "kn": "ನೋಂದಣಿ ಪೂರ್ಣಗೊಳಿಸಿ / ವಿವರಗಳನ್ನು ಸಲ್ಲಿಸಿ"
+    },
+    "Check Live Status": {
+        "en": "Check Live Status",
+        "hi": "लाइव स्थिति जांचें",
+        "kn": "ಸ್ಥಿತಿ ನವೀಕರಣ ಪರಿಶೀಲಿಸಿ"
+    },
+    "Cancel Registration": {
+        "en": "Cancel Registration",
+        "hi": "पंजीकरण रद्द करें",
+        "kn": "ನೋಂದಣಿ ರದ್ದುಮಾಡಿ"
+    },
+    "Call 1077 Helpline": {
+        "en": "Call 1077 Helpline",
+        "hi": "1077 हेल्पलाइन पर कॉल करें",
+        "kn": "ತುರ್ತು ಸಹಾಯವಾಣಿ ಕರೆ (1077)"
+    },
+    "Ready Tab": {
+        "en": "Ready",
+        "hi": "तैयारी",
+        "kn": "ಸಿದ್ಧತೆ"
+    },
+    "House Tab": {
+        "en": "House",
+        "hi": "परिवार",
+        "kn": "ಕುಟುಂಬ"
+    },
+    "IVR Tab": {
+        "en": "IVR / Phone",
+        "hi": "आईवीआर",
+        "kn": "ತುರ್ತು / IVR"
+    },
+    "Status Tab": {
+        "en": "Status",
+        "hi": "स्थिति",
+        "kn": "ಸ್ಥಿತಿ"
+    },
+    "DPDP Consent Guarantee": {
+        "en": "Your details are encrypted and used only for DDMA evacuation operations. Auto-purged post-incident under DPDP Act 2023.",
+        "hi": "आपका विवरण एन्क्रिप्ट किया गया है और केवल डीडीएमए निकासी के लिए उपयोग किया जाता है। आपदा के बाद स्वतः हटा दिया जाता है।",
+        "kn": "ನಿಮ್ಮ ಮಾಹಿತಿಯನ್ನು ಕೇವಲ ವಿಪತ್ತು ನಿರ್ವಹಣೆಗಾಗಿ ಮಾತ್ರ ಬಳಸಲಾಗುತ್ತದೆ. DPDP ಕಾಯ್ದೆ 2023 ರ ಅಡಿಯಲ್ಲಿ ಘಟನೆಯ ನಂತರ ಸ್ವಯಂಚಾಲಿತವಾಗಿ ನಾಶವಾಗುತ್ತದೆ."
+    },
 }
 
 def t(key: str, lang: str = "en") -> str:

@@ -1,6 +1,6 @@
 <!-- Household Needs - Abhay Citizen -->
 
-<!DOCTYPE html><html class="light" lang="kn"><head>
+<!DOCTYPE html><html class="light" lang="{{ current_lang or 'en' }}"><head>
 
 <meta charset="utf-8">
 
@@ -257,7 +257,7 @@
 
 <div class="flex justify-between items-center mb-1.5">
 
-<span class="text-label-md font-label-md text-primary font-bold">ಹಂತ 2 / 3: ವೈದ್ಯಕೀಯ ಮತ್ತು ಚಲನಶೀಲತೆಯ ಅಗತ್ಯಗಳು</span>
+<span class="text-label-md font-label-md text-primary font-bold">{{ t("Step 2 of 3: Household Needs & Evacuation Assistance") }}</span>
 
 <span class="text-label-tabular font-label-tabular text-on-surface-variant font-semibold">66.6%</span>
 
@@ -265,7 +265,7 @@
 
 <p class="text-body-sm font-body-sm text-on-surface-variant font-medium mb-2.5">
 
-          Step 2 of 3: Household Needs &amp; Evacuation Assistance
+          {{ t("Step 2 of 3: Household Needs & Evacuation Assistance") }}
 
         </p>
 
@@ -285,7 +285,7 @@
 
 <div>
 
-<h1 class="text-body-sm font-body-sm font-bold text-on-surface">ಪಾರುಗಾಣಿಕಾ ತಂಡಕ್ಕೆ ಅಗತ್ಯವಿರುವ ವಿಶೇಷ ಕಾಳಜಿಗಳು</h1>
+<h1 class="text-body-sm font-body-sm font-bold text-on-surface">{{ t("Household Needs") }}</h1>
 
 <p class="text-caption font-caption text-on-surface-variant leading-tight">Specific priority mobility flags transmitted directly to DDMA field dispatch units.</p>
 
@@ -689,7 +689,7 @@
 
 <button id="btn-submit-needs" onclick="submitNeedsAndProceed()" class="w-full min-h-[48px] px-4 py-3 bg-primary hover:bg-primary-container text-on-primary font-bold rounded-lg shadow-md transition-all duration-150 active:scale-[0.98] flex items-center justify-center gap-2 text-label-lg font-label-lg" type="button">
 
-<span>ನೋಂದಣಿ ಪೂರ್ಣಗೊಳಿಸಿ / Submit Household Details</span>
+<span>{{ t("Complete Registration / Submit Details") }}</span>
 
 <span class="material-symbols-outlined text-[20px]">check</span>
 
@@ -718,25 +718,25 @@
   <!-- Nav Item 1: ಸಿದ್ಧತೆ / Ready -->
   <a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-slate-400 hover:bg-surface-container-low dark:hover:bg-slate-800 px-3 py-1 transition-transform duration-150 active:scale-95 rounded-lg" href="/ready">
     <span class="material-symbols-outlined text-[20px]">verified_user</span>
-    <span class="text-caption font-caption mt-0.5">ಸಿದ್ಧತೆ / Ready</span>
+    <span class="text-caption font-caption mt-0.5">{{ t("Ready Tab") }}</span>
   </a>
 
   <!-- Nav Item 2: ಕುಟುಂಬ / House (ACTIVE) -->
   <a aria-current="page" class="flex flex-col items-center justify-center text-primary dark:text-secondary-fixed font-bold bg-primary-fixed dark:bg-primary-container rounded-lg px-3 py-1 transition-transform duration-150 active:scale-95" href="/household-needs">
     <span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">groups</span>
-    <span class="text-caption font-caption mt-0.5">ಕುಟುಂಬ / House</span>
+    <span class="text-caption font-caption mt-0.5">{{ t("House Tab") }}</span>
   </a>
 
   <!-- Nav Item 3: ತುರ್ತು / IVR -->
   <a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-slate-400 hover:bg-surface-container-low dark:hover:bg-slate-800 px-3 py-1 transition-transform duration-150 active:scale-95 rounded-lg" href="/phone">
     <span class="material-symbols-outlined text-[20px]">ring_volume</span>
-    <span class="text-caption font-caption mt-0.5">ತುರ್ತು / IVR</span>
+    <span class="text-caption font-caption mt-0.5">{{ t("IVR Tab") }}</span>
   </a>
 
   <!-- Nav Item 4: ಸ್ಥಿತಿ / Status -->
   <a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-slate-400 hover:bg-surface-container-low dark:hover:bg-slate-800 px-3 py-1 transition-transform duration-150 active:scale-95 rounded-lg" href="/confirmation">
     <span class="material-symbols-outlined text-[20px]">task_alt</span>
-    <span class="text-caption font-caption mt-0.5">ಸ್ಥಿತಿ / Status</span>
+    <span class="text-caption font-caption mt-0.5">{{ t("Status Tab") }}</span>
   </a>
 </nav></main>
 

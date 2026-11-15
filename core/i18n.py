@@ -1,7 +1,7 @@
 """
 Abhay DDMA Fixed Dictionary Internationalization (i18n)
 Supports: English (en), Hindi (hi), Kannada (kn).
-Strict Rule: No LLM translations. Safety and ride templates come strictly from core/templates.py.
+Strict Rule: No LLM translations. Fixed dictionaries only.
 """
 
 STATUS_TRANSLATIONS = {
@@ -44,6 +44,46 @@ STATUS_TRANSLATIONS = {
         "en": "Evacuated",
         "hi": "सुरक्षित निकाला गया",
         "kn": "ಸ್ಥಳಾಂತರಿಸಲಾಗಿದೆ"
+    },
+    "Needs help": {
+        "en": "Needs help",
+        "hi": "मदद चाहिए",
+        "kn": "ಸಹಾಯ ಬೇಕು"
+    },
+    "Can help": {
+        "en": "Can help",
+        "hi": "मदद कर सकते हैं",
+        "kn": "ಸಹಾಯ ಮಾಡಬಹುದು"
+    },
+    "Request recorded, no driver accepted yet": {
+        "en": "Request recorded, no driver accepted yet",
+        "hi": "अनुरोध दर्ज, अभी तक कोई चालक नहीं मिला",
+        "kn": "ವಿನಂತಿ ದಾಖಲಾಗಿದೆ, ಇನ್ನೂ ಯಾವುದೇ ಚಾಲಕರು ಸ್ವೀಕರಿಸಿಲ್ಲ"
+    },
+    "Driver accepted": {
+        "en": "Driver accepted",
+        "hi": "चालक ने स्वीकार किया",
+        "kn": "ಚಾಲಕರು ಸ್ವೀಕರಿಸಿದ್ದಾರೆ"
+    },
+    "On run": {
+        "en": "On run",
+        "hi": "रास्ते में",
+        "kn": "ಚಾಲನೆಯಲ್ಲಿದೆ"
+    },
+    "Picked up": {
+        "en": "Picked up",
+        "hi": "सवार कर लिया",
+        "kn": "ಹತ್ತಿಸಿಕೊಳ್ಳಲಾಗಿದೆ"
+    },
+    "Evacuated": {
+        "en": "Evacuated",
+        "hi": "सुरक्षित निकाला गया",
+        "kn": "ಸ್ಥಳಾಂತರಿಸಲಾಗಿದೆ"
+    },
+    "Not reached": {
+        "en": "Not reached",
+        "hi": "संपर्क नहीं हुआ",
+        "kn": "ಸಂಪರ್ಕವಾಗಿಲ್ಲ"
     }
 }
 
@@ -123,6 +163,31 @@ NAV_TRANSLATIONS = {
         "hi": "नागरिक पंजीकरण",
         "kn": "ಸಿದ್ಧತಾ ನೋಂದಣಿ"
     },
+    "Household Needs": {
+        "en": "Household Needs",
+        "hi": "पारिवारिक आवश्यकताएं",
+        "kn": "ಕುಟುಂಬದ ಅಗತ್ಯಗಳು"
+    },
+    "Registration Pass": {
+        "en": "Registration Pass",
+        "hi": "पंजीकरण पास",
+        "kn": "ನೋಂದಣಿ ಪಾಸ್"
+    },
+    "Household Card": {
+        "en": "Household Card",
+        "hi": "घर कार्ड",
+        "kn": "ಮನೆಯ ಕಾರ್ಡ್"
+    },
+    "Active Run": {
+        "en": "Active Run",
+        "hi": "सक्रिय रन",
+        "kn": "ಸಕ್ರಿಯ ರನ್"
+    },
+    "Driver Offers": {
+        "en": "Driver Offers",
+        "hi": "चालक प्रस्ताव",
+        "kn": "ಚಾಲಕರ ಆಫರ್‌ಗಳು"
+    },
     "Logout": {
         "en": "Logout",
         "hi": "लॉग आउट",
@@ -135,14 +200,253 @@ NAV_TRANSLATIONS = {
     }
 }
 
-def translate_status(status_key: str, lang: str = "en") -> str:
+UI_TRANSLATIONS = {
+    # Filters & Counters
+    "All": {
+        "en": "All",
+        "hi": "सभी",
+        "kn": "ಎಲ್ಲಾ"
+    },
+    "Search household, landmark...": {
+        "en": "Search household, landmark...",
+        "hi": "परिवार, लैंडमार्क खोजें...",
+        "kn": "ಮನೆ, ಸ್ಥಳ ಹುಡುಕಿ..."
+    },
+    "Total Homes Surveyed": {
+        "en": "Total Homes Surveyed",
+        "hi": "कुल सर्वेक्षण किए गए घर",
+        "kn": "ಒಟ್ಟು ಸಮೀಕ್ಷೆ ಮಾಡಿದ ಮನೆಗಳು"
+    },
+    "District Telemetry": {
+        "en": "District Telemetry",
+        "hi": "जिला टेलीमेट्री",
+        "kn": "ಜಿಲ್ಲಾ ಟೆಲಿಮೆಟ್ರಿ"
+    },
+    "LIVE ROSTER": {
+        "en": "LIVE ROSTER",
+        "hi": "लाइव सूची",
+        "kn": "ಲೈವ್ ಪಟ್ಟಿ"
+    },
+    "Critical alerts": {
+        "en": "Critical alerts",
+        "hi": "गंभीर अलर्ट",
+        "kn": "ತುರ್ತು ಎಚ್ಚರಿಕೆಗಳು"
+    },
+    "Volunteer Resource Registered": {
+        "en": "Volunteer Resource Registered",
+        "hi": "स्वयंसेवक संसाधन पंजीकृत",
+        "kn": "ಸ್ವಯಂಸೇವಕ ಸಂಪನ್ಮೂಲ ನೋಂದಾಯಿಸಲಾಗಿದೆ"
+    },
+    "Evacuated at Shelter": {
+        "en": "Evacuated at Shelter",
+        "hi": "राहत शिविर में सुरक्षित",
+        "kn": "ಆಶ್ರಯ ತಾಣಕ್ಕೆ ಸ್ಥಳಾಂತರಿಸಲಾಗಿದೆ"
+    },
+    "Uncontacted Homes": {
+        "en": "Uncontacted Homes",
+        "hi": "असंपर्कित घर",
+        "kn": "ಸಂಪರ್ಕಿಸದ ಮನೆಗಳು"
+    },
+    "Evacuation Progress": {
+        "en": "Evacuation Progress",
+        "hi": "निकासी प्रगति",
+        "kn": "ಸ್ಥಳಾಂತರ ಪ್ರಗತಿ"
+    },
+    "Evacuation Completion Rate": {
+        "en": "Evacuation Completion Rate",
+        "hi": "निकासी पूर्णता दर",
+        "kn": "ಸ್ಥಳಾಂತರ ಪೂರ್ಣತೆಯ ದರ"
+    },
+    "Direct Telephony Bridge": {
+        "en": "Direct Telephony Bridge",
+        "hi": "प्रत्यक्ष टेलीफोनी ब्रिज",
+        "kn": "ನೇರ ದೂರವಾಣಿ ಸೇತುವೆ"
+    },
+    "Sync CDR Feed": {
+        "en": "Sync CDR Feed",
+        "hi": "सीडीआर फीड सिंक करें",
+        "kn": "ಸಿಡಿಆರ್ ಫೀಡ್ ಸಿಂಕ್ ಮಾಡಿ"
+    },
+    "Map Telemetry Key": {
+        "en": "Map Telemetry Key",
+        "hi": "मानचित्र संकेत",
+        "kn": "ನಕ್ಷೆ ಸಂಕೇತಗಳು"
+    },
+    "Rescue Vehicle": {
+        "en": "Rescue Vehicle",
+        "hi": "बचाव वाहन",
+        "kn": "ರಕ್ಷಣಾ ವಾಹನ"
+    },
+    "Pulsing / Enlarged: Emergency Priority": {
+        "en": "Pulsing / Enlarged: Emergency Priority",
+        "hi": "ब्लिंक / बड़ा: आपातकालीन प्राथमिकता",
+        "kn": "ಮಿಣುಕುವ / ದೊಡ್ಡದು: ತುರ್ತು ಆದ್ಯತೆ"
+    },
+    "Distress Focus": {
+        "en": "Distress Focus",
+        "hi": "संकट केंद्र",
+        "kn": "ಸಂಕಷ್ಟ ಕೇಂದ್ರ"
+    },
+    "Recenter View": {
+        "en": "Recenter View",
+        "hi": "पुनः केंद्रित करें",
+        "kn": "ಮರುಕೇಂದ್ರೀಕರಿಸಿ"
+    },
+    "Assign": {
+        "en": "Assign",
+        "hi": "आवंटित करें",
+        "kn": "ನಿಯೋಜಿಸಿ"
+    },
+    "1 Life-Threat Priority": {
+        "en": "1 Life-Threat Priority",
+        "hi": "1 जीवन-संकट प्राथमिकता",
+        "kn": "1 ಜೀವ-ಅಪಾಯ ಆದ್ಯತೆ"
+    },
+    "Immediate": {
+        "en": "Immediate",
+        "hi": "तत्काल",
+        "kn": "ತಕ್ಷಣ"
+    },
+    "Member": {
+        "en": "Member",
+        "hi": "सदस्य",
+        "kn": "ಸದಸ್ಯ"
+    },
+    "Members": {
+        "en": "Members",
+        "hi": "सदस्य",
+        "kn": "ಸದಸ್ಯರು"
+    },
+    "Landmark": {
+        "en": "Landmark",
+        "hi": "पहचान चिह्न",
+        "kn": "ಗುರುತು"
+    },
+    "No households found": {
+        "en": "No households found",
+        "hi": "कोई परिवार नहीं मिला",
+        "kn": "ಯಾವುದೇ ಕುಟುಂಬಗಳು ಕಂಡುಬಂದಿಲ್ಲ"
+    },
+    "Rescue Unit Active": {
+        "en": "Rescue Unit Active",
+        "hi": "बचाव दल सक्रिय",
+        "kn": "ರಕ್ಷಣಾ ಪಡೆ ಸಕ್ರಿಯ"
+    },
+    "In Transit": {
+        "en": "In Transit",
+        "hi": "मार्ग में",
+        "kn": "ಮಾರ್ಗ ಮಧ್ಯದಲ್ಲಿದೆ"
+    },
+    "EMERGENCY": {
+        "en": "EMERGENCY",
+        "hi": "आपातकाल",
+        "kn": "ತುರ್ತು"
+    },
+    # Simulation Page
+    "Simulate Call & Intake Test": {
+        "en": "Simulate Call & Intake Test",
+        "hi": "कॉल सिमुलेशन और इनटेक टेस्ट",
+        "kn": "ಕಾಲ್ ಸಿಮ್ಯುಲೇಶನ್ ಮತ್ತು ಇನ್‌ಟೇಕ್ ಪರೀಕ್ಷೆ"
+    },
+    "Interactive Sandbox": {
+        "en": "Interactive Sandbox",
+        "hi": "इंटरैक्टिव सैंडबॉक्स",
+        "kn": "ಪರೀಕ್ಷಾರ್ಥ ಸ್ಯಾಂಡ್‌ಬಾಕ್ಸ್"
+    },
+    "Audio Intake Configuration": {
+        "en": "Audio Intake Configuration",
+        "hi": "ऑडियो इनटेक कॉन्फ़िगरेशन",
+        "kn": "ಆಡಿಯೋ ಇನ್‌ಟೇಕ್ ಸಂರಚನೆ"
+    },
+    "Run Simulation": {
+        "en": "Run Simulation",
+        "hi": "सिमुलेशन चलाएं",
+        "kn": "ಸಿಮ್ಯುಲೇಶನ್ ಚಾಲನೆ"
+    },
+    "Return to Dashboard": {
+        "en": "Return to Dashboard",
+        "hi": "डैशबोर्ड पर वापस जाएं",
+        "kn": "ಡ್ಯಾಶ್‌ಬೋರ್ಡ್‌ಗೆ ಹಿಂತಿರುಗಿ"
+    },
+    "Close": {
+        "en": "Close",
+        "hi": "बंद करें",
+        "kn": "ಮುಚ್ಚಿ"
+    },
+    "Apply Extracted Data to Queue": {
+        "en": "Apply Extracted Data to Queue",
+        "hi": "निकाले गए डेटा को कतार में लागू करें",
+        "kn": "ಸಂಗ್ರಹಿಸಿದ ಡೇಟಾವನ್ನು ಕ್ಯೂಗೆ ಅನ್ವಯಿಸಿ"
+    },
+    "Export Diagnostic JSON": {
+        "en": "Export Diagnostic JSON",
+        "hi": "डायग्नोस्टिक JSON निर्यात करें",
+        "kn": "ಡಯಾಗ್ನೋಸ್ಟಿಕ್ JSON ರಫ್ತು ಮಾಡಿ"
+    },
+    # Auth & Login
+    "Account Login": {
+        "en": "Account Login",
+        "hi": "खाता लॉगिन",
+        "kn": "ಖಾತೆ ಲಾಗಿನ್"
+    },
+    "Sign Up / Register": {
+        "en": "Sign Up / Register",
+        "hi": "साइन अप / पंजीकरण",
+        "kn": "ಸೈನ್ ಅಪ್ / ನೋಂದಣಿ"
+    },
+    "Quick Demo Roles": {
+        "en": "Quick Demo Roles",
+        "hi": "डेमो भूमिकाएं",
+        "kn": "ಡೆಮೊ ಪಾತ್ರಗಳು"
+    },
+    "Username or Email": {
+        "en": "Username or Email",
+        "hi": "उपयोगकर्ता नाम या ईमेल",
+        "kn": "ಬಳಕೆದಾರ ಹೆಸರು ಅಥವಾ ಇಮೇಲ್"
+    },
+    "Password": {
+        "en": "Password",
+        "hi": "पासवर्ड",
+        "kn": "ಪಾಸ್‌ವರ್ಡ್"
+    },
+    "Full Name": {
+        "en": "Full Name",
+        "hi": "पूरा नाम",
+        "kn": "ಪೂರ್ಣ ಹೆಸರು"
+    },
+    "Log In": {
+        "en": "Log In",
+        "hi": "लॉग इन करें",
+        "kn": "ಲಾಗಿನ್ ಆಗಿ"
+    },
+    "Create Account & Sign In": {
+        "en": "Create Account & Sign In",
+        "hi": "खाता बनाएं और साइन इन करें",
+        "kn": "ಖಾತೆ ರಚಿಸಿ ಮತ್ತು ಸೈನ್ ಇನ್ ಮಾಡಿ"
+    }
+}
+
+def t(key: str, lang: str = "en") -> str:
     lang = lang if lang in ("en", "hi", "kn") else "en"
-    if status_key in STATUS_TRANSLATIONS:
-        return STATUS_TRANSLATIONS[status_key].get(lang, STATUS_TRANSLATIONS[status_key]["en"])
-    return status_key
+    if key in UI_TRANSLATIONS and lang in UI_TRANSLATIONS[key]:
+        return UI_TRANSLATIONS[key][lang]
+    if key in STATUS_TRANSLATIONS and lang in STATUS_TRANSLATIONS[key]:
+        return STATUS_TRANSLATIONS[key][lang]
+    if key in NAV_TRANSLATIONS and lang in NAV_TRANSLATIONS[key]:
+        return NAV_TRANSLATIONS[key][lang]
+    return key
+
+def translate_status(status_key: str, lang: str = "en") -> str:
+    return t(status_key, lang)
 
 def translate_nav(nav_key: str, lang: str = "en") -> str:
+    return t(nav_key, lang)
+
+def get_i18n_dict(lang: str = "en") -> dict:
+    """Returns a full flat dictionary of all translated strings for the requested language."""
     lang = lang if lang in ("en", "hi", "kn") else "en"
-    if nav_key in NAV_TRANSLATIONS:
-        return NAV_TRANSLATIONS[nav_key].get(lang, NAV_TRANSLATIONS[nav_key]["en"])
-    return nav_key
+    result = {}
+    for d in (STATUS_TRANSLATIONS, NAV_TRANSLATIONS, UI_TRANSLATIONS):
+        for k, translations in d.items():
+            result[k] = translations.get(lang, translations.get("en", k))
+    return result

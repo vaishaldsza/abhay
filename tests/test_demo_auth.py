@@ -205,3 +205,57 @@ def test_language_dropdown_and_theme_toggle_rendered(auth_app):
     assert "theme-toggle-btn" in html
     assert "toggleTheme()" in html
     assert "abhay-theme-styles" in html
+
+def test_no_demo_warning_banner_text(auth_app):
+    client = auth_app.test_client()
+    # Check login screen
+    res_login = client.get("/login")
+    assert "sample accounts, no real data" not in res_login.data.decode("utf-8").lower()
+    
+    # Check dashboard
+    client.post("/login", data={"role": "dispatcher"})
+    res_dash = client.get("/dashboard")
+    assert "sample accounts, no real data" not in res_dash.data.decode("utf-8").lower()
+
+def test_simulate_page_close_button_and_alignment(auth_app):
+    client = auth_app.test_client()
+    client.post("/login", data={"role": "dispatcher"})
+    res = client.get("/simulate")
+    assert res.status_code == 200
+    html = res.data.decode("utf-8")
+    assert 'href="/dashboard"' in html
+    assert "Close" in html
+    # Not trapped in fixed inset modal with blurred desktop
+    assert "backdrop-blur-sm" not in html
+    assert "pointer-events-none filter blur" not in html
+
+def test_language_dropdown_z_index_above_map(auth_app):
+    client = auth_app.test_client()
+    client.post("/login", data={"role": "dispatcher"})
+    res = client.get("/dashboard")
+    assert res.status_code == 200
+    html = res.data.decode("utf-8")
+    # Header and dropdown menu must have high z-index (z-[9999] / z-[10000]) above Leaflet 1000
+    assert "z-[9999]" in html
+    assert "z-[10000]" in html
+
+def test_dashboard_ui_translations_kannada_and_hindi(auth_app):
+    client = auth_app.test_client()
+    client.post("/login", data={"role": "dispatcher"})
+    
+    # Test Kannada
+    client.post("/api/set-lang/kn")
+    res_kn = client.get("/dashboard")
+    html_kn = res_kn.data.decode("utf-8")
+    assert "ಸಹಾಯ ಬೇಕು" in html_kn
+    assert "ಸಂಪರ್ಕವಾಗಿಲ್ಲ" in html_kn
+    assert "ಸ್ಥಳಾಂತರಿಸಲಾಗಿದೆ" in html_kn
+    assert "ಒಟ್ಟು ಸಮೀಕ್ಷೆ ಮಾಡಿದ ಮನೆಗಳು" in html_kn
+
+    # Test Hindi
+    client.post("/api/set-lang/hi")
+    res_hi = client.get("/dashboard")
+    html_hi = res_hi.data.decode("utf-8")
+    assert "मदद चाहिए" in html_hi
+    assert "संपर्क नहीं हुआ" in html_hi
+    assert "कुल सर्वेक्षण किए गए घर" in html_hi

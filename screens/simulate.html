@@ -122,79 +122,37 @@
     }
   </script>
 </head>
-<body class="bg-background text-on-surface antialiased overflow-hidden select-none font-body-md text-body-md">
-<!-- ==================== BACKGROUND DESKTOP ENVIRONMENT ==================== -->
-<div class="h-screen w-screen flex flex-col pointer-events-none filter blur-[2px] opacity-75">
+<body class="bg-background text-on-surface antialiased select-none font-body-md text-body-md min-h-screen flex flex-col">
 {% set active_page = "simulate" %}
 {% include "nav.html" %}
-<!-- Main Shell Mock (GIS Screen Backdrop) -->
-<div class="flex-1 flex overflow-hidden">
-<!-- SideNav Mock -->
-<aside class="w-64 border-r border-outline-variant bg-surface-container-lowest flex flex-col justify-between shrink-0 p-space-md">
-<div class="space-y-4">
-<div class="p-space-sm bg-surface-container-high rounded border-l-4 border-secondary-container">
-<div class="font-headline-sm text-headline-sm font-bold text-primary">DDMA Control Hub</div>
-<div class="font-caption text-caption text-on-surface-variant">Sector 4 • High Alert IST</div>
-</div>
-<div class="space-y-1">
-<div class="flex items-center gap-2 p-2 rounded bg-surface-container-highest text-primary font-label-md">
-<span class="material-symbols-outlined" data-icon="crisis_alert">crisis_alert</span> Operations Center
-            </div>
-<div class="flex items-center gap-2 p-2 rounded text-on-surface-variant font-label-md">
-<span class="material-symbols-outlined" data-icon="format_list_bulleted">format_list_bulleted</span> Evacuation Manifest
-            </div>
-<div class="flex items-center gap-2 p-2 rounded text-on-surface-variant font-label-md">
-<span class="material-symbols-outlined" data-icon="local_shipping">local_shipping</span> Active Dispatches
-            </div>
-</div>
-</div>
-<div class="p-3 bg-error-container text-on-error-container rounded font-label-md text-center">
-          
-        </div>
-</aside>
-<!-- Center GIS Workspace Mock -->
-<main class="flex-1 bg-surface-container p-space-lg flex gap-space-lg">
-<div class="flex-1 bg-surface-container-lowest rounded-xl border border-outline-variant p-4 flex flex-col">
-<div class="h-6 w-48 bg-surface-container-high rounded mb-4"></div>
-<div class="flex-1 bg-surface-container rounded-lg border border-outline-variant flex items-center justify-center">
-<span class="font-label-tabular text-on-surface-variant">NETRAVATI RIVER BASIN // SECTOR-4 TELEMETRY GRID</span>
-</div>
-</div>
-<div class="w-80 bg-surface-container-lowest rounded-xl border border-outline-variant p-4 space-y-3">
-<div class="h-5 w-32 bg-surface-container-high rounded"></div>
-<div class="h-16 bg-surface-container-low rounded"></div>
-<div class="h-16 bg-surface-container-low rounded"></div>
-<div class="h-16 bg-surface-container-low rounded"></div>
-</div>
-</main>
-</div>
-</div>
-<!-- ==================== ACTIVE MODAL DIALOG OVERLAY ==================== -->
-<div class="fixed inset-0 z-50 flex items-center justify-center p-space-md bg-slate-900/65 backdrop-blur-sm">
-<!-- Modal Card Window -->
-<div class="w-full max-w-5xl bg-surface-container-lowest rounded-xl border border-outline shadow-2xl flex flex-col max-h-[942px] overflow-hidden">
-<!-- Modal Header Strip -->
-<div class="px-space-xl py-space-md bg-primary-container text-on-primary flex items-center justify-between border-b border-outline/30 shrink-0">
-<div class="flex items-center gap-space-md">
-<div class="w-10 h-10 rounded-lg bg-surface-container-highest/20 border border-secondary-container/40 flex items-center justify-center text-secondary-container">
-<span class="material-symbols-outlined text-2xl" data-icon="record_voice_over">record_voice_over</span>
-</div>
-<div>
-<div class="flex items-center gap-space-sm">
-<h2 class="font-headline-sm text-headline-sm font-bold text-on-primary tracking-tight">Simulate Call &amp; Intake Test</h2>
-<span class="bg-secondary-container text-primary px-2 py-0.5 rounded font-caption text-caption uppercase tracking-wider font-bold">Interactive Sandbox</span>
-</div>
-<p class="font-body-sm text-body-sm text-on-primary-container mt-0.5">
-              Test audio parsing, STT transcription, entity extraction, and automated citizen response pipeline
-            </p>
-</div>
-</div>
-<a href="/dashboard" class="w-9 h-9 flex items-center justify-center rounded-lg text-on-primary-container hover:text-on-primary hover:bg-primary/50 transition-colors">
-<span class="material-symbols-outlined" data-icon="close">close</span>
-</a>
-</div>
-<!-- Modal Scrollable Canvas Body -->
-<div class="flex-1 overflow-y-auto p-space-lg space-y-space-lg bg-background">
+
+<main class="flex-1 w-full max-w-6xl mx-auto px-4 py-6 space-y-4">
+  <!-- Top Breadcrumb & Action Bar with Prominent Close Button -->
+  <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-outline-variant/60">
+    <div class="flex items-center gap-2.5">
+      <a href="/dashboard" class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-surface-container-high hover:bg-surface-container-highest text-primary font-bold text-xs border border-outline-variant transition shadow-xs" title="Return to Dashboard">
+        <span>←</span>
+        <span>{{ t('Return to Dashboard') }}</span>
+      </a>
+      <span class="text-outline-variant">/</span>
+      <h1 class="font-headline-sm text-headline-sm font-bold text-primary tracking-tight">{{ t('Simulate Call & Intake Test') }}</h1>
+      <span class="bg-secondary-container text-primary px-2 py-0.5 rounded font-caption text-caption uppercase tracking-wider font-bold">{{ t('Interactive Sandbox') }}</span>
+    </div>
+
+    <!-- Prominent High-Visibility Close Button -->
+    <a href="/dashboard" class="inline-flex items-center justify-center gap-1.5 px-4 py-2 rounded-lg bg-red-600 hover:bg-red-500 text-white font-bold text-xs transition shadow-md active:scale-95" title="Close Simulation and Return to Operations Center">
+      <span>{{ t('Close') }}</span>
+      <span class="text-sm font-black">✕</span>
+    </a>
+  </div>
+
+  <p class="font-body-sm text-body-sm text-on-surface-variant">
+    Test audio parsing, STT transcription, entity extraction, and automated citizen response pipeline in real-time.
+  </p>
+
+  <!-- Simulation Workbench Canvas Card -->
+  <div class="w-full bg-surface-container-lowest rounded-xl border border-outline shadow-xl flex flex-col p-4 md:p-6 space-y-6">
+
 <!-- Top Setup Configuration Panel -->
 <div class="bg-surface-container-lowest rounded-xl border border-outline-variant p-space-lg shadow-sm">
 <div class="flex items-center justify-between mb-space-md border-b border-outline-variant/60 pb-space-sm">
@@ -494,24 +452,25 @@ Citizen Geo-Profile Mapping
 </div>
 </div>
 </div>
-<!-- ==================== MODAL ACTION FOOTER ==================== -->
-<div class="px-space-xl py-space-md bg-surface-container-lowest border-t border-outline-variant flex flex-wrap items-center justify-between gap-space-md shrink-0">
-<button id="btn-export-diag" class="px-space-md py-2.5 rounded-lg bg-surface-container border border-outline-variant text-on-surface hover:bg-surface-container-high font-label-lg text-label-lg flex items-center gap-space-xs transition-colors">
-<span class="material-symbols-outlined text-lg" data-icon="data_object">data_object</span>
-<span>Export Diagnostic JSON</span>
-</button>
-<div class="flex items-center gap-space-md">
-<a href="/dashboard" class="px-space-md py-2.5 rounded-lg bg-surface-container-lowest border border-outline text-primary hover:bg-surface-container-low font-label-lg text-label-lg transition-colors flex items-center justify-center">
-            Close Modal
-          </a>
-<button id="btn-apply-queue" class="px-space-lg py-2.5 rounded-lg bg-primary hover:bg-primary-container text-on-primary font-label-lg text-label-lg shadow flex items-center gap-space-xs transition-colors">
-<span class="material-symbols-outlined text-secondary-container text-lg" data-icon="queue_play_next">queue_play_next</span>
-<span>Apply Extracted Data to Queue</span>
-</button>
+  <!-- Action Footer Dock -->
+  <div class="pt-4 border-t border-outline-variant flex flex-wrap items-center justify-between gap-3">
+    <button id="btn-export-diag" class="px-4 py-2 rounded-lg bg-surface-container border border-outline-variant text-on-surface hover:bg-surface-container-high font-label-lg text-xs font-semibold flex items-center gap-2 transition-colors">
+      <span class="material-symbols-outlined text-base">data_object</span>
+      <span>{{ t('Export Diagnostic JSON') }}</span>
+    </button>
+    <div class="flex items-center gap-3">
+      <a href="/dashboard" class="px-4 py-2 rounded-lg bg-red-600/10 hover:bg-red-600 text-red-600 hover:text-white border border-red-500/30 text-xs font-bold transition-colors flex items-center gap-1.5 shadow-xs">
+        <span>{{ t('Close') }}</span>
+        <span>✕</span>
+      </a>
+      <button id="btn-apply-queue" class="px-4 py-2 rounded-lg bg-primary hover:bg-primary-container text-on-primary font-label-lg text-xs font-bold shadow flex items-center gap-2 transition-colors">
+        <span class="material-symbols-outlined text-secondary-container text-base">queue_play_next</span>
+        <span>{{ t('Apply Extracted Data to Queue') }}</span>
+      </button>
+    </div>
+  </div>
 </div>
-</div>
-</div>
-</div>
+</main>
 
 <script>
 document.addEventListener('DOMContentLoaded', () => {

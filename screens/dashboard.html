@@ -189,8 +189,8 @@
 <span class="material-symbols-outlined text-on-error text-lg mt-0.5 animate-pulse" data-icon="e911_emergency" style="font-variation-settings: 'FILL' 1;">e911_emergency</span>
 <div class="flex-1 min-w-0">
 <div class="flex items-center justify-between">
-<span class="font-caption text-caption tracking-wider uppercase bg-on-error text-error px-1.5 py-0.2 rounded font-bold">1 Life-Threat Priority</span>
-<span id="life-threat-badge" class="font-label-tabular text-caption text-on-error/90">Immediate</span>
+<span class="font-caption text-caption tracking-wider uppercase bg-on-error text-error px-1.5 py-0.2 rounded font-bold">{{ t('1 Life-Threat Priority') }}</span>
+<span id="life-threat-badge" class="font-label-tabular text-caption text-on-error/90">{{ t('Immediate') }}</span>
 </div>
 <p id="life-threat-name" class="font-label-md text-label-md font-semibold truncate mt-0.5">--</p>
 <p id="life-threat-desc" class="font-body-sm text-body-sm text-on-error/90 leading-tight">--</p>
@@ -203,15 +203,15 @@
 <div class="p-space-sm border-b border-outline-variant/40 bg-surface-container-low flex flex-col gap-space-xs">
 <div class="relative">
 <span class="material-symbols-outlined absolute left-2.5 top-2.5 text-on-surface-variant text-lg" data-icon="search">search</span>
-<input id="household-search-input" class="w-full h-9 pl-9 pr-3 text-body-sm font-body-sm rounded border border-outline-variant bg-surface-container-lowest text-on-surface focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary placeholder:text-on-surface-variant/70" placeholder="Search household, landmark..." type="text"/>
+<input id="household-search-input" class="w-full h-9 pl-9 pr-3 text-body-sm font-body-sm rounded border border-outline-variant bg-surface-container-lowest text-on-surface focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary placeholder:text-on-surface-variant/70" placeholder="{{ t('Search household, landmark...') }}" type="text"/>
 </div>
 <!-- Filter Tabs with live real counts -->
 <div id="filter-tabs-container" class="flex items-center gap-1 overflow-x-auto pb-0.5 scrollbar-none">
-<button data-filter="all" class="filter-tab-btn font-caption text-caption px-2.5 py-1 rounded bg-primary text-on-primary whitespace-nowrap font-medium transition-colors">All (<span id="count-all">0</span>)</button>
-<button data-filter="needs_help" class="filter-tab-btn font-caption text-caption px-2 py-1 rounded bg-surface-container hover:bg-surface-container-high text-on-surface-variant whitespace-nowrap transition-colors">Needs help (<span id="count-needs-help">0</span>)</button>
-<button data-filter="can_help" class="filter-tab-btn font-caption text-caption px-2 py-1 rounded bg-surface-container hover:bg-surface-container-high text-on-surface-variant whitespace-nowrap transition-colors">Can help (<span id="count-can-help">0</span>)</button>
-<button data-filter="evacuated" class="filter-tab-btn font-caption text-caption px-2 py-1 rounded bg-surface-container hover:bg-surface-container-high text-on-surface-variant whitespace-nowrap transition-colors">Evacuated (<span id="count-evacuated">0</span>)</button>
-<button data-filter="not_reached" class="filter-tab-btn font-caption text-caption px-2 py-1 rounded bg-surface-container hover:bg-surface-container-high text-on-surface-variant whitespace-nowrap transition-colors">Not reached (<span id="count-not-reached">0</span>)</button>
+<button data-filter="all" class="filter-tab-btn font-caption text-caption px-2.5 py-1 rounded bg-primary text-on-primary whitespace-nowrap font-medium transition-colors">{{ t('All') }} (<span id="count-all">0</span>)</button>
+<button data-filter="needs_help" class="filter-tab-btn font-caption text-caption px-2 py-1 rounded bg-surface-container hover:bg-surface-container-high text-on-surface-variant whitespace-nowrap transition-colors">{{ t('Needs help') }} (<span id="count-needs-help">0</span>)</button>
+<button data-filter="can_help" class="filter-tab-btn font-caption text-caption px-2 py-1 rounded bg-surface-container hover:bg-surface-container-high text-on-surface-variant whitespace-nowrap transition-colors">{{ t('Can help') }} (<span id="count-can-help">0</span>)</button>
+<button data-filter="evacuated" class="filter-tab-btn font-caption text-caption px-2 py-1 rounded bg-surface-container hover:bg-surface-container-high text-on-surface-variant whitespace-nowrap transition-colors">{{ t('Evacuated') }} (<span id="count-evacuated">0</span>)</button>
+<button data-filter="not_reached" class="filter-tab-btn font-caption text-caption px-2 py-1 rounded bg-surface-container hover:bg-surface-container-high text-on-surface-variant whitespace-nowrap transition-colors">{{ t('Not reached') }} (<span id="count-not-reached">0</span>)</button>
 </div>
 </div>
 <!-- Household Queue Scrollable Directory (Populated dynamically from GET /api/households) -->
@@ -220,10 +220,10 @@
 </div>
 <!-- Queue Action Dock -->
 <div class="p-space-sm border-t border-outline-variant/60 bg-surface-container-lowest flex items-center justify-between">
-<span class="font-caption text-caption text-on-surface-variant">Direct Telephony Bridge</span>
+<span class="font-caption text-caption text-on-surface-variant">{{ t('Direct Telephony Bridge') }}</span>
 <button id="btn-sync-feed" class="text-caption font-label-md text-primary hover:underline flex items-center gap-1">
 <span class="material-symbols-outlined text-sm" data-icon="refresh">refresh</span>
-          Sync CDR Feed
+          {{ t('Sync CDR Feed') }}
         </button>
 </div>
 </section>
@@ -259,7 +259,7 @@
         </button>
 <button id="btn-filter-emergency" class="px-2.5 py-1 rounded text-error hover:bg-error-container/30 font-caption text-caption font-semibold flex items-center gap-1 transition-colors">
 <span class="material-symbols-outlined text-sm" data-icon="e911_emergency">e911_emergency</span>
-          Distress Focus
+          {{ t('Distress Focus') }}
         </button>
 </div>
 
@@ -280,7 +280,7 @@
 
 <!-- Bottom-Left Tactical Map Legend -->
 <div class="tactical-overlay absolute bottom-space-md left-space-md bg-surface-container-lowest/95 backdrop-blur p-2.5 rounded border border-outline-variant shadow-md pointer-events-auto">
-<span class="font-caption text-caption text-on-surface-variant uppercase tracking-wider block font-bold mb-1.5">Map Telemetry Key</span>
+<span class="font-caption text-caption text-on-surface-variant uppercase tracking-wider block font-bold mb-1.5">{{ t('Map Telemetry Key') }}</span>
 <div class="grid grid-cols-2 gap-x-4 gap-y-1.5">
 <div class="flex items-center gap-1.5 text-caption font-body-sm">
 <span class="w-2.5 h-2.5 rounded-full bg-[#DC2626]"></span>
@@ -300,15 +300,15 @@
 </div>
 <div class="flex items-center gap-1.5 text-caption font-body-sm">
 <span class="w-2.5 h-2.5 rounded-full bg-[#2563EB]"></span>
-<span>Driver accepted / On run</span>
+<span>{{ t('Driver accepted') }} / {{ t('On run') }}</span>
 </div>
 <div class="flex items-center gap-1.5 text-caption font-body-sm">
 <span class="w-2.5 h-2.5 rounded bg-[#0B2545] border border-white"></span>
-<span>Rescue Vehicle</span>
+<span>{{ t('Rescue Vehicle') }}</span>
 </div>
 <div class="flex items-center gap-1.5 text-caption font-body-sm col-span-2 pt-1 border-t border-outline-variant/40">
 <span class="w-3 h-3 rounded-full border-2 border-red-600 bg-red-400 animate-pulse"></span>
-<span class="font-semibold text-error">Pulsing / Enlarged: Emergency Priority</span>
+<span class="font-semibold text-error">{{ t('Pulsing / Enlarged: Emergency Priority') }}</span>
 </div>
 </div>
 </div>
@@ -317,15 +317,15 @@
 <aside class="w-[300px] shrink-0 border-l border-outline-variant/60 bg-surface-container-lowest flex flex-col p-space-sm gap-space-sm overflow-y-auto z-20">
 <!-- Section Header -->
 <div class="flex items-center justify-between pb-1 border-b border-outline-variant/40">
-<h2 class="font-label-lg text-label-lg font-bold text-primary uppercase tracking-tight">District Telemetry</h2>
-<span class="font-label-tabular text-caption text-secondary font-bold">LIVE ROSTER</span>
+<h2 class="font-label-lg text-label-lg font-bold text-primary uppercase tracking-tight">{{ t('District Telemetry') }}</h2>
+<span class="font-label-tabular text-caption text-secondary font-bold">{{ t('LIVE ROSTER') }}</span>
 </div>
 <!-- Metrics Summary Cards (12px rounded, high-contrast) -->
 <div class="grid grid-cols-2 gap-2">
 <!-- Total Homes -->
 <div class="col-span-2 bg-surface-container-low border border-outline-variant/50 p-2.5 rounded-xl flex items-center justify-between shadow-xs">
 <div>
-<span class="font-caption text-caption text-on-surface-variant uppercase tracking-wider">Total Homes Surveyed</span>
+<span class="font-caption text-caption text-on-surface-variant uppercase tracking-wider">{{ t('Total Homes Surveyed') }}</span>
 <p id="metric-total-homes" class="font-headline-md text-headline-md font-bold text-primary font-label-tabular">0</p>
 </div>
 <div class="w-10 h-10 rounded-lg bg-surface-container-high flex items-center justify-center text-primary">
@@ -339,7 +339,7 @@
 <span class="w-2 h-2 rounded-full bg-[#DC2626]"></span>
 </div>
 <p id="metric-needs-help" class="font-headline-md text-headline-md font-bold text-[#DC2626] font-label-tabular mt-1">0</p>
-<span id="metric-needs-help-sub" class="font-caption text-[10px] text-[#991B1B]">0 Critical alerts</span>
+<span id="metric-needs-help-sub" class="font-caption text-[10px] text-[#991B1B]">0 ${(typeof i18n !== 'undefined' && i18n['Critical alerts']) || 'Critical alerts'}</span>
 </div>
 <!-- Can Help (Orange) -->
 <div class="bg-[#FFF7ED] border border-[#FFEDD5] p-2.5 rounded-xl flex flex-col justify-between">
@@ -465,23 +465,26 @@
     }
 
     function getStatusLabel(status) {
+      if (typeof i18n !== 'undefined' && i18n) {
+        if (i18n[status]) return i18n[status];
+      }
       switch (status) {
         case 'needs_help':
-          return 'Needs help';
+          return (typeof i18n !== 'undefined' && i18n['Needs help']) || 'Needs help';
         case 'request_recorded':
-          return 'Request recorded, no driver accepted yet';
+          return (typeof i18n !== 'undefined' && i18n['Request recorded, no driver accepted yet']) || 'Request recorded, no driver accepted yet';
         case 'can_help':
-          return 'Can help';
+          return (typeof i18n !== 'undefined' && i18n['Can help']) || 'Can help';
         case 'evacuated':
-          return 'At shelter / Evacuated';
+          return (typeof i18n !== 'undefined' && i18n['Evacuated']) || 'At shelter / Evacuated';
         case 'not_reached':
-          return 'Not reached';
+          return (typeof i18n !== 'undefined' && i18n['Not reached']) || 'Not reached';
         case 'driver_accepted':
-          return 'Driver accepted';
+          return (typeof i18n !== 'undefined' && i18n['Driver accepted']) || 'Driver accepted';
         case 'on_run':
-          return 'On run';
+          return (typeof i18n !== 'undefined' && i18n['On run']) || 'On run';
         case 'picked_up':
-          return 'Picked up';
+          return (typeof i18n !== 'undefined' && i18n['Picked up']) || 'Picked up';
         default:
           return status || 'Unrecorded';
       }
@@ -557,10 +560,10 @@
             ${label}
           </div>
           <div style="font-size: 12px; color: #475569; margin-top: 2px;">
-            <strong>Landmark:</strong> ${landmark}
+            <strong>${(typeof i18n !== 'undefined' && i18n['Landmark']) || 'Landmark'}:</strong> ${landmark}
           </div>
           <div style="font-size: 12px; color: #475569; margin-top: 2px;">
-            <strong>Members:</strong> ${members}
+            <strong>${(typeof i18n !== 'undefined' && i18n['Members']) || 'Members'}:</strong> ${members}
           </div>
         </div>
       `;
@@ -602,7 +605,7 @@
         container.innerHTML = `
           <div class="p-8 text-center text-on-surface-variant flex flex-col items-center justify-center">
             <span class="material-symbols-outlined text-4xl text-outline mb-2">person_search</span>
-            <p class="font-label-md font-semibold text-primary">No households found</p>
+            <p class="font-label-md font-semibold text-primary">${(typeof i18n !== 'undefined' && i18n['No households found']) || 'No households found'}</p>
             <p class="font-caption text-caption text-on-surface-variant mt-1">No households match the current filter or search criteria.</p>
           </div>
         `;
@@ -627,12 +630,12 @@
           </div>`;
         } else if (h.status === 'can_help') {
           subDetails = `<div class="mt-1 text-caption text-[#9A3412] font-medium bg-[#FFF7ED] px-2 py-0.5 rounded inline-block">
-            Volunteer Resource Registered
+            ${(typeof i18n !== 'undefined' && i18n['Volunteer Resource Registered']) || 'Volunteer Resource Registered'}
           </div>`;
         } else if (h.status === 'driver_accepted' || h.status === 'on_run') {
           subDetails = `<div class="mt-1 flex items-center justify-between text-caption text-on-surface-variant">
-            <span class="text-primary font-semibold">Rescue Unit Active</span>
-            <span class="font-label-tabular text-label-tabular text-secondary font-bold">In Transit</span>
+            <span class="text-primary font-semibold">${(typeof i18n !== 'undefined' && i18n['Rescue Unit Active']) || 'Rescue Unit Active'}</span>
+            <span class="font-label-tabular text-label-tabular text-secondary font-bold">${(typeof i18n !== 'undefined' && i18n['In Transit']) || 'In Transit'}</span>
           </div>`;
         }
 
@@ -647,7 +650,7 @@
             </div>
             <div class="mt-1 flex items-center justify-between text-body-sm text-on-surface-variant">
               <span class="truncate">${landmark}</span>
-              <span class="font-label-tabular text-caption shrink-0 ml-1">${members} Member${members > 1 ? 's' : ''}</span>
+              <span class="font-label-tabular text-caption shrink-0 ml-1">${members} ${(members > 1 ? ((typeof i18n !== 'undefined' && i18n['Members']) || 'Members') : ((typeof i18n !== 'undefined' && i18n['Member']) || 'Member'))}</span>
             </div>
             ${subDetails}
           </div>
@@ -716,7 +719,7 @@
         const btn = document.getElementById('btn-assign-life-threat');
 
         if (nameEl) nameEl.textContent = firstName;
-        if (descEl) descEl.textContent = `${landmark} - ${members} Member${members > 1 ? 's' : ''}`;
+        if (descEl) descEl.textContent = `${landmark} - ${members} ${(members > 1 ? ((typeof i18n !== 'undefined' && i18n['Members']) || 'Members') : ((typeof i18n !== 'undefined' && i18n['Member']) || 'Member'))}`;
         if (btn) {
           btn.onclick = (e) => {
             e.stopPropagation();
@@ -928,7 +931,7 @@
         loadVehicles();
       });
 
-      // Distress Focus button: zooms to bounding box of households needing help
+      // {{ t('Distress Focus') }} button: zooms to bounding box of households needing help
       document.getElementById('btn-filter-emergency')?.addEventListener('click', () => {
         const emergencyPoints = [];
         householdMarkers.forEach(m => {

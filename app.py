@@ -141,18 +141,23 @@ def create_app():
 
     @app.context_processor
     def inject_global_vars():
-        from core.i18n import translate_status, translate_nav
+        import json
+        from core.i18n import t, translate_status, translate_nav, get_i18n_dict
         db = get_db()
         inc = db.execute("SELECT name FROM incident WHERE closed_at IS NULL ORDER BY created_at DESC LIMIT 1").fetchone()
         incident_name = inc["name"] if inc else "Demo Flood, Bantwal"
         cur_lang = session.get("lang", "en")
+        dict_i18n = get_i18n_dict(cur_lang)
         return {
             "officer_name": session.get("user_name", "Duty officer"),
             "incident_name": incident_name,
             "demo_mode": Config.DEMO_MODE,
             "current_lang": cur_lang,
+            "t": lambda k: t(k, cur_lang),
             "t_status": lambda k: translate_status(k, cur_lang),
             "t_nav": lambda k: translate_nav(k, cur_lang),
+            "i18n_dict": dict_i18n,
+            "i18n_json": json.dumps(dict_i18n),
             "use_mock_gnani": Config.USE_MOCK_GNANI
         }
 

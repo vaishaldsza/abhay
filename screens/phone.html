@@ -236,36 +236,14 @@
 
 </head>
 
-<body class="bg-slate-900 text-on-surface flex justify-center items-center min-h-screen p-0 sm:p-4 font-body-md">
-
-<!-- 390px Mobile Viewport Canvas Frame -->
-
-<div class="w-full max-w-[390px] h-[844px] bg-background relative flex flex-col shadow-2xl rounded-none sm:rounded-[36px] overflow-hidden border border-outline-variant/40">
-
-<!-- Phone Hardware Notch / Status Bar -->
-
+<body class="bg-background text-on-surface antialiased flex flex-col min-h-screen">
 {% set active_page = "phone" %}
 {% include "nav.html" %}
 
-<!-- TopAppBar (from Shared Components JSON) -->
+<!-- 390px-420px Responsive Tactical Mobile Viewport Canvas Frame -->
+<div class="w-full max-w-md mx-auto my-4 h-[844px] bg-background relative flex flex-col shadow-2xl rounded-[36px] overflow-hidden border border-outline-variant/60">
 
-<div class="bg-primary dark:bg-primary-container text-on-primary dark:text-inverse-primary border-b border-outline-variant dark:border-outline shadow-sm flex justify-between items-center w-full px-4 h-14 z-40 transition-colors duration-150">
 
-<div class="flex items-center gap-2">
-
-<span class="material-symbols-outlined text-secondary-container" data-icon="shield">shield</span>
-
-<span class="text-headline-sm font-headline-sm font-bold text-on-primary dark:text-inverse-primary tracking-wider">ಅಭಯ / ABHAY DDMA</span>
-
-</div>
-
-<button class="px-2.5 py-1 rounded bg-primary-container border border-outline-variant/30 text-label-lg font-label-lg hover:bg-primary-container dark:hover:bg-primary hover:text-on-primary-container transition-colors duration-150 active:scale-95 text-on-primary">
-
-        EN | ಕನ್ನ
-
-      </button>
-
-</div>
 
 <!-- Scrollable Phone Screen Simulation Area -->
 

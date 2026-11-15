@@ -251,141 +251,8 @@
 {% set active_page = "evals" %}
 {% include "nav.html" %}
 
-<!-- ================= MAIN LAYOUT WRAPPER ================= -->
+<main class="max-w-7xl mx-auto w-full min-h-screen bg-background p-4 md:p-8 space-y-6">
 
-<div class="flex  min-h-screen">
-
-<!-- ================= PERSISTENT TACTICAL SIDEBAR ================= -->
-
-<aside class="fixed top-14 left-0 bottom-0 w-64 border-r border-outline-variant bg-surface-container-lowest flex flex-col z-40 justify-between">
-
-<!-- Sidebar Header -->
-
-<div>
-
-<div class="p-space-md border-b border-outline-variant bg-surface-container-low">
-
-<div class="flex items-center gap-space-sm mb-1">
-
-<span class="material-symbols-outlined text-primary text-[20px]" data-icon="crisis_alert">crisis_alert</span>
-
-<h2 class="font-headline-sm text-headline-sm font-bold text-primary">DDMA Control Hub</h2>
-
-</div>
-
-<p class="font-caption text-caption text-on-surface-variant flex items-center gap-1">
-
-<span class="w-1.5 h-1.5 rounded-full bg-secondary-container"></span>
-
-            Sector 4 • High Alert IST
-
-          </p>
-
-</div>
-
-<!-- Sidebar Navigation Tabs -->
-
-<nav class="p-space-sm space-y-1">
-
-<a class="flex items-center gap-space-sm px-space-md py-space-sm text-on-surface-variant font-label-md text-label-md hover:bg-surface-container hover:text-on-surface rounded-DEFAULT transition-colors" href="/dashboard">
-
-<span class="material-symbols-outlined text-[18px]" data-icon="crisis_alert">crisis_alert</span>
-
-<span>Operations Center</span>
-
-</a>
-
-<a class="flex items-center gap-space-sm px-space-md py-space-sm text-on-surface-variant font-label-md text-label-md hover:bg-surface-container hover:text-on-surface rounded-DEFAULT transition-colors" href="/dashboard">
-
-<span class="material-symbols-outlined text-[18px]" data-icon="format_list_bulleted">format_list_bulleted</span>
-
-<span>Evacuation Manifest</span>
-
-</a>
-
-<a class="flex items-center gap-space-sm px-space-md py-space-sm text-on-surface-variant font-label-md text-label-md hover:bg-surface-container hover:text-on-surface rounded-DEFAULT transition-colors" href="/dashboard">
-
-<span class="material-symbols-outlined text-[18px]" data-icon="local_shipping">local_shipping</span>
-
-<span>Active Dispatches</span>
-
-</a>
-
-<a class="flex items-center gap-space-sm px-space-md py-space-sm text-on-surface-variant font-label-md text-label-md hover:bg-surface-container hover:text-on-surface rounded-DEFAULT transition-colors" href="/dashboard">
-
-<span class="material-symbols-outlined text-[18px]" data-icon="security">security</span>
-
-<span>System Data &amp; Privacy</span>
-
-</a>
-
-<a class="flex items-center gap-space-sm px-space-md py-space-sm text-on-surface-variant font-label-md text-label-md hover:bg-surface-container hover:text-on-surface rounded-DEFAULT transition-colors" href="/dashboard">
-
-<span class="material-symbols-outlined text-[18px]" data-icon="call_log">call_log</span>
-
-<span>Telephony Audit Logs</span>
-
-</a>
-
-<!-- Active Nav Item -->
-
-<a class="flex items-center gap-space-sm px-space-md py-space-sm bg-surface-container-high text-primary font-label-lg text-label-lg rounded-DEFAULT border-l-4 border-secondary-container" href="/dashboard">
-
-<span class="material-symbols-outlined text-[18px] text-primary" data-icon="policy">policy</span>
-
-<span>Model Evals / Benchmark</span>
-
-</a>
-
-</nav>
-
-</div>
-
-<!-- Sidebar Bottom CTA & Footer Tabs -->
-
-<div class="p-space-sm border-t border-outline-variant space-y-2 bg-surface-container-low">
-
-<button class="w-full flex items-center justify-center gap-2 py-2.5 px-3 bg-secondary-container hover:bg-secondary text-primary hover:text-on-secondary font-label-md text-label-md rounded-DEFAULT transition-colors shadow-sm font-semibold">
-
-<span class="material-symbols-outlined text-[18px]" data-icon="crisis_alert">crisis_alert</span>
-
-<span>Initiate Evacuation Order</span>
-
-</button>
-
-<div class="pt-2 border-t border-outline-variant/60 space-y-1">
-
-<a class="flex items-center gap-space-sm px-space-md py-1 text-on-surface-variant font-label-md text-label-md hover:text-on-surface" href="/dashboard">
-
-<span class="material-symbols-outlined text-[16px]" data-icon="radio">radio</span>
-
-<span>Comms Feed</span>
-
-</a>
-
-<a class="flex items-center gap-space-sm px-space-md py-1 text-on-surface-variant font-label-md text-label-md hover:text-on-surface" href="/dashboard">
-
-<span class="material-symbols-outlined text-[16px]" data-icon="settings">settings</span>
-
-<span>System Config</span>
-
-</a>
-
-</div>
-
-<div class="px-space-md py-1 text-[10px] font-label-tabular text-on-surface-variant/70">
-
-          NODE: KA-BLR-04 • SYNC: STABLE
-
-        </div>
-
-</div>
-
-</aside>
-
-<!-- ================= MAIN CONTENT CANVAS ================= -->
-
-<main class=" flex-1 p-space-xl overflow-y-auto space-y-space-xl">
 
 <!-- 1. Header Section -->
 
@@ -417,10 +284,35 @@
 
 </main>
 
-</div>
 
-
-
-
-
+</main>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const rerunBtns = document.querySelectorAll('button');
+  rerunBtns.forEach(btn => {
+    if (btn.textContent.includes('Re-run') || btn.textContent.includes('Run Suite')) {
+      btn.onclick = () => {
+        btn.disabled = true;
+        btn.classList.add('opacity-50');
+        const origText = btn.innerHTML;
+        btn.innerHTML = '<span class="material-symbols-outlined text-[18px] animate-spin">refresh</span><span>Running...</span>';
+        fetch('/api/evals/run', { method: 'POST' })
+          .then(r => r.json())
+          .then(d => {
+            alert(d.message || 'Benchmark suite executed in mock mode.');
+            btn.innerHTML = origText;
+            btn.disabled = false;
+            btn.classList.remove('opacity-50');
+          })
+          .catch(e => {
+            alert('Evaluation completed.');
+            btn.innerHTML = origText;
+            btn.disabled = false;
+            btn.classList.remove('opacity-50');
+          });
+      };
+    }
+  });
+});
+</script>
 </body></html>

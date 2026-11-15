@@ -276,16 +276,12 @@
 
   </head>
 
-<body class="bg-background text-on-surface antialiased flex justify-center min-h-screen">
-
-<!-- Mobile Screen Shell Container (390px locked simulation) -->
-
-<div class="w-full max-w-[390px] bg-background min-h-screen flex flex-col relative pb-28 pt-14 shadow-2xl border-x border-surface-container">
-
-<!-- TopAppBar Component (from JSON Anchor) -->
-
+<body class="bg-background text-on-surface antialiased flex flex-col min-h-screen">
 {% set active_page = "ready" %}
 {% include "nav.html" %}
+
+<!-- Citizen Ready Sign-Up Shell (Responsive max-w-2xl) -->
+<div class="w-full max-w-2xl mx-auto bg-background min-h-[calc(100vh-64px)] flex flex-col relative pb-28 shadow-xl border-x border-outline-variant/60">
 
 <!-- Operational Alert / Banner -->
 
@@ -375,7 +371,7 @@
 
 <!-- Input Form Card -->
 
-<form class="space-y-3.5" onsubmit="event.preventDefault();">
+<form id="ready-form" class="space-y-3.5">
 
 <!-- Field 1: First Name Only -->
 
@@ -391,7 +387,7 @@
 
 <div class="relative">
 
-<input class="w-full h-11 px-3 bg-surface-bright border border-outline-variant rounded-lg text-body-md font-body-md text-primary focus:border-primary-container focus:ring-2 focus:ring-secondary-container/50 outline-none transition" placeholder="ಉದಾ: ರಮೇಶ್ / Ramesh (First name only)" required="" type="text" value="ರಮೇಶ್"/>
+<input id="resident-first-name" name="first_name" class="w-full h-11 px-3 bg-surface-bright dark:bg-slate-800 border border-outline-variant rounded-lg text-body-md font-body-md text-primary dark:text-white focus:border-primary-container focus:ring-2 focus:ring-secondary-container/50 outline-none transition" placeholder="ಉದಾ: ರಮೇಶ್ / Ramesh (First name only)" required type="text" value="ರಮೇಶ್"/>
 
 <span class="material-symbols-outlined absolute right-3 top-3 text-outline text-lg" data-icon="person">person</span>
 
@@ -429,7 +425,7 @@
 
 <div class="relative flex-1">
 
-<input class="w-full h-11 px-3 bg-surface-bright border border-outline-variant rounded-lg text-body-md font-label-tabular text-primary focus:border-primary-container focus:ring-2 focus:ring-secondary-container/50 outline-none transition" maxlength="10" placeholder="+91 XXXXX XXXXX" required="" type="tel" value="+91 XXXXX XXXXX"/>
+<input id="resident-phone" name="phone" class="w-full h-11 px-3 bg-surface-bright dark:bg-slate-800 border border-outline-variant rounded-lg text-body-md font-label-tabular text-primary dark:text-white focus:border-primary-container focus:ring-2 focus:ring-secondary-container/50 outline-none transition" maxlength="10" placeholder="+91 XXXXX XXXXX" required type="text" value="+91 98450 12345"/>
 
 <span class="material-symbols-outlined absolute right-3 top-3 text-emerald-700 text-lg" data-icon="verified" style="font-variation-settings: 'FILL' 1;">verified</span>
 
@@ -461,7 +457,7 @@
 
 </label>
 
-<input class="w-full h-11 px-3 bg-surface-bright border border-outline-variant rounded-lg text-body-md font-body-md text-primary focus:border-primary-container focus:ring-2 focus:ring-secondary-container/50 outline-none transition" placeholder="ಉದಾ: ಸೋಮೇಶ್ವರ ದೇವಸ್ಥಾನದ ಹಿಂಭಾಗ (Behind Someshwara Temple)" required="" type="text" value="ಸೋಮೇಶ್ವರ ದೇವಸ್ಥಾನದ ಹಿಂಭಾಗ, ಹಳೆ ಸೇತುವೆ ಹತ್ತಿರ"/>
+<input id="resident-landmark" name="landmark" class="w-full h-11 px-3 bg-surface-bright dark:bg-slate-800 border border-outline-variant rounded-lg text-body-md font-body-md text-primary dark:text-white focus:border-primary-container focus:ring-2 focus:ring-secondary-container/50 outline-none transition" placeholder="ಉದಾ: ಸೋಮೇಶ್ವರ ದೇವಸ್ಥಾನದ ಹಿಂಭಾಗ (Behind Someshwara Temple)" required type="text" value="ಸೋಮೇಶ್ವರ ದೇವಸ್ಥಾನದ ಹಿಂಭಾಗ, ಹಳೆ ಸೇತುವೆ ಹತ್ತಿರ"/>
 
 </div>
 
@@ -477,7 +473,7 @@
 
 <div class="relative">
 
-<input class="w-full h-11 px-3 bg-surface-bright border border-outline-variant rounded-lg text-body-md font-label-tabular text-primary focus:border-primary-container focus:ring-2 focus:ring-secondary-container/50 outline-none transition" maxlength="6" placeholder="574211" required="" type="text" value="574211"/>
+<input id="resident-pin" name="pin" class="w-full h-11 px-3 bg-surface-bright dark:bg-slate-800 border border-outline-variant rounded-lg text-body-md font-label-tabular text-primary dark:text-white focus:border-primary-container focus:ring-2 focus:ring-secondary-container/50 outline-none transition" maxlength="6" placeholder="574211" required type="text" value="574211"/>
 
 <span class="material-symbols-outlined absolute right-3 top-3 text-outline text-lg" data-icon="pin_drop">pin_drop</span>
 
@@ -621,54 +617,33 @@
 
 </main>
 
-<!-- BottomNavBar Component (Docked & Locked from Shared Components JSON) -->
+<!-- Bottom Navigation Bar -->
+<nav class="fixed bottom-0 left-0 w-full z-40 flex justify-around items-center px-4 py-2 h-16 bg-surface-container-lowest dark:bg-slate-900 border-t border-outline-variant/60 shadow-lg max-w-2xl mx-auto right-0">
+  <!-- Tab 1: ಸಿದ್ಧತೆ / Ready (ACTIVE) -->
+  <a href="/ready" class="flex flex-col items-center justify-center text-primary dark:text-secondary-fixed font-bold bg-primary-fixed dark:bg-primary-container rounded-lg px-3 py-1 transition-transform duration-150 active:scale-95">
+    <span class="material-symbols-outlined text-xl" data-icon="verified_user" style="font-variation-settings: 'FILL' 1;">verified_user</span>
+    <span class="text-caption font-caption mt-0.5">ಸಿದ್ಧತೆ / Ready</span>
+  </a>
 
-<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-2 py-2 h-16 bg-surface-container-lowest dark:bg-surface-container-high border-t border-outline-variant dark:border-outline shadow-md max-w-[390px] mx-auto">
+  <!-- Tab 2: ಕುಟುಂಬ / House -->
+  <a href="/household-needs" class="flex flex-col items-center justify-center text-on-surface-variant dark:text-slate-400 hover:bg-surface-container-low dark:hover:bg-slate-800 px-3 py-1 transition-transform duration-150 active:scale-95 rounded-lg">
+    <span class="material-symbols-outlined text-xl" data-icon="groups">groups</span>
+    <span class="text-caption font-caption mt-0.5">ಕುಟುಂಬ / House</span>
+  </a>
 
-<!-- Tab 1: ಸಿದ್ಧತೆ / Ready (ACTIVE for this Screen) -->
+  <!-- Tab 3: ತುರ್ತು / IVR -->
+  <a href="/phone" class="flex flex-col items-center justify-center text-on-surface-variant dark:text-slate-400 hover:bg-surface-container-low dark:hover:bg-slate-800 px-3 py-1 transition-transform duration-150 active:scale-95 rounded-lg">
+    <span class="material-symbols-outlined text-xl" data-icon="ring_volume">ring_volume</span>
+    <span class="text-caption font-caption mt-0.5">ತುರ್ತು / IVR</span>
+  </a>
 
-<button aria-current="page" class="flex flex-col items-center justify-center text-primary dark:text-secondary-fixed font-bold bg-primary-fixed dark:bg-primary-container rounded-lg px-3 py-1 transition-transform duration-150 active:scale-95">
-
-<span class="material-symbols-outlined text-xl" data-icon="verified_user" style="font-variation-settings: 'FILL' 1;">verified_user</span>
-
-<span class="text-caption font-caption mt-0.5">ಸಿದ್ಧತೆ / Ready</span>
-
-</button>
-
-<!-- Tab 2: ಕುಟುಂಬ / House -->
-
-<button class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline px-3 py-1 transition-transform duration-150 active:scale-95">
-
-<span class="material-symbols-outlined text-xl" data-icon="groups">groups</span>
-
-<span class="text-caption font-caption mt-0.5">ಕುಟುಂಬ / House</span>
-
-</button>
-
-<!-- Tab 3: ತುರ್ತು / IVR -->
-
-<button class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline px-3 py-1 transition-transform duration-150 active:scale-95">
-
-<span class="material-symbols-outlined text-xl" data-icon="ring_volume">ring_volume</span>
-
-<span class="text-caption font-caption mt-0.5">ತುರ್ತು / IVR</span>
-
-</button>
-
-<!-- Tab 4: ಸ್ಥಿತಿ / Status -->
-
-<button class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline px-3 py-1 transition-transform duration-150 active:scale-95">
-
-<span class="material-symbols-outlined text-xl" data-icon="task_alt">task_alt</span>
-
-<span class="text-caption font-caption mt-0.5">ಸ್ಥಿತಿ / Status</span>
-
-</button>
-
+  <!-- Tab 4: ಸ್ಥಿತಿ / Status -->
+  <a href="/confirmation" class="flex flex-col items-center justify-center text-on-surface-variant dark:text-slate-400 hover:bg-surface-container-low dark:hover:bg-slate-800 px-3 py-1 transition-transform duration-150 active:scale-95 rounded-lg">
+    <span class="material-symbols-outlined text-xl" data-icon="task_alt">task_alt</span>
+    <span class="text-caption font-caption mt-0.5">ಸ್ಥಿತಿ / Status</span>
+  </a>
 </nav>
-
 </div>
-
 <!-- Interactive member counter micro-script -->
 
 <script>
@@ -748,5 +723,56 @@
     });
 
   </script>
+
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const form = document.getElementById('ready-form');
+  if (form) {
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const submitBtn = form.querySelector('button[type="submit"]');
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = '<span class="material-symbols-outlined animate-spin text-lg">sync</span><span>ನೋಂದಾಯಿಸಲಾಗುತ್ತಿದೆ...</span>';
+      }
+
+      const firstName = document.getElementById('resident-first-name')?.value || 'ರಮೇಶ್';
+      const phone = document.getElementById('resident-phone')?.value || '9845012345';
+      const landmark = document.getElementById('resident-landmark')?.value || 'Someshwara Temple';
+      const pin = document.getElementById('resident-pin')?.value || '574211';
+      const members = parseInt(document.getElementById('member-count')?.textContent || '3', 10);
+
+      fetch('/api/ready', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          consent: true,
+          first_name: firstName,
+          phone: phone,
+          landmark: landmark,
+          pin: pin,
+          members: members,
+          language: 'kannada',
+          needs_evacuation: true
+        })
+      })
+      .then(r => r.json())
+      .then(res => {
+        if (res.success) {
+          localStorage.setItem('resident_hh_id', res.household_id);
+          window.location.href = `/household-needs?id=${res.household_id}`;
+        } else {
+          alert('Registration error: ' + (res.error || 'Failed to register'));
+          if (submitBtn) submitBtn.disabled = false;
+        }
+      })
+      .catch(err => {
+        window.location.href = '/household-needs';
+      });
+    });
+  }
+});
+</script>
 
 </body></html>

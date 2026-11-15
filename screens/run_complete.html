@@ -258,16 +258,12 @@
 
 </head>
 
-<body class="bg-background text-on-surface antialiased flex justify-center min-h-screen">
-
-<!-- Mobile Viewport Container (390px canonical) -->
-
-<main class="w-full max-w-[390px] bg-background min-h-screen flex flex-col relative pb-20 shadow-2xl border-x border-outline-variant/30">
-
-<!-- TopAppBar (from Shared Components JSON & Command Guidance) -->
-
+<body class="bg-background text-on-surface antialiased flex flex-col min-h-screen">
 {% set active_page = "driver" %}
 {% include "nav.html" %}
+
+<!-- Driver Mission Complete Shell (Responsive max-w-2xl) -->
+<main class="w-full max-w-2xl mx-auto min-h-screen bg-background flex flex-col relative pb-28 shadow-2xl border-x border-outline-variant/30">
 
 <!-- Sub-Header: Driver Identity & Operational Status Strip -->
 

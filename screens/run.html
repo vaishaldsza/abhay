@@ -291,16 +291,12 @@
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
 </head>
 
-<body class="bg-background text-on-surface antialiased flex justify-center items-start min-h-screen">
-
-<!-- Mobile Viewport Container: Fixed 390px tactical device canvas -->
-
-<main class="w-[390px] h-[844px] max-h-screen bg-surface-container-lowest flex flex-col relative overflow-hidden shadow-2xl select-none">
-
-<!-- Top Command Header: Sub-page task state (Back action enabled, suppresses bottom nav shell per spec) -->
-
+<body class="bg-background text-on-surface antialiased flex flex-col min-h-screen">
 {% set active_page = "run" %}
 {% include "nav.html" %}
+
+<!-- Active Run Mission Shell (Responsive max-w-2xl) -->
+<main class="w-full max-w-2xl mx-auto my-3 bg-surface-container-lowest flex flex-col relative overflow-hidden shadow-2xl rounded-2xl border border-outline-variant/60 pb-16">
 
 <!-- Tactical Status Bar (Telemetry state) -->
 
@@ -326,7 +322,7 @@
 
 <!-- Top 40% Interactive Map View with Tactical Cartography -->
 
-<section aria-label="Tactical Rescue Map" class="relative w-full h-[40%] bg-surface-container-high overflow-hidden shrink-0">
+<section aria-label="Tactical Rescue Map" class="relative w-full h-72 bg-surface-container-high overflow-hidden shrink-0">
   <div id="run-map" class="w-full h-full z-10"></div>
 </section>
 

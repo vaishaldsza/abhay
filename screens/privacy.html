@@ -1087,7 +1087,7 @@
 
 <!-- ========================================== -->
 
-<div class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-primary/70 backdrop-blur-sm transition-opacity duration-200" id="purge-dialog">
+<div class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-primary/70 backdrop-blur-sm transition-opacity duration-200 hidden" id="purge-dialog">
 
 <div class="bg-surface-container-lowest max-w-xl w-full rounded-2xl shadow-2xl border border-outline-variant/60 overflow-hidden transform transition-all">
 
@@ -1238,98 +1238,53 @@
 
 
     function executePurge() {
-
       const modal = document.getElementById('purge-dialog');
-
       modal.innerHTML = `
-
         <div class="bg-surface-container-lowest max-w-md w-full rounded-2xl p-6 text-center shadow-2xl border border-outline-variant/50 space-y-4">
-
           <div class="w-14 h-14 rounded-full bg-error-container text-error flex items-center justify-center mx-auto">
-
             <span class="material-symbols-outlined text-[32px] animate-spin" data-icon="refresh">refresh</span>
-
           </div>
-
-          <h3 class="font-headline-sm text-headline-sm font-bold text-primary">Purging 412 Citizen Records</h3>
-
+          <h3 class="font-headline-sm text-headline-sm font-bold text-primary">Purging Incident Records</h3>
           <p class="font-body-md text-body-md text-on-surface-variant">Overwriting cryptographic hashes, shedding telephony audio buckets, and broadcasting de-indexation signals across active terminal nodes...</p>
-
           <div class="w-full bg-surface-container-high rounded-full h-2 overflow-hidden">
-
             <div class="bg-error h-full w-3/4 animate-pulse"></div>
-
           </div>
-
           <p class="font-caption text-caption text-outline font-label-tabular">ZERO-TRACE VERIFICATION IN PROGRESS</p>
-
         </div>
-
       `;
-
-      setTimeout(() => {
-
-        modal.innerHTML = `
-
-          <div class="bg-surface-container-lowest max-w-md w-full rounded-2xl p-6 text-center shadow-2xl border border-outline-variant/50 space-y-4">
-
-            <div class="w-14 h-14 rounded-full bg-surface-container-high text-secondary flex items-center justify-center mx-auto">
-
-              <span class="material-symbols-outlined text-[32px]" data-icon="verified_user">verified_user</span>
-
+      fetch('/api/privacy/delete-now', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ confirmation: 'INC-001-CONFIRM' })
+      })
+      .then(r => r.json())
+      .then(data => {
+        setTimeout(() => {
+          modal.innerHTML = `
+            <div class="bg-surface-container-lowest max-w-md w-full rounded-2xl p-6 text-center shadow-2xl border border-outline-variant/50 space-y-4">
+              <div class="w-14 h-14 rounded-full bg-surface-container-high text-secondary flex items-center justify-center mx-auto">
+                <span class="material-symbols-outlined text-[32px]" data-icon="verified_user">verified_user</span>
+              </div>
+              <h3 class="font-headline-sm text-headline-sm font-bold text-primary">Incident Telemetry Purged</h3>
+              <p class="font-body-md text-body-md text-on-surface-variant">${data.message || 'Records successfully purged in compliance with DPDP Act 2023.'}</p>
+              <button onclick="window.location.reload()" class="w-full py-2.5 rounded-lg bg-primary text-on-primary font-label-lg text-label-lg font-semibold">
+                Return to Governance Console
+              </button>
             </div>
-
-            <h3 class="font-headline-sm text-headline-sm font-bold text-primary">Incident Telemetry Purged</h3>
-
-            <p class="font-body-md text-body-md text-on-surface-variant">All 412 citizen and household records have been permanently shredded in compliance with DPDP Act 2023.</p>
-
+          `;
+        }, 1200);
+      })
+      .catch(err => {
+        modal.innerHTML = `
+          <div class="bg-surface-container-lowest max-w-md w-full rounded-2xl p-6 text-center shadow-2xl border border-outline-variant/50 space-y-4">
+            <h3 class="font-headline-sm text-headline-sm font-bold text-error">Purge Error</h3>
+            <p class="font-body-md text-body-md text-on-surface-variant">Failed to execute purge request.</p>
             <button onclick="document.getElementById('purge-dialog').classList.add('hidden')" class="w-full py-2.5 rounded-lg bg-primary text-on-primary font-label-lg text-label-lg font-semibold">
-
-              Return to Governance Console
-
+              Close
             </button>
-
           </div>
-
         `;
-
-      }, 1600);
-
+      });
     }
-
   </script>
-
-
-
-
-
-
-<script>
-document.addEventListener('DOMContentLoaded', () => {
-  const purgeBtns = document.querySelectorAll('button');
-  purgeBtns.forEach(btn => {
-    if (btn.textContent.includes('Purge Telemetry Now') || btn.textContent.includes('Purge Now')) {
-      btn.onclick = () => {
-        const confirmCode = prompt('Type PURGE to confirm immediate 72-hour telemetry purge:');
-        if (confirmCode === 'PURGE') {
-          fetch('/api/privacy/delete-now', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ confirmation: 'PURGE' })
-          })
-          .then(r => r.json())
-          .then(data => {
-            alert(data.message || 'Telemetry successfully purged according to DPDP directives.');
-            window.location.reload();
-          })
-          .catch(err => alert('Failed to execute purge.'));
-        } else if (confirmCode !== null) {
-          alert('Purge cancelled: confirmation phrase did not match.');
-        }
-      };
-    }
-  });
-});
-</script>
-
 </body></html>

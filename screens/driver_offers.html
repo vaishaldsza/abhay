@@ -276,16 +276,12 @@
 
   </head>
 
-<body class="bg-background text-on-surface antialiased flex justify-center selection:bg-secondary-fixed">
-
-<!-- Mobile Frame Container (Strict 390px Mobile Viewport) -->
-
-<main class="w-[390px] min-h-screen bg-background border-x border-outline-variant flex flex-col relative pb-20 shadow-xl overflow-x-hidden">
-
-<!-- Top Navigation Anchor (Based on Shared Components JSON) -->
-
+<body class="bg-background text-on-surface antialiased flex flex-col min-h-screen selection:bg-secondary-fixed">
 {% set active_page = "driver" %}
 {% include "nav.html" %}
+
+<!-- Driver Tactical Mission Shell (Responsive max-w-2xl) -->
+<main class="w-full max-w-2xl mx-auto min-h-screen bg-background border-x border-outline-variant/60 flex flex-col relative pb-28 shadow-xl">
 
 <!-- Operational Unit Telemetry Bar -->
 
@@ -597,56 +593,123 @@ Details <span class="material-symbols-outlined text-sm" data-icon="chevron_right
 
 <!-- Bottom Navigation Shell (Based on Shared Components JSON) -->
 
-<!-- Destination count: 4, Active state: 'Offers' / Distress Feed -->
+<!-- Bottom Navigation Bar -->
+<nav class="fixed bottom-0 left-0 w-full z-40 flex justify-around items-center h-16 bg-surface-container-lowest dark:bg-surface-container-high border-t border-outline-variant/60 shadow-lg max-w-2xl mx-auto right-0 px-2">
+  <!-- Tab 1: Offers (Active) -->
+  <a class="flex flex-col items-center justify-center bg-primary-container text-on-primary rounded-lg py-1 px-4 active:scale-95 transition-transform duration-100 relative" href="/driver">
+    <span class="material-symbols-outlined text-xl" data-icon="emergency">emergency</span>
+    <span class="font-label-md text-label-md mt-0.5">Offers</span>
+    <span class="absolute -top-1 -right-1 bg-secondary-container text-on-secondary-fixed font-label-tabular text-[10px] font-bold px-1.5 py-0.2 rounded-full border border-surface-container-lowest">1</span>
+  </a>
 
-<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center h-16 bg-surface-container-lowest shadow-md pb-safe max-w-[390px] mx-auto right-0">
+  <!-- Tab 2: Active Run -->
+  <a class="flex flex-col items-center justify-center text-on-surface-variant hover:bg-surface-container-low dark:hover:bg-slate-800 py-1 px-4 active:scale-95 transition-transform duration-100 rounded-lg" href="/run/req-001">
+    <span class="material-symbols-outlined text-xl" data-icon="near_me">near_me</span>
+    <span class="font-label-md text-label-md mt-0.5">Active Run</span>
+  </a>
 
-<!-- Tab 1: Offers (Active) -->
+  <!-- Tab 3: Manifest -->
+  <button type="button" onclick="openDriverManifestModal()" class="flex flex-col items-center justify-center text-on-surface-variant hover:bg-surface-container-low dark:hover:bg-slate-800 py-1 px-4 active:scale-95 transition-transform duration-100 rounded-lg">
+    <span class="material-symbols-outlined text-xl" data-icon="fact_check">fact_check</span>
+    <span class="font-label-md text-label-md mt-0.5">Manifest</span>
+  </button>
 
-<a class="flex flex-col items-center justify-center bg-primary-container text-on-primary rounded-lg py-1 px-3 active:scale-95 transition-transform duration-100 relative" href="#offers">
-
-<span class="material-symbols-outlined text-xl" data-icon="emergency">emergency</span>
-
-<span class="font-label-md text-label-md mt-0.5">Offers</span>
-
-<!-- Active Beacon Count Badge -->
-
-<span class="absolute -top-1 -right-1 bg-secondary-container text-on-secondary-fixed font-label-tabular text-[10px] font-bold px-1.5 py-0.2 rounded-full border border-surface-container-lowest">2</span>
-
-</a>
-
-<!-- Tab 2: Active Run (Inactive) -->
-
-<a class="flex flex-col items-center justify-center text-on-surface-variant hover:bg-surface-container-low py-1 px-3 active:scale-95 transition-transform duration-100 rounded-lg" href="#run">
-
-<span class="material-symbols-outlined text-xl" data-icon="near_me">near_me</span>
-
-<span class="font-label-md text-label-md mt-0.5">Active Run</span>
-
-</a>
-
-<!-- Tab 3: History / Manifest (Inactive) -->
-
-<a class="flex flex-col items-center justify-center text-on-surface-variant hover:bg-surface-container-low py-1 px-3 active:scale-95 transition-transform duration-100 rounded-lg" href="#manifest">
-
-<span class="material-symbols-outlined text-xl" data-icon="fact_check">fact_check</span>
-
-<span class="font-label-md text-label-md mt-0.5">Manifest</span>
-
-</a>
-
-<!-- Tab 4: Comms (Inactive) -->
-
-<a class="flex flex-col items-center justify-center text-on-surface-variant hover:bg-surface-container-low py-1 px-3 active:scale-95 transition-transform duration-100 rounded-lg" href="#comms">
-
-<span class="material-symbols-outlined text-xl" data-icon="radio">radio</span>
-
-<span class="font-label-md text-label-md mt-0.5">Comms</span>
-
-</a>
-
+  <!-- Tab 4: Comms -->
+  <button type="button" onclick="openDriverCommsModal()" class="flex flex-col items-center justify-center text-on-surface-variant hover:bg-surface-container-low dark:hover:bg-slate-800 py-1 px-4 active:scale-95 transition-transform duration-100 rounded-lg">
+    <span class="material-symbols-outlined text-xl" data-icon="radio">radio</span>
+    <span class="font-label-md text-label-md mt-0.5">Comms</span>
+  </button>
 </nav>
 
+<!-- Tactical Modals for Manifest & Comms -->
+<div id="driver-manifest-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-primary/70 backdrop-blur-sm hidden">
+  <div class="bg-surface-container-lowest dark:bg-slate-900 max-w-lg w-full rounded-2xl p-6 shadow-2xl border border-outline-variant/60 space-y-4">
+    <div class="flex items-center justify-between border-b border-outline-variant/40 pb-3">
+      <div class="flex items-center gap-2">
+        <span class="material-symbols-outlined text-secondary-container text-2xl">fact_check</span>
+        <h3 class="font-headline-sm font-bold text-primary dark:text-white">Assigned Vessel Manifest</h3>
+      </div>
+      <button onclick="document.getElementById('driver-manifest-modal').classList.add('hidden')" class="p-1 rounded hover:bg-surface-container text-on-surface-variant">
+        <span class="material-symbols-outlined">close</span>
+      </button>
+    </div>
+    <div class="space-y-3 text-body-sm">
+      <div class="p-3 bg-surface-container-low dark:bg-slate-800 rounded-lg border border-outline-variant/30 flex justify-between items-center">
+        <div>
+          <span class="font-bold text-primary dark:text-white block">Assigned Unit: NDRF Boat-01</span>
+          <span class="text-xs text-on-surface-variant dark:text-slate-400">Total Capacity: 12 Pax • Wheelchair Stretcher Equipped</span>
+        </div>
+        <span class="px-2 py-1 rounded bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 font-bold text-xs">On Duty</span>
+      </div>
+      <div class="space-y-2">
+        <span class="text-xs font-bold uppercase tracking-wider text-on-surface-variant dark:text-slate-400">Current Trip Manifest:</span>
+        <div class="p-3 bg-surface-container-lowest dark:bg-slate-800 rounded-lg border border-outline-variant/40 flex justify-between items-start">
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="font-bold text-primary dark:text-white">Household #req-001</span>
+              <span class="px-1.5 py-0.5 bg-error/20 text-error rounded text-[11px] font-semibold">Priority</span>
+            </div>
+            <p class="text-xs text-on-surface-variant dark:text-slate-300 mt-1">Pickup: Near Someshwara Temple, Bantwal</p>
+            <p class="text-xs text-on-surface-variant dark:text-slate-400 mt-0.5">3 Pax • 1 Senior Citizen • Wheelchair required</p>
+          </div>
+          <a href="/run/req-001" class="px-3 py-1.5 bg-primary text-on-primary text-xs font-semibold rounded hover:bg-primary-container transition">
+            Open Run
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="pt-3 border-t border-outline-variant/40 flex justify-end">
+      <button onclick="document.getElementById('driver-manifest-modal').classList.add('hidden')" class="px-4 py-2 bg-slate-200 dark:bg-slate-800 rounded-lg text-xs font-semibold hover:bg-slate-300 transition">
+        Close Manifest
+      </button>
+    </div>
+  </div>
+</div>
+
+<div id="driver-comms-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-primary/70 backdrop-blur-sm hidden">
+  <div class="bg-surface-container-lowest dark:bg-slate-900 max-w-lg w-full rounded-2xl p-6 shadow-2xl border border-outline-variant/60 space-y-4">
+    <div class="flex items-center justify-between border-b border-outline-variant/40 pb-3">
+      <div class="flex items-center gap-2">
+        <span class="material-symbols-outlined text-secondary text-2xl">radio</span>
+        <h3 class="font-headline-sm font-bold text-primary dark:text-white">VHF Tactical Radio Comms</h3>
+      </div>
+      <button onclick="document.getElementById('driver-comms-modal').classList.add('hidden')" class="p-1 rounded hover:bg-surface-container text-on-surface-variant">
+        <span class="material-symbols-outlined">close</span>
+      </button>
+    </div>
+    <div class="space-y-3">
+      <div class="p-3 bg-surface-container-low dark:bg-slate-800 rounded-lg border border-outline-variant/30 flex items-center justify-between">
+        <div class="flex items-center gap-2">
+          <span class="w-3 h-3 rounded-full bg-emerald-500 animate-pulse"></span>
+          <div>
+            <span class="font-bold text-sm text-primary dark:text-white block">Channel 16: Bantwal Sector 3 Bridge</span>
+            <span class="text-xs text-on-surface-variant dark:text-slate-400">156.800 MHz • PRI Trunk Voice Connected</span>
+          </div>
+        </div>
+        <span class="text-xs font-mono font-bold text-emerald-600 dark:text-emerald-400">ONLINE</span>
+      </div>
+      <div class="p-3 bg-surface-container-lowest dark:bg-slate-800 rounded-lg border border-outline-variant/40 text-xs text-on-surface-variant dark:text-slate-300 space-y-1.5">
+        <p><strong>Duty Officer:</strong> All units proceed with caution. Flood levels rising 0.2m/hr at Bantwal Old Bridge.</p>
+        <p><strong>NDRF Unit 01:</strong> Roger, dispatched to household #req-001.</p>
+      </div>
+      <div class="grid grid-cols-2 gap-2 pt-2">
+        <button onclick="alert('Calling DDMA Sector 3 Dispatch desk on secure audio bridge...')" class="py-2.5 px-3 rounded-lg bg-primary text-on-primary font-bold text-xs flex items-center justify-center gap-1.5 hover:bg-primary-container transition">
+          <span class="material-symbols-outlined text-sm">call</span>
+          <span>Call Dispatcher</span>
+        </button>
+        <button onclick="alert('Emergency radio beacon transmitted to DDMA Operations Center.')" class="py-2.5 px-3 rounded-lg bg-error text-on-error font-bold text-xs flex items-center justify-center gap-1.5 hover:bg-error/90 transition">
+          <span class="material-symbols-outlined text-sm">emergency_home</span>
+          <span>Emergency Beacon</span>
+        </button>
+      </div>
+    </div>
+    <div class="pt-2 border-t border-outline-variant/40 flex justify-end">
+      <button onclick="document.getElementById('driver-comms-modal').classList.add('hidden')" class="px-4 py-2 bg-slate-200 dark:bg-slate-800 rounded-lg text-xs font-semibold hover:bg-slate-300 transition">
+        Close Comms
+      </button>
+    </div>
+  </div>
+</div>
 </main>
 
 <!-- Lightweight Script for Countdown Micro-Interaction -->
@@ -783,7 +846,3 @@ Details <span class="material-symbols-outlined text-sm" data-icon="chevron_right
 
 
 </body></html>
-</USER_REQUEST>
-<ADDITIONAL_METADATA>
-The current local time is: 2026-11-15T10:54:26+05:30.
-</ADDITIONAL_METADATA>

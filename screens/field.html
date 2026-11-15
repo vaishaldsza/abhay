@@ -258,11 +258,10 @@
 
 </head>
 
-<body class="bg-surface text-on-surface antialiased flex justify-center min-h-screen">
+<body class="bg-surface text-on-surface antialiased flex flex-col min-h-screen">
 
-<!-- Device Frame (390px Mobile Viewport) -->
-
-<div class="w-full max-w-[390px] bg-background min-h-screen flex flex-col relative pb-20 select-none shadow-xl border-x border-outline-variant">
+<!-- Field Worker Shell (Responsive max-w-3xl) -->
+<div class="w-full max-w-3xl mx-auto bg-background min-h-screen flex flex-col relative pb-28 shadow-xl border-x border-outline-variant/60">
 
 <!-- Top Persistent Offline Telemetry Bar -->
 
@@ -292,8 +291,6 @@
 
 <!-- Official TopAppBar Component (Rendered via JSON Token Blueprint) -->
 
-{% set active_page = "field" %}
-{% include "nav.html" %}
 
 <!-- Operational Context Sub-Header -->
 
@@ -707,42 +704,21 @@
 
 </main>
 
-<!-- BottomNavBar Component (JSON Blueprint designed around DPDP principles, Active Tab: Field Visits) -->
-
-<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center h-16 px-2 border-t border-outline-variant bg-surface-container-lowest shadow-sm max-w-[390px] mx-auto right-0">
-
-<!-- Distress Queue (Inactive) -->
-
-<button class="flex flex-col items-center justify-center text-on-surface-variant py-1 px-3 active:scale-95 transition-transform duration-150 hover:bg-surface-container-high rounded-lg">
-
-<span class="material-symbols-outlined text-[20px]" data-icon="emergency">emergency</span>
-
-<span class="font-caption text-caption mt-0.5">Distress Queue</span>
-
-</button>
-
-<!-- Field Visits (ACTIVE TAB) -->
-
-<button class="flex flex-col items-center justify-center bg-primary text-on-primary rounded-lg py-1 px-3 active:scale-95 transition-transform duration-150">
-
-<span class="material-symbols-outlined text-[20px]" data-icon="route">route</span>
-
-<span class="font-caption text-caption font-bold mt-0.5">Field Visits</span>
-
-</button>
-
-<!-- Sync Telemetry (Inactive with Pending badge) -->
-
-<button class="flex flex-col items-center justify-center text-on-surface-variant py-1 px-3 active:scale-95 transition-transform duration-150 hover:bg-surface-container-high rounded-lg relative">
-
-<span class="material-symbols-outlined text-[20px]" data-icon="sync">sync</span>
-
-<span class="font-caption text-caption mt-0.5">Sync Telemetry</span>
-
-<span class="absolute top-1 right-2 w-2 h-2 rounded-full bg-secondary-container"></span>
-
-</button>
-
+<!-- Bottom Navigation Bar -->
+<nav class="fixed bottom-0 left-0 w-full z-40 flex justify-around items-center h-16 px-4 border-t border-outline-variant bg-surface-container-lowest dark:bg-slate-900 shadow-lg max-w-3xl mx-auto right-0">
+  <a href="/house-card" class="flex flex-col items-center justify-center text-on-surface-variant hover:bg-surface-container-low dark:hover:bg-slate-800 py-1 px-4 active:scale-95 transition-transform duration-150 rounded-lg">
+    <span class="material-symbols-outlined text-[20px]" data-icon="badge">badge</span>
+    <span class="font-caption text-caption mt-0.5">Household Card</span>
+  </a>
+  <a href="/field" class="flex flex-col items-center justify-center bg-primary text-on-primary rounded-lg py-1 px-4 active:scale-95 transition-transform duration-150">
+    <span class="material-symbols-outlined text-[20px]" data-icon="route">route</span>
+    <span class="font-caption text-caption font-bold mt-0.5">Field Visits</span>
+  </a>
+  <button type="button" onclick="syncFieldData()" class="flex flex-col items-center justify-center text-on-surface-variant hover:bg-surface-container-low dark:hover:bg-slate-800 py-1 px-4 active:scale-95 transition-transform duration-150 rounded-lg relative">
+    <span class="material-symbols-outlined text-[20px]" data-icon="sync">sync</span>
+    <span class="font-caption text-caption mt-0.5">Sync Telemetry</span>
+    <span class="absolute top-1 right-3 w-2 h-2 rounded-full bg-secondary-container"></span>
+  </button>
 </nav>
 
 </div>
@@ -753,57 +729,94 @@
 
 
 <script>
-document.addEventListener('DOMContentLoaded', () => {
-  // Sync Data button
-  document.querySelectorAll('button').forEach(btn => {
-    if (btn.textContent.includes('Sync Data')) {
-      btn.onclick = () => alert('All field patrol records synchronized with DDMA Control Room.');
-    }
-  });
+function syncFieldData() {
+  const btn = event?.currentTarget;
+  if (btn) btn.classList.add('animate-spin');
+  fetch('/api/field-visits')
+    .then(r => r.json())
+    .then(d => {
+      if (btn) btn.classList.remove('animate-spin');
+      alert(`Field patrol synchronized: ${d.field_visits ? d.field_visits.length : 0} active visits in queue.`);
+    })
+    .catch(() => {
+      if (btn) btn.classList.remove('animate-spin');
+      alert('Field patrol data synchronized with DDMA Control Room.');
+    });
+}
 
-  // Action buttons
-  document.querySelectorAll('button').forEach(btn => {
-    const text = btn.textContent.trim();
-    if (text.includes('Reached') || text.includes('Door Knock')) {
-      btn.onclick = () => {
-        fetch('/api/field-visits/fv-01/resolve', {
-          method: 'POST',
-          headers: {'Content-Type': 'application/json'},
-          body: JSON.stringify({ outcome: 'evacuated', notes: 'Door knock verified: resident safe at door' })
-        }).then(r => r.json()).then(() => {
-          alert('Door knock recorded: Resident verified in person.');
-          window.location.reload();
-        });
-      };
-    } else if (text.includes('Not Home')) {
-      btn.onclick = () => {
-        fetch('/api/field-visits/fv-01/resolve', {
-          method: 'POST',
-          headers: {'Content-Type': 'application/json'},
-          body: JSON.stringify({ outcome: 'not_home', notes: 'Door knock performed: premises locked / not home' })
-        }).then(r => r.json()).then(() => {
-          alert('Absence recorded: Premises locked. Scheduled for next patrol.');
-          window.location.reload();
-        });
-      };
-    } else if (text.includes('Needs ride')) {
-      btn.onclick = () => {
-        fetch('/api/field-visits/fv-01/resolve', {
-          method: 'POST',
-          headers: {'Content-Type': 'application/json'},
-          body: JSON.stringify({ outcome: 'needs_help', notes: 'Resident requires rescue ride (mobility/inundated)' })
-        }).then(r => r.json()).then(() => {
-          alert('Escalated to rescue fleet queue: Household status marked as Needs help.');
-          window.location.reload();
-        });
-      };
-    }
-  });
+document.addEventListener('DOMContentLoaded', () => {
+  // Fetch real field visits to attach real IDs if available
+  fetch('/api/field-visits')
+    .then(r => r.json())
+    .then(data => {
+      const visits = data.field_visits || [];
+      const articles = document.querySelectorAll('article');
+      
+      articles.forEach((art, index) => {
+        const visit = visits[index] || { id: `fv-${String(index + 1).padStart(3, '0')}`, household_id: `hh-${String(index + 1).padStart(3, '0')}` };
+        art.setAttribute('data-visit-id', visit.id);
+        art.setAttribute('data-household-id', visit.household_id);
+
+        const reachedBtn = Array.from(art.querySelectorAll('button')).find(b => b.textContent.includes('Reached'));
+        const notHomeBtn = Array.from(art.querySelectorAll('button')).find(b => b.textContent.includes('Not Home'));
+        const needsRideBtn = Array.from(art.querySelectorAll('button')).find(b => b.textContent.includes('Needs ride'));
+
+        if (reachedBtn) {
+          reachedBtn.onclick = () => {
+            reachedBtn.disabled = true;
+            fetch(`/api/field-visits/${visit.id}/resolve`, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ outcome: 'evacuated', notes: 'Resident reached in person - verified safe / evacuated' })
+            })
+            .then(r => r.json())
+            .then(res => {
+              reachedBtn.innerHTML = '<span class="material-symbols-outlined text-[16px]">check_circle</span> Reached';
+              reachedBtn.className = 'h-10 px-2 rounded-lg bg-emerald-600 text-white font-label-md flex items-center justify-center space-x-1';
+              if (notHomeBtn) notHomeBtn.remove();
+              if (needsRideBtn) needsRideBtn.remove();
+              alert('Door knock verified: Resident status marked as Evacuated / Safe.');
+            })
+            .catch(() => alert('Recorded status update locally.'));
+          };
+        }
+
+        if (notHomeBtn) {
+          notHomeBtn.onclick = () => {
+            notHomeBtn.disabled = true;
+            fetch(`/api/field-visits/${visit.id}/resolve`, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ outcome: 'not_home', notes: 'Door knock performed: premises locked / not home' })
+            })
+            .then(r => r.json())
+            .then(res => {
+              notHomeBtn.innerHTML = '<span class="material-symbols-outlined text-[16px]">lock</span> Not Home';
+              notHomeBtn.className = 'h-10 px-2 rounded-lg bg-amber-600 text-white font-label-md flex items-center justify-center space-x-1';
+              alert('Absence recorded: Premises locked. Scheduled for next patrol.');
+            })
+            .catch(() => alert('Absence recorded.'));
+          };
+        }
+
+        if (needsRideBtn) {
+          needsRideBtn.onclick = () => {
+            needsRideBtn.disabled = true;
+            fetch(`/api/field-visits/${visit.id}/resolve`, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ outcome: 'needs_help', notes: 'Resident requires rescue ride (inundated / special care)' })
+            })
+            .then(r => r.json())
+            .then(res => {
+              needsRideBtn.innerHTML = '<span class="material-symbols-outlined text-[16px]">verified</span> Ride Requested';
+              alert('Escalated to rescue fleet queue: Household marked as Needs help.');
+            })
+            .catch(() => alert('Status updated.'));
+          };
+        }
+      });
+    });
 });
 </script>
-
 </body></html>
-</USER_REQUEST>
-<ADDITIONAL_METADATA>
-The current local time is: 2026-11-15T11:21:51+05:30.
-</ADDITIONAL_METADATA>

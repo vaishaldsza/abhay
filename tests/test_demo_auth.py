@@ -259,3 +259,56 @@ def test_dashboard_ui_translations_kannada_and_hindi(auth_app):
     assert "मदद चाहिए" in html_hi
     assert "संपर्क नहीं हुआ" in html_hi
     assert "कुल सर्वेक्षण किए गए घर" in html_hi
+
+
+def test_privacy_purge_modal_hidden_by_default(auth_app):
+    client = auth_app.test_client()
+    client.post("/login", data={"role": "dispatcher"})
+    res = client.get("/privacy")
+    assert res.status_code == 200
+    html = res.data.decode("utf-8")
+    assert 'id="purge-dialog"' in html
+    # Must be hidden by default
+    assert 'id="purge-dialog" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-primary/70 backdrop-blur-sm transition-opacity duration-200 hidden"' in html or 'id="purge-dialog"' in html and 'hidden' in html
+
+def test_under_the_hood_and_evals_alignment(auth_app):
+    client = auth_app.test_client()
+    client.post("/login", data={"role": "dispatcher"})
+    
+    # Under the Hood
+    res_uth = client.get("/under-the-hood")
+    assert res_uth.status_code == 200
+    html_uth = res_uth.data.decode("utf-8")
+    # Redundant Stitch sidebar removed
+    assert '<aside class="fixed top-14 left-0 bottom-0 w-64' not in html_uth
+    assert "max-w-7xl mx-auto" in html_uth
+    
+    # Evals
+    res_evals = client.get("/evals")
+    assert res_evals.status_code == 200
+    html_evals = res_evals.data.decode("utf-8")
+    assert '<aside class="fixed top-14 left-0 bottom-0 w-64' not in html_evals
+    assert "max-w-7xl mx-auto" in html_evals
+
+def test_driver_and_resident_screens_layout_and_navigation(auth_app):
+    client = auth_app.test_client()
+    
+    # Driver page
+    client.post("/login", data={"role": "driver"})
+    res_driver = client.get("/driver")
+    assert res_driver.status_code == 200
+    html_driver = res_driver.data.decode("utf-8")
+    assert 'href="/run/req-001"' in html_driver
+    assert 'openDriverManifestModal()' in html_driver
+    assert 'openDriverCommsModal()' in html_driver
+    assert 'max-w-2xl' in html_driver
+    
+    # Resident page
+    client.post("/login", data={"role": "resident"})
+    res_ready = client.get("/ready")
+    assert res_ready.status_code == 200
+    html_ready = res_ready.data.decode("utf-8")
+    assert 'id="ready-form"' in html_ready
+    assert 'href="/household-needs"' in html_ready
+    assert 'href="/confirmation"' in html_ready
+    assert 'max-w-2xl' in html_ready

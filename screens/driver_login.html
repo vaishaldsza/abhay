@@ -288,20 +288,12 @@
 
   </head>
 
-<body class="bg-background text-on-surface antialiased flex justify-center items-start min-h-screen p-0 sm:py-6 selection:bg-secondary-container selection:text-primary">
-
-<!-- Mobile Container (390px specified design width) -->
-
-<main class="w-full max-w-[390px] min-h-screen sm:min-h-[844px] bg-background flex flex-col justify-between shadow-2xl relative overflow-hidden sm:rounded-2xl border border-outline-variant/30">
-
-<!-- Top Section: Header & Verification Badges -->
-
-<div>
-
-<!-- Shared Component: TopAppBar (docked, borderless separation via shadow) -->
-
+<body class="bg-background text-on-surface antialiased flex flex-col min-h-screen">
 {% set active_page = "driver" %}
 {% include "nav.html" %}
+
+<!-- Driver Login Shell (Responsive max-w-md) -->
+<main class="w-full max-w-md mx-auto my-6 min-h-[500px] bg-background flex flex-col justify-between shadow-2xl relative overflow-hidden rounded-2xl border border-outline-variant/30">
 
 <!-- Authority Verification Banner (DDMA Official Seal strip) -->
 

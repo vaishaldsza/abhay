@@ -447,6 +447,22 @@ def test_profile_edit_and_update_api(auth_app):
     assert "Senior Officer Anand Rao" in html2
 
 
+def test_incident_page_light_mode_visibility(auth_app):
+    """Verify incident select page has proper semantic styling and classes for visibility in light mode."""
+    client = auth_app.test_client()
+    client.post("/login", data={"role": "dispatcher"})
+    res = client.get("/incidents")
+    assert res.status_code == 200
+    html = res.data.decode("utf-8")
+    assert "incident-card-primary" in html
+    assert "incident-card-title" in html
+    assert "incident-card-subtitle" in html
+    assert "incident-card-chip" in html
+    assert "btn-enter-control" in html
+    assert "incident-badge-active" in html
+    assert "html.light .incident-card-primary" in html
+    assert "html.light .btn-enter-control" in html
+
 def test_fleet_page_light_mode_and_boxes(auth_app):
     """Verify fleet page has proper styling and classes for visibility in light mode."""
     client = auth_app.test_client()

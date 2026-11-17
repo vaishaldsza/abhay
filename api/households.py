@@ -6,6 +6,7 @@ import uuid
 from flask import Blueprint, request, jsonify
 from db import get_db, mask_phone, encrypt_phone, log_audit
 from api.events import broadcast_event
+from core.priority import priority_score
 
 households_bp = Blueprint("households", __name__)
 
@@ -56,7 +57,13 @@ def get_households():
         d = dict(r)
         d["phone_masked"] = mask_phone(d["phone_masked"])
         del d["phone_enc"] # Never expose hash or enc in UI API
+        score, breakdown = priority_score(d)
+        d["priority_score"] = score
+        d["priority_breakdown"] = breakdown
         households.append(d)
+
+    # Sort queue strictly by priority score (ordering aid) with updated_at tiebreaker
+    households.sort(key=lambda h: (h.get("priority_score", 0), h.get("updated_at") or ""), reverse=True)
 
     return jsonify({"success": True, "count": len(households), "households": households})
 
@@ -71,6 +78,9 @@ def get_household(id):
     hh_dict["phone_masked"] = mask_phone(hh_dict["phone_masked"])
     if "phone_enc" in hh_dict:
         del hh_dict["phone_enc"]
+    score, breakdown = priority_score(hh_dict, conn=db)
+    hh_dict["priority_score"] = score
+    hh_dict["priority_breakdown"] = breakdown
 
     members = [dict(m) for m in db.execute("SELECT * FROM member WHERE household_id = ?", (id,)).fetchall()]
     calls = [dict(c) for c in db.execute("SELECT * FROM call WHERE household_id = ? ORDER BY created_at DESC", (id,)).fetchall()]

@@ -134,10 +134,12 @@ def seed_database():
         phone_raw = f"988{random.randint(1000000, 9999999)}"
         phone_masked = mask_phone(phone_raw)
         phone_enc = encrypt_phone(phone_raw)
+        # Demo assumption: estimated water arrival in minutes (30m to 180m)
+        water_arrival = round(random.uniform(35.0, 180.0), 1) if (i % 5 != 0) else None
 
         household_records.append((
             hh_id, incident_id, name, phone_masked, phone_enc, landmark, pin,
-            lat, lng, lang, members_count, status, 1, datetime.now(timezone.utc).isoformat()
+            lat, lng, lang, members_count, status, 1, water_arrival, datetime.now(timezone.utc).isoformat()
         ))
 
         # Member details
@@ -198,8 +200,8 @@ def seed_database():
             ))
 
     cur.executemany(
-        """INSERT INTO household (id, incident_id, first_name, phone_masked, phone_enc, landmark, pin, lat, lng, language, members, status, consent_given, updated_at)
-           VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)""",
+        """INSERT INTO household (id, incident_id, first_name, phone_masked, phone_enc, landmark, pin, lat, lng, language, members, status, consent_given, water_arrival_minutes, updated_at)
+           VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)""",
         household_records
     )
 

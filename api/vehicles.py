@@ -48,3 +48,10 @@ def add_vehicle():
 
     broadcast_event("vehicle_added", {"vehicle_id": veh_id, "designation": designation})
     return jsonify({"success": True, "vehicle_id": veh_id})
+
+@vehicles_bp.route("/api/vehicles/suggest/<household_id>", methods=["GET"])
+def suggest_fleet_for_household(household_id):
+    from core.assign import suggest_vehicles
+    db = get_db()
+    suggestions = suggest_vehicles(household_id, db=db)
+    return jsonify({"success": True, "household_id": household_id, "vehicles": suggestions})

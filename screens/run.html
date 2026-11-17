@@ -22,8 +22,21 @@
 
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
 
+<!-- Early Theme Initialization to prevent flash / unstyled mode -->
+<script>
+  (function() {
+    var stored = localStorage.getItem('abhay_theme');
+    var isDark = stored === 'dark' || (!stored && window.matchMedia('(prefers-color-scheme: dark)').matches);
+    if (isDark) {
+      document.documentElement.classList.add('dark');
+      document.documentElement.classList.remove('light');
+    } else {
+      document.documentElement.classList.remove('dark');
+      document.documentElement.classList.add('light');
+    }
+  })();
+</script>
 <!-- Tailwind CSS v3 with Forms and Container Queries -->
-
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 
 <script id="tailwind-config">
@@ -284,6 +297,10 @@
 
     }
 
+    html.dark body { background-color: #060c18 !important; color: #f8fafc !important; }
+    html.light body { background-color: #faf8ff !important; color: #001026 !important; }
+    html.dark .text-primary-container { color: #93c5fd !important; }
+
   </style>
 
 <!-- Leaflet CSS & JS CDN -->
@@ -376,7 +393,7 @@
 
 <!-- Resident Identity & Critical Priority Card -->
 
-<div class="bg-surface-container-low/70 rounded-lg p-3 border border-outline-variant/60 flex flex-col gap-2">
+<div class="bg-surface-container-low/70 dark:bg-slate-800/80 rounded-lg p-3 border border-outline-variant/60 dark:border-slate-700 flex flex-col gap-2">
 
 <div class="flex items-start justify-between gap-2">
 
@@ -386,7 +403,7 @@
 
 <h2 class="font-headline-sm text-[16px] font-bold text-on-surface leading-tight">Parvathi</h2>
 
-<span class="inline-block mt-0.5 font-label-md text-body-sm font-semibold text-primary-container">
+<span class="inline-block mt-0.5 font-label-md text-body-sm font-semibold text-primary-container dark:text-sky-300">
 
                 Total Manifest: 3 Pax (1 Senior, 2 Adults)
 
@@ -466,7 +483,7 @@
 
 <!-- Next Leg / Destination Preview Section -->
 
-<div class="bg-surface-container rounded-lg p-3 border border-outline-variant/70 flex flex-col gap-2 mt-1">
+<div class="bg-surface-container dark:bg-slate-800/90 rounded-lg p-3 border border-outline-variant/70 dark:border-slate-700 flex flex-col gap-2 mt-1">
 
 <div class="flex items-center justify-between">
 
@@ -504,7 +521,7 @@
 
 <!-- Shelter Live Capacity Status -->
 
-<div class="bg-surface-container-lowest p-2 rounded border border-outline-variant/60 flex items-center justify-between text-body-sm">
+<div class="bg-surface-container-lowest dark:bg-slate-900 p-2 rounded border border-outline-variant/60 dark:border-slate-700 flex items-center justify-between text-body-sm">
 
 <div class="flex items-center gap-1.5">
 

@@ -60,6 +60,11 @@ STATUS_TRANSLATIONS = {
         "hi": "अनुरोध दर्ज, अभी तक कोई चालक नहीं मिला",
         "kn": "ವಿನಂತಿ ದಾಖಲಾಗಿದೆ, ಇನ್ನೂ ಯಾವುದೇ ಚಾಲಕರು ಸ್ವೀಕರಿಸಿಲ್ಲ"
     },
+    "Your request is recorded. No driver has accepted yet.": {
+        "en": "Your request is recorded. No driver has accepted yet.",
+        "hi": "आपका अनुरोध दर्ज कर लिया गया है। अभी किसी ड्राइवर ने स्वीकार नहीं किया है।",
+        "kn": "ನಿಮ್ಮ ಕೋರಿಕೆಯನ್ನು ದಾಖಲಿಸಲಾಗಿದೆ. ಇನ್ನೂ ಯಾವುದೇ ಚಾಲಕರು ಸ್ವೀಕರಿಸಿಲ್ಲ."
+    },
     "Driver accepted": {
         "en": "Driver accepted",
         "hi": "चालक ने स्वीकार किया",

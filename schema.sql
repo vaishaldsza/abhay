@@ -22,6 +22,7 @@ CREATE TABLE IF NOT EXISTS household (
     members INTEGER DEFAULT 1,
     status TEXT NOT NULL DEFAULT 'not_reached', -- not_reached, needs_help, can_help, request_recorded, driver_accepted, on_run, picked_up, evacuated
     consent_given INTEGER DEFAULT 1,
+    water_arrival_minutes REAL, -- optional flood water arrival assumption (demo assumption)
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (incident_id) REFERENCES incident(id)
 );

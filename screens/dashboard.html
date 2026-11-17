@@ -10,6 +10,19 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@500;600&amp;display=swap" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script>
+  (function() {
+    var stored = localStorage.getItem('abhay_theme');
+    var isDark = stored === 'dark' || (!stored && window.matchMedia('(prefers-color-scheme: dark)').matches);
+    if (isDark) {
+      document.documentElement.classList.add('dark');
+      document.documentElement.classList.remove('light');
+    } else {
+      document.documentElement.classList.remove('dark');
+      document.documentElement.classList.add('light');
+    }
+  })();
+</script>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 <script id="tailwind-config">
     tailwind.config = {
@@ -175,6 +188,38 @@
     background: transparent;
     border: none;
   }
+
+  html.dark body { background-color: #060c18 !important; color: #f8fafc !important; }
+  html.light body { background-color: #faf8ff !important; color: #001026 !important; }
+
+  html.dark .dash-panel {
+    background-color: #0b1526 !important;
+    border-color: #334155 !important;
+  }
+  html.dark .dash-card {
+    background-color: #0f1c32 !important;
+    border-color: #334155 !important;
+  }
+  html.dark .leaflet-popup-content-wrapper {
+    background-color: #0b1526 !important;
+    border-color: #334155 !important;
+    color: #f8fafc !important;
+  }
+  html.dark .leaflet-popup-tip {
+    background-color: #0b1526 !important;
+  }
+  html.dark .leaflet-popup-content span[style*="color: #0B2545"] {
+    color: #f8fafc !important;
+  }
+  html.dark .leaflet-popup-content div[style*="color: #475569"] {
+    color: #cbd5e1 !important;
+  }
+  html.dark input[type="text"],
+  html.dark select {
+    background-color: #0f1c32 !important;
+    border-color: #334155 !important;
+    color: #f8fafc !important;
+  }
 </style>
 </head>
 <body class="bg-background text-on-surface antialiased flex flex-col h-screen overflow-hidden select-none">
@@ -183,7 +228,7 @@
 <!-- MAIN DISPATCH ENVIRONMENT (THREE-COLUMN DESKTOP COMMAND LAYOUT) -->
 <main class="flex-1 flex overflow-hidden bg-background">
 <!-- LEFT COLUMN: Emergency Queue & Household Directory (~340px) -->
-<section class="w-[340px] shrink-0 border-r border-outline-variant/60 bg-surface-container-lowest flex flex-col z-20">
+<section class="w-[340px] shrink-0 border-r border-outline-variant/60 dark:border-slate-800 bg-surface-container-lowest dark:bg-slate-900 flex flex-col z-20">
 <!-- Pinned Life-Threat Directive Strip (Shown only if an emergency household exists) -->
 <div id="life-threat-strip" class="bg-error text-on-error p-space-sm border-b border-error/40 flex items-start gap-space-xs shadow-sm" style="display: none;">
 <span class="material-symbols-outlined text-on-error text-lg mt-0.5 animate-pulse" data-icon="e911_emergency" style="font-variation-settings: 'FILL' 1;">e911_emergency</span>
@@ -196,35 +241,59 @@
 <p id="life-threat-desc" class="font-body-sm text-body-sm text-on-error/90 leading-tight">--</p>
 </div>
 <button id="btn-assign-life-threat" class="bg-on-error text-error text-caption font-bold px-2 py-1 rounded hover:bg-error-container transition-colors shadow-xs">
-          Assign
+          Assign vehicle
         </button>
 </div>
 <!-- Search & Filtration Sub-header -->
-<div class="p-space-sm border-b border-outline-variant/40 bg-surface-container-low flex flex-col gap-space-xs">
+<div class="p-space-sm border-b border-outline-variant/40 dark:border-slate-800 bg-surface-container-low dark:bg-slate-950 flex flex-col gap-space-xs">
 <div class="relative">
-<span class="material-symbols-outlined absolute left-2.5 top-2.5 text-on-surface-variant text-lg" data-icon="search">search</span>
-<input id="household-search-input" class="w-full h-9 pl-9 pr-3 text-body-sm font-body-sm rounded border border-outline-variant bg-surface-container-lowest text-on-surface focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary placeholder:text-on-surface-variant/70" placeholder="{{ t('Search household, landmark...') }}" type="text"/>
+<span class="material-symbols-outlined absolute left-2.5 top-2.5 text-on-surface-variant dark:text-slate-400 text-lg" data-icon="search">search</span>
+<input id="household-search-input" class="w-full h-9 pl-9 pr-3 text-body-sm font-body-sm rounded border border-outline-variant dark:border-slate-700 bg-surface-container-lowest dark:bg-slate-900 text-on-surface dark:text-slate-100 focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary placeholder:text-on-surface-variant/70 dark:placeholder:text-slate-400" placeholder="{{ t('Search household, landmark...') }}" type="text"/>
 </div>
 <!-- Filter Tabs with live real counts -->
 <div id="filter-tabs-container" class="flex items-center gap-1 overflow-x-auto pb-0.5 scrollbar-none">
 <button data-filter="all" class="filter-tab-btn font-caption text-caption px-2.5 py-1 rounded bg-primary text-on-primary whitespace-nowrap font-medium transition-colors">{{ t('All') }} (<span id="count-all">0</span>)</button>
-<button data-filter="needs_help" class="filter-tab-btn font-caption text-caption px-2 py-1 rounded bg-surface-container hover:bg-surface-container-high text-on-surface-variant whitespace-nowrap transition-colors">{{ t('Needs help') }} (<span id="count-needs-help">0</span>)</button>
-<button data-filter="can_help" class="filter-tab-btn font-caption text-caption px-2 py-1 rounded bg-surface-container hover:bg-surface-container-high text-on-surface-variant whitespace-nowrap transition-colors">{{ t('Can help') }} (<span id="count-can-help">0</span>)</button>
-<button data-filter="evacuated" class="filter-tab-btn font-caption text-caption px-2 py-1 rounded bg-surface-container hover:bg-surface-container-high text-on-surface-variant whitespace-nowrap transition-colors">{{ t('Evacuated') }} (<span id="count-evacuated">0</span>)</button>
-<button data-filter="not_reached" class="filter-tab-btn font-caption text-caption px-2 py-1 rounded bg-surface-container hover:bg-surface-container-high text-on-surface-variant whitespace-nowrap transition-colors">{{ t('Not reached') }} (<span id="count-not-reached">0</span>)</button>
+<button data-filter="needs_help" class="filter-tab-btn font-caption text-caption px-2 py-1 rounded bg-surface-container dark:bg-slate-800 hover:bg-surface-container-high dark:hover:bg-slate-700 text-on-surface-variant dark:text-slate-300 whitespace-nowrap transition-colors">{{ t('Needs help') }} (<span id="count-needs-help">0</span>)</button>
+<button data-filter="can_help" class="filter-tab-btn font-caption text-caption px-2 py-1 rounded bg-surface-container dark:bg-slate-800 hover:bg-surface-container-high dark:hover:bg-slate-700 text-on-surface-variant dark:text-slate-300 whitespace-nowrap transition-colors">{{ t('Can help') }} (<span id="count-can-help">0</span>)</button>
+<button data-filter="evacuated" class="filter-tab-btn font-caption text-caption px-2 py-1 rounded bg-surface-container dark:bg-slate-800 hover:bg-surface-container-high dark:hover:bg-slate-700 text-on-surface-variant dark:text-slate-300 whitespace-nowrap transition-colors">{{ t('Evacuated') }} (<span id="count-evacuated">0</span>)</button>
+<button data-filter="not_reached" class="filter-tab-btn font-caption text-caption px-2 py-1 rounded bg-surface-container dark:bg-slate-800 hover:bg-surface-container-high dark:hover:bg-slate-700 text-on-surface-variant dark:text-slate-300 whitespace-nowrap transition-colors">{{ t('Not reached') }} (<span id="count-not-reached">0</span>)</button>
+</div>
+<!-- Queue Sort Controls -->
+<div class="flex items-center justify-between text-caption px-1 pt-1.5 border-t border-outline-variant/30 dark:border-slate-800 text-on-surface-variant dark:text-slate-300">
+  <span class="font-semibold text-[11px] flex items-center gap-1">
+    <span class="material-symbols-outlined text-[13px]">sort</span>
+    Sort:
+  </span>
+  <div class="flex items-center gap-1" id="sort-controls-container">
+    <button type="button" data-sort="priority" class="sort-tab-btn px-2 py-0.5 rounded text-[10px] font-semibold bg-primary text-on-primary transition-colors" title="Order by priority triage score (ordering aid)">
+      Priority
+    </button>
+    <button type="button" data-sort="unanswered" class="sort-tab-btn px-2 py-0.5 rounded text-[10px] bg-surface-container dark:bg-slate-800 hover:bg-surface-container-high dark:hover:bg-slate-700 text-on-surface-variant dark:text-slate-300 transition-colors" title="Order by unanswered wait duration">
+      Time unanswered
+    </button>
+    <button type="button" data-sort="name" class="sort-tab-btn px-2 py-0.5 rounded text-[10px] bg-surface-container dark:bg-slate-800 hover:bg-surface-container-high dark:hover:bg-slate-700 text-on-surface-variant dark:text-slate-300 transition-colors" title="Order alphabetically by first name">
+      Name (A-Z)
+    </button>
+  </div>
 </div>
 </div>
 <!-- Household Queue Scrollable Directory (Populated dynamically from GET /api/households) -->
-<div id="household-list-container" class="flex-1 overflow-y-auto divide-y divide-outline-variant/30">
+<div id="household-list-container" class="flex-1 overflow-y-auto divide-y divide-outline-variant/30 dark:divide-slate-800">
 <!-- Dynamic household cards will be injected here -->
 </div>
 <!-- Queue Action Dock -->
-<div class="p-space-sm border-t border-outline-variant/60 bg-surface-container-lowest flex items-center justify-between">
-<span class="font-caption text-caption text-on-surface-variant">{{ t('Direct Telephony Bridge') }}</span>
-<button id="btn-sync-feed" class="text-caption font-label-md text-primary hover:underline flex items-center gap-1">
-<span class="material-symbols-outlined text-sm" data-icon="refresh">refresh</span>
-          {{ t('Sync CDR Feed') }}
-        </button>
+<div class="p-space-sm border-t border-outline-variant/60 dark:border-slate-800 bg-surface-container-lowest dark:bg-slate-900 flex flex-col gap-2">
+  <button id="btn-suggest-plan" class="w-full flex items-center justify-center gap-1.5 px-3 py-1.5 bg-[#0B2545] hover:bg-[#133968] active:bg-[#06162B] text-white rounded font-label-md text-xs font-semibold shadow-xs transition active:scale-[0.98]">
+    <span class="material-symbols-outlined text-[16px]">auto_fix_high</span>
+    <span>{{ t('Suggest plan') }}</span>
+  </button>
+  <div class="flex items-center justify-between text-caption text-on-surface-variant dark:text-slate-400 px-0.5">
+    <span>{{ t('Direct Telephony Bridge') }}</span>
+    <button id="btn-sync-feed" class="text-caption font-label-md text-primary dark:text-blue-400 hover:underline flex items-center gap-1">
+      <span class="material-symbols-outlined text-sm" data-icon="refresh">refresh</span>
+      {{ t('Sync CDR Feed') }}
+    </button>
+  </div>
 </div>
 </section>
 <!-- CENTER COLUMN: Large GIS Tactical Map -->
@@ -248,16 +317,16 @@
 </div>
 
 <!-- Top-Right Map Layer Controls -->
-<div class="tactical-overlay absolute top-space-md right-space-md bg-surface-container-lowest/95 backdrop-blur p-1.5 rounded border border-outline-variant shadow-md flex items-center gap-1 pointer-events-auto">
+<div class="tactical-overlay absolute top-space-md right-space-md bg-surface-container-lowest/95 dark:bg-slate-900/95 backdrop-blur p-1.5 rounded border border-outline-variant dark:border-slate-700 shadow-md flex items-center gap-1 pointer-events-auto">
 <button class="px-2.5 py-1 rounded bg-primary text-on-primary font-caption text-caption font-semibold flex items-center gap-1 shadow-xs">
 <span class="material-symbols-outlined text-sm" data-icon="layers">layers</span>
           Live GIS
         </button>
-<button id="btn-toggle-vehicles" class="px-2.5 py-1 rounded text-on-surface hover:bg-surface-container font-caption text-caption flex items-center gap-1 transition-colors">
+<button id="btn-toggle-vehicles" class="px-2.5 py-1 rounded text-on-surface dark:text-slate-200 hover:bg-surface-container dark:hover:bg-slate-800 font-caption text-caption flex items-center gap-1 transition-colors">
 <span class="material-symbols-outlined text-sm" data-icon="directions_boat">directions_boat</span>
           Vehicles (<span id="veh-count-badge">6</span>)
         </button>
-<button id="btn-filter-emergency" class="px-2.5 py-1 rounded text-error hover:bg-error-container/30 font-caption text-caption font-semibold flex items-center gap-1 transition-colors">
+<button id="btn-filter-emergency" class="px-2.5 py-1 rounded text-error dark:text-red-400 hover:bg-error-container/30 dark:hover:bg-red-950/50 font-caption text-caption font-semibold flex items-center gap-1 transition-colors">
 <span class="material-symbols-outlined text-sm" data-icon="e911_emergency">e911_emergency</span>
           {{ t('Distress Focus') }}
         </button>
@@ -265,22 +334,22 @@
 
 <!-- Bottom-Right Zoom & Navigation Control Cluster -->
 <div class="tactical-overlay absolute bottom-space-md right-space-md flex flex-col gap-1 shadow-md pointer-events-auto">
-<div class="bg-surface-container-lowest rounded border border-outline-variant flex flex-col overflow-hidden">
-<button id="btn-zoom-in" class="w-9 h-9 flex items-center justify-center hover:bg-surface-container text-primary border-b border-outline-variant transition-colors" title="Zoom In">
+<div class="bg-surface-container-lowest dark:bg-slate-900 rounded border border-outline-variant dark:border-slate-700 flex flex-col overflow-hidden">
+<button id="btn-zoom-in" class="w-9 h-9 flex items-center justify-center hover:bg-surface-container dark:hover:bg-slate-800 text-primary dark:text-slate-200 border-b border-outline-variant dark:border-slate-700 transition-colors" title="Zoom In">
 <span class="material-symbols-outlined" data-icon="add">add</span>
 </button>
-<button id="btn-zoom-out" class="w-9 h-9 flex items-center justify-center hover:bg-surface-container text-primary transition-colors" title="Zoom Out">
+<button id="btn-zoom-out" class="w-9 h-9 flex items-center justify-center hover:bg-surface-container dark:hover:bg-slate-800 text-primary dark:text-slate-200 transition-colors" title="Zoom Out">
 <span class="material-symbols-outlined" data-icon="remove">remove</span>
 </button>
 </div>
-<button id="btn-recenter" class="w-9 h-9 bg-surface-container-lowest rounded border border-outline-variant flex items-center justify-center hover:bg-surface-container text-primary transition-colors" title="Recenter View (Bantwal 12.89, 75.03)">
+<button id="btn-recenter" class="w-9 h-9 bg-surface-container-lowest dark:bg-slate-900 rounded border border-outline-variant dark:border-slate-700 flex items-center justify-center hover:bg-surface-container dark:hover:bg-slate-800 text-primary dark:text-slate-200 transition-colors" title="Recenter View (Bantwal 12.89, 75.03)">
 <span class="material-symbols-outlined text-base" data-icon="my_location">my_location</span>
 </button>
 </div>
 
 <!-- Bottom-Left Tactical Map Legend -->
-<div class="tactical-overlay absolute bottom-space-md left-space-md bg-surface-container-lowest/95 backdrop-blur p-2.5 rounded border border-outline-variant shadow-md pointer-events-auto">
-<span class="font-caption text-caption text-on-surface-variant uppercase tracking-wider block font-bold mb-1.5">{{ t('Map Telemetry Key') }}</span>
+<div class="tactical-overlay absolute bottom-space-md left-space-md bg-surface-container-lowest/95 dark:bg-slate-900/95 backdrop-blur p-2.5 rounded border border-outline-variant dark:border-slate-700 shadow-md pointer-events-auto text-on-surface dark:text-slate-200">
+<span class="font-caption text-caption text-on-surface-variant dark:text-slate-400 uppercase tracking-wider block font-bold mb-1.5">{{ t('Map Telemetry Key') }}</span>
 <div class="grid grid-cols-2 gap-x-4 gap-y-1.5">
 <div class="flex items-center gap-1.5 text-caption font-body-sm">
 <span class="w-2.5 h-2.5 rounded-full bg-[#DC2626]"></span>
@@ -306,78 +375,78 @@
 <span class="w-2.5 h-2.5 rounded bg-[#0B2545] border border-white"></span>
 <span>{{ t('Rescue Vehicle') }}</span>
 </div>
-<div class="flex items-center gap-1.5 text-caption font-body-sm col-span-2 pt-1 border-t border-outline-variant/40">
+<div class="flex items-center gap-1.5 text-caption font-body-sm col-span-2 pt-1 border-t border-outline-variant/40 dark:border-slate-800">
 <span class="w-3 h-3 rounded-full border-2 border-red-600 bg-red-400 animate-pulse"></span>
-<span class="font-semibold text-error">{{ t('Pulsing / Enlarged: Emergency Priority') }}</span>
+<span class="font-semibold text-error dark:text-red-400">{{ t('Pulsing / Enlarged: Emergency Priority') }}</span>
 </div>
 </div>
 </div>
 </section>
 <!-- RIGHT COLUMN: District Summary & Telemetry (~300px) -->
-<aside class="w-[300px] shrink-0 border-l border-outline-variant/60 bg-surface-container-lowest flex flex-col p-space-sm gap-space-sm overflow-y-auto z-20">
+<aside class="w-[300px] shrink-0 border-l border-outline-variant/60 dark:border-slate-800 bg-surface-container-lowest dark:bg-slate-900 flex flex-col p-space-sm gap-space-sm overflow-y-auto z-20">
 <!-- Section Header -->
-<div class="flex items-center justify-between pb-1 border-b border-outline-variant/40">
-<h2 class="font-label-lg text-label-lg font-bold text-primary uppercase tracking-tight">{{ t('District Telemetry') }}</h2>
-<span class="font-label-tabular text-caption text-secondary font-bold">{{ t('LIVE ROSTER') }}</span>
+<div class="flex items-center justify-between pb-1 border-b border-outline-variant/40 dark:border-slate-800">
+<h2 class="font-label-lg text-label-lg font-bold text-primary dark:text-slate-100 uppercase tracking-tight">{{ t('District Telemetry') }}</h2>
+<span class="font-label-tabular text-caption text-secondary dark:text-amber-400 font-bold">{{ t('LIVE ROSTER') }}</span>
 </div>
 <!-- Metrics Summary Cards (12px rounded, high-contrast) -->
 <div class="grid grid-cols-2 gap-2">
 <!-- Total Homes -->
-<div class="col-span-2 bg-surface-container-low border border-outline-variant/50 p-2.5 rounded-xl flex items-center justify-between shadow-xs">
+<div class="col-span-2 bg-surface-container-low dark:bg-slate-800 border border-outline-variant/50 dark:border-slate-700 p-2.5 rounded-xl flex items-center justify-between shadow-xs">
 <div>
-<span class="font-caption text-caption text-on-surface-variant uppercase tracking-wider">{{ t('Total Homes Surveyed') }}</span>
-<p id="metric-total-homes" class="font-headline-md text-headline-md font-bold text-primary font-label-tabular">0</p>
+<span class="font-caption text-caption text-on-surface-variant dark:text-slate-400 uppercase tracking-wider">{{ t('Total Homes Surveyed') }}</span>
+<p id="metric-total-homes" class="font-headline-md text-headline-md font-bold text-primary dark:text-slate-100 font-label-tabular">0</p>
 </div>
-<div class="w-10 h-10 rounded-lg bg-surface-container-high flex items-center justify-center text-primary">
+<div class="w-10 h-10 rounded-lg bg-surface-container-high dark:bg-slate-700 flex items-center justify-center text-primary dark:text-slate-200">
 <span class="material-symbols-outlined" data-icon="location_city">location_city</span>
 </div>
 </div>
 <!-- Needs Help (Red) -->
-<div class="bg-[#FEF2F2] border border-[#FECACA] p-2.5 rounded-xl flex flex-col justify-between">
+<div class="bg-[#FEF2F2] dark:bg-red-950/40 border border-[#FECACA] dark:border-red-800/60 p-2.5 rounded-xl flex flex-col justify-between">
 <div class="flex items-center justify-between">
-<span class="font-caption text-caption text-[#991B1B] font-semibold">Needs help</span>
+<span class="font-caption text-caption text-[#991B1B] dark:text-red-300 font-semibold">Needs help</span>
 <span class="w-2 h-2 rounded-full bg-[#DC2626]"></span>
 </div>
-<p id="metric-needs-help" class="font-headline-md text-headline-md font-bold text-[#DC2626] font-label-tabular mt-1">0</p>
-<span id="metric-needs-help-sub" class="font-caption text-[10px] text-[#991B1B]">0 ${(typeof i18n !== 'undefined' && i18n['Critical alerts']) || 'Critical alerts'}</span>
+<p id="metric-needs-help" class="font-headline-md text-headline-md font-bold text-[#DC2626] dark:text-red-400 font-label-tabular mt-1">0</p>
+<span id="metric-needs-help-sub" class="font-caption text-[10px] text-[#991B1B] dark:text-red-300">0 ${(typeof i18n !== 'undefined' && i18n['Critical alerts']) || 'Critical alerts'}</span>
 </div>
 <!-- Can Help (Orange) -->
-<div class="bg-[#FFF7ED] border border-[#FFEDD5] p-2.5 rounded-xl flex flex-col justify-between">
+<div class="bg-[#FFF7ED] dark:bg-amber-950/40 border border-[#FFEDD5] dark:border-amber-800/60 p-2.5 rounded-xl flex flex-col justify-between">
 <div class="flex items-center justify-between">
-<span class="font-caption text-caption text-[#9A3412] font-semibold">Can help</span>
+<span class="font-caption text-caption text-[#9A3412] dark:text-amber-300 font-semibold">Can help</span>
 <span class="w-2 h-2 rounded-full bg-[#EA580C]"></span>
 </div>
-<p id="metric-can-help" class="font-headline-md text-headline-md font-bold text-[#EA580C] font-label-tabular mt-1">0</p>
-<span id="metric-can-help-sub" class="font-caption text-[10px] text-[#9A3412]">Available assets</span>
+<p id="metric-can-help" class="font-headline-md text-headline-md font-bold text-[#EA580C] dark:text-amber-400 font-label-tabular mt-1">0</p>
+<span id="metric-can-help-sub" class="font-caption text-[10px] text-[#9A3412] dark:text-amber-300">Available assets</span>
 </div>
 <!-- Evacuated (Green) -->
-<div class="bg-[#F0FDF4] border border-[#BBF7D0] p-2.5 rounded-xl flex flex-col justify-between">
+<div class="bg-[#F0FDF4] dark:bg-emerald-950/40 border border-[#BBF7D0] dark:border-emerald-800/60 p-2.5 rounded-xl flex flex-col justify-between">
 <div class="flex items-center justify-between">
-<span class="font-caption text-caption text-[#166534] font-semibold">Evacuated</span>
+<span class="font-caption text-caption text-[#166534] dark:text-emerald-300 font-semibold">Evacuated</span>
 <span class="w-2 h-2 rounded-full bg-[#16A34A]"></span>
 </div>
-<p id="metric-evacuated" class="font-headline-md text-headline-md font-bold text-[#16A34A] font-label-tabular mt-1">0</p>
-<span id="metric-evacuated-sub" class="font-caption text-[10px] text-[#166534]">Verified at shelter</span>
+<p id="metric-evacuated" class="font-headline-md text-headline-md font-bold text-[#16A34A] dark:text-emerald-400 font-label-tabular mt-1">0</p>
+<span id="metric-evacuated-sub" class="font-caption text-[10px] text-[#166534] dark:text-emerald-300">Verified at shelter</span>
 </div>
 <!-- Not Reached (Grey) -->
-<div class="bg-[#F3F4F6] border border-[#E5E7EB] p-2.5 rounded-xl flex flex-col justify-between">
+<div class="bg-[#F3F4F6] dark:bg-slate-800/80 border border-[#E5E7EB] dark:border-slate-700 p-2.5 rounded-xl flex flex-col justify-between">
 <div class="flex items-center justify-between">
-<span class="font-caption text-caption text-[#374151] font-semibold">Not reached</span>
+<span class="font-caption text-caption text-[#374151] dark:text-slate-300 font-semibold">Not reached</span>
 <span class="w-2 h-2 rounded-full bg-[#9CA3AF]"></span>
 </div>
-<p id="metric-not-reached" class="font-headline-md text-headline-md font-bold text-[#374151] font-label-tabular mt-1">0</p>
-<span id="metric-not-reached-sub" class="font-caption text-[10px] text-[#6B7280]">Queue priority</span>
+<p id="metric-not-reached" class="font-headline-md text-headline-md font-bold text-[#374151] dark:text-slate-200 font-label-tabular mt-1">0</p>
+<span id="metric-not-reached-sub" class="font-caption text-[10px] text-[#6B7280] dark:text-slate-400">Queue priority</span>
 </div>
 </div>
 <!-- Contacted Progress Bar Card -->
-<div class="bg-white border border-outline-variant/50 p-space-sm rounded-xl shadow-xs">
+<div class="bg-white dark:bg-slate-800 border border-outline-variant/50 dark:border-slate-700 p-space-sm rounded-xl shadow-xs">
 <div class="flex items-center justify-between">
-<span class="font-label-md text-label-md font-semibold text-primary">Contact Progress</span>
-<span id="progress-pct" class="font-label-tabular text-label-tabular font-bold text-primary">0%</span>
+<span class="font-label-md text-label-md font-semibold text-primary dark:text-slate-100">Contact Progress</span>
+<span id="progress-pct" class="font-label-tabular text-label-tabular font-bold text-primary dark:text-slate-100">0%</span>
 </div>
-<p id="progress-counts" class="font-caption text-caption text-on-surface-variant mt-0.5">Contacted: 0 / 0 households</p>
+<p id="progress-counts" class="font-caption text-caption text-on-surface-variant dark:text-slate-400 mt-0.5">Contacted: 0 / 0 households</p>
 <!-- Segmented Multi-Color Progress Track -->
-<div class="w-full h-3 rounded-full bg-gray-200 mt-2.5 overflow-hidden flex">
+<div class="w-full h-3 rounded-full bg-gray-200 dark:bg-slate-700 mt-2.5 overflow-hidden flex">
 <!-- Evacuated: Green -->
 <div id="bar-evacuated" class="bg-[#16A34A] transition-all duration-300" style="width: 0%" title="Evacuated"></div>
 <!-- Needs Help: Red -->
@@ -385,9 +454,9 @@
 <!-- Can Help: Orange -->
 <div id="bar-can-help" class="bg-[#EA580C] transition-all duration-300" style="width: 0%" title="Can help"></div>
 <!-- Not Reached: Grey -->
-<div id="bar-not-reached" class="bg-gray-300 transition-all duration-300" style="width: 100%" title="Not reached"></div>
+<div id="bar-not-reached" class="bg-gray-300 dark:bg-slate-600 transition-all duration-300" style="width: 100%" title="Not reached"></div>
 </div>
-<div class="mt-2 flex items-center justify-between text-[10px] font-label-tabular text-on-surface-variant">
+<div class="mt-2 flex items-center justify-between text-[10px] font-label-tabular text-on-surface-variant dark:text-slate-400">
 <span id="target-roster-label">Target Roster</span>
 <span id="pending-calls-label" class="text-error font-medium">0 Pending calls</span>
 </div>
@@ -495,25 +564,25 @@
         case 'needs_help':
         case 'request_recorded':
           return {
-            bg: 'bg-[#FEF2F2]',
-            border: 'border-[#FECACA]',
-            text: 'text-[#991B1B]',
+            bg: 'bg-[#FEF2F2] dark:bg-red-950/40',
+            border: 'border-[#FECACA] dark:border-red-800/60',
+            text: 'text-[#991B1B] dark:text-red-300',
             dot: 'bg-[#DC2626]',
-            leftBorder: 'border-error'
+            leftBorder: 'border-error dark:border-red-500'
           };
         case 'can_help':
           return {
-            bg: 'bg-[#FFF7ED]',
-            border: 'border-[#FFEDD5]',
-            text: 'text-[#9A3412]',
+            bg: 'bg-[#FFF7ED] dark:bg-amber-950/40',
+            border: 'border-[#FFEDD5] dark:border-amber-800/60',
+            text: 'text-[#9A3412] dark:text-amber-300',
             dot: 'bg-[#EA580C]',
             leftBorder: 'border-[#EA580C]'
           };
         case 'evacuated':
           return {
-            bg: 'bg-[#F0FDF4]',
-            border: 'border-[#BBF7D0]',
-            text: 'text-[#166534]',
+            bg: 'bg-[#F0FDF4] dark:bg-emerald-950/40',
+            border: 'border-[#BBF7D0] dark:border-emerald-800/60',
+            text: 'text-[#166534] dark:text-emerald-300',
             dot: 'bg-[#16A34A]',
             leftBorder: 'border-[#16A34A]'
           };
@@ -521,18 +590,18 @@
         case 'on_run':
         case 'picked_up':
           return {
-            bg: 'bg-[#EFF6FF]',
-            border: 'border-[#BFDBFE]',
-            text: 'text-[#1E40AF]',
+            bg: 'bg-[#EFF6FF] dark:bg-blue-950/40',
+            border: 'border-[#BFDBFE] dark:border-blue-800/60',
+            text: 'text-[#1E40AF] dark:text-blue-300',
             dot: 'bg-[#2563EB]',
             leftBorder: 'border-[#2563EB]'
           };
         case 'not_reached':
         default:
           return {
-            bg: 'bg-[#F3F4F6]',
-            border: 'border-[#E5E7EB]',
-            text: 'text-[#374151]',
+            bg: 'bg-[#F3F4F6] dark:bg-slate-800/80',
+            border: 'border-[#E5E7EB] dark:border-slate-700',
+            text: 'text-[#374151] dark:text-slate-300',
             dot: 'bg-[#9CA3AF]',
             leftBorder: 'border-[#9CA3AF]'
           };
@@ -600,13 +669,23 @@
         return matchesTab && matchesSearch;
       });
 
+      // Sort queue using the active sort mode (ordering aid only - no auto assignment)
+      if (currentSort === 'priority') {
+        filtered.sort((a, b) => (b.priority_score || 0) - (a.priority_score || 0));
+      } else if (currentSort === 'unanswered') {
+        const getUnanswered = (h) => (h.priority_breakdown && h.priority_breakdown.unanswered) || (h.retry_count || 0) * 15;
+        filtered.sort((a, b) => getUnanswered(b) - getUnanswered(a));
+      } else if (currentSort === 'name') {
+        filtered.sort((a, b) => (a.first_name || '').localeCompare(b.first_name || ''));
+      }
+
       // Empty State
       if (filtered.length === 0) {
         container.innerHTML = `
-          <div class="p-8 text-center text-on-surface-variant flex flex-col items-center justify-center">
+          <div class="p-8 text-center text-on-surface-variant dark:text-slate-400 flex flex-col items-center justify-center">
             <span class="material-symbols-outlined text-4xl text-outline mb-2">person_search</span>
-            <p class="font-label-md font-semibold text-primary">${(typeof i18n !== 'undefined' && i18n['No households found']) || 'No households found'}</p>
-            <p class="font-caption text-caption text-on-surface-variant mt-1">No households match the current filter or search criteria.</p>
+            <p class="font-label-md font-semibold text-primary dark:text-slate-100">${(typeof i18n !== 'undefined' && i18n['No households found']) || 'No households found'}</p>
+            <p class="font-caption text-caption text-on-surface-variant dark:text-slate-400 mt-1">No households match the current filter or search criteria.</p>
           </div>
         `;
         return;
@@ -625,32 +704,48 @@
         // Additional deterministic sentence or context
         let subDetails = '';
         if (h.status === 'needs_help' || h.status === 'request_recorded') {
-          subDetails = `<div class="mt-1.5 flex items-center justify-between pt-1 border-t border-dashed border-outline-variant/40 font-caption text-on-surface-variant">
-            <span class="text-error font-medium truncate">${label}</span>
+          subDetails = `<div class="mt-1.5 flex items-center justify-between pt-1 border-t border-dashed border-outline-variant/40 dark:border-slate-800 font-caption text-on-surface-variant dark:text-slate-400">
+            <span class="text-error dark:text-red-400 font-medium truncate">${label}</span>
           </div>`;
         } else if (h.status === 'can_help') {
-          subDetails = `<div class="mt-1 text-caption text-[#9A3412] font-medium bg-[#FFF7ED] px-2 py-0.5 rounded inline-block">
+          subDetails = `<div class="mt-1 text-caption text-[#9A3412] dark:text-amber-300 font-medium bg-[#FFF7ED] dark:bg-amber-950/40 px-2 py-0.5 rounded inline-block">
             ${(typeof i18n !== 'undefined' && i18n['Volunteer Resource Registered']) || 'Volunteer Resource Registered'}
           </div>`;
         } else if (h.status === 'driver_accepted' || h.status === 'on_run') {
-          subDetails = `<div class="mt-1 flex items-center justify-between text-caption text-on-surface-variant">
-            <span class="text-primary font-semibold">${(typeof i18n !== 'undefined' && i18n['Rescue Unit Active']) || 'Rescue Unit Active'}</span>
-            <span class="font-label-tabular text-label-tabular text-secondary font-bold">${(typeof i18n !== 'undefined' && i18n['In Transit']) || 'In Transit'}</span>
+          subDetails = `<div class="mt-1 flex items-center justify-between text-caption text-on-surface-variant dark:text-slate-400">
+            <span class="text-primary dark:text-slate-200 font-semibold">${(typeof i18n !== 'undefined' && i18n['Rescue Unit Active']) || 'Rescue Unit Active'}</span>
+            <span class="font-label-tabular text-label-tabular text-secondary dark:text-amber-400 font-bold">${(typeof i18n !== 'undefined' && i18n['In Transit']) || 'In Transit'}</span>
           </div>`;
         }
 
+        const pScore = typeof h.priority_score === 'number' ? h.priority_score : 0;
+        let breakdownTooltip = 'base: 0';
+        if (h.priority_breakdown && typeof h.priority_breakdown === 'object') {
+          const parts = Object.entries(h.priority_breakdown)
+            .filter(([k, v]) => v > 0)
+            .map(([k, v]) => `${k}: +${v}`);
+          if (parts.length > 0) breakdownTooltip = parts.join(', ');
+        }
+
         htmlCards += `
-          <div class="household-card p-space-sm hover:bg-surface-container-low transition-colors cursor-pointer border-l-4 ${chip.leftBorder}" data-id="${h.id}" data-lat="${h.lat}" data-lng="${h.lng}">
+          <div class="household-card p-space-sm hover:bg-surface-container-low dark:hover:bg-slate-800/70 transition-colors cursor-pointer border-l-4 ${chip.leftBorder}" data-id="${h.id}" data-lat="${h.lat}" data-lng="${h.lng}">
             <div class="flex items-center justify-between gap-1">
-              <span class="font-label-md text-label-md text-on-surface font-semibold">${firstName}</span>
-              <span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full ${chip.bg} border ${chip.border} ${chip.text} font-label-md text-label-md">
+              <div class="flex items-center gap-1.5 min-w-0">
+                <span class="font-label-md text-label-md text-on-surface dark:text-slate-100 font-semibold truncate">${firstName}</span>
+                <span class="inline-flex items-center gap-0.5 px-1.5 py-0.2 rounded text-[10px] font-bold font-label-tabular bg-amber-500/15 text-amber-800 dark:text-amber-300 border border-amber-400/30 cursor-help shrink-0" title="Score: ${pScore} (${breakdownTooltip}) — ordering aid">
+                  <span class="material-symbols-outlined text-[10px]">sort</span>
+                  ${pScore}
+                  <span class="text-[8px] font-normal opacity-70 ml-0.5">(ordering aid)</span>
+                </span>
+              </div>
+              <span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full ${chip.bg} border ${chip.border} ${chip.text} font-label-md text-label-md shrink-0">
                 <span class="w-1.5 h-1.5 rounded-full ${chip.dot}"></span>
                 ${label}
               </span>
             </div>
-            <div class="mt-1 flex items-center justify-between text-body-sm text-on-surface-variant">
+            <div class="mt-1 flex items-center justify-between text-body-sm text-on-surface-variant dark:text-slate-400">
               <span class="truncate">${landmark}</span>
-              <span class="font-label-tabular text-caption shrink-0 ml-1">${members} ${(members > 1 ? ((typeof i18n !== 'undefined' && i18n['Members']) || 'Members') : ((typeof i18n !== 'undefined' && i18n['Member']) || 'Member'))}</span>
+              <span class="font-label-tabular text-caption shrink-0 ml-1 text-on-surface-variant dark:text-slate-400">${members} ${(members > 1 ? ((typeof i18n !== 'undefined' && i18n['Members']) || 'Members') : ((typeof i18n !== 'undefined' && i18n['Member']) || 'Member'))}</span>
             </div>
             ${subDetails}
           </div>
@@ -903,7 +998,23 @@
     }
 
     // 9. Wire filter tabs and search inputs
+    let currentSort = 'priority';
+
+    function setupSortControls() {
+      document.querySelectorAll('.sort-tab-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          document.querySelectorAll('.sort-tab-btn').forEach(b => {
+            b.className = 'sort-tab-btn px-2 py-0.5 rounded text-[10px] bg-surface-container hover:bg-surface-container-high text-on-surface-variant transition-colors';
+          });
+          btn.className = 'sort-tab-btn px-2 py-0.5 rounded text-[10px] font-semibold bg-primary text-on-primary transition-colors';
+          currentSort = btn.getAttribute('data-sort') || 'priority';
+          renderHouseholdList();
+        });
+      });
+    }
+
     function setupInteractions() {
+      setupSortControls();
       // Filter tabs
       document.querySelectorAll('.filter-tab-btn').forEach(btn => {
         btn.addEventListener('click', () => {
@@ -1004,4 +1115,125 @@ function exportDashboardAudit() {
 }
 </script>
 
-</body></html>
+
+<!-- ==================== SUGGEST PLAN MODAL (ALNS OPTIMIZER) ==================== -->
+<div id="suggestPlanModal" class="fixed inset-0 z-50 bg-slate-950/70 backdrop-blur-sm hidden flex items-center justify-center p-4">
+  <div class="w-full max-w-3xl bg-surface-container-lowest dark:bg-slate-900 rounded-xl border border-outline dark:border-slate-700 shadow-2xl flex flex-col max-h-[85vh] overflow-hidden">
+    <div class="px-5 py-4 bg-primary-container text-on-primary flex items-center justify-between border-b border-outline/30 shrink-0">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-lg bg-surface-container-highest/20 border border-secondary-container/40 flex items-center justify-center text-secondary-container">
+          <span class="material-symbols-outlined text-2xl" data-icon="auto_fix_high">auto_fix_high</span>
+        </div>
+        <div>
+          <h3 class="font-headline-sm text-lg font-bold text-on-primary tracking-tight">Suggested Fleet Allocation Plan</h3>
+          <p class="font-body-sm text-xs text-on-primary-container mt-0.5">
+            Advisory ALNS Optimizer • Human approval mandatory for every vehicle offer
+          </p>
+        </div>
+      </div>
+      <button onclick="document.getElementById('suggestPlanModal').classList.add('hidden')" class="w-8 h-8 flex items-center justify-center rounded-lg text-on-primary-container hover:text-on-primary hover:bg-primary/50 transition-colors">
+        <span class="material-symbols-outlined text-lg" data-icon="close">close</span>
+      </button>
+    </div>
+
+    <div class="p-4 bg-amber-500/10 border-b border-amber-500/20 px-5 py-2.5 flex items-center justify-between text-xs text-amber-900 dark:text-amber-200">
+      <div class="flex items-center gap-2">
+        <span class="material-symbols-outlined text-base text-amber-600">shield</span>
+        <span><strong>Advisory Only:</strong> Nothing is offered or assigned automatically. Dispatcher must click 'Review & Assign vehicle' to inspect each modal.</span>
+      </div>
+      <span id="plan-cost-summary" class="font-label-tabular font-semibold text-xs"></span>
+    </div>
+
+    <div id="suggest-plan-body" class="flex-1 overflow-y-auto p-4 space-y-3 bg-background dark:bg-slate-950">
+      <div class="text-center py-8 text-on-surface-variant dark:text-slate-400 text-sm">
+        <span class="material-symbols-outlined text-3xl animate-spin mb-2 text-primary dark:text-blue-400">refresh</span>
+        <p>Computing optimal vehicle allocation...</p>
+      </div>
+    </div>
+
+    <div class="px-5 py-3 bg-surface-container-lowest dark:bg-slate-900 border-t border-outline-variant dark:border-slate-700 flex items-center justify-between text-xs text-on-surface-variant dark:text-slate-400">
+      <span class="italic text-[11px]">* Cost guarantee: ALNS cost &le; Greedy baseline. Zero ETAs before driver acceptance.</span>
+      <button onclick="document.getElementById('suggestPlanModal').classList.add('hidden')" class="px-3.5 py-1.5 rounded border border-outline-variant dark:border-slate-700 hover:bg-surface-container dark:hover:bg-slate-800 font-label-md text-xs text-on-surface dark:text-slate-200">
+        Close
+      </button>
+    </div>
+  </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const planBtn = document.getElementById('btn-suggest-plan');
+  if (planBtn) {
+    planBtn.onclick = async () => {
+      const modal = document.getElementById('suggestPlanModal');
+      const body = document.getElementById('suggest-plan-body');
+      const costSummary = document.getElementById('plan-cost-summary');
+      modal.classList.remove('hidden');
+      body.innerHTML = `
+        <div class="text-center py-8 text-on-surface-variant dark:text-slate-400 text-sm">
+          <span class="material-symbols-outlined text-3xl animate-spin mb-2 text-primary dark:text-blue-400">sync</span>
+          <p class="font-medium text-primary dark:text-slate-200">Running ALNS optimizer across active queue...</p>
+        </div>`;
+
+      try {
+        const res = await fetch('/api/optimizer/suggest-plan', { method: 'POST' });
+        const data = await res.json();
+        const assignments = data.assignments || [];
+        const unassigned = data.unassigned_households || [];
+
+        costSummary.textContent = `Cost: ${data.optimizer_cost} (Greedy baseline: ${data.greedy_cost})`;
+
+        if (assignments.length === 0 && unassigned.length === 0) {
+          body.innerHTML = '<div class="p-6 text-center text-on-surface-variant dark:text-slate-400 text-sm">No pending rescue requests in queue.</div>';
+          return;
+        }
+
+        let html = '';
+        if (assignments.length > 0) {
+          html += '<h4 class="font-label-md text-xs font-bold uppercase tracking-wider text-on-surface-variant dark:text-slate-300 mb-2">Suggested Assignments (' + assignments.length + ')</h4>';
+          assignments.forEach(a => {
+            html += `
+              <div class="p-3 bg-surface-container-lowest dark:bg-slate-900 rounded-lg border border-outline-variant dark:border-slate-700 flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-xs">
+                <div class="space-y-1">
+                  <div class="flex items-center gap-2 flex-wrap">
+                    <span class="font-label-lg font-bold text-primary dark:text-slate-100">${a.household_name}</span>
+                    <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-amber-500/15 text-amber-800 dark:text-amber-300 border border-amber-400/30">
+                      Score: ${a.priority_score} (ordering aid)
+                    </span>
+                    <span class="font-label-tabular text-xs text-secondary dark:text-amber-400 font-semibold">
+                      ${a.distance_km} km
+                    </span>
+                  </div>
+                  <div class="text-xs text-on-surface-variant dark:text-slate-300">
+                    Suggested Asset: <strong class="text-primary dark:text-slate-100">${a.vehicle_designation}</strong> (${a.vehicle_type}, Driver: ${a.vehicle_driver || 'Assigned'}) • ${a.people_count} souls
+                  </div>
+                </div>
+                <a href="/call/${a.household_id}?suggested_veh=${a.vehicle_id}" class="px-3.5 py-1.5 rounded-lg bg-primary hover:bg-primary-container text-on-primary font-label-md text-xs font-semibold shrink-0 shadow-xs flex items-center gap-1.5 self-start sm:self-center">
+                  <span class="material-symbols-outlined text-sm">open_in_new</span>
+                  <span>Review & Assign vehicle</span>
+                </a>
+              </div>`;
+          });
+        }
+
+        if (unassigned.length > 0) {
+          html += '<h4 class="font-label-md text-xs font-bold uppercase tracking-wider text-error dark:text-red-400 mt-4 mb-2">Unassigned Needs Help (' + unassigned.length + ' - Capacity Exceeded)</h4>';
+          unassigned.forEach(u => {
+            html += `
+              <div class="p-2.5 bg-red-50 dark:bg-red-950/30 rounded border border-red-200 dark:border-red-800 text-xs flex items-center justify-between text-on-surface dark:text-slate-200">
+                <span><strong>${u.first_name}</strong> (${u.landmark || 'Bantwal'}) - ${u.members} souls</span>
+                <span class="font-label-tabular text-error dark:text-red-400 font-semibold">Score: ${u.priority_score || '--'}</span>
+              </div>`;
+          });
+        }
+
+        body.innerHTML = html;
+      } catch (err) {
+        body.innerHTML = '<div class="p-6 text-center text-error dark:text-red-400 text-sm">Failed to generate optimization plan. Please retry.</div>';
+      }
+    };
+  }
+});
+</script>
+</body>
+</html>

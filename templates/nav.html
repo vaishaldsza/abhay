@@ -34,9 +34,19 @@
   }
   html.dark .bg-surface-container-lowest,
   html.dark .bg-surface-bright,
-  html.dark .bg-white {
+  html.dark .bg-white,
+  html.dark .bg-\[\#FFFFFF\],
+  html.dark .bg-\[\#FBFDFF\] {
     background-color: #0b1526 !important;
     color: #f8fafc !important;
+  }
+  html.dark .bg-\[\#F8FAFC\] {
+    background-color: #0f1c32 !important;
+    color: #cbd5e1 !important;
+  }
+  html.dark .hover\:bg-\[\#F1F5F9\]:hover,
+  html.dark tr.hover\:bg-\[\#F1F5F9\]:hover {
+    background-color: #14243e !important;
   }
   html.dark .bg-surface-container-low {
     background-color: #0f1c32 !important;
@@ -56,15 +66,17 @@
     background-color: #0f284a !important;
     color: #f8fafc !important;
   }
-  html.dark .bg-surface-container-lowest/95,
-  html.dark .bg-surface-container-lowest/90,
-  html.dark .bg-surface-container-low/60,
-  html.dark .bg-surface-container-low/50,
-  html.dark .bg-surface-container-low/40,
-  html.dark .bg-surface-container-low/20,
-  html.dark .bg-surface-container/50,
-  html.dark .bg-surface-container-high/60,
-  html.dark .bg-surface-container-high/20 {
+  html.dark .bg-surface-container-lowest\/95,
+  html.dark .bg-surface-container-lowest\/90,
+  html.dark .bg-surface-container-low\/70,
+  html.dark .bg-surface-container-low\/60,
+  html.dark .bg-surface-container-low\/50,
+  html.dark .bg-surface-container-low\/40,
+  html.dark .bg-surface-container-low\/20,
+  html.dark .bg-surface-container\/50,
+  html.dark .bg-surface-container-high\/60,
+  html.dark .bg-surface-container-high\/20,
+  html.dark .bg-white\/70 {
     background-color: rgba(15, 28, 50, 0.85) !important;
     color: #f8fafc !important;
   }
@@ -76,10 +88,10 @@
     border-color: rgba(254, 166, 25, 0.35) !important;
   }
   html.dark .bg-secondary-fixed,
-  html.dark .bg-secondary-fixed/30,
-  html.dark .bg-secondary-fixed/40,
+  html.dark .bg-secondary-fixed\/30,
+  html.dark .bg-secondary-fixed\/40,
   html.dark .bg-primary-fixed,
-  html.dark .bg-primary-fixed-dim/20,
+  html.dark .bg-primary-fixed-dim\/20,
   html.dark .bg-tertiary-fixed,
   html.dark .bg-slate-100,
   html.dark .bg-slate-200,
@@ -95,7 +107,7 @@
     border-color: rgba(220, 38, 38, 0.4) !important;
   }
   html.dark .bg-tertiary-container,
-  html.dark .bg-tertiary-container/80 {
+  html.dark .bg-tertiary-container\/80 {
     background-color: rgba(30, 58, 138, 0.4) !important;
     color: #93c5fd !important;
   }
@@ -125,6 +137,65 @@
     border-color: rgba(107, 114, 128, 0.4) !important;
   }
 
+  /* Emerald / Green Badges in Dark Mode */
+  html.dark .bg-emerald-50,
+  html.dark .bg-emerald-100 {
+    background-color: rgba(6, 78, 59, 0.35) !important;
+    color: #86efac !important;
+    border-color: rgba(16, 185, 129, 0.4) !important;
+  }
+  html.dark .border-emerald-200,
+  html.dark .border-emerald-300 {
+    border-color: rgba(16, 185, 129, 0.4) !important;
+  }
+
+  /* Red / Life-Threat Badges in Dark Mode */
+  html.dark .bg-red-50,
+  html.dark .bg-red-50\/70,
+  html.dark .bg-red-50\/30,
+  html.dark .bg-red-50\/20,
+  html.dark .bg-red-100,
+  html.dark .bg-error-container,
+  html.dark .bg-error-container\/30,
+  html.dark .bg-error-container\/70 {
+    background-color: rgba(153, 27, 27, 0.25) !important;
+    color: #fca5a5 !important;
+    border-color: rgba(220, 38, 38, 0.4) !important;
+  }
+  html.dark .border-red-200,
+  html.dark .border-red-300,
+  html.dark .border-error-container {
+    border-color: rgba(220, 38, 38, 0.4) !important;
+  }
+
+  /* Amber / Orange Badges in Dark Mode */
+  html.dark .bg-amber-50,
+  html.dark .bg-amber-50\/20,
+  html.dark .bg-amber-100,
+  html.dark .bg-orange-50,
+  html.dark .bg-orange-100 {
+    background-color: rgba(154, 52, 18, 0.25) !important;
+    color: #fed7aa !important;
+    border-color: rgba(234, 88, 12, 0.4) !important;
+  }
+  html.dark .border-amber-200,
+  html.dark .border-amber-300,
+  html.dark .border-orange-200 {
+    border-color: rgba(234, 88, 12, 0.4) !important;
+  }
+
+  /* Blue / Indigo Badges in Dark Mode */
+  html.dark .bg-blue-50,
+  html.dark .bg-indigo-50 {
+    background-color: rgba(30, 58, 138, 0.3) !important;
+    color: #93c5fd !important;
+    border-color: rgba(59, 130, 246, 0.4) !important;
+  }
+  html.dark .border-blue-200,
+  html.dark .border-indigo-200 {
+    border-color: rgba(99, 102, 241, 0.4) !important;
+  }
+
   /* Status and Category Texts in Dark Mode */
   html.dark .text-secondary,
   html.dark .text-on-secondary-container,
@@ -139,10 +210,14 @@
   html.dark .text-on-primary-fixed-variant {
     color: #93c5fd !important;
   }
+  html.dark .text-error,
   html.dark .text-\[\#991B1B\],
   html.dark .text-red-800,
   html.dark .text-red-900 {
-    color: #fca5a5 !important;
+    color: #f87171 !important;
+  }
+  html.dark .bg-error {
+    background-color: #ef4444 !important;
   }
   html.dark .text-\[\#9A3412\],
   html.dark .text-amber-800,
@@ -150,9 +225,17 @@
     color: #fed7aa !important;
   }
   html.dark .text-\[\#166534\],
+  html.dark .text-emerald-700,
   html.dark .text-emerald-800,
   html.dark .text-emerald-900 {
     color: #86efac !important;
+  }
+  html.dark .text-indigo-700,
+  html.dark .text-indigo-800 {
+    color: #a5b4fc !important;
+  }
+  html.dark .text-blue-800 {
+    color: #93c5fd !important;
   }
   html.dark .text-\[\#1E40AF\] {
     color: #93c5fd !important;
@@ -177,7 +260,8 @@
   html.dark .text-outline-variant {
     color: #64748b !important;
   }
-  html.dark .text-on-primary-container {
+  html.dark .text-on-primary-container,
+  html.dark .text-primary-container {
     color: #93c5fd !important;
   }
   html.dark .text-slate-900,
@@ -188,16 +272,22 @@
   /* Borders in Dark Mode */
   html.dark .border-outline,
   html.dark .border-outline-variant,
-  html.dark .border-outline-variant/60,
-  html.dark .border-outline-variant/50,
-  html.dark .border-outline-variant/40,
-  html.dark .border-outline-variant/30,
-  html.dark .border-outline-variant/20,
+  html.dark .border-outline-variant\/60,
+  html.dark .border-outline-variant\/50,
+  html.dark .border-outline-variant\/40,
+  html.dark .border-outline-variant\/30,
+  html.dark .border-outline-variant\/20,
   html.dark .border-surface-container,
   html.dark .border-surface-dim,
   html.dark .border-surface-container-high,
+  html.dark .border-\[\#CBD5E1\],
+  html.dark .border-\[\#E2E8F0\],
+  html.dark .border-\[\#E5E7EB\],
   html.dark .border-slate-800,
   html.dark .border-slate-700 {
+    border-color: #334155 !important;
+  }
+  html.dark .divide-\[\#E2E8F0\] > * + * {
     border-color: #1e293b !important;
   }
 
@@ -334,11 +424,11 @@
   }
   html.light .border-outline,
   html.light .border-outline-variant,
-  html.light .border-outline-variant/60,
-  html.light .border-outline-variant/50,
-  html.light .border-outline-variant/40,
-  html.light .border-outline-variant/30,
-  html.light .border-outline-variant/20,
+  html.light .border-outline-variant\/60,
+  html.light .border-outline-variant\/50,
+  html.light .border-outline-variant\/40,
+  html.light .border-outline-variant\/30,
+  html.light .border-outline-variant\/20,
   html.light .border-surface-container,
   html.light .border-surface-dim,
   html.light .border-surface-container-high,

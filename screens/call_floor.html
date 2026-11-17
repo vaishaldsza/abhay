@@ -5,6 +5,19 @@
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>Call Floor View - ABHAY DDMA COMMAND</title>
+<!-- Early Theme Initialization to Prevent Flash of Dark/Light Theme -->
+<script>
+  (function() {
+    const savedTheme = localStorage.getItem('abhay_theme') || 'dark';
+    if (savedTheme === 'light') {
+      document.documentElement.classList.remove('dark');
+      document.documentElement.classList.add('light');
+    } else {
+      document.documentElement.classList.add('dark');
+      document.documentElement.classList.remove('light');
+    }
+  })();
+</script>
 <!-- Fonts -->
 <link href="https://fonts.googleapis.com" rel="preconnect"/>
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
@@ -151,6 +164,58 @@
     ::-webkit-scrollbar-thumb:hover {
       background: #94a3b8;
     }
+
+    html.dark body { background-color: #060c18 !important; color: #f8fafc !important; }
+    html.light body { background-color: #faf8ff !important; color: #001026 !important; }
+
+    html.dark .cf-panel {
+      background-color: #0f1c32 !important;
+      border-color: #334155 !important;
+    }
+    html.dark .cf-box {
+      background-color: #14243e !important;
+      border-color: #334155 !important;
+    }
+    html.dark table thead th {
+      background-color: #0f1c32 !important;
+      border-color: #334155 !important;
+      color: #cbd5e1 !important;
+    }
+    html.dark table tbody tr {
+      background-color: #0b1526 !important;
+      border-color: #1e293b !important;
+      color: #f8fafc !important;
+    }
+    html.dark table tbody tr.bg-surface-container-lowest\/50,
+    html.dark table tbody tr:nth-child(even) {
+      background-color: #0d1a2d !important;
+    }
+    html.dark table tbody tr:hover {
+      background-color: #14243e !important;
+    }
+    html.dark .cf-footer {
+      background-color: #0f1c32 !important;
+      border-color: #334155 !important;
+      color: #cbd5e1 !important;
+    }
+    html.dark .cf-btn-page {
+      background-color: #14243e !important;
+      border-color: #334155 !important;
+      color: #f8fafc !important;
+    }
+    html.dark .cf-btn-page:hover {
+      background-color: #1e293b !important;
+    }
+    html.dark select,
+    html.dark input[type="text"] {
+      background-color: #0b1526 !important;
+      border-color: #334155 !important;
+      color: #f8fafc !important;
+    }
+    html.dark option {
+      background-color: #0b1526 !important;
+      color: #f8fafc !important;
+    }
   </style>
 </head>
 <body class="bg-background text-on-surface antialiased min-h-screen flex flex-col font-body-md text-body-md select-none">
@@ -173,132 +238,132 @@
         </p>
 </div>
 <!-- Operational System Status -->
-<div class="flex items-center gap-3 bg-surface-container-lowest p-2 rounded-lg border border-outline-variant shadow-sm self-start md:self-auto">
-<div class="flex items-center gap-2 font-label-tabular text-caption px-2 py-1 bg-surface-container-low rounded border border-outline-variant/50">
+<div class="flex items-center gap-3 bg-surface-container-lowest dark:bg-slate-900 p-2 rounded-lg border border-outline-variant dark:border-slate-700 shadow-sm self-start md:self-auto">
+<div class="flex items-center gap-2 font-label-tabular text-caption px-2 py-1 bg-surface-container-low dark:bg-slate-800 rounded border border-outline-variant/50 dark:border-slate-700">
 <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
-<span class="text-on-surface font-semibold">PRI TRUNK: 99.8% UPTIME</span>
+<span class="text-on-surface dark:text-slate-200 font-semibold">PRI TRUNK: 99.8% UPTIME</span>
 </div>
-<div class="flex items-center gap-2 font-label-tabular text-caption px-2 py-1 bg-surface-container-low rounded border border-outline-variant/50">
-<span class="material-symbols-outlined text-sm text-secondary" data-icon="speed">speed</span>
-<span class="text-on-surface">64 CHANNELS CONCURRENT</span>
+<div class="flex items-center gap-2 font-label-tabular text-caption px-2 py-1 bg-surface-container-low dark:bg-slate-800 rounded border border-outline-variant/50 dark:border-slate-700">
+<span class="material-symbols-outlined text-sm text-secondary dark:text-amber-400" data-icon="speed">speed</span>
+<span class="text-on-surface dark:text-slate-200">64 CHANNELS CONCURRENT</span>
 </div>
 </div>
 </div>
 <!-- ================= STAT SUMMARY BAR (Bento Metric Strip) ================= -->
 <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-space-sm">
 <!-- Metric 1: Total Queued -->
-<div class="bg-surface-container-lowest p-space-md rounded-lg border border-outline-variant shadow-sm flex flex-col justify-between">
-<div class="flex items-center justify-between text-on-surface-variant mb-1">
+<div class="bg-surface-container-lowest dark:bg-slate-900 p-space-md rounded-lg border border-outline-variant dark:border-slate-700 shadow-sm flex flex-col justify-between">
+<div class="flex items-center justify-between text-on-surface-variant dark:text-slate-300 mb-1">
 <span class="font-caption text-caption uppercase tracking-wider font-semibold">Total Queued</span>
-<span class="material-symbols-outlined text-base text-primary" data-icon="dialpad">dialpad</span>
+<span class="material-symbols-outlined text-base text-primary dark:text-blue-400" data-icon="dialpad">dialpad</span>
 </div>
 <div class="flex items-baseline gap-2">
-<span class="font-headline-lg text-headline-lg font-bold font-label-tabular text-primary">1,240</span>
-<span class="font-caption text-caption text-on-surface-variant">Households</span>
+<span class="font-headline-lg text-headline-lg font-bold font-label-tabular text-primary dark:text-slate-100">1,240</span>
+<span class="font-caption text-caption text-on-surface-variant dark:text-slate-400">Households</span>
 </div>
-<div class="w-full bg-surface-container-low h-1.5 rounded-full mt-2 overflow-hidden">
-<div class="bg-primary h-full rounded-full" style="width: 100%"></div>
+<div class="w-full bg-surface-container-low dark:bg-slate-800 h-1.5 rounded-full mt-2 overflow-hidden">
+<div class="bg-primary dark:bg-blue-500 h-full rounded-full" style="width: 100%"></div>
 </div>
 </div>
 <!-- Metric 2: Connected & Triaged -->
-<div class="bg-surface-container-lowest p-space-md rounded-lg border border-outline-variant shadow-sm flex flex-col justify-between">
-<div class="flex items-center justify-between text-on-surface-variant mb-1">
+<div class="bg-surface-container-lowest dark:bg-slate-900 p-space-md rounded-lg border border-outline-variant dark:border-slate-700 shadow-sm flex flex-col justify-between">
+<div class="flex items-center justify-between text-on-surface-variant dark:text-slate-300 mb-1">
 <span class="font-caption text-caption uppercase tracking-wider font-semibold">Connected &amp; Triaged</span>
-<span class="material-symbols-outlined text-base text-emerald-600" data-icon="check_circle">check_circle</span>
+<span class="material-symbols-outlined text-base text-emerald-600 dark:text-emerald-400" data-icon="check_circle">check_circle</span>
 </div>
 <div class="flex items-baseline gap-2">
-<span class="font-headline-lg text-headline-lg font-bold font-label-tabular text-emerald-700">592</span>
-<span class="font-caption text-caption text-emerald-800 font-semibold font-label-tabular">47.7%</span>
+<span class="font-headline-lg text-headline-lg font-bold font-label-tabular text-emerald-700 dark:text-emerald-400">592</span>
+<span class="font-caption text-caption text-emerald-800 dark:text-emerald-300 font-semibold font-label-tabular">47.7%</span>
 </div>
-<div class="w-full bg-surface-container-low h-1.5 rounded-full mt-2 overflow-hidden">
-<div class="bg-emerald-600 h-full rounded-full" style="width: 47.7%"></div>
+<div class="w-full bg-surface-container-low dark:bg-slate-800 h-1.5 rounded-full mt-2 overflow-hidden">
+<div class="bg-emerald-600 dark:bg-emerald-500 h-full rounded-full" style="width: 47.7%"></div>
 </div>
 </div>
 <!-- Metric 3: Unanswered / Pending Retry -->
-<div class="bg-surface-container-lowest p-space-md rounded-lg border border-outline-variant shadow-sm flex flex-col justify-between">
-<div class="flex items-center justify-between text-on-surface-variant mb-1">
+<div class="bg-surface-container-lowest dark:bg-slate-900 p-space-md rounded-lg border border-outline-variant dark:border-slate-700 shadow-sm flex flex-col justify-between">
+<div class="flex items-center justify-between text-on-surface-variant dark:text-slate-300 mb-1">
 <span class="font-caption text-caption uppercase tracking-wider font-semibold">Pending Retry</span>
-<span class="material-symbols-outlined text-base text-secondary" data-icon="replay">replay</span>
+<span class="material-symbols-outlined text-base text-secondary dark:text-amber-400" data-icon="replay">replay</span>
 </div>
 <div class="flex items-baseline gap-2">
-<span class="font-headline-lg text-headline-lg font-bold font-label-tabular text-secondary">418</span>
-<span class="font-caption text-caption text-secondary font-label-tabular">33.7%</span>
+<span class="font-headline-lg text-headline-lg font-bold font-label-tabular text-secondary dark:text-amber-400">418</span>
+<span class="font-caption text-caption text-secondary dark:text-amber-300 font-label-tabular">33.7%</span>
 </div>
-<div class="w-full bg-surface-container-low h-1.5 rounded-full mt-2 overflow-hidden">
-<div class="bg-secondary-container h-full rounded-full" style="width: 33.7%"></div>
+<div class="w-full bg-surface-container-low dark:bg-slate-800 h-1.5 rounded-full mt-2 overflow-hidden">
+<div class="bg-secondary-container dark:bg-amber-500 h-full rounded-full" style="width: 33.7%"></div>
 </div>
 </div>
 <!-- Metric 4: Critical Life-Threat Flagged -->
-<div class="bg-red-50/70 p-space-md rounded-lg border border-red-200 shadow-sm flex flex-col justify-between">
-<div class="flex items-center justify-between text-red-900 mb-1">
+<div class="bg-red-50/70 dark:bg-red-950/40 p-space-md rounded-lg border border-red-200 dark:border-red-800/60 shadow-sm flex flex-col justify-between">
+<div class="flex items-center justify-between text-red-900 dark:text-red-300 mb-1">
 <span class="font-caption text-caption uppercase tracking-wider font-bold flex items-center gap-1">
 <span class="w-2 h-2 rounded-full bg-error pulse-alert"></span>
             Critical Life-Threat
           </span>
-<span class="material-symbols-outlined text-base text-error" data-icon="warning">warning</span>
+<span class="material-symbols-outlined text-base text-error dark:text-red-400" data-icon="warning">warning</span>
 </div>
 <div class="flex items-baseline gap-2">
-<span class="font-headline-lg text-headline-lg font-bold font-label-tabular text-error">11</span>
-<span class="font-caption text-caption text-error font-semibold">Immediate Dispatch</span>
+<span class="font-headline-lg text-headline-lg font-bold font-label-tabular text-error dark:text-red-400">11</span>
+<span class="font-caption text-caption text-error dark:text-red-300 font-semibold">Urgent Offer Needed</span>
 </div>
-<div class="w-full bg-red-100 h-1.5 rounded-full mt-2 overflow-hidden">
-<div class="bg-error h-full rounded-full" style="width: 100%"></div>
+<div class="w-full bg-red-100 dark:bg-red-900/40 h-1.5 rounded-full mt-2 overflow-hidden">
+<div class="bg-error dark:bg-red-500 h-full rounded-full" style="width: 100%"></div>
 </div>
 </div>
 <!-- Metric 5: Field Visit Required -->
-<div class="bg-surface-container-lowest p-space-md rounded-lg border border-outline-variant shadow-sm flex flex-col justify-between col-span-2 md:col-span-1 lg:col-span-1">
-<div class="flex items-center justify-between text-on-surface-variant mb-1">
+<div class="bg-surface-container-lowest dark:bg-slate-900 p-space-md rounded-lg border border-outline-variant dark:border-slate-700 shadow-sm flex flex-col justify-between col-span-2 md:col-span-1 lg:col-span-1">
+<div class="flex items-center justify-between text-on-surface-variant dark:text-slate-300 mb-1">
 <span class="font-caption text-caption uppercase tracking-wider font-semibold">Field Visit Required</span>
-<span class="material-symbols-outlined text-base text-indigo-700" data-icon="person_alert">person_alert</span>
+<span class="material-symbols-outlined text-base text-indigo-700 dark:text-indigo-400" data-icon="person_alert">person_alert</span>
 </div>
 <div class="flex items-baseline gap-2">
-<span class="font-headline-lg text-headline-lg font-bold font-label-tabular text-primary">28</span>
-<span class="font-caption text-caption text-indigo-800 font-semibold">Gram Panchayat</span>
+<span class="font-headline-lg text-headline-lg font-bold font-label-tabular text-primary dark:text-slate-100">28</span>
+<span class="font-caption text-caption text-indigo-800 dark:text-indigo-300 font-semibold">Gram Panchayat</span>
 </div>
-<div class="w-full bg-surface-container-low h-1.5 rounded-full mt-2 overflow-hidden">
-<div class="bg-indigo-600 h-full rounded-full" style="width: 28%"></div>
+<div class="w-full bg-surface-container-low dark:bg-slate-800 h-1.5 rounded-full mt-2 overflow-hidden">
+<div class="bg-indigo-600 dark:bg-indigo-500 h-full rounded-full" style="width: 28%"></div>
 </div>
 </div>
 </div>
 <!-- ================= PROTOCOL EXPLAINER BANNER ================= -->
-<div class="bg-surface-container-lowest border-l-4 border-secondary-container border-y border-r border-outline-variant rounded-r-lg p-space-md flex flex-col lg:flex-row lg:items-center justify-between gap-space-md shadow-sm">
+<div class="bg-surface-container-lowest dark:bg-slate-900 border-l-4 border-secondary-container border-y border-r border-outline-variant dark:border-slate-700 rounded-r-lg p-space-md flex flex-col lg:flex-row lg:items-center justify-between gap-space-md shadow-sm">
 <div class="flex items-start sm:items-center gap-space-sm">
-<div class="w-9 h-9 rounded-full bg-surface-container-high flex items-center justify-center shrink-0 text-primary">
+<div class="w-9 h-9 rounded-full bg-surface-container-high dark:bg-slate-800 flex items-center justify-center shrink-0 text-primary dark:text-slate-200">
 <span class="material-symbols-outlined" data-icon="route">route</span>
 </div>
 <div>
-<span class="font-label-lg text-label-lg font-bold text-primary mr-2">Automated Outreach Cadence:</span>
-<span class="font-body-md text-body-md text-on-surface">
-            Unanswered homes trigger <strong class="font-semibold text-primary">Retry at 2 min</strong>, <strong class="font-semibold text-primary">Retry at 5 min</strong>, then <strong class="font-semibold text-primary">SMS blast</strong>, then automated escalation to <strong class="font-semibold text-primary">Field Visit</strong> by Gram Panchayat squad.
+<span class="font-label-lg text-label-lg font-bold text-primary dark:text-slate-100 mr-2">Automated Outreach Cadence:</span>
+<span class="font-body-md text-body-md text-on-surface dark:text-slate-200">
+            Unanswered homes trigger <strong class="font-semibold text-primary dark:text-slate-100">Retry at 2 min</strong>, <strong class="font-semibold text-primary dark:text-slate-100">Retry at 5 min</strong>, then <strong class="font-semibold text-primary dark:text-slate-100">SMS blast</strong>, then automated escalation to <strong class="font-semibold text-primary dark:text-slate-100">Field Visit</strong> by Gram Panchayat squad.
           </span>
 </div>
 </div>
-<div class="flex items-center gap-3 text-caption font-label-tabular shrink-0 bg-surface-container-low px-3 py-1.5 rounded border border-outline-variant/60">
-<span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-slate-400"></span> Call 1</span>
-<span class="text-outline">→</span>
-<span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-amber-500"></span> +2m</span>
-<span class="text-outline">→</span>
-<span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-amber-600"></span> +5m</span>
-<span class="text-outline">→</span>
-<span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-blue-500"></span> SMS</span>
-<span class="text-outline">→</span>
-<span class="flex items-center gap-1 font-bold text-error"><span class="w-2 h-2 rounded-full bg-error"></span> Field Squad</span>
+<div class="flex items-center gap-3 text-caption font-label-tabular shrink-0 bg-surface-container-low dark:bg-slate-800 px-3 py-1.5 rounded border border-outline-variant/60 dark:border-slate-700">
+<span class="flex items-center gap-1 text-on-surface dark:text-slate-300"><span class="w-2 h-2 rounded-full bg-slate-400"></span> Call 1</span>
+<span class="text-outline dark:text-slate-500">→</span>
+<span class="flex items-center gap-1 text-on-surface dark:text-slate-300"><span class="w-2 h-2 rounded-full bg-amber-500"></span> +2m</span>
+<span class="text-outline dark:text-slate-500">→</span>
+<span class="flex items-center gap-1 text-on-surface dark:text-slate-300"><span class="w-2 h-2 rounded-full bg-amber-600"></span> +5m</span>
+<span class="text-outline dark:text-slate-500">→</span>
+<span class="flex items-center gap-1 text-on-surface dark:text-slate-300"><span class="w-2 h-2 rounded-full bg-blue-500"></span> SMS</span>
+<span class="text-outline dark:text-slate-500">→</span>
+<span class="flex items-center gap-1 font-bold text-error dark:text-red-400"><span class="w-2 h-2 rounded-full bg-error"></span> Field Squad</span>
 </div>
 </div>
 <!-- ================= FILTER & SEARCH TOOLBAR ================= -->
-<div class="bg-surface-container-lowest p-space-md rounded-lg border border-outline-variant shadow-sm flex flex-col gap-space-md">
+<div class="bg-surface-container-lowest dark:bg-slate-900 p-space-md rounded-lg border border-outline-variant dark:border-slate-700 shadow-sm flex flex-col gap-space-md">
 <!-- Top Row: Search and Ward Filter -->
 <div class="flex flex-col md:flex-row items-center gap-space-md justify-between">
 <!-- Search Field -->
 <div class="relative w-full md:w-96">
-<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline" data-icon="search">search</span>
-<input class="w-full h-11 pl-10 pr-4 bg-surface-container-lowest border border-outline-variant rounded-lg font-body-md text-body-md text-on-surface placeholder:text-outline focus:outline-none focus:border-primary focus:ring-2 focus:ring-secondary-container transition-all" placeholder="Search by household head, phone (+91), or ward..." type="text"/>
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline dark:text-slate-400" data-icon="search">search</span>
+<input class="w-full h-11 pl-10 pr-4 bg-surface-container-lowest dark:bg-slate-800 border border-outline-variant dark:border-slate-700 rounded-lg font-body-md text-body-md text-on-surface dark:text-slate-100 placeholder:text-outline dark:placeholder:text-slate-400 focus:outline-none focus:border-primary focus:ring-2 focus:ring-secondary-container transition-all" placeholder="Search by household head, phone (+91), or ward..." type="text"/>
 </div>
 <!-- Right Tool Set: Ward Selector + Secondary Batch Controls -->
 <div class="flex items-center gap-3 w-full md:w-auto justify-end">
 <div class="flex items-center gap-2">
-<label class="font-label-md text-label-md text-on-surface-variant whitespace-nowrap">Filter Ward:</label>
-<select class="h-11 px-3 bg-surface-container-lowest border border-outline-variant rounded-lg font-label-md text-label-md text-on-surface focus:outline-none focus:border-primary focus:ring-2 focus:ring-secondary-container cursor-pointer">
+<label class="font-label-md text-label-md text-on-surface-variant dark:text-slate-300 whitespace-nowrap">Filter Ward:</label>
+<select class="h-11 px-3 bg-surface-container-lowest dark:bg-slate-800 border border-outline-variant dark:border-slate-700 rounded-lg font-label-md text-label-md text-on-surface dark:text-slate-100 focus:outline-none focus:border-primary focus:ring-2 focus:ring-secondary-container cursor-pointer">
 <option selected="">All Wards (Ward 1 - 9)</option>
 <option>Ward 1 - Panemangalore</option>
 <option>Ward 2 - Bantwal Town North</option>
@@ -311,65 +376,78 @@
 <option>Ward 9 - Sarapady Upstream</option>
 </select>
 </div>
-<button class="h-11 px-3.5 bg-surface-container-lowest hover:bg-surface-container border border-outline-variant rounded-lg text-primary font-label-md text-label-md flex items-center gap-1.5 transition-colors">
+<button class="h-11 px-3.5 bg-surface-container-lowest dark:bg-slate-800 hover:bg-surface-container dark:hover:bg-slate-700 border border-outline-variant dark:border-slate-700 rounded-lg text-primary dark:text-slate-200 font-label-md text-label-md flex items-center gap-1.5 transition-colors">
 <span class="material-symbols-outlined text-base" data-icon="filter_list">filter_list</span>
 <span>More Filters</span>
 </button>
-<button class="h-11 px-3.5 bg-surface-container-lowest hover:bg-surface-container border border-outline-variant rounded-lg text-primary font-label-md text-label-md flex items-center gap-1.5 transition-colors">
+<div class="flex items-center gap-1 bg-surface-container-low dark:bg-slate-800/80 px-2.5 py-1.5 rounded-lg border border-outline-variant dark:border-slate-700 text-xs h-11">
+  <span class="text-on-surface-variant dark:text-slate-300 font-semibold text-[11px] flex items-center gap-1 mr-1">
+    <span class="material-symbols-outlined text-[14px]">sort</span>
+    Sort:
+  </span>
+  <button type="button" onclick="setCallFloorSort('priority')" id="cf-sort-priority" class="cf-sort-btn px-2 py-1 rounded text-[11px] font-semibold bg-primary text-on-primary transition-colors" title="Order by priority triage score (ordering aid)">Priority</button>
+  <button type="button" onclick="setCallFloorSort('unanswered')" id="cf-sort-unanswered" class="cf-sort-btn px-2 py-1 rounded text-[11px] bg-surface-container dark:bg-slate-700 hover:bg-surface-container-high dark:hover:bg-slate-600 text-on-surface-variant dark:text-slate-300 transition-colors" title="Order by wait duration">Time unanswered</button>
+  <button type="button" onclick="setCallFloorSort('name')" id="cf-sort-name" class="cf-sort-btn px-2 py-1 rounded text-[11px] bg-surface-container dark:bg-slate-700 hover:bg-surface-container-high dark:hover:bg-slate-600 text-on-surface-variant dark:text-slate-300 transition-colors" title="Order alphabetically">Name (A-Z)</button>
+</div>
+<button id="btn-callfloor-suggest-plan" class="h-11 px-3.5 bg-[#0B2545] hover:bg-[#133968] active:bg-[#06162B] text-white rounded-lg font-label-md text-label-md flex items-center gap-1.5 transition-colors shadow-xs">
+<span class="material-symbols-outlined text-base" data-icon="auto_fix_high">auto_fix_high</span>
+<span>Suggest plan</span>
+</button>
+<button onclick="exportManifestCSV()" class="h-11 px-3.5 bg-surface-container-lowest dark:bg-slate-800 hover:bg-surface-container dark:hover:bg-slate-700 border border-outline-variant dark:border-slate-700 rounded-lg text-primary dark:text-slate-200 font-label-md text-label-md flex items-center gap-1.5 transition-colors">
 <span class="material-symbols-outlined text-base" data-icon="file_download">file_download</span>
 <span>Export Manifest</span>
 </button>
 </div>
 </div>
 <!-- Bottom Row: Segmented Filter Tabs -->
-<div class="flex items-center gap-2 overflow-x-auto pb-1 border-t border-outline-variant/60 pt-3">
+<div class="flex items-center gap-2 overflow-x-auto pb-1 border-t border-outline-variant/60 dark:border-slate-700 pt-3">
 <!-- Tab: All Calls -->
 <button class="flex items-center gap-2 px-3 py-1.5 bg-primary text-on-primary rounded-DEFAULT font-label-md text-label-md shrink-0 shadow-sm">
 <span>All Calls</span>
 <span class="bg-primary-container px-1.5 py-0.5 rounded text-caption font-label-tabular text-on-primary">1,240</span>
 </button>
 <!-- Tab: Emergency -->
-<button class="flex items-center gap-2 px-3 py-1.5 bg-surface-container-low hover:bg-surface-container text-on-surface rounded-DEFAULT font-label-md text-label-md shrink-0 border border-outline-variant/60 transition-colors">
+<button class="flex items-center gap-2 px-3 py-1.5 bg-surface-container-low dark:bg-slate-800 hover:bg-surface-container dark:hover:bg-slate-700 text-on-surface dark:text-slate-200 rounded-DEFAULT font-label-md text-label-md shrink-0 border border-outline-variant/60 dark:border-slate-700 transition-colors">
 <span class="w-2 h-2 rounded-full bg-error pulse-alert"></span>
-<span class="text-error font-bold">Emergency</span>
-<span class="bg-red-100 text-error px-1.5 py-0.5 rounded text-caption font-label-tabular font-bold">11</span>
+<span class="text-error dark:text-red-400 font-bold">Emergency</span>
+<span class="bg-red-100 dark:bg-red-900/50 text-error dark:text-red-300 px-1.5 py-0.5 rounded text-caption font-label-tabular font-bold">11</span>
 </button>
 <!-- Tab: Retrying -->
-<button class="flex items-center gap-2 px-3 py-1.5 bg-surface-container-low hover:bg-surface-container text-on-surface rounded-DEFAULT font-label-md text-label-md shrink-0 border border-outline-variant/60 transition-colors">
+<button class="flex items-center gap-2 px-3 py-1.5 bg-surface-container-low dark:bg-slate-800 hover:bg-surface-container dark:hover:bg-slate-700 text-on-surface dark:text-slate-200 rounded-DEFAULT font-label-md text-label-md shrink-0 border border-outline-variant/60 dark:border-slate-700 transition-colors">
 <span class="w-2 h-2 rounded-full bg-secondary-container"></span>
 <span>Retrying</span>
-<span class="bg-amber-100 text-amber-900 px-1.5 py-0.5 rounded text-caption font-label-tabular">145</span>
+<span class="bg-amber-100 dark:bg-amber-900/50 text-amber-900 dark:text-amber-300 px-1.5 py-0.5 rounded text-caption font-label-tabular">145</span>
 </button>
 <!-- Tab: Unanswered -->
-<button class="flex items-center gap-2 px-3 py-1.5 bg-surface-container-low hover:bg-surface-container text-on-surface rounded-DEFAULT font-label-md text-label-md shrink-0 border border-outline-variant/60 transition-colors">
+<button class="flex items-center gap-2 px-3 py-1.5 bg-surface-container-low dark:bg-slate-800 hover:bg-surface-container dark:hover:bg-slate-700 text-on-surface dark:text-slate-200 rounded-DEFAULT font-label-md text-label-md shrink-0 border border-outline-variant/60 dark:border-slate-700 transition-colors">
 <span class="w-2 h-2 rounded-full bg-slate-400"></span>
 <span>Unanswered</span>
-<span class="bg-slate-200 text-slate-700 px-1.5 py-0.5 rounded text-caption font-label-tabular">273</span>
+<span class="bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-300 px-1.5 py-0.5 rounded text-caption font-label-tabular">273</span>
 </button>
 <!-- Tab: Completed -->
-<button class="flex items-center gap-2 px-3 py-1.5 bg-surface-container-low hover:bg-surface-container text-on-surface rounded-DEFAULT font-label-md text-label-md shrink-0 border border-outline-variant/60 transition-colors">
+<button class="flex items-center gap-2 px-3 py-1.5 bg-surface-container-low dark:bg-slate-800 hover:bg-surface-container dark:hover:bg-slate-700 text-on-surface dark:text-slate-200 rounded-DEFAULT font-label-md text-label-md shrink-0 border border-outline-variant/60 dark:border-slate-700 transition-colors">
 <span class="w-2 h-2 rounded-full bg-emerald-600"></span>
 <span>Completed</span>
-<span class="bg-emerald-100 text-emerald-800 px-1.5 py-0.5 rounded text-caption font-label-tabular">592</span>
+<span class="bg-emerald-100 dark:bg-emerald-900/50 text-emerald-800 dark:text-emerald-300 px-1.5 py-0.5 rounded text-caption font-label-tabular">592</span>
 </button>
 <!-- Tab: Can help -->
-<button class="flex items-center gap-2 px-3 py-1.5 bg-surface-container-low hover:bg-surface-container text-on-surface rounded-DEFAULT font-label-md text-label-md shrink-0 border border-outline-variant/60 transition-colors">
+<button class="flex items-center gap-2 px-3 py-1.5 bg-surface-container-low dark:bg-slate-800 hover:bg-surface-container dark:hover:bg-slate-700 text-on-surface dark:text-slate-200 rounded-DEFAULT font-label-md text-label-md shrink-0 border border-outline-variant/60 dark:border-slate-700 transition-colors">
 <span class="w-2 h-2 rounded-full bg-orange-500"></span>
 <span>Can help</span>
-<span class="bg-orange-100 text-orange-900 px-1.5 py-0.5 rounded text-caption font-label-tabular">38</span>
+<span class="bg-orange-100 dark:bg-orange-900/50 text-orange-900 dark:text-amber-300 px-1.5 py-0.5 rounded text-caption font-label-tabular">38</span>
 </button>
-<div class="ml-auto text-caption font-body-sm text-on-surface-variant hidden lg:flex items-center gap-1.5 shrink-0 pl-4">
-<span class="material-symbols-outlined text-sm text-emerald-600" data-icon="sync">sync</span>
+<div class="ml-auto text-caption font-body-sm text-on-surface-variant dark:text-slate-400 hidden lg:flex items-center gap-1.5 shrink-0 pl-4">
+<span class="material-symbols-outlined text-sm text-emerald-600 dark:text-emerald-400" data-icon="sync">sync</span>
 <span>Auto-refreshing live socket</span>
 </div>
 </div>
 </div>
 <!-- ================= CALL FLOOR DATA TABLE ================= -->
-<div class="bg-surface-container-lowest rounded-lg border border-outline-variant shadow-sm overflow-hidden flex flex-col flex-1">
+<div class="bg-surface-container-lowest dark:bg-slate-900 rounded-lg border border-outline-variant dark:border-slate-700 shadow-sm overflow-hidden flex flex-col flex-1">
 <div class="overflow-x-auto flex-1">
 <table class="w-full text-left border-collapse min-w-[1280px]">
 <!-- Sticky Header -->
-<thead class="bg-[#F8FAFC] border-b-2 border-[#CBD5E1] sticky top-0 z-10 font-caption text-caption text-on-surface-variant uppercase tracking-wider">
+<thead class="bg-[#F8FAFC] dark:bg-slate-800 border-b-2 border-[#CBD5E1] dark:border-slate-700 sticky top-0 z-10 font-caption text-caption text-on-surface-variant dark:text-slate-300 uppercase tracking-wider">
 <tr>
 <th class="py-3 px-4 w-64" scope="col">Household Head &amp; Location</th>
 <th class="py-3 px-3 w-28" scope="col">Language</th>
@@ -382,7 +460,7 @@
 </tr>
 </thead>
 <!-- Table Body with Alternating Rows -->
-<tbody class="divide-y divide-[#E2E8F0] font-body-md text-body-md">
+<tbody class="divide-y divide-[#E2E8F0] dark:divide-slate-800 font-body-md text-body-md">
 <!-- ROW 1: Parvathi -->
 <tr class="hover:bg-[#F1F5F9] transition-colors bg-red-50/20">
 <td class="py-3 px-4">
@@ -614,7 +692,7 @@
 <td class="py-3 px-4">
 <div class="text-caption font-label-tabular text-blue-900 bg-blue-50 border border-blue-200 px-2 py-1 rounded inline-flex items-center gap-1.5">
 <span class="material-symbols-outlined text-sm text-blue-600" data-icon="directions_boat">directions_boat</span>
-<span>Triage complete → Dispatched NDRF Boat-02 (ETA --)</span>
+<span>Triage complete → Offer sent to NDRF Boat-02</span>
 </div>
 </td>
 <td class="py-3 px-4 text-right">
@@ -757,28 +835,28 @@
 </table>
 </div>
 <!-- ================= PAGINATION & FOOTER STATUS ================= -->
-<div class="p-space-md bg-[#F8FAFC] border-t border-[#CBD5E1] flex flex-col md:flex-row items-center justify-between gap-space-md">
+<div class="p-space-md bg-[#F8FAFC] dark:bg-slate-900 border-t border-[#CBD5E1] dark:border-slate-700 flex flex-col md:flex-row items-center justify-between gap-space-md">
 <!-- Left: Status & Gateway Telemetry -->
-<div class="flex flex-col sm:flex-row items-start sm:items-center gap-space-sm font-label-tabular text-caption text-slate-600">
-<span class="font-semibold text-primary">Showing 1 - 25 of 1,240 calls</span>
-<span class="hidden sm:inline text-outline-variant">|</span>
+<div class="flex flex-col sm:flex-row items-start sm:items-center gap-space-sm font-label-tabular text-caption text-slate-600 dark:text-slate-400">
+<span class="font-semibold text-primary dark:text-slate-200">Showing 1 - 25 of 1,240 calls</span>
+<span class="hidden sm:inline text-outline-variant dark:text-slate-600">|</span>
 <span class="flex items-center gap-1.5">
 <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
-            Telephony Gateway: <strong class="text-primary font-semibold">Dakshina Kannada PRI Trunk 01-04</strong> (Online, 99.8% uptime)
+            Telephony Gateway: <strong class="text-primary dark:text-slate-200 font-semibold">Dakshina Kannada PRI Trunk 01-04</strong> (Online, 99.8% uptime)
           </span>
 </div>
 <!-- Right: Pagination Controls -->
 <div class="flex items-center gap-2">
-<span class="text-caption text-on-surface-variant mr-2">Page 1 of 50</span>
-<button class="px-2.5 py-1.5 bg-white border border-outline-variant rounded text-on-surface hover:bg-slate-100 disabled:opacity-40 disabled:cursor-not-allowed font-label-md text-label-md" disabled="">
+<span class="text-caption text-on-surface-variant dark:text-slate-400 mr-2">Page 1 of 50</span>
+<button class="px-2.5 py-1.5 bg-white dark:bg-slate-800 border border-outline-variant dark:border-slate-700 rounded text-on-surface dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-700 disabled:opacity-40 disabled:cursor-not-allowed font-label-md text-label-md" disabled="">
 <span class="material-symbols-outlined text-sm" data-icon="arrow_back">arrow_back</span>
 </button>
 <button class="px-3 py-1.5 bg-primary text-white rounded font-label-tabular text-label-md font-bold">1</button>
-<button class="px-3 py-1.5 bg-white border border-outline-variant hover:bg-slate-100 text-on-surface rounded font-label-tabular text-label-md">2</button>
-<button class="px-3 py-1.5 bg-white border border-outline-variant hover:bg-slate-100 text-on-surface rounded font-label-tabular text-label-md">3</button>
+<button class="px-3 py-1.5 bg-white dark:bg-slate-800 border border-outline-variant dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-700 text-on-surface dark:text-slate-200 rounded font-label-tabular text-label-md">2</button>
+<button class="px-3 py-1.5 bg-white dark:bg-slate-800 border border-outline-variant dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-700 text-on-surface dark:text-slate-200 rounded font-label-tabular text-label-md">3</button>
 <span class="px-1 text-slate-400">...</span>
-<button class="px-3 py-1.5 bg-white border border-outline-variant hover:bg-slate-100 text-on-surface rounded font-label-tabular text-label-md">50</button>
-<button class="px-2.5 py-1.5 bg-white border border-outline-variant rounded text-on-surface hover:bg-slate-100 font-label-md text-label-md">
+<button class="px-3 py-1.5 bg-white dark:bg-slate-800 border border-outline-variant dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-700 text-on-surface dark:text-slate-200 rounded font-label-tabular text-label-md">50</button>
+<button class="px-2.5 py-1.5 bg-white dark:bg-slate-800 border border-outline-variant dark:border-slate-700 rounded text-on-surface dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-700 font-label-md text-label-md">
 <span class="material-symbols-outlined text-sm" data-icon="arrow_forward">arrow_forward</span>
 </button>
 </div>
@@ -870,4 +948,253 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 </script>
 
-</body></html>
+
+<!-- ==================== SUGGEST PLAN MODAL (ALNS OPTIMIZER) ==================== -->
+<div id="suggestPlanModal" class="fixed inset-0 z-50 bg-slate-950/70 backdrop-blur-sm hidden flex items-center justify-center p-4">
+  <div class="w-full max-w-3xl bg-surface-container-lowest dark:bg-slate-900 rounded-xl border border-outline dark:border-slate-700 shadow-2xl flex flex-col max-h-[85vh] overflow-hidden">
+    <div class="px-5 py-4 bg-primary-container text-on-primary flex items-center justify-between border-b border-outline/30 shrink-0">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-lg bg-surface-container-highest/20 border border-secondary-container/40 flex items-center justify-center text-secondary-container">
+          <span class="material-symbols-outlined text-2xl" data-icon="auto_fix_high">auto_fix_high</span>
+        </div>
+        <div>
+          <h3 class="font-headline-sm text-lg font-bold text-on-primary tracking-tight">Suggested Fleet Allocation Plan</h3>
+          <p class="font-body-sm text-xs text-on-primary-container mt-0.5">
+            Advisory ALNS Optimizer • Human approval mandatory for every vehicle offer
+          </p>
+        </div>
+      </div>
+      <button onclick="document.getElementById('suggestPlanModal').classList.add('hidden')" class="w-8 h-8 flex items-center justify-center rounded-lg text-on-primary-container hover:text-on-primary hover:bg-primary/50 transition-colors">
+        <span class="material-symbols-outlined text-lg" data-icon="close">close</span>
+      </button>
+    </div>
+
+    <div class="p-4 bg-amber-500/10 border-b border-amber-500/20 px-5 py-2.5 flex items-center justify-between text-xs text-amber-900 dark:text-amber-200">
+      <div class="flex items-center gap-2">
+        <span class="material-symbols-outlined text-base text-amber-600">shield</span>
+        <span><strong>Advisory Only:</strong> Nothing is offered or assigned automatically. Dispatcher must click 'Review & Assign vehicle' to inspect each modal.</span>
+      </div>
+      <span id="plan-cost-summary" class="font-label-tabular font-semibold text-xs"></span>
+    </div>
+
+    <div id="suggest-plan-body" class="flex-1 overflow-y-auto p-4 space-y-3 bg-background dark:bg-slate-950">
+      <div class="text-center py-8 text-on-surface-variant dark:text-slate-400 text-sm">
+        <span class="material-symbols-outlined text-3xl animate-spin mb-2">refresh</span>
+        <p>Computing optimal vehicle allocation...</p>
+      </div>
+    </div>
+
+    <div class="px-5 py-3 bg-surface-container-lowest dark:bg-slate-900 border-t border-outline-variant dark:border-slate-700 flex items-center justify-between text-xs text-on-surface-variant dark:text-slate-400">
+      <span class="italic text-[11px]">* Cost guarantee: ALNS cost &le; Greedy baseline. Zero ETAs before driver acceptance.</span>
+      <button onclick="document.getElementById('suggestPlanModal').classList.add('hidden')" class="px-3.5 py-1.5 rounded border border-outline-variant dark:border-slate-700 hover:bg-surface-container dark:hover:bg-slate-800 font-label-md text-xs text-on-surface dark:text-slate-200">
+        Close
+      </button>
+    </div>
+  </div>
+</div>
+
+<script>
+let currentCallFloorSort = 'priority';
+
+function setCallFloorSort(mode) {
+  currentCallFloorSort = mode;
+  document.querySelectorAll('.cf-sort-btn').forEach(btn => {
+    btn.className = 'cf-sort-btn px-2 py-1 rounded text-[11px] bg-surface-container hover:bg-surface-container-high text-on-surface-variant transition-colors';
+  });
+  const activeBtn = document.getElementById('cf-sort-' + mode);
+  if (activeBtn) {
+    activeBtn.className = 'cf-sort-btn px-2 py-1 rounded text-[11px] font-semibold bg-primary text-on-primary transition-colors';
+  }
+  loadCallFloorData();
+}
+
+async function loadCallFloorData() {
+  try {
+    const res = await fetch('/api/households');
+    const data = await res.json();
+    const households = data.households || [];
+    
+    // Sort queue using active sort (ordering aid only - no auto-assignment)
+    if (currentCallFloorSort === 'priority') {
+      households.sort((a, b) => (b.priority_score || 0) - (a.priority_score || 0));
+    } else if (currentCallFloorSort === 'unanswered') {
+      const getUnanswered = (h) => (h.priority_breakdown && h.priority_breakdown.unanswered) || (h.retry_count || 0) * 15;
+      households.sort((a, b) => getUnanswered(b) - getUnanswered(a));
+    } else if (currentCallFloorSort === 'name') {
+      households.sort((a, b) => (a.first_name || '').localeCompare(b.first_name || ''));
+    }
+
+    const tbody = document.querySelector('tbody');
+    if (!tbody || households.length === 0) return;
+
+    let rowsHtml = '';
+    households.forEach((h, idx) => {
+      const pScore = typeof h.priority_score === 'number' ? h.priority_score : 0;
+      let breakdownTooltip = 'base: 0';
+      if (h.priority_breakdown && typeof h.priority_breakdown === 'object') {
+        const parts = Object.entries(h.priority_breakdown)
+          .filter(([k, v]) => v > 0)
+          .map(([k, v]) => `${k}: +${v}`);
+        if (parts.length > 0) breakdownTooltip = parts.join(', ');
+      }
+
+      const isEmergency = Boolean(h.is_emergency);
+      const isAltRow = idx % 2 === 1;
+      const bgClass = isEmergency ? 'bg-red-50/20 dark:bg-red-950/30' : (isAltRow ? 'bg-surface-container-lowest/50 dark:bg-slate-800/40' : 'bg-surface-container-lowest dark:bg-slate-900');
+
+      let statusChip = `<span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-caption font-semibold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700"><span class="w-2 h-2 rounded-full bg-slate-400"></span>${h.status || 'not_reached'}</span>`;
+      if (h.status === 'needs_help') {
+        statusChip = `<span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-caption font-semibold bg-[#FEF2F2] dark:bg-red-950/50 border border-[#FECACA] dark:border-red-800/60 text-[#991B1B] dark:text-red-300"><span class="w-2 h-2 rounded-full bg-[#DC2626]"></span>Needs help</span>`;
+      } else if (h.status === 'can_help') {
+        statusChip = `<span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-caption font-semibold bg-orange-50 dark:bg-amber-950/50 border border-orange-200 dark:border-amber-800/60 text-orange-900 dark:text-amber-300"><span class="w-2 h-2 rounded-full bg-orange-600"></span>Can help</span>`;
+      } else if (h.status === 'request_recorded') {
+        statusChip = `<span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-caption font-semibold bg-amber-50 dark:bg-amber-950/50 border border-amber-200 dark:border-amber-800/60 text-amber-900 dark:text-amber-300"><span class="w-2 h-2 rounded-full bg-amber-500"></span>Request recorded</span>`;
+      } else if (h.status === 'evacuated') {
+        statusChip = `<span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-caption font-semibold bg-emerald-50 dark:bg-emerald-950/50 border border-emerald-200 dark:border-emerald-800/60 text-emerald-800 dark:text-emerald-300"><span class="w-2 h-2 rounded-full bg-emerald-600"></span>Evacuated</span>`;
+      }
+
+      let emFlag = `<span class="inline-flex items-center px-2 py-0.5 rounded text-caption text-slate-500 dark:text-slate-400 bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700">Normal Priority</span>`;
+      if (isEmergency) {
+        emFlag = `<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded text-caption font-bold bg-[#DC2626] text-white tracking-wide shadow-xs"><span class="material-symbols-outlined text-xs">flood</span>CRITICAL PRIORITY</span>`;
+      } else if (pScore >= 40) {
+        emFlag = `<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded text-caption font-semibold bg-amber-50 dark:bg-amber-950/50 border border-amber-200 dark:border-amber-800/60 text-amber-900 dark:text-amber-300"><span class="w-1.5 h-1.5 rounded-full bg-amber-600"></span>High Vulnerability</span>`;
+      }
+
+      rowsHtml += `
+        <tr class="hover:bg-surface-container-low dark:hover:bg-slate-800/80 transition-colors ${bgClass}">
+          <td class="py-3 px-4">
+            <div class="font-bold text-primary dark:text-slate-100 flex items-center gap-2">
+              <span>${h.first_name || 'Resident'}</span>
+              <span class="inline-flex items-center gap-0.5 px-1.5 py-0.2 rounded text-[10px] font-bold font-label-tabular bg-amber-500/15 text-amber-800 dark:text-amber-300 border border-amber-400/30 cursor-help" title="Score: ${pScore} (${breakdownTooltip}) — ordering aid">
+                <span class="material-symbols-outlined text-[10px]">sort</span>
+                Score: ${pScore}
+                <span class="text-[8px] font-normal opacity-70 ml-0.5">(ordering aid)</span>
+              </span>
+            </div>
+            <div class="text-caption text-on-surface-variant dark:text-slate-300 flex items-center gap-2 mt-0.5">
+              <span class="font-semibold text-primary dark:text-slate-200">${h.members || 1} Souls</span>
+              <span>•</span>
+              <span class="font-label-tabular">${h.phone_masked || '+91 XXXXX XXXXX'}</span>
+            </div>
+            <div class="text-caption text-slate-500 dark:text-slate-400 truncate max-w-xs mt-0.5">${h.landmark || 'Bantwal sector'}</div>
+            ${h.water_arrival_minutes ? `<div class="text-[10px] text-sky-700 dark:text-sky-300 font-medium">Water arrival: ${h.water_arrival_minutes} min <span class="text-slate-400 font-normal">(demo assumption)</span></div>` : ''}
+          </td>
+          <td class="py-3 px-3">
+            <span class="inline-flex items-center px-2 py-0.5 rounded text-caption font-semibold bg-surface-container-high dark:bg-slate-800 text-primary dark:text-slate-200 border border-outline-variant/60 dark:border-slate-700 uppercase">
+              ${h.language || 'kn'}
+            </span>
+          </td>
+          <td class="py-3 px-4">
+            ${statusChip}
+          </td>
+          <td class="py-3 px-3">
+            <div class="font-label-tabular text-label-tabular font-semibold text-primary dark:text-slate-100">${h.bedridden ? 'Stretcher' : (h.cannot_walk ? 'Wheelchair' : 'Standard')}</div>
+            <span class="text-caption text-slate-500 dark:text-slate-400">${h.needs_medicine_oxygen ? 'Oxygen flag' : 'Stable'}</span>
+          </td>
+          <td class="py-3 px-3">
+            ${emFlag}
+          </td>
+          <td class="py-3 px-3 font-label-tabular text-caption text-slate-600 dark:text-slate-400">
+            ${h.updated_at ? h.updated_at.substring(11, 16) : 'Just now'}
+          </td>
+          <td class="py-3 px-4">
+            <div class="text-caption font-label-tabular text-slate-700 dark:text-slate-300 bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 px-2 py-1 rounded inline-flex items-center gap-1.5">
+              <span>Attempt ${h.retry_count || 1}</span>
+              <span>•</span>
+              <span>${h.status === 'not_reached' ? 'In retry ladder' : 'Processed'}</span>
+            </div>
+          </td>
+          <td class="py-3 px-4 text-right">
+            <a href="/call/${h.id}" class="inline-flex items-center gap-1 px-3 py-1.5 bg-[#0B2545] hover:bg-[#133968] active:bg-[#06162B] text-white rounded-lg text-label-md font-label-md shadow-sm transition-all">
+              <span class="material-symbols-outlined text-sm">visibility</span>
+              <span>View Details</span>
+            </a>
+          </td>
+        </tr>
+      `;
+    });
+
+    tbody.innerHTML = rowsHtml;
+  } catch (e) {
+    console.warn('Failed to load dynamic call floor data:', e);
+  }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  loadCallFloorData();
+
+  const planBtn = document.getElementById('btn-callfloor-suggest-plan');
+  if (planBtn) {
+    planBtn.onclick = async () => {
+      const modal = document.getElementById('suggestPlanModal');
+      const body = document.getElementById('suggest-plan-body');
+      const costSummary = document.getElementById('plan-cost-summary');
+      modal.classList.remove('hidden');
+      body.innerHTML = `
+        <div class="text-center py-8 text-on-surface-variant dark:text-slate-400 text-sm">
+          <span class="material-symbols-outlined text-3xl animate-spin mb-2 text-primary dark:text-blue-400">sync</span>
+          <p class="font-medium text-primary dark:text-slate-200">Running ALNS optimizer across active queue...</p>
+        </div>`;
+
+      try {
+        const res = await fetch('/api/optimizer/suggest-plan', { method: 'POST' });
+        const data = await res.json();
+        const assignments = data.assignments || [];
+        const unassigned = data.unassigned_households || [];
+
+        costSummary.textContent = `Cost: ${data.optimizer_cost} (Greedy baseline: ${data.greedy_cost})`;
+
+        if (assignments.length === 0 && unassigned.length === 0) {
+          body.innerHTML = '<div class="p-6 text-center text-on-surface-variant dark:text-slate-400 text-sm">No pending rescue requests in queue.</div>';
+          return;
+        }
+
+        let html = '';
+        if (assignments.length > 0) {
+          html += '<h4 class="font-label-md text-xs font-bold uppercase tracking-wider text-on-surface-variant dark:text-slate-300 mb-2">Suggested Assignments (' + assignments.length + ')</h4>';
+          assignments.forEach(a => {
+            html += `
+              <div class="p-3 bg-surface-container-lowest dark:bg-slate-900 rounded-lg border border-outline-variant dark:border-slate-700 flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-xs">
+                <div class="space-y-1">
+                  <div class="flex items-center gap-2 flex-wrap">
+                    <span class="font-label-lg font-bold text-primary dark:text-slate-100">${a.household_name}</span>
+                    <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-amber-500/15 text-amber-800 dark:text-amber-300 border border-amber-400/30">
+                      Score: ${a.priority_score} (ordering aid)
+                    </span>
+                    <span class="font-label-tabular text-xs text-secondary dark:text-amber-400 font-semibold">
+                      ${a.distance_km} km
+                    </span>
+                  </div>
+                  <div class="text-xs text-on-surface-variant dark:text-slate-300">
+                    Suggested Asset: <strong class="text-primary dark:text-slate-100">${a.vehicle_designation}</strong> (${a.vehicle_type}, Driver: ${a.vehicle_driver || 'Assigned'}) • ${a.people_count} souls
+                  </div>
+                </div>
+                <a href="/call/${a.household_id}?suggested_veh=${a.vehicle_id}" class="px-3.5 py-1.5 rounded-lg bg-primary hover:bg-primary-container text-on-primary font-label-md text-xs font-semibold shrink-0 shadow-xs flex items-center gap-1.5 self-start sm:self-center">
+                  <span class="material-symbols-outlined text-sm">open_in_new</span>
+                  <span>Review & Assign vehicle</span>
+                </a>
+              </div>`;
+          });
+        }
+
+        if (unassigned.length > 0) {
+          html += '<h4 class="font-label-md text-xs font-bold uppercase tracking-wider text-error dark:text-red-400 mt-4 mb-2">Unassigned Needs Help (' + unassigned.length + ' - Capacity Exceeded)</h4>';
+          unassigned.forEach(u => {
+            html += `
+              <div class="p-2.5 bg-red-50 dark:bg-red-950/30 rounded border border-red-200 dark:border-red-800 text-xs flex items-center justify-between text-on-surface dark:text-slate-200">
+                <span><strong>${u.first_name}</strong> (${u.landmark || 'Bantwal'}) - ${u.members} souls</span>
+                <span class="font-label-tabular text-error dark:text-red-400 font-semibold">Score: ${u.priority_score || '--'}</span>
+              </div>`;
+          });
+        }
+
+        body.innerHTML = html;
+      } catch (err) {
+        body.innerHTML = '<div class="p-6 text-center text-error dark:text-red-400 text-sm">Failed to generate optimization plan. Please retry.</div>';
+      }
+    };
+  }
+});
+</script>
+</body>
+</html>

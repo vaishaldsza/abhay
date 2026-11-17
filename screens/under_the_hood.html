@@ -22,8 +22,21 @@
 
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
 
+<!-- Early Theme Initialization to prevent flash / unstyled mode -->
+<script>
+  (function() {
+    var stored = localStorage.getItem('abhay_theme');
+    var isDark = stored === 'dark' || (!stored && window.matchMedia('(prefers-color-scheme: dark)').matches);
+    if (isDark) {
+      document.documentElement.classList.add('dark');
+      document.documentElement.classList.remove('light');
+    } else {
+      document.documentElement.classList.remove('dark');
+      document.documentElement.classList.add('light');
+    }
+  })();
+</script>
 <!-- Tailwind CSS CDN -->
-
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 
 <!-- Tailwind Configuration Verbatim -->
@@ -475,6 +488,19 @@
     }
 
   </script>
+
+<style>
+  html.dark body { background-color: #060c18 !important; color: #f8fafc !important; }
+  html.light body { background-color: #faf8ff !important; color: #001026 !important; }
+
+  html.dark .text-error { color: #f87171 !important; }
+  html.dark .bg-error { background-color: #ef4444 !important; }
+  html.dark .bg-error-container { background-color: rgba(186, 26, 26, 0.3) !important; color: #fca5a5 !important; border: 1px solid rgba(220, 38, 38, 0.5) !important; }
+  html.dark tr.bg-red-50\/30 { background-color: rgba(69, 10, 10, 0.35) !important; }
+  html.dark table thead tr { background-color: #0f1c32 !important; border-color: #334155 !important; color: #cbd5e1 !important; }
+  html.dark table tbody tr { background-color: #0b1526 !important; border-color: #1e293b !important; color: #f8fafc !important; }
+  html.dark table tbody tr:hover { background-color: #14243e !important; }
+</style>
 
 </head>
 
@@ -1175,23 +1201,23 @@
 
 <!-- 5. Technical Specs & Safeguard Matrix -->
 
-<section class="bg-surface-container-lowest p-space-lg rounded-lg border border-outline-variant shadow-sm"><div class="flex flex-col md:flex-row md:items-center justify-between gap-space-md border-b border-outline-variant pb-space-md mb-space-md"><div class="flex items-center gap-3"><div class="p-2 bg-surface-container rounded border border-outline-variant text-primary"><span class="material-symbols-outlined text-xl" data-icon="developer_board">developer_board</span></div><div><h3 class="font-headline-sm text-headline-sm font-bold text-primary">MVP System Architecture</h3><p class="font-body-sm text-body-sm text-on-surface-variant">MVP: recorded audio input, Python backend</p></div></div><div class="flex items-center gap-2"><span class="px-3 py-1 rounded bg-secondary-fixed text-on-secondary-fixed font-label-tabular text-caption font-bold">MVP RELEASE MODE</span></div></div><div class="grid grid-cols-1 md:grid-cols-2 gap-space-md"><div class="p-space-sm bg-surface-container-low rounded border border-outline-variant"><span class="font-label-md text-label-md text-primary font-semibold block">Number Masking Protocol</span><p class="font-body-sm text-body-sm text-on-surface-variant">Incoming CLI masked across dispatch operators: <span class="font-label-tabular text-label-tabular font-bold text-on-surface">+91 XXXXX XXXXX</span>. Unmasked only on physical SMS gateway relay.</p></div><div class="p-space-sm bg-surface-container-low rounded border border-outline-variant"><span class="font-label-md text-label-md text-primary font-semibold block">Minimal PII Persistence</span><p class="font-body-sm text-body-sm text-on-surface-variant">Transcripts store <span class="font-semibold text-on-surface">First Names Only</span> (e.g., "Rajesh", "Amina"). Aadhaar numbers and surnames are excluded from operational manifests.</p></div></div></section>
+<section class="bg-surface-container-lowest dark:bg-slate-900 p-space-lg rounded-lg border border-outline-variant dark:border-slate-700 shadow-sm"><div class="flex flex-col md:flex-row md:items-center justify-between gap-space-md border-b border-outline-variant dark:border-slate-700 pb-space-md mb-space-md"><div class="flex items-center gap-3"><div class="p-2 bg-surface-container dark:bg-slate-800 rounded border border-outline-variant dark:border-slate-700 text-primary dark:text-slate-200"><span class="material-symbols-outlined text-xl" data-icon="developer_board">developer_board</span></div><div><h3 class="font-headline-sm text-headline-sm font-bold text-primary dark:text-slate-100">MVP System Architecture</h3><p class="font-body-sm text-body-sm text-on-surface-variant dark:text-slate-400">MVP: recorded audio input, Python backend</p></div></div><div class="flex items-center gap-2"><span class="px-3 py-1 rounded bg-secondary-fixed dark:bg-amber-950/50 text-on-secondary-fixed dark:text-amber-300 font-label-tabular text-caption font-bold border border-secondary-container/40 dark:border-amber-700/60">MVP RELEASE MODE</span></div></div><div class="grid grid-cols-1 md:grid-cols-2 gap-space-md"><div class="p-space-sm bg-surface-container-low dark:bg-slate-800 rounded border border-outline-variant dark:border-slate-700"><span class="font-label-md text-label-md text-primary dark:text-slate-100 font-semibold block">Number Masking Protocol</span><p class="font-body-sm text-body-sm text-on-surface-variant dark:text-slate-300">Incoming CLI masked across dispatch operators: <span class="font-label-tabular text-label-tabular font-bold text-on-surface dark:text-slate-100">+91 XXXXX XXXXX</span>. Unmasked only on physical SMS gateway relay.</p></div><div class="p-space-sm bg-surface-container-low dark:bg-slate-800 rounded border border-outline-variant dark:border-slate-700"><span class="font-label-md text-label-md text-primary dark:text-slate-100 font-semibold block">Minimal PII Persistence</span><p class="font-body-sm text-body-sm text-on-surface-variant dark:text-slate-300">Transcripts store <span class="font-semibold text-on-surface dark:text-slate-100">First Names Only</span> (e.g., "Rajesh", "Amina"). Aadhaar numbers and surnames are excluded from operational manifests.</p></div></div></section>
 
 <!-- Operational State Matrix Table -->
 
-<section class="bg-surface-container-lowest rounded-lg border border-outline-variant overflow-hidden shadow-sm">
+<section class="bg-surface-container-lowest dark:bg-slate-900 rounded-lg border border-outline-variant dark:border-slate-700 overflow-hidden shadow-sm">
 
-<div class="p-space-md bg-surface-container-low border-b border-outline-variant flex items-center justify-between">
+<div class="p-space-md bg-surface-container-low dark:bg-slate-800 border-b border-outline-variant dark:border-slate-700 flex items-center justify-between">
 
 <div>
 
-<h3 class="font-headline-sm text-headline-sm font-bold text-primary">State Mutation vs. Vocal Authorization Rules</h3>
+<h3 class="font-headline-sm text-headline-sm font-bold text-primary dark:text-slate-100">State Mutation vs. Vocal Authorization Rules</h3>
 
-<p class="font-body-sm text-body-sm text-on-surface-variant">Deterministic validation table governing voice agent responses at each operational lifecycle stage.</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant dark:text-slate-400">Deterministic validation table governing voice agent responses at each operational lifecycle stage.</p>
 
 </div>
 
-<span class="font-label-tabular text-caption px-2.5 py-1 bg-surface-container-highest text-primary font-bold rounded">
+<span class="font-label-tabular text-caption px-2.5 py-1 bg-surface-container-highest dark:bg-slate-700 text-primary dark:text-slate-200 font-bold rounded">
 
           RULESET v4.2.1
 
@@ -1205,7 +1231,7 @@
 
 <thead>
 
-<tr class="bg-surface-container text-caption font-label-tabular uppercase tracking-wider text-on-surface-variant border-b-2 border-outline-variant">
+<tr class="bg-surface-container dark:bg-slate-800/90 text-caption font-label-tabular uppercase tracking-wider text-on-surface-variant dark:text-slate-300 border-b-2 border-outline-variant dark:border-slate-700">
 
 <th class="py-3 px-4">State Token</th>
 
@@ -1221,25 +1247,25 @@
 
 </thead>
 
-<tbody class="divide-y divide-outline-variant text-body-sm">
+<tbody class="divide-y divide-outline-variant dark:divide-slate-800 text-body-sm">
 
 <!-- Row 1 -->
 
-<tr class="hover:bg-surface-container-low transition-colors">
+<tr class="hover:bg-surface-container-low dark:hover:bg-slate-800/60 transition-colors">
 
-<td class="py-3 px-4 font-label-tabular font-bold text-primary">ST_CALL_INTAKE</td>
+<td class="py-3 px-4 font-label-tabular font-bold text-primary dark:text-blue-400">ST_CALL_INTAKE</td>
 
-<td class="py-3 px-4 text-on-surface-variant">PSTN Ringing / Answer</td>
+<td class="py-3 px-4 text-on-surface-variant dark:text-slate-300">PSTN Ringing / Answer</td>
 
-<td class="py-3 px-4 text-on-surface">Session initialize, allocate scratchpad RAM</td>
+<td class="py-3 px-4 text-on-surface dark:text-slate-200">Session initialize, allocate scratchpad RAM</td>
 
-<td class="py-3 px-4 font-body-sm text-on-surface italic">"Namaskara, Abhay DDMA Control Room. Tell us your location and headcount."</td>
+<td class="py-3 px-4 font-body-sm text-on-surface dark:text-slate-200 italic">"Namaskara, Abhay DDMA Control Room. Tell us your location and headcount."</td>
 
 <td class="py-3 px-4 text-right">
 
-<span class="inline-flex items-center gap-1 text-caption font-label-tabular px-2 py-0.5 rounded bg-surface-container-high text-primary font-bold">
+<span class="inline-flex items-center gap-1 text-caption font-label-tabular px-2 py-0.5 rounded bg-surface-container-high dark:bg-slate-800 text-primary dark:text-slate-200 font-bold border border-outline-variant/60 dark:border-slate-700">
 
-<span class="h-1.5 w-1.5 rounded-full bg-primary"></span>
+<span class="h-1.5 w-1.5 rounded-full bg-primary dark:bg-blue-400"></span>
 
                   GATED
 
@@ -1251,21 +1277,21 @@
 
 <!-- Row 2 -->
 
-<tr class="hover:bg-surface-container-low transition-colors">
+<tr class="hover:bg-surface-container-low dark:hover:bg-slate-800/60 transition-colors">
 
-<td class="py-3 px-4 font-label-tabular font-bold text-secondary">ST_MANIFEST_REC</td>
+<td class="py-3 px-4 font-label-tabular font-bold text-secondary dark:text-amber-400">ST_MANIFEST_REC</td>
 
-<td class="py-3 px-4 text-on-surface-variant">Evon Slot Fill (headcount &gt; 0)</td>
+<td class="py-3 px-4 text-on-surface-variant dark:text-slate-300">Evon Slot Fill (headcount &gt; 0)</td>
 
-<td class="py-3 px-4 text-on-surface">Commit row to `evacuation_manifest` table</td>
+<td class="py-3 px-4 text-on-surface dark:text-slate-200">Commit row to `evacuation_manifest` table</td>
 
-<td class="py-3 px-4 font-body-sm text-on-surface italic">"Your request is recorded. No driver has accepted yet."</td>
+<td class="py-3 px-4 font-body-sm text-on-surface dark:text-slate-200 italic">"Your request is recorded. No driver has accepted yet."</td>
 
 <td class="py-3 px-4 text-right">
 
-<span class="inline-flex items-center gap-1 text-caption font-label-tabular px-2 py-0.5 rounded bg-secondary-fixed text-on-secondary-fixed font-bold">
+<span class="inline-flex items-center gap-1 text-caption font-label-tabular px-2 py-0.5 rounded bg-secondary-fixed dark:bg-amber-950/50 text-on-secondary-fixed dark:text-amber-300 font-bold border border-secondary-container/40 dark:border-amber-700/60">
 
-<span class="h-1.5 w-1.5 rounded-full bg-secondary"></span>
+<span class="h-1.5 w-1.5 rounded-full bg-secondary dark:bg-amber-400"></span>
 
                   RECORDED
 
@@ -1277,21 +1303,21 @@
 
 <!-- Row 3 -->
 
-<tr class="hover:bg-surface-container-low transition-colors bg-red-50/30">
+<tr class="hover:bg-surface-container-low dark:hover:bg-slate-800/60 transition-colors bg-red-50/30 dark:bg-red-950/40 border-l-4 border-l-error dark:border-l-red-500">
 
-<td class="py-3 px-4 font-label-tabular font-bold text-error">PROHIBITED_STATE</td>
+<td class="py-3 px-4 font-label-tabular font-bold text-error dark:text-red-400">PROHIBITED_STATE</td>
 
-<td class="py-3 px-4 text-on-surface-variant">Queue Pending / No Fleet Lock</td>
+<td class="py-3 px-4 text-on-surface-variant dark:text-slate-300">Queue Pending / No Fleet Lock</td>
 
-<td class="py-3 px-4 text-error font-semibold">Honesty Guard throws hard exception if agent attempts promise</td>
+<td class="py-3 px-4 text-error dark:text-red-300 font-semibold">Honesty Guard throws hard exception if agent attempts promise</td>
 
-<td class="py-3 px-4 text-error font-body-sm font-semibold">PROHIBITED: "Rescue vehicle is on its way" / "Help is coming"</td>
+<td class="py-3 px-4 text-error dark:text-red-300 font-body-sm font-semibold">PROHIBITED: "Rescue vehicle is on its way" / "Help is coming"</td>
 
 <td class="py-3 px-4 text-right">
 
-<span class="inline-flex items-center gap-1 text-caption font-label-tabular px-2 py-0.5 rounded bg-error-container text-error font-bold">
+<span class="inline-flex items-center gap-1 text-caption font-label-tabular px-2.5 py-1 rounded bg-error-container dark:bg-red-950/80 text-error dark:text-red-200 font-bold border border-error/30 dark:border-red-600/60 shadow-xs">
 
-<span class="h-1.5 w-1.5 rounded-full bg-error"></span>
+<span class="h-2 w-2 rounded-full bg-error dark:bg-red-400 animate-pulse"></span>
 
                   BLOCKED
 
@@ -1303,21 +1329,21 @@
 
 <!-- Row 4 -->
 
-<tr class="hover:bg-surface-container-low transition-colors">
+<tr class="hover:bg-surface-container-low dark:hover:bg-slate-800/60 transition-colors">
 
-<td class="py-3 px-4 font-label-tabular font-bold text-emerald-800">ST_DRIVER_ACK</td>
+<td class="py-3 px-4 font-label-tabular font-bold text-emerald-800 dark:text-emerald-400">ST_DRIVER_ACK</td>
 
-<td class="py-3 px-4 text-on-surface-variant">Driver Tablet clicks "ACCEPT"</td>
+<td class="py-3 px-4 text-on-surface-variant dark:text-slate-300">Driver Tablet clicks "ACCEPT"</td>
 
-<td class="py-3 px-4 text-on-surface">DB status mutates to `DRIVER_ACCEPTED`, calculate ETA</td>
+<td class="py-3 px-4 text-on-surface dark:text-slate-200">DB status mutates to `DRIVER_ACCEPTED`, calculate ETA</td>
 
-<td class="py-3 px-4 font-body-sm text-on-surface italic">"NDRF Boat Unit 04 has accepted your dispatch. ETA is 18 minutes."</td>
+<td class="py-3 px-4 font-body-sm text-on-surface dark:text-slate-200 italic">"NDRF Boat Unit 04 has accepted your dispatch. ETA is 18 minutes."</td>
 
 <td class="py-3 px-4 text-right">
 
-<span class="inline-flex items-center gap-1 text-caption font-label-tabular px-2 py-0.5 rounded bg-emerald-100 text-emerald-900 font-bold">
+<span class="inline-flex items-center gap-1 text-caption font-label-tabular px-2 py-0.5 rounded bg-emerald-100 dark:bg-emerald-950/50 text-emerald-900 dark:text-emerald-300 font-bold border border-emerald-300 dark:border-emerald-700/60">
 
-<span class="h-1.5 w-1.5 rounded-full bg-emerald-600"></span>
+<span class="h-1.5 w-1.5 rounded-full bg-emerald-600 dark:bg-emerald-400"></span>
 
                   DISPATCHED
 
@@ -1344,36 +1370,36 @@
 
 <!-- State Transition Matrix Modal -->
 <div id="stateMatrixModal" class="fixed inset-0 z-50 bg-slate-950/70 backdrop-blur-sm hidden flex items-center justify-center p-4">
-  <div class="w-full max-w-2xl bg-surface-container-lowest rounded-xl border border-outline shadow-2xl p-5 space-y-4">
-    <div class="flex items-center justify-between border-b border-outline-variant/60 pb-3">
-      <h3 class="font-bold text-lg text-primary">Core Legal State Transitions (core/status.py)</h3>
-      <button onclick="document.getElementById('stateMatrixModal').classList.add('hidden')" class="p-1 rounded text-on-surface-variant hover:text-on-surface">
+  <div class="w-full max-w-2xl bg-surface-container-lowest dark:bg-slate-900 rounded-xl border border-outline dark:border-slate-700 shadow-2xl p-5 space-y-4">
+    <div class="flex items-center justify-between border-b border-outline-variant/60 dark:border-slate-700 pb-3">
+      <h3 class="font-bold text-lg text-primary dark:text-slate-100">Core Legal State Transitions (core/status.py)</h3>
+      <button onclick="document.getElementById('stateMatrixModal').classList.add('hidden')" class="p-1 rounded text-on-surface-variant dark:text-slate-400 hover:text-on-surface dark:hover:text-slate-100">
         <span class="material-symbols-outlined">close</span>
       </button>
     </div>
     <div class="overflow-x-auto text-xs">
-      <table class="w-full text-left border-collapse border border-outline-variant">
+      <table class="w-full text-left border-collapse border border-outline-variant dark:border-slate-700">
         <thead>
-          <tr class="bg-surface-container-low font-bold">
-            <th class="p-2 border border-outline-variant">Current Status</th>
-            <th class="p-2 border border-outline-variant">Allowed Next Statuses</th>
-            <th class="p-2 border border-outline-variant">Allowed Actor Types</th>
+          <tr class="bg-surface-container-low dark:bg-slate-800 font-bold text-on-surface dark:text-slate-200">
+            <th class="p-2 border border-outline-variant dark:border-slate-700">Current Status</th>
+            <th class="p-2 border border-outline-variant dark:border-slate-700">Allowed Next Statuses</th>
+            <th class="p-2 border border-outline-variant dark:border-slate-700">Allowed Actor Types</th>
           </tr>
         </thead>
-        <tbody>
-          <tr><td class="p-2 border font-mono">not_reached</td><td class="p-2 border">needs_help, can_help, not_reached</td><td class="p-2 border">system, ivr, field_worker, citizen</td></tr>
-          <tr><td class="p-2 border font-mono">needs_help</td><td class="p-2 border">request_recorded, can_help</td><td class="p-2 border">dispatcher, system</td></tr>
-          <tr><td class="p-2 border font-mono">request_recorded</td><td class="p-2 border">driver_accepted, needs_help</td><td class="p-2 border">driver, dispatcher</td></tr>
-          <tr><td class="p-2 border font-mono">driver_accepted</td><td class="p-2 border">on_run, request_recorded</td><td class="p-2 border">driver</td></tr>
-          <tr><td class="p-2 border font-mono">on_run</td><td class="p-2 border">picked_up, driver_accepted</td><td class="p-2 border">driver</td></tr>
-          <tr><td class="p-2 border font-mono">picked_up</td><td class="p-2 border">evacuated</td><td class="p-2 border">driver</td></tr>
-          <tr><td class="p-2 border font-mono">evacuated</td><td class="p-2 border">(Terminal)</td><td class="p-2 border">-</td></tr>
-          <tr><td class="p-2 border font-mono">can_help</td><td class="p-2 border">needs_help</td><td class="p-2 border">citizen, dispatcher</td></tr>
+        <tbody class="divide-y divide-outline-variant dark:divide-slate-800 text-on-surface dark:text-slate-300">
+          <tr><td class="p-2 border border-outline-variant dark:border-slate-700 font-mono text-primary dark:text-blue-400">not_reached</td><td class="p-2 border border-outline-variant dark:border-slate-700">needs_help, can_help, not_reached</td><td class="p-2 border border-outline-variant dark:border-slate-700">system, ivr, field_worker, citizen</td></tr>
+          <tr><td class="p-2 border border-outline-variant dark:border-slate-700 font-mono text-error dark:text-red-400">needs_help</td><td class="p-2 border border-outline-variant dark:border-slate-700">request_recorded, can_help</td><td class="p-2 border border-outline-variant dark:border-slate-700">dispatcher, system</td></tr>
+          <tr><td class="p-2 border border-outline-variant dark:border-slate-700 font-mono text-secondary dark:text-amber-400">request_recorded</td><td class="p-2 border border-outline-variant dark:border-slate-700">driver_accepted, needs_help</td><td class="p-2 border border-outline-variant dark:border-slate-700">driver, dispatcher</td></tr>
+          <tr><td class="p-2 border border-outline-variant dark:border-slate-700 font-mono text-emerald-700 dark:text-emerald-400">driver_accepted</td><td class="p-2 border border-outline-variant dark:border-slate-700">on_run, request_recorded</td><td class="p-2 border border-outline-variant dark:border-slate-700">driver</td></tr>
+          <tr><td class="p-2 border border-outline-variant dark:border-slate-700 font-mono text-emerald-700 dark:text-emerald-400">on_run</td><td class="p-2 border border-outline-variant dark:border-slate-700">picked_up, driver_accepted</td><td class="p-2 border border-outline-variant dark:border-slate-700">driver</td></tr>
+          <tr><td class="p-2 border border-outline-variant dark:border-slate-700 font-mono text-emerald-700 dark:text-emerald-400">picked_up</td><td class="p-2 border border-outline-variant dark:border-slate-700">evacuated</td><td class="p-2 border border-outline-variant dark:border-slate-700">driver</td></tr>
+          <tr><td class="p-2 border border-outline-variant dark:border-slate-700 font-mono text-emerald-800 dark:text-emerald-300">evacuated</td><td class="p-2 border border-outline-variant dark:border-slate-700">(Terminal)</td><td class="p-2 border border-outline-variant dark:border-slate-700">-</td></tr>
+          <tr><td class="p-2 border border-outline-variant dark:border-slate-700 font-mono text-orange-600 dark:text-orange-400">can_help</td><td class="p-2 border border-outline-variant dark:border-slate-700">needs_help</td><td class="p-2 border border-outline-variant dark:border-slate-700">citizen, dispatcher</td></tr>
         </tbody>
       </table>
     </div>
     <div class="flex justify-end pt-2">
-      <button onclick="document.getElementById('stateMatrixModal').classList.add('hidden')" class="px-3 py-1.5 bg-primary text-white text-xs rounded">Close</button>
+      <button onclick="document.getElementById('stateMatrixModal').classList.add('hidden')" class="px-3 py-1.5 bg-primary dark:bg-blue-600 hover:bg-primary-container text-white text-xs rounded transition-colors">Close</button>
     </div>
   </div>
 </div>

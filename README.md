@@ -28,8 +28,18 @@ During severe floods, cyclones, and landslides across India, district helplines 
 - **Synthetic Data**: All household records, demographics, phone numbers, and vulnerability traits are synthetically generated seed records representing the Bantwal flood area.
 - **Simulated Telephony**: Telephony interaction is a recorded-audio demo with simulated calls via web interface. There is no carrier PRI/SIP trunk integration, PBX connection, or live cellular dialer.
 - **Vehicle Positions from Seed Data & No Live Routing or ETAs**: Vehicle locations are fixed coordinates from seed data. No live GPS telemetry, road network routing, or dynamic ETA calculations exist; pre-acceptance messages never promise travel times.
+- **Synthetic Simulation Only with Single-Trip Vehicles**: All multi-seed simulation benchmarks in `sim/run_sim.py` and fleet optimization tables evaluate synthetic disaster nights generated from seed coordinates and fleet counts. Each vehicle performs one dispatch assignment per night within its capacity (no sequential return loops).
+- **On-Time % Denominator is ALL Households Needing a Ride**: On-time % is strictly computed over all 24 households needing evacuation; unassigned households count as not evacuated on time.
+- **The Extreme Scenario is Dominated by Seat Shortage**: With only 3 vehicles (12 seats) for ~72 people, ~20 households remain unassigned regardless of algorithm. On-time pickups tie with FCFS (median 8.3% of households, 5–6 people).
+- **The Moderate Scenario Has Loose Deadlines**: With 45–120 min water arrival deadlines, virtually every assigned household arrives on time (~70.8% of households, ~51 people).
+- **The Routing Gain is About 1% of Assigned-Plan Cost in the Data**: In the synthetic data, the optimizer reduces assigned-plan transit/risk cost by approximately 1% compared to greedy ($4,088.7$ vs $4,131.4$ pts).
+- **Cost Advantage is Over Greedy Only**: The optimizer's mathematical cost reduction is strictly relative to the Priority Greedy heuristic baseline. The optimizer does not materially improve evacuation outcomes in general.
+- **Deadlines are Demo Assumptions**: Inundation rates, nominal transit speeds (25 km/h), boarding buffer times, and `water_arrival_minutes` are synthetic demo assumptions, not hydrodynamic telemetry.
+- **Hand-Built Tests Were Written by the Same Agent That Changed the Optimizer**: Hand-built test cases were authored alongside the optimizer's operators.
+- **Traffic Modelling Not Implemented**: Distance calculations use straight-line Haversine geodesic metrics only. Road network topography, flooded bridge impassability, and live vehicular traffic congestion are not modeled.
+- **No Real ETAs**: Neither dispatchers nor residents are ever shown arrival times or travel duration estimates before driver acceptance. Pre-acceptance communications strictly adhere to canonical recorded-request notices.
 - **Placeholder Safety Answers Pending District Authority**: Advisory answers for life-critical inquiries (e.g. livestock, bridge crossing, medical equipment adjustments) return `"Approved answer pending from district authority"` and are immediately flagged for human review.
-- **Evaluation Numbers Reflect Local Benchmark Runs**: All reported accuracy and WER metrics are derived exclusively from local test runs against synthetic mock test cases.
+- **Evaluation Numbers Reflect Local Benchmark Runs**: All reported accuracy, latency, and simulation metrics are derived exclusively from local test runs against synthetic test cases.
 - **Mock Mode Active**: No real Gnani API call (Prisma, Evon, Timbre) has ever succeeded. The application runs with `USE_MOCK_GNANI=true`.
 
 ---
@@ -140,6 +150,82 @@ python evals/run_evals.py
 - **Honesty Guard Pass Rate**: **100.0%** (0 false promises permitted)
 - **Field Extraction Accuracy**: **86.7%**
 - **Average Telephony WER**: **14.2%**
+
+### Run Fleet Optimization Simulation (SYNTHETIC)
+Evaluates dispatch strategies across 60 synthetic disaster nights under three scenarios: Extreme Scarcity, Seat-Limited (Loose Deadlines), and Enough General Seats, Limited Accessible Vehicles, Tight Deadlines:
+```powershell
+python sim/run_sim.py
+```
+**Results saved to `evals/sim_results.json` (SYNTHETIC):**
+
+> **Strict Honesty & Methodological Disclaimers:**
+> - **Denominator**: On-time % is computed over ALL households needing a ride (24 households). Unassigned households count as NOT evacuated on time.
+> - **The extreme scenario is dominated by seat shortage**: Only 12 seats are available across 3 vehicles for ~72 people; on-time pickups tie with FCFS (median 8.3% of households, 5–6 people).
+> - **The moderate scenario has loose deadlines**: With 45–120 min water arrivals, 70.8% is the share of all households on time, including unassigned ones (virtually all assigned pickups are on time; ~51 people).
+> - **The optimizer's advantage in Scenario 3 comes from allocating scarce accessible vehicles (84 unassigned for optimizer vs 116 for greedy vs 129 for FCFS across 60 seeds, synthetic data only)**.
+> - **Cost advantage is over greedy only**: The optimizer does not materially improve evacuation outcomes in general.
+> - **All scenarios are synthetic with single-trip vehicles**: Vehicles do not perform sequential return loops.
+> - **Deadlines are demo assumptions**: Water arrival minutes and buffers are synthetic demo parameters.
+> - **Hand-built tests were written by the same agent that changed the optimizer**.
+
+#### Simulation Scenario Configurations (Fleet & Household Parameters)
+
+| Scenario | Fleet Units & Staging Location | Total Seats | Stretcher / Wheelchair Capable Vehicles | Household Generator Settings |
+| :--- | :--- | :---: | :--- | :--- |
+| **Scenario 1: Extreme Scarcity** | 3 units at Distant Depot `(12.820, 75.080)` (~8–12 km):<br>&bull; 1x Boat (`v-01`, cap 6, str 0, wc 0)<br>&bull; 1x Ambulance (`v-02`, cap 2, str 1, wc 1)<br>&bull; 1x Car (`v-03`, cap 4, str 0, wc 1) | **12 seats** | &bull; Stretcher: 1 vehicle (2 seats)<br>&bull; Wheelchair: 2 vehicles (6 seats) | 24 HH (~72 people), 2 clusters, 2–4 members/HH.<br>Deadlines: **15–45 min**.<br>Probabilities: emergency 25%, cannot_walk 30%, bedridden 45% (of non-walking), elderly 35%, oxygen 20%. |
+| **Scenario 2: Seat-Limited, Loose Deadlines** | 6 units at Regional Bantwal locations (~0.5–2 km):<br>&bull; 2x Boats (`v-01` cap 6, `v-02` cap 8; str 0, wc 0)<br>&bull; 2x Ambulances (`v-03` cap 2, `v-04` cap 2; str 1, wc 1)<br>&bull; 1x Bus (`v-05`, cap 32, str 0, wc 0)<br>&bull; 1x Car (`v-06`, cap 4, str 0, wc 1) | **54 seats** | &bull; Stretcher: 2 vehicles (4 seats)<br>&bull; Wheelchair: 3 vehicles (8 seats) | 24 HH (~72 people), 2 clusters, 2–4 members/HH.<br>Deadlines: **45–120 min** (loose).<br>Same demographic and accessibility probabilities as Scenario 1. |
+| **Scenario 3: Enough General Seats, Limited Accessible Vehicles, Tight Deadlines** | 8 units at Distant Depot `(12.820, 75.080)` (~8–12 km):<br>&bull; 2x Boats (`v-01` cap 12, `v-02` cap 12; str 0, wc 0)<br>&bull; 2x Buses (`v-03` cap 24, `v-04` cap 24; str 0, wc 0)<br>&bull; 2x Ambulances (`v-05` cap 4, `v-06` cap 4; str 1, wc 1)<br>&bull; 2x Cars (`v-07` cap 8, `v-08` cap 8; str 0, wc 1) | **96 seats** | &bull; Stretcher: 2 vehicles (8 seats)<br>&bull; Wheelchair: 4 vehicles (24 seats) | 24 HH (~72 people), 2 clusters, 2–4 members/HH.<br>Deadlines: **15–45 min** (tight).<br>Same demographic and accessibility probabilities as Scenario 1. |
+
+#### Scenario 1: Extreme Scarcity (Seat Shortage Dominates: 3 Veh / 12 Seats vs 24 HH, Deadlines 15–45 min)
+- **Unassigned Households (Median [p5–p95], Total across 60 seeds)**:
+  - FCFS: **20.0 households** [19.0–20.0] &bull; Total: **1,189 unassigned** (Causes: Stretcher **194**, Wheelchair **194**, General seats **801**)
+  - Priority Greedy: **20.0 households** [19.0–20.0] &bull; Total: **1,178 unassigned** (Causes: Stretcher **168**, Wheelchair **191**, General seats **819**)
+  - ALNS Optimizer: **20.0 households** [19.0–20.0] &bull; Total: **1,170 unassigned** (Causes: Stretcher **168**, Wheelchair **186**, General seats **816**)
+- **On-Time Headcount (People Evacuated on Time, Median [p5–p95])**:
+  - FCFS: **5.0 people** [0.0–11.0] | Priority Greedy: **5.0 people** [0.0–10.0] | ALNS Optimizer: **6.0 people** [0.0–10.0]
+- **On-Time Rate over ALL 24 Households (Median [p5–p95])**:
+  - FCFS: **8.3%** [0.0%–16.7%] | Priority Greedy: **8.3%** [0.0%–16.7%] | ALNS Optimizer: **8.3%** [0.0%–16.7%]
+- **Paired Headcount Differences (People per seed)**:
+  - Optimizer vs FCFS: Median **0.0 people** [p5: -6.0, p95: 7.0] &bull; Better: **29 seeds**, Tied: **9 seeds**, Worse: **22 seeds**
+  - Optimizer vs Greedy: Median **0.0 people** [p5: 0.0, p95: 4.0] &bull; Better: **16 seeds**, Tied: **44 seeds**, Worse: **0 seeds**
+
+#### Scenario 2: Seat-Limited, Loose Deadlines (6 Veh / 54 Seats vs 24 HH, Deadlines 45–120 min)
+- **Unassigned Households (Median [p5–p95], Total across 60 seeds)**:
+  - FCFS: **7.0 households** [5.0–8.0] &bull; Total: **405 unassigned** (Causes: Stretcher **175**, Wheelchair **136**, General seats **94**)
+  - Priority Greedy: **7.0 households** [5.0–8.0] &bull; Total: **398 unassigned** (Causes: Stretcher **147**, Wheelchair **140**, General seats **111**)
+  - ALNS Optimizer: **7.0 households** [5.0–8.0] &bull; Total: **390 unassigned** (Causes: Stretcher **147**, Wheelchair **130**, General seats **113**)
+- **On-Time Headcount (People Evacuated on Time, Median [p5–p95])**:
+  - FCFS: **51.5 people** [47.0–54.0] | Priority Greedy: **51.0 people** [47.0–54.0] | ALNS Optimizer: **51.0 people** [49.0–54.0]
+- **On-Time Rate over ALL 24 Households (Median [p5–p95])** *(70.8% is the share of all 24 households on time, including unassigned ones)*:
+  - FCFS: **70.8%** [66.5%–79.2%] | Priority Greedy: **70.8%** [66.5%–79.2%] | ALNS Optimizer: **70.8%** [66.7%–79.4%]
+- **Paired Headcount Differences (People per seed)**:
+  - Optimizer vs FCFS: Median **0.0 people** [p5: -3.0, p95: 3.0] &bull; Better: **24 seeds**, Tied: **16 seeds**, Worse: **20 seeds**
+  - Optimizer vs Greedy: Median **0.0 people** [p5: 0.0, p95: 2.0] &bull; Better: **5 seeds**, Tied: **54 seeds**, Worse: **1 seeds**
+
+#### Scenario 3: Enough General Seats, Limited Accessible Vehicles, Tight Deadlines (8 Veh / 96 Seats vs 24 HH, Deadlines 15–45 min)
+- **Unassigned Households by Cause (Across 60 seeds x 24 HH = 1,440 requests)**:
+  - FCFS: **129 unassigned households** (Median **2.0** [p5: 0.0, p95: 5.0]) &bull; Causes: Stretcher **123** (95.3%), Wheelchair **6** (4.7%), General seats **0** (0.0%)
+  - Priority Greedy: **116 unassigned households** (Median **2.0** [p5: 0.0, p95: 5.0]) &bull; Causes: Stretcher **76** (65.5%), Wheelchair **40** (34.5%), General seats **0** (0.0%)
+  - ALNS Optimizer: **84 unassigned households** (Median **1.0** [p5: 0.0, p95: 4.0]) &bull; Causes: Stretcher **69** (82.1%), Wheelchair **15** (17.9%), General seats **0** (0.0%)
+  - **Optimizer Advantage**: The optimizer's advantage in Scenario 3 comes from allocating scarce accessible vehicles (84 unassigned for optimizer vs 116 for greedy vs 129 for FCFS across 60 seeds, synthetic data only). General seats caused 0 unassigned households because the fleet has 96 seats for ~72 people.
+- **On-Time Headcount (People Evacuated on Time, Median [p5–p95])**:
+  - FCFS: **30.5 people** [17.0–45.0] | Priority Greedy: **31.0 people** [16.9–44.1] | ALNS Optimizer: **33.0 people** [17.9–44.2]
+- **On-Time Rate over ALL 24 Households (Median [p5–p95])**:
+  - FCFS: **41.7%** [25.0%–58.5%] | Priority Greedy: **45.8%** [20.8%–58.3%] | ALNS Optimizer: **45.8%** [25.0%–62.7%]
+- **Paired Headcount Differences (People per seed)**:
+  - Optimizer vs FCFS: Median **1.0 people** [p5: -4.0, p95: 6.0] &bull; Better: **30 seeds**, Tied: **20 seeds**, Worse: **10 seeds**
+  - Optimizer vs Greedy: Median **0.0 people** [p5: -1.0, p95: 5.0] &bull; Better: **21 seeds**, Tied: **35 seeds**, Worse: **4 seeds**
+
+#### Appendix: Synthetic Cost Formulation & Detailed Scores
+Cost is an internal objective metric combining transit distance, lateness risk penalty, and unassigned request penalties:
+$$\text{Cost} = \sum_{r \in \text{assigned}} \left(1000 \cdot E_r + w_r \cdot d_r\right) + \sum_{r \in \text{unassigned}} \left(5000 \cdot \frac{w_r}{10}\right)$$
+Where $E_r \in [0, 1]$ is the lateness risk factor relative to water arrival minutes, $w_r$ is household priority weight, and $d_r$ is straight-line distance in km.
+
+| Scenario | Strategy | Assigned Cost (pts) | Unassigned Penalty (pts) | Total Cost Median [p5–p95] (pts) | Paired Diff vs Greedy (pts) |
+| :--- | :--- | :---: | :---: | :---: | :---: |
+| **Scenario 1: Extreme Scarcity** | FCFS<br>Greedy<br>Optimizer | 2,242.7<br>4,131.4<br>4,088.7 | 497,500.0<br>396,250.0<br>393,750.0 | 499,376.1 [331,806.8–721,033.4]<br>402,035.8 [241,006.1–637,038.7]<br>400,160.2 [233,927.6–636,582.7] | --<br>Baseline<br>Median: 0.0 [0.0–25,241.3] (Better: 28, Tied: 32) |
+| **Scenario 2: Seat-Limited, Loose Deadlines** | FCFS<br>Greedy<br>Optimizer | 1,826.9<br>2,244.5<br>2,231.0 | 204,375.0<br>165,000.0<br>165,000.0 | 206,256.3 [156,098.2–415,750.0]<br>167,244.5 [47,947.3–388,865.0]<br>167,231.0 [47,947.3–388,840.5] | --<br>Baseline<br>Median: 0.0 [0.0–15,427.8] (Better: 16, Tied: 44) |
+| **Scenario 3: Enough General Seats...** | FCFS<br>Greedy<br>Optimizer | 12,410.5<br>12,752.9<br>12,510.7 | 62,500.0<br>62,500.0<br>62,500.0 | 74,910.5 [11,707.0–397,336.5]<br>75,252.9 [10,532.5–289,720.3]<br>73,715.4 [10,486.5–285,950.4] | --<br>Baseline<br>Median: 242.2 [9.6–60,929.3] (Better: 59, Tied: 1) |
 
 ---
 

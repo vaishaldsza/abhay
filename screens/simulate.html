@@ -5,6 +5,19 @@
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>Abhay DDMA Command - Voice Pipeline Simulation</title>
+<!-- Early Theme Initialization to Prevent Flash of Dark/Light Theme -->
+<script>
+  (function() {
+    const savedTheme = localStorage.getItem('abhay_theme') || 'dark';
+    if (savedTheme === 'light') {
+      document.documentElement.classList.remove('dark');
+      document.documentElement.classList.add('light');
+    } else {
+      document.documentElement.classList.add('dark');
+      document.documentElement.classList.remove('light');
+    }
+  })();
+</script>
 <!-- Fonts -->
 <link href="https://fonts.googleapis.com" rel="preconnect"/>
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
@@ -121,6 +134,50 @@
       },
     }
   </script>
+<style>
+  .material-symbols-outlined {
+    font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    display: inline-block;
+    vertical-align: middle;
+    line-height: 1;
+  }
+  html.dark body { background-color: #060c18 !important; color: #f8fafc !important; }
+  html.light body { background-color: #faf8ff !important; color: #001026 !important; }
+
+  /* Guaranteed Dark Mode High Contrast for Simulate Call */
+  html.dark .sim-panel {
+    background-color: #0f1c32 !important;
+    border-color: #334155 !important;
+  }
+  html.dark .sim-box {
+    background-color: #14243e !important;
+    border-color: #334155 !important;
+  }
+  html.dark #drop-zone {
+    background-color: #0b1526 !important;
+    border-color: #334155 !important;
+  }
+  html.dark #drop-zone:hover {
+    border-color: #64748b !important;
+  }
+  html.dark select {
+    background-color: #0b1526 !important;
+    border-color: #334155 !important;
+    color: #f8fafc !important;
+  }
+  html.dark option {
+    background-color: #0b1526 !important;
+    color: #f8fafc !important;
+  }
+  html.dark .sim-btn-primary {
+    background-color: #1d4ed8 !important;
+    border-color: #2563eb !important;
+    color: #ffffff !important;
+  }
+  html.dark .sim-btn-primary:hover {
+    background-color: #2563eb !important;
+  }
+</style>
 </head>
 <body class="bg-background text-on-surface antialiased select-none font-body-md text-body-md min-h-screen flex flex-col">
 {% set active_page = "simulate" %}
@@ -151,73 +208,73 @@
   </p>
 
   <!-- Simulation Workbench Canvas Card -->
-  <div class="w-full bg-surface-container-lowest rounded-xl border border-outline shadow-xl flex flex-col p-4 md:p-6 space-y-6">
+  <div class="sim-panel w-full bg-surface-container-lowest dark:bg-slate-900 rounded-xl border border-outline dark:border-slate-700 shadow-xl flex flex-col p-4 md:p-6 space-y-6">
 
 <!-- Top Setup Configuration Panel -->
-<div class="bg-surface-container-lowest rounded-xl border border-outline-variant p-space-lg shadow-sm">
-<div class="flex items-center justify-between mb-space-md border-b border-outline-variant/60 pb-space-sm">
-<div class="flex items-center gap-space-xs text-primary font-label-lg text-label-lg">
-<span class="material-symbols-outlined text-secondary" data-icon="tune">tune</span>
+<div class="sim-panel bg-surface-container-lowest dark:bg-slate-900 rounded-xl border border-outline-variant dark:border-slate-700 p-space-lg shadow-sm">
+<div class="flex items-center justify-between mb-space-md border-b border-outline-variant/60 dark:border-slate-700 pb-space-sm">
+<div class="flex items-center gap-space-xs text-primary dark:text-white font-label-lg text-label-lg">
+<span class="material-symbols-outlined text-secondary dark:text-amber-400" data-icon="tune">tune</span>
 <span>Audio Intake Configuration</span>
 </div>
-<span class="font-caption text-caption text-on-surface-variant font-label-tabular">Pipeline Engine: Gnani-Multilingual-v3.12</span>
+<span class="font-caption text-caption text-on-surface-variant dark:text-slate-400 font-label-tabular">Pipeline Engine: Gnani-Multilingual-v3.12</span>
 </div>
 <div class="grid grid-cols-1 md:grid-cols-12 gap-space-md items-start">
 <!-- Drag & Drop Audio Upload Zone (5 Cols) -->
-<div id="drop-zone" class="md:col-span-5 border-2 border-dashed border-outline-variant hover:border-primary-container rounded-lg p-space-md bg-surface flex flex-col justify-between transition-colors h-[132px] cursor-pointer">
+<div id="drop-zone" class="md:col-span-5 border-2 border-dashed border-outline-variant dark:border-slate-700 hover:border-primary-container dark:hover:border-slate-500 rounded-lg p-space-md bg-surface dark:bg-slate-950/60 flex flex-col justify-between transition-colors h-[132px] cursor-pointer">
 <input type="file" id="audio-file-input" accept=".wav,.mp3,audio/*" class="hidden">
 <div class="flex items-center gap-space-md">
-<div class="w-10 h-10 rounded bg-primary-fixed flex items-center justify-center text-primary shrink-0">
+<div class="w-10 h-10 rounded bg-primary-fixed dark:bg-slate-800 flex items-center justify-center text-primary dark:text-sky-300 shrink-0">
 <span class="material-symbols-outlined text-xl" data-icon="cloud_upload">cloud_upload</span>
 </div>
 <div class="overflow-hidden">
-<p id="selected-file-name" class="font-label-md text-label-md text-primary truncate">No audio file selected</p>
-<p id="selected-file-size" class="font-caption text-caption text-on-surface-variant">Drop WAV / MP3 or browse (Max 15MB)</p>
+<p id="selected-file-name" class="font-label-md text-label-md text-primary dark:text-slate-100 truncate">No audio file selected</p>
+<p id="selected-file-size" class="font-caption text-caption text-on-surface-variant dark:text-slate-400">Drop WAV / MP3 or browse (Max 15MB)</p>
 </div>
 </div>
-<div class="flex items-center justify-between pt-2 border-t border-outline-variant/40">
-<span class="font-caption text-caption text-on-surface-variant">Audio format: 16kHz PCM / WAV / MP3</span>
-<button type="button" id="btn-browse-file" class="font-label-md text-label-md text-secondary hover:underline">Choose File</button>
+<div class="flex items-center justify-between pt-2 border-t border-outline-variant/40 dark:border-slate-700">
+<span class="font-caption text-caption text-on-surface-variant dark:text-slate-400">Audio format: 16kHz PCM / WAV / MP3</span>
+<button type="button" id="btn-browse-file" class="font-label-md text-label-md text-secondary dark:text-amber-400 hover:underline">Choose File</button>
 </div>
 </div>
 <!-- Parameters Setup (4 Cols) -->
 <div class="md:col-span-4 space-y-space-sm">
 <!-- Language Selector -->
 <div>
-<label class="block font-label-md text-label-md text-on-surface mb-1">
+<label class="block font-label-md text-label-md text-on-surface dark:text-slate-200 mb-1">
 Telephony Input Language
 </label>
 <div class="relative">
-<select class="w-full h-11 px-3 bg-surface-container-lowest border border-outline-variant rounded-lg font-body-md text-body-md text-on-surface focus:outline-none focus:border-primary-container focus:ring-1 focus:ring-secondary-container appearance-none pr-8">
-<option selected="">Kannada (ಕನ್ನಡ)</option>
-<option>Hindi (हिन्दी)</option>
-<option>Hinglish</option>
-<option>English</option>
+<select class="w-full h-11 px-3 bg-surface-container-lowest dark:bg-slate-800 border border-outline-variant dark:border-slate-700 rounded-lg font-body-md text-body-md text-on-surface dark:text-slate-100 focus:outline-none focus:border-primary-container focus:ring-1 focus:ring-secondary-container appearance-none pr-8">
+<option selected="" class="bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100">Kannada (ಕನ್ನಡ)</option>
+<option class="bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100">Hindi (हिन्दी)</option>
+<option class="bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100">Hinglish</option>
+<option class="bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100">English</option>
 </select>
-<span class="material-symbols-outlined absolute right-2.5 top-2.5 text-on-surface-variant pointer-events-none" data-icon="arrow_drop_down">arrow_drop_down</span>
+<span class="material-symbols-outlined absolute right-2.5 top-2.5 text-on-surface-variant dark:text-slate-400 pointer-events-none" data-icon="arrow_drop_down">arrow_drop_down</span>
 </div>
 </div>
 <!-- Household Selector Dropdown -->
 <div>
-<label class="block font-label-md text-label-md text-on-surface mb-1">
+<label class="block font-label-md text-label-md text-on-surface dark:text-slate-200 mb-1">
 Citizen Geo-Profile Mapping
 </label>
 <div class="relative">
-<select id="household-select" class="w-full h-11 px-3 bg-surface-container-lowest border border-outline-variant rounded-lg font-body-md text-body-md text-on-surface focus:outline-none focus:border-primary-container focus:ring-1 focus:ring-secondary-container appearance-none pr-8">
-<option value="">Loading households...</option>
+<select id="household-select" class="w-full h-11 px-3 bg-surface-container-lowest dark:bg-slate-800 border border-outline-variant dark:border-slate-700 rounded-lg font-body-md text-body-md text-on-surface dark:text-slate-100 focus:outline-none focus:border-primary-container focus:ring-1 focus:ring-secondary-container appearance-none pr-8">
+<option value="" class="bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100">Loading households...</option>
 </select>
-<span class="material-symbols-outlined absolute right-2.5 top-2.5 text-on-surface-variant pointer-events-none" data-icon="person_pin_circle">person_pin_circle</span>
+<span class="material-symbols-outlined absolute right-2.5 top-2.5 text-on-surface-variant dark:text-slate-400 pointer-events-none" data-icon="person_pin_circle">person_pin_circle</span>
 </div>
 </div>
 </div>
 <!-- Action Trigger (3 Cols) -->
 <div class="md:col-span-3 flex flex-col justify-end h-full pt-1">
-<button id="btn-play-transcribe" class="w-full h-[88px] bg-primary text-on-primary hover:bg-primary-container rounded-lg border border-primary font-label-lg text-label-lg flex flex-col items-center justify-center gap-1.5 shadow transition-all active:scale-[0.98]">
+<button id="btn-play-transcribe" class="w-full h-[88px] bg-primary dark:bg-blue-600 text-on-primary dark:text-white hover:bg-primary-container dark:hover:bg-blue-500 rounded-lg border border-primary dark:border-blue-500 font-label-lg text-label-lg flex flex-col items-center justify-center gap-1.5 shadow transition-all active:scale-[0.98]">
 <div class="flex items-center gap-2">
-<span class="material-symbols-outlined text-secondary-container text-2xl" data-icon="play_circle">play_circle</span>
+<span class="material-symbols-outlined text-secondary-container dark:text-amber-300 text-2xl" data-icon="play_circle">play_circle</span>
 <span class="font-bold">Play and transcribe</span>
 </div>
-<span class="font-caption text-caption text-on-primary-container">Execute full 3-phase pipeline</span>
+<span class="font-caption text-caption text-on-primary-container dark:text-blue-100">Execute full 3-phase pipeline</span>
 </button>
 </div>
 </div>
@@ -225,227 +282,227 @@ Citizen Geo-Profile Mapping
 <!-- ==================== PIPELINE WORKBENCH (3-STEP ARCHITECTURE) ==================== -->
 <div class="space-y-space-md">
 <div class="flex items-center justify-between">
-<h3 class="font-headline-sm text-headline-sm text-primary font-bold tracking-tight">AI Voice Pipeline Verification</h3>
+<h3 class="font-headline-sm text-headline-sm text-primary dark:text-white font-bold tracking-tight">AI Voice Pipeline Verification</h3>
 <div class="flex items-center gap-2">
 <span class="w-2.5 h-2.5 rounded-full bg-emerald-600"></span>
-<span class="font-label-tabular text-label-tabular text-on-surface-variant">Realtime Execution Stream • Latency <span id="pipeline-total-latency">--</span></span>
+<span class="font-label-tabular text-label-tabular text-on-surface-variant dark:text-slate-400">Realtime Execution Stream • Latency <span id="pipeline-total-latency">--</span></span>
 </div>
 </div>
 <!-- STEP 1: SPEECH TO TEXT -->
-<div class="bg-surface-container-lowest rounded-xl border border-outline-variant p-space-md shadow-sm">
-<div class="flex flex-wrap items-center justify-between gap-2 border-b border-outline-variant/60 pb-3 mb-space-md">
+<div class="sim-panel bg-surface-container-lowest dark:bg-slate-900 rounded-xl border border-outline-variant dark:border-slate-700 p-space-md shadow-sm">
+<div class="flex flex-wrap items-center justify-between gap-2 border-b border-outline-variant/60 dark:border-slate-700 pb-3 mb-space-md">
 <div class="flex items-center gap-space-sm">
-<span class="w-7 h-7 rounded-full bg-primary text-on-primary font-label-md flex items-center justify-center">1</span>
+<span class="w-7 h-7 rounded-full bg-primary dark:bg-blue-600 text-on-primary dark:text-white font-label-md flex items-center justify-center">1</span>
 <div>
-<h4 class="font-label-lg text-label-lg text-primary">Speech-to-Text Acoustic Decoding</h4>
-<p class="font-caption text-caption text-on-surface-variant">Kannada Raw Audio Waveform to UTF-8 Text Representation</p>
+<h4 class="font-label-lg text-label-lg text-primary dark:text-white">Speech-to-Text Acoustic Decoding</h4>
+<p class="font-caption text-caption text-on-surface-variant dark:text-slate-400">Kannada Raw Audio Waveform to UTF-8 Text Representation</p>
 </div>
 </div>
 <div class="flex items-center gap-space-sm">
-<span class="px-2.5 py-1 rounded bg-surface-container-high text-primary font-label-md text-label-md border border-outline-variant">
+<span class="px-2.5 py-1 rounded bg-surface-container-high dark:bg-slate-800 text-primary dark:text-slate-200 font-label-md text-label-md border border-outline-variant dark:border-slate-700">
                   Model: Gnani Prisma (ASR / STT)
                 </span>
-<span class="px-2.5 py-1 rounded bg-surface-container-high text-primary font-label-tabular text-label-tabular border border-outline-variant">
+<span class="px-2.5 py-1 rounded bg-surface-container-high dark:bg-slate-800 text-primary dark:text-slate-200 font-label-tabular text-label-tabular border border-outline-variant dark:border-slate-700">
                   Latency: <span id="stt-latency-val">--</span>
                 </span>
-<span class="px-2.5 py-1 rounded bg-emerald-50 border border-emerald-300 text-emerald-800 font-label-tabular text-label-tabular font-bold">
+<span class="px-2.5 py-1 rounded bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-300 dark:border-emerald-700/60 text-emerald-800 dark:text-emerald-300 font-label-tabular text-label-tabular font-bold">
                   Confidence: <span id="stt-confidence-val">--</span>
                 </span>
 </div>
 </div>
 <!-- Audio Scrub Line Player -->
-<div class="bg-surface-container-low rounded-lg p-3 border border-outline-variant flex items-center gap-space-md mb-space-md">
-<button class="w-9 h-9 rounded-full bg-primary text-on-primary flex items-center justify-center shrink-0">
+<div class="sim-box bg-surface-container-low dark:bg-slate-800/80 rounded-lg p-3 border border-outline-variant dark:border-slate-700 flex items-center gap-space-md mb-space-md">
+<button class="w-9 h-9 rounded-full bg-primary dark:bg-slate-700 text-on-primary dark:text-white hover:bg-primary-container dark:hover:bg-slate-600 flex items-center justify-center shrink-0">
 <span class="material-symbols-outlined text-lg" data-icon="play_arrow">play_arrow</span>
 </button>
 <div class="flex-1 space-y-1">
-<div class="flex justify-between font-label-tabular text-caption text-on-surface-variant">
+<div class="flex justify-between font-label-tabular text-caption text-on-surface-variant dark:text-slate-400">
 <span>00:14.2</span>
 <span>00:28.0</span>
 </div>
 <!-- Interactive Waveform Scrub Bar -->
-<div class="relative w-full h-4 bg-outline-variant/30 rounded cursor-pointer overflow-hidden flex items-center px-1">
+<div class="relative w-full h-4 bg-outline-variant/30 dark:bg-slate-700/60 rounded cursor-pointer overflow-hidden flex items-center px-1">
 <!-- Simulated acoustic waveform bars -->
 <div class="w-full flex items-center justify-between h-3 gap-0.5">
-<span class="w-1 bg-secondary-container h-2 rounded-full"></span>
-<span class="w-1 bg-secondary-container h-3 rounded-full"></span>
-<span class="w-1 bg-secondary-container h-1 rounded-full"></span>
-<span class="w-1 bg-secondary-container h-2 rounded-full"></span>
-<span class="w-1 bg-secondary-container h-3 rounded-full"></span>
-<span class="w-1 bg-secondary-container h-2 rounded-full"></span>
-<span class="w-1 bg-secondary-container h-3 rounded-full"></span>
-<span class="w-1 bg-secondary-container h-1 rounded-full"></span>
-<span class="w-1 bg-outline h-2 rounded-full"></span>
-<span class="w-1 bg-outline h-3 rounded-full"></span>
-<span class="w-1 bg-outline h-2 rounded-full"></span>
-<span class="w-1 bg-outline h-1 rounded-full"></span>
-<span class="w-1 bg-outline h-2 rounded-full"></span>
-<span class="w-1 bg-outline h-3 rounded-full"></span>
-<span class="w-1 bg-outline h-1 rounded-full"></span>
+<span class="w-1 bg-secondary-container dark:bg-amber-400 h-2 rounded-full"></span>
+<span class="w-1 bg-secondary-container dark:bg-amber-400 h-3 rounded-full"></span>
+<span class="w-1 bg-secondary-container dark:bg-amber-400 h-1 rounded-full"></span>
+<span class="w-1 bg-secondary-container dark:bg-amber-400 h-2 rounded-full"></span>
+<span class="w-1 bg-secondary-container dark:bg-amber-400 h-3 rounded-full"></span>
+<span class="w-1 bg-secondary-container dark:bg-amber-400 h-2 rounded-full"></span>
+<span class="w-1 bg-secondary-container dark:bg-amber-400 h-3 rounded-full"></span>
+<span class="w-1 bg-secondary-container dark:bg-amber-400 h-1 rounded-full"></span>
+<span class="w-1 bg-outline dark:bg-slate-500 h-2 rounded-full"></span>
+<span class="w-1 bg-outline dark:bg-slate-500 h-3 rounded-full"></span>
+<span class="w-1 bg-outline dark:bg-slate-500 h-2 rounded-full"></span>
+<span class="w-1 bg-outline dark:bg-slate-500 h-1 rounded-full"></span>
+<span class="w-1 bg-outline dark:bg-slate-500 h-2 rounded-full"></span>
+<span class="w-1 bg-outline dark:bg-slate-500 h-3 rounded-full"></span>
+<span class="w-1 bg-outline dark:bg-slate-500 h-1 rounded-full"></span>
 </div>
 <!-- Progress marker -->
 <div class="absolute left-1/2 top-0 bottom-0 w-0.5 bg-error"></div>
 </div>
 </div>
-<div class="flex items-center gap-1 font-label-tabular text-caption text-on-surface-variant border-l border-outline-variant pl-space-md">
+<div class="flex items-center gap-1 font-label-tabular text-caption text-on-surface-variant dark:text-slate-400 border-l border-outline-variant dark:border-slate-700 pl-space-md">
 <span class="material-symbols-outlined text-base" data-icon="graphic_eq">graphic_eq</span>
 <span>16 kHz PCM</span>
 </div>
 </div>
 <!-- Side-by-side Dual Script Transcript Box -->
 <div class="grid grid-cols-1 md:grid-cols-2 gap-space-md">
-<div class="p-space-md bg-surface-container-low/70 rounded-lg border border-outline-variant">
+<div class="sim-box p-space-md bg-surface-container-low/70 dark:bg-slate-800/80 rounded-lg border border-outline-variant dark:border-slate-700">
 <div class="flex items-center justify-between mb-1.5">
-<span class="font-label-md text-label-md text-primary font-bold">ಮೂಲ ಕನ್ನಡ ನಕಲು (Raw Kannada Script)</span>
-<span class="font-caption text-caption text-on-surface-variant font-label-tabular">STT Output</span>
+<span class="font-label-md text-label-md text-primary dark:text-white font-bold">ಮೂಲ ಕನ್ನಡ ನಕಲು (Raw Kannada Script)</span>
+<span class="font-caption text-caption text-on-surface-variant dark:text-slate-400 font-label-tabular">STT Output</span>
 </div>
-<p class="font-body-md text-body-md text-on-surface leading-relaxed font-medium">
+<p class="font-body-md text-body-md text-on-surface dark:text-slate-100 leading-relaxed font-medium">
                   <span id="raw-kannada-transcript">"ನಮಸ್ಕಾರ, ನಾವು ಬಂಟ್ವಾಳ ಸೋಮೇಶ್ವರ ದೇವಸ್ಥಾನದ ಹತ್ತಿರ ಇದ್ದೇವೆ. ನೀರು ಮನೆ ಒಳಗಡೆ ನಾಲ್ಕು ಅಡಿ ಬಂದಿದೆ. ನಮ್ಮ ಮನೆಯಲ್ಲಿ ಮೂರು ಜನ ಇದ್ದೇವೆ, ತಾಯಿಗೆ ನಡೆಯಲು ಆಗಲ್ಲ ಆಕ್ಸಿಜನ್ ಬೇಕು. ದಯವಿಟ್ಟು ಬೇಗ ಸಹಾಯ ಮಾಡಿ."</span>
                 </p>
 </div>
-<div class="p-space-md bg-surface-container-low/70 rounded-lg border border-outline-variant">
+<div class="sim-box p-space-md bg-surface-container-low/70 dark:bg-slate-800/80 rounded-lg border border-outline-variant dark:border-slate-700">
 <div class="flex items-center justify-between mb-1.5">
-<span class="font-label-md text-label-md text-primary font-bold">Standard English Verification Translation</span>
-<span class="font-caption text-caption text-on-surface-variant font-label-tabular">Internal NLU Bridge</span>
+<span class="font-label-md text-label-md text-primary dark:text-white font-bold">Standard English Verification Translation</span>
+<span class="font-caption text-caption text-on-surface-variant dark:text-slate-400 font-label-tabular">Internal NLU Bridge</span>
 </div>
-<p id="english-translation-text" class="font-body-md text-body-md text-on-surface-variant leading-relaxed italic">
+<p id="english-translation-text" class="font-body-md text-body-md text-on-surface-variant dark:text-slate-300 leading-relaxed italic">
 --
 </p>
 </div>
 </div>
 </div>
 <!-- STEP 2: ENTITY & INTENT EXTRACTION -->
-<div class="bg-surface-container-lowest rounded-xl border border-outline-variant p-space-md shadow-sm">
-<div class="flex flex-wrap items-center justify-between gap-2 border-b border-outline-variant/60 pb-3 mb-space-md">
+<div class="sim-panel bg-surface-container-lowest dark:bg-slate-900 rounded-xl border border-outline-variant dark:border-slate-700 p-space-md shadow-sm">
+<div class="flex flex-wrap items-center justify-between gap-2 border-b border-outline-variant/60 dark:border-slate-700 pb-3 mb-space-md">
 <div class="flex items-center gap-space-sm">
-<span class="w-7 h-7 rounded-full bg-primary text-on-primary font-label-md flex items-center justify-center">2</span>
+<span class="w-7 h-7 rounded-full bg-primary dark:bg-blue-600 text-on-primary dark:text-white font-label-md flex items-center justify-center">2</span>
 <div>
-<h4 class="font-label-lg text-label-lg text-primary">SLU Entity Extraction &amp; Triage Logic</h4>
-<p class="font-caption text-caption text-on-surface-variant">Parametric Parsing for Disaster Response Operations</p>
+<h4 class="font-label-lg text-label-lg text-primary dark:text-white">SLU Entity Extraction &amp; Triage Logic</h4>
+<p class="font-caption text-caption text-on-surface-variant dark:text-slate-400">Parametric Parsing for Disaster Response Operations</p>
 </div>
 </div>
-<span class="px-2.5 py-1 rounded bg-surface-container-high text-primary font-label-md text-label-md border border-outline-variant">
+<span class="px-2.5 py-1 rounded bg-surface-container-high dark:bg-slate-800 text-primary dark:text-slate-200 font-label-md text-label-md border border-outline-variant dark:border-slate-700">
                 Model: Gnani Evon (SLU &amp; NLU Entity Extraction)
               </span>
-<span class="px-2.5 py-1 rounded bg-surface-container-high text-primary font-label-tabular text-label-tabular border border-outline-variant">
+<span class="px-2.5 py-1 rounded bg-surface-container-high dark:bg-slate-800 text-primary dark:text-slate-200 font-label-tabular text-label-tabular border border-outline-variant dark:border-slate-700">
                 Latency: <span id="llm-latency-val">--</span>
               </span>
 </div>
 <!-- Bento Grid of Extracted Attributes -->
 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-space-sm">
 <!-- Hazard Card -->
-<div class="p-3 bg-surface-container-low rounded-lg border border-outline-variant flex flex-col justify-between">
+<div class="sim-box p-3 bg-surface-container-low dark:bg-slate-800/80 rounded-lg border border-outline-variant dark:border-slate-700 flex flex-col justify-between">
 <div>
-<span class="font-caption text-caption uppercase text-on-surface-variant font-semibold">Reported Hazard</span>
-<div class="font-label-lg text-label-lg text-primary mt-1 flex items-center gap-1.5">
-<span class="material-symbols-outlined text-secondary text-lg" data-icon="flood">flood</span>
+<span class="font-caption text-caption uppercase text-on-surface-variant dark:text-slate-400 font-semibold">Reported Hazard</span>
+<div class="font-label-lg text-label-lg text-primary dark:text-white mt-1 flex items-center gap-1.5">
+<span class="material-symbols-outlined text-secondary dark:text-amber-400 text-lg" data-icon="flood">flood</span>
 <span class="font-bold">Flash Flood</span>
 </div>
 </div>
-<div class="mt-2 text-error font-label-tabular text-body-sm font-semibold">
+<div class="mt-2 text-error dark:text-red-400 font-label-tabular text-body-sm font-semibold">
                   +1.2m Depth (Inundated)
                 </div>
 </div>
 <!-- Headcount Card -->
-<div class="p-3 bg-surface-container-low rounded-lg border border-outline-variant flex flex-col justify-between">
+<div class="sim-box p-3 bg-surface-container-low dark:bg-slate-800/80 rounded-lg border border-outline-variant dark:border-slate-700 flex flex-col justify-between">
 <div>
-<span class="font-caption text-caption uppercase text-on-surface-variant font-semibold">Citizen Headcount</span>
-<div class="font-label-lg text-label-lg text-primary mt-1 flex items-center gap-1.5">
-<span class="material-symbols-outlined text-primary text-lg" data-icon="groups">groups</span>
+<span class="font-caption text-caption uppercase text-on-surface-variant dark:text-slate-400 font-semibold">Citizen Headcount</span>
+<div class="font-label-lg text-label-lg text-primary dark:text-white mt-1 flex items-center gap-1.5">
+<span class="material-symbols-outlined text-primary dark:text-sky-400 text-lg" data-icon="groups">groups</span>
 <span class="font-bold">3 Souls</span>
 </div>
 </div>
-<div class="mt-2 text-on-surface-variant font-body-sm">
+<div class="mt-2 text-on-surface-variant dark:text-slate-300 font-body-sm">
                   1 Mobility Impaired (Bedridden)
                 </div>
 </div>
 <!-- Medical Urgency Card -->
-<div class="p-3 bg-error-container/30 rounded-lg border border-error-container flex flex-col justify-between">
+<div class="p-3 bg-error-container/30 dark:bg-red-950/40 rounded-lg border border-error-container dark:border-red-800/60 flex flex-col justify-between">
 <div>
-<span class="font-caption text-caption uppercase text-on-error-container font-semibold">Medical Urgency</span>
-<div class="font-label-lg text-label-lg text-error mt-1 flex items-center gap-1.5">
+<span class="font-caption text-caption uppercase text-on-error-container dark:text-red-300 font-semibold">Medical Urgency</span>
+<div class="font-label-lg text-label-lg text-error dark:text-red-300 mt-1 flex items-center gap-1.5">
 <span class="material-symbols-outlined text-lg" data-icon="e911_emergency">e911_emergency</span>
 <span class="font-bold">High (Oxygen)</span>
 </div>
 </div>
-<div class="mt-2 text-on-error-container font-body-sm">
+<div class="mt-2 text-on-error-container dark:text-red-200 font-body-sm">
                   Hypertension &amp; Respiratory
                 </div>
 </div>
 <!-- Status Assigned Card (Needs Help status chip conforming to design system) -->
-<div class="p-3 bg-[#FEF2F2] rounded-lg border border-[#FECACA] flex flex-col justify-between">
+<div class="p-3 bg-[#FEF2F2] dark:bg-red-950/40 rounded-lg border border-[#FECACA] dark:border-red-800/60 flex flex-col justify-between">
 <div>
-<span class="font-caption text-caption uppercase text-[#991B1B] font-semibold">Operational Status</span>
+<span class="font-caption text-caption uppercase text-[#991B1B] dark:text-red-300 font-semibold">Operational Status</span>
 <div class="mt-1 flex items-center gap-2">
 <span class="w-2.5 h-2.5 rounded-full bg-[#DC2626]"></span>
-<span class="font-label-lg text-label-lg text-[#991B1B] font-bold">Needs Help</span>
+<span class="font-label-lg text-label-lg text-[#991B1B] dark:text-red-300 font-bold">Needs Help</span>
 </div>
 </div>
-<div class="mt-2 font-caption text-caption text-[#991B1B] bg-white/70 px-1.5 py-0.5 rounded border border-[#FECACA] inline-block truncate">
+<div class="mt-2 font-caption text-caption text-[#991B1B] dark:text-red-300 bg-white/70 dark:bg-slate-900/80 px-1.5 py-0.5 rounded border border-[#FECACA] dark:border-red-800/60 inline-block truncate">
                   Request recorded, no driver accepted yet
                 </div>
 </div>
 <!-- Geo-Intent Card -->
-<div class="p-3 bg-surface-container-low rounded-lg border border-outline-variant flex flex-col justify-between">
+<div class="sim-box p-3 bg-surface-container-low dark:bg-slate-800/80 rounded-lg border border-outline-variant dark:border-slate-700 flex flex-col justify-between">
 <div>
-<span class="font-caption text-caption uppercase text-on-surface-variant font-semibold">Geo-Intent Landmark</span>
-<div class="font-label-lg text-label-lg text-primary mt-1 flex items-center gap-1.5">
-<span class="material-symbols-outlined text-primary text-lg" data-icon="location_on">location_on</span>
+<span class="font-caption text-caption uppercase text-on-surface-variant dark:text-slate-400 font-semibold">Geo-Intent Landmark</span>
+<div class="font-label-lg text-label-lg text-primary dark:text-white mt-1 flex items-center gap-1.5">
+<span class="material-symbols-outlined text-primary dark:text-sky-400 text-lg" data-icon="location_on">location_on</span>
 <span class="font-bold">Someshwara Temple</span>
 </div>
 </div>
-<div class="mt-2 font-label-tabular text-body-sm text-on-surface-variant">
+<div class="mt-2 font-label-tabular text-body-sm text-on-surface-variant dark:text-slate-300">
                   Bantwal Ward 4 (Grid 12-B)
                 </div>
 </div>
 </div>
 </div>
 <!-- STEP 3: AUTOMATED SPOKEN RESPONSE SYNTHESIS -->
-<div class="bg-surface-container-lowest rounded-xl border border-outline-variant p-space-md shadow-sm">
-<div class="flex flex-wrap items-center justify-between gap-2 border-b border-outline-variant/60 pb-3 mb-space-md">
+<div class="sim-panel bg-surface-container-lowest dark:bg-slate-900 rounded-xl border border-outline-variant dark:border-slate-700 p-space-md shadow-sm">
+<div class="flex flex-wrap items-center justify-between gap-2 border-b border-outline-variant/60 dark:border-slate-700 pb-3 mb-space-md">
 <div class="flex items-center gap-space-sm">
-<span class="w-7 h-7 rounded-full bg-primary text-on-primary font-label-md flex items-center justify-center">3</span>
+<span class="w-7 h-7 rounded-full bg-primary dark:bg-blue-600 text-on-primary dark:text-white font-label-md flex items-center justify-center">3</span>
 <div>
-<h4 class="font-label-lg text-label-lg text-primary">Automated Spoken Response Synthesis (Interactive TTS)</h4>
-<p class="font-caption text-caption text-on-surface-variant">Strict Institutional Clarity: Verifiable System Facts Only</p>
+<h4 class="font-label-lg text-label-lg text-primary dark:text-white">Automated Spoken Response Synthesis (Interactive TTS)</h4>
+<p class="font-caption text-caption text-on-surface-variant dark:text-slate-400">Strict Institutional Clarity: Verifiable System Facts Only</p>
 </div>
 </div>
-<span class="px-2.5 py-1 rounded bg-surface-container-high text-primary font-label-md text-label-md border border-outline-variant">
+<span class="px-2.5 py-1 rounded bg-surface-container-high dark:bg-slate-800 text-primary dark:text-slate-200 font-label-md text-label-md border border-outline-variant dark:border-slate-700">
                 Model: Gnani Timbre (TTS Neural Voice)
               </span>
-<span class="px-2.5 py-1 rounded bg-surface-container-high text-primary font-label-tabular text-label-tabular border border-outline-variant">
+<span class="px-2.5 py-1 rounded bg-surface-container-high dark:bg-slate-800 text-primary dark:text-slate-200 font-label-tabular text-label-tabular border border-outline-variant dark:border-slate-700">
                 Latency: <span id="tts-latency-val">--</span>
               </span>
 </div>
 <!-- Spoken Message Player Card -->
-<div class="bg-surface-container-low rounded-lg p-space-md border border-outline-variant space-y-space-md">
+<div class="sim-box bg-surface-container-low dark:bg-slate-800/80 rounded-lg p-space-md border border-outline-variant dark:border-slate-700 space-y-space-md">
 <div class="flex flex-col md:flex-row md:items-center justify-between gap-space-md">
 <!-- Playback Chip -->
-<div class="flex items-center gap-space-md bg-surface-container-lowest px-space-md py-space-sm rounded-lg border border-outline-variant shadow-sm">
-<button class="w-10 h-10 rounded-full bg-secondary text-on-secondary flex items-center justify-center hover:bg-secondary-container hover:text-primary transition-colors shrink-0">
+<div class="flex items-center gap-space-md bg-surface-container-lowest dark:bg-slate-900 px-space-md py-space-sm rounded-lg border border-outline-variant dark:border-slate-700 shadow-sm">
+<button class="w-10 h-10 rounded-full bg-secondary dark:bg-amber-500 text-on-secondary dark:text-slate-900 flex items-center justify-center hover:bg-secondary-container hover:text-primary transition-colors shrink-0">
 <span class="material-symbols-outlined text-xl" data-icon="volume_up">volume_up</span>
 </button>
 <div>
-<div class="font-label-md text-label-md text-primary font-bold">Synthesized Kannada Audio Stream</div>
-<div class="font-caption text-caption text-on-surface-variant font-label-tabular">Duration: <span id="tts-duration-val">--</span> • Neural Sampling Rate: 24kHz</div>
+<div class="font-label-md text-label-md text-primary dark:text-white font-bold">Synthesized Kannada Audio Stream</div>
+<div class="font-caption text-caption text-on-surface-variant dark:text-slate-400 font-label-tabular">Duration: <span id="tts-duration-val">--</span> • Neural Sampling Rate: 24kHz</div>
 </div>
 </div>
 <!-- Compliance Check Tag -->
-<div class="flex items-center gap-2 bg-emerald-50 border border-emerald-300 px-space-md py-1.5 rounded-lg text-emerald-800 font-label-md text-label-md">
+<div class="flex items-center gap-2 bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-300 dark:border-emerald-700/60 px-space-md py-1.5 rounded-lg text-emerald-800 dark:text-emerald-300 font-label-md text-label-md">
 <span class="material-symbols-outlined text-lg" data-icon="verified_user">verified_user</span>
 <span>Compliance Passed: Zero Unverified Promises Made</span>
 </div>
 </div>
 <!-- Spoken Script Display -->
-<div class="bg-surface-container-lowest rounded-lg p-space-md border border-outline-variant">
-<div class="font-caption text-caption text-on-surface-variant mb-1 font-semibold uppercase tracking-wider">
+<div class="bg-surface-container-lowest dark:bg-slate-900 rounded-lg p-space-md border border-outline-variant dark:border-slate-700">
+<div class="font-caption text-caption text-on-surface-variant dark:text-slate-400 mb-1 font-semibold uppercase tracking-wider">
                   Outbound Spoken Audio Script (Kannada)
                 </div>
-<p class="font-headline-sm text-headline-sm text-primary font-semibold mb-2">
+<p class="font-headline-sm text-headline-sm text-primary dark:text-white font-semibold mb-2">
                   <span id="outbound-spoken-script">"ನಿಮ್ಮ ಕೋರಿಕೆಯನ್ನು ದಾಖಲಿಸಲಾಗಿದೆ. ಜಿಲ್ಲಾ ವಿಪತ್ತು ನಿಯಂತ್ರಣ ಕೊಠಡಿಗೆ ತಿಳಿಸಲಾಗಿದೆ."</span>
                 </p>
-<div class="font-caption text-caption text-on-surface-variant pt-2 border-t border-outline-variant/50">
-<span class="font-bold">Institutional English Meaning:</span> "Your request has been recorded. District Disaster Control Room has been notified."
+<div class="font-caption text-caption text-on-surface-variant dark:text-slate-400 pt-2 border-t border-outline-variant/50 dark:border-slate-700">
+<span class="font-bold text-on-surface dark:text-slate-200">Institutional English Meaning:</span> "Your request has been recorded. District Disaster Control Room has been notified."
                 </div>
 </div>
 </div>
@@ -453,14 +510,22 @@ Citizen Geo-Profile Mapping
 </div>
 </div>
   <!-- Action Footer Dock -->
-  <div class="pt-4 border-t border-outline-variant flex flex-wrap items-center justify-between gap-3">
-    <button id="btn-export-diag" class="px-4 py-2 rounded-lg bg-surface-container border border-outline-variant text-on-surface hover:bg-surface-container-high font-label-lg text-xs font-semibold flex items-center gap-2 transition-colors">
+  <div class="pt-4 border-t border-outline-variant dark:border-slate-700 flex flex-wrap items-center justify-between gap-3">
+    <button id="btn-export-diag" class="px-4 py-2 rounded-lg bg-surface-container dark:bg-slate-800 border border-outline-variant dark:border-slate-700 text-on-surface dark:text-slate-200 hover:bg-surface-container-high dark:hover:bg-slate-700 font-label-lg text-xs font-semibold flex items-center gap-2 transition-colors">
       <span class="material-symbols-outlined text-base">data_object</span>
       <span>{{ t('Export Diagnostic JSON') }}</span>
     </button>
     <div class="flex items-center gap-3">
       <a href="/dashboard" class="px-4 py-2 rounded-lg bg-red-600/10 hover:bg-red-600 text-red-600 hover:text-white border border-red-500/30 text-xs font-bold transition-colors flex items-center gap-1.5 shadow-xs">
         <span>{{ t('Close') }}</span>
+        <span>✕</span>
+      </a>
+      <button id="btn-apply-queue" class="px-4 py-2 rounded-lg bg-primary dark:bg-blue-600 hover:bg-primary-container dark:hover:bg-blue-500 text-on-primary dark:text-white font-label-lg text-xs font-bold shadow flex items-center gap-2 transition-colors">
+        <span class="material-symbols-outlined text-secondary-container dark:text-amber-300 text-base">queue_play_next</span>
+        <span>{{ t('Apply Extracted Data to Queue') }}</span>
+      </button>
+    </div>
+  </div>
         <span>✕</span>
       </a>
       <button id="btn-apply-queue" class="px-4 py-2 rounded-lg bg-primary hover:bg-primary-container text-on-primary font-label-lg text-xs font-bold shadow flex items-center gap-2 transition-colors">

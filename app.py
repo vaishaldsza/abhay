@@ -23,6 +23,7 @@ from api.drivers import drivers_bp
 from api.audit import audit_bp
 from api.incidents import incidents_bp
 from api.evals import evals_bp
+from api.optimizer import optimizer_bp
 
 def create_app():
     app = Flask(
@@ -50,6 +51,7 @@ def create_app():
     app.register_blueprint(audit_bp)
     app.register_blueprint(incidents_bp)
     app.register_blueprint(evals_bp)
+    app.register_blueprint(optimizer_bp)
 
     # Database connection teardown
     @app.teardown_appcontext
@@ -121,7 +123,7 @@ def create_app():
                             return jsonify({"success": False, "error": "Forbidden: offer is for a different vehicle"}), 403
 
             # Dispatcher-only endpoints
-            DISPATCHER_ONLY_APIS = ["/api/assign", "/api/simulate-call", "/api/privacy/delete-now", "/api/evals/run", "/api/unanswered-retry"]
+            DISPATCHER_ONLY_APIS = ["/api/assign", "/api/simulate-call", "/api/privacy/delete-now", "/api/evals/run", "/api/unanswered-retry", "/api/optimizer/suggest-plan"]
             for d_api in DISPATCHER_ONLY_APIS:
                 if path.startswith(d_api) and role != "dispatcher":
                     return jsonify({"success": False, "error": "Forbidden: dispatcher role required"}), 403
@@ -413,15 +415,8 @@ def create_app():
             c = 2 * math.atan2(math.sqrt(a), math.sqrt(1 - a))
             return round(R * c, 2)
 
-        hh_lat = hh["lat"] if hh else 12.8942
-        hh_lng = hh["lng"] if hh else 75.0351
-        veh_rows = db.execute("SELECT * FROM vehicle ORDER BY id ASC").fetchall()
-        vehicles = []
-        for v in veh_rows:
-            vd = dict(v)
-            dist = haversine_km(hh_lat, hh_lng, vd["lat"], vd["lng"])
-            vd["distance_km"] = f"{dist} km" if dist is not None else "-- km"
-            vehicles.append(vd)
+        from core.assign import suggest_vehicles
+        vehicles = suggest_vehicles(hh["id"], db=db) if hh else []
 
         req = None
         if hh:
@@ -434,7 +429,8 @@ def create_app():
             call=call,
             has_real_audio=has_real_audio,
             vehicles=vehicles,
-            request=req
+            request=req,
+            suggested_veh=request.args.get("suggested_veh", "")
         )
 
     @app.route("/simulate")
@@ -525,7 +521,16 @@ def create_app():
 
     @app.route("/evals")
     def page_evals():
-        return render_template("evals.html")
+        import json
+        sim_path = Config.BASE_DIR / "evals" / "sim_results.json"
+        sim_data = None
+        if sim_path.exists():
+            try:
+                with open(sim_path, "r", encoding="utf-8") as f:
+                    sim_data = json.load(f)
+            except Exception:
+                sim_data = None
+        return render_template("evals.html", sim_results=sim_data)
 
     return app
 

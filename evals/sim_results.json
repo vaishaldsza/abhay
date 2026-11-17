@@ -1,0 +1,948 @@
+{
+  "synthetic_benchmark": true,
+  "num_seeds": 60,
+  "methodological_notes": {
+    "deadlines_disclaimer": "All water arrival deadlines and lateness buffers are demo assumptions, not hydrodynamic models.",
+    "denominator_rule": "On-time % denominator is ALL households needing a ride (24 households); unassigned households count as NOT evacuated on time.",
+    "headcount_metric": "On-time headcount is the total count of individual family members evacuated before water arrival.",
+    "seat_shortage_dominance": "The extreme scenario is dominated by seat shortage (only 12 seats for ~72 people).",
+    "loose_deadlines": "The moderate scenario has loose deadlines (45-120 min), meaning assigned pickups are virtually all on time.",
+    "routing_gain": "The routing gain of the optimizer is approximately 1% of assigned-plan cost in the synthetic data.",
+    "single_trip_vehicles": "All scenarios are synthetic with single-trip vehicles (no return loops).",
+    "cost_advantage_scope": "The optimizer's cost advantage is strictly over the priority greedy heuristic.",
+    "handbuilt_test_provenance": "Hand-built test cases were written by the same agent that changed the optimizer."
+  },
+  "scenarios": {
+    "extreme_scarcity": {
+      "scenario_name": "Extreme Scarcity",
+      "scenario_description": "3 vehicles (12 seats total) vs 24 households (~72 souls), distant base (8-12 km), tight flood arrival deadlines (15-45 min). Dominated by seat shortage.",
+      "cost_formula": "Risk-Weighted Cost = sum_{assigned}(1000 * E_r + w_r * d_r) + sum_{unassigned}(5000 * w_r / 10)",
+      "cost_units": "penalty points",
+      "unassigned_penalty_share_pct": 98.4,
+      "routing_gain_assigned_cost_pct": 1.03,
+      "methods": {
+        "first_come_first_served": {
+          "label": "First-Come-First-Served (FCFS)",
+          "on_time_hh_pct": {
+            "p5": 0.0,
+            "median": 8.3,
+            "p95": 16.7
+          },
+          "on_time_headcount": {
+            "p5": 0.0,
+            "median": 5.0,
+            "p95": 11.0
+          },
+          "assigned_cost": {
+            "p5": 1161.0,
+            "median": 2242.7,
+            "p95": 4431.1
+          },
+          "unassigned_penalty": {
+            "p5": 329875.0,
+            "median": 497500.0,
+            "p95": 718125.0
+          },
+          "total_cost": {
+            "p5": 331806.8,
+            "median": 499376.1,
+            "p95": 721033.4
+          }
+        },
+        "priority_greedy": {
+          "label": "Priority Greedy Heuristic",
+          "on_time_hh_pct": {
+            "p5": 0.0,
+            "median": 8.3,
+            "p95": 16.7
+          },
+          "on_time_headcount": {
+            "p5": 0.0,
+            "median": 5.0,
+            "p95": 10.0
+          },
+          "assigned_cost": {
+            "p5": 2991.2,
+            "median": 4131.4,
+            "p95": 6015.2
+          },
+          "unassigned_penalty": {
+            "p5": 237125.0,
+            "median": 396250.0,
+            "p95": 632625.0
+          },
+          "total_cost": {
+            "p5": 241006.1,
+            "median": 402035.8,
+            "p95": 637038.7
+          }
+        },
+        "alns_optimizer": {
+          "label": "ALNS Metaheuristic Optimizer",
+          "on_time_hh_pct": {
+            "p5": 0.0,
+            "median": 8.3,
+            "p95": 16.7
+          },
+          "on_time_headcount": {
+            "p5": 0.0,
+            "median": 6.0,
+            "p95": 10.0
+          },
+          "assigned_cost": {
+            "p5": 2820.2,
+            "median": 4088.7,
+            "p95": 6015.0
+          },
+          "unassigned_penalty": {
+            "p5": 229875.0,
+            "median": 393750.0,
+            "p95": 632625.0
+          },
+          "total_cost": {
+            "p5": 233927.6,
+            "median": 400160.2,
+            "p95": 636582.7
+          }
+        }
+      },
+      "paired_headcount_diff_optimizer_vs_fcfs": {
+        "median_people": 0.0,
+        "p5_people": -6.0,
+        "p95_people": 7.0,
+        "counts": {
+          "better": 29,
+          "tied": 9,
+          "worse": 22
+        },
+        "plain_statement": "Paired on-time headcount difference (Optimizer - FCFS): Median 0.0 people [p5: -6.0, p95: 7.0]. Optimizer evacuated more people on time: 29 seeds. Tied: 9 seeds. FCFS evacuated more: 22 seeds."
+      },
+      "paired_headcount_diff_optimizer_vs_greedy": {
+        "median_people": 0.0,
+        "p5_people": 0.0,
+        "p95_people": 4.0,
+        "counts": {
+          "better": 16,
+          "tied": 44,
+          "worse": 0
+        },
+        "plain_statement": "Paired on-time headcount difference (Optimizer - Greedy): Median 0.0 people [p5: 0.0, p95: 4.0]. Optimizer evacuated more people on time: 16 seeds. Tied: 44 seeds. Greedy evacuated more: 0 seeds."
+      },
+      "paired_cost_diff_greedy_minus_optimizer": {
+        "median_pts": 0.0,
+        "p5_pts": 0.0,
+        "p95_pts": 25241.3,
+        "counts": {
+          "better": 28,
+          "tied": 32,
+          "worse": 0
+        },
+        "plain_statement": "Paired cost difference (Greedy - Optimizer): Median 0.0 pts [p5: 0.0 pts, p95: 25241.3 pts]. Optimizer lower cost: 28 seeds. Tied with greedy: 32 seeds. Greedy lower cost: 0 seeds."
+      }
+    },
+    "moderate_scarcity": {
+      "scenario_name": "Seat-Limited, Loose Deadlines",
+      "scenario_description": "6 vehicles (54 seats total) vs 24 households (~72 souls), regional fleet, normal flood arrival deadlines (45-120 min). Seat-limited with loose deadlines.",
+      "cost_formula": "Risk-Weighted Cost = sum_{assigned}(1000 * E_r + w_r * d_r) + sum_{unassigned}(5000 * w_r / 10)",
+      "cost_units": "penalty points",
+      "unassigned_penalty_share_pct": 98.7,
+      "routing_gain_assigned_cost_pct": -1.0,
+      "methods": {
+        "first_come_first_served": {
+          "label": "First-Come-First-Served (FCFS)",
+          "on_time_hh_pct": {
+            "p5": 66.5,
+            "median": 70.8,
+            "p95": 79.2
+          },
+          "on_time_headcount": {
+            "p5": 47.0,
+            "median": 51.5,
+            "p95": 54.0
+          },
+          "assigned_cost": {
+            "p5": 323.9,
+            "median": 1826.9,
+            "p95": 1090.1
+          },
+          "unassigned_penalty": {
+            "p5": 155000.0,
+            "median": 204375.0,
+            "p95": 453000.0
+          },
+          "total_cost": {
+            "p5": 156098.2,
+            "median": 206256.3,
+            "p95": 453446.6
+          }
+        },
+        "priority_greedy": {
+          "label": "Priority Greedy Heuristic",
+          "on_time_hh_pct": {
+            "p5": 66.5,
+            "median": 70.8,
+            "p95": 79.2
+          },
+          "on_time_headcount": {
+            "p5": 47.0,
+            "median": 51.0,
+            "p95": 54.0
+          },
+          "assigned_cost": {
+            "p5": 334.0,
+            "median": 2244.5,
+            "p95": 918.1
+          },
+          "unassigned_penalty": {
+            "p5": 47375.0,
+            "median": 165000.0,
+            "p95": 416250.0
+          },
+          "total_cost": {
+            "p5": 47947.3,
+            "median": 167244.5,
+            "p95": 417109.5
+          }
+        },
+        "alns_optimizer": {
+          "label": "ALNS Metaheuristic Optimizer",
+          "on_time_hh_pct": {
+            "p5": 66.7,
+            "median": 70.8,
+            "p95": 79.4
+          },
+          "on_time_headcount": {
+            "p5": 49.0,
+            "median": 51.0,
+            "p95": 54.0
+          },
+          "assigned_cost": {
+            "p5": 334.0,
+            "median": 2231.0,
+            "p95": 918.1
+          },
+          "unassigned_penalty": {
+            "p5": 47375.0,
+            "median": 165000.0,
+            "p95": 416250.0
+          },
+          "total_cost": {
+            "p5": 47947.3,
+            "median": 167231.0,
+            "p95": 416834.8
+          }
+        }
+      },
+      "paired_headcount_diff_optimizer_vs_fcfs": {
+        "median_people": 0.0,
+        "p5_people": -3.0,
+        "p95_people": 3.0,
+        "counts": {
+          "better": 24,
+          "tied": 16,
+          "worse": 20
+        },
+        "plain_statement": "Paired on-time headcount difference (Optimizer - FCFS): Median 0.0 people [p5: -3.0, p95: 3.0]. Optimizer evacuated more people on time: 24 seeds. Tied: 16 seeds. FCFS evacuated more: 20 seeds."
+      },
+      "paired_headcount_diff_optimizer_vs_greedy": {
+        "median_people": 0.0,
+        "p5_people": 0.0,
+        "p95_people": 2.0,
+        "counts": {
+          "better": 5,
+          "tied": 54,
+          "worse": 1
+        },
+        "plain_statement": "Paired on-time headcount difference (Optimizer - Greedy): Median 0.0 people [p5: 0.0, p95: 2.0]. Optimizer evacuated more people on time: 5 seeds. Tied: 54 seeds. Greedy evacuated more: 1 seeds."
+      },
+      "paired_cost_diff_greedy_minus_optimizer": {
+        "median_pts": 0.0,
+        "p5_pts": 0.0,
+        "p95_pts": 15427.8,
+        "counts": {
+          "better": 16,
+          "tied": 44,
+          "worse": 0
+        },
+        "plain_statement": "Paired cost difference (Greedy - Optimizer): Median 0.0 pts [p5: 0.0 pts, p95: 15427.8 pts]. Optimizer lower cost: 16 seeds. Tied with greedy: 44 seeds. Greedy lower cost: 0 seeds."
+      }
+    },
+    "bound_deadlines": {
+      "scenario_name": "Enough General Seats, Limited Accessible Vehicles, Tight Deadlines",
+      "scenario_description": "8 vehicles (96 seats total) vs 24 households (~72 souls), distant base (8-12 km), tight flood arrival deadlines (15-45 min). Enough general seats, limited accessible vehicles, tight deadlines.",
+      "cost_formula": "Risk-Weighted Cost = sum_{assigned}(1000 * E_r + w_r * d_r) + sum_{unassigned}(5000 * w_r / 10)",
+      "cost_units": "penalty points",
+      "unassigned_penalty_share_pct": 84.8,
+      "routing_gain_assigned_cost_pct": -1.4,
+      "methods": {
+        "first_come_first_served": {
+          "label": "First-Come-First-Served (FCFS)",
+          "on_time_hh_pct": {
+            "p5": 25.0,
+            "median": 41.7,
+            "p95": 58.5
+          },
+          "on_time_headcount": {
+            "p5": 17.0,
+            "median": 30.5,
+            "p95": 45.0
+          },
+          "assigned_cost": {
+            "p5": 7971.8,
+            "median": 11864.6,
+            "p95": 16081.4
+          },
+          "unassigned_penalty": {
+            "p5": 0.0,
+            "median": 125000.0,
+            "p95": 388125.0
+          },
+          "total_cost": {
+            "p5": 11707.0,
+            "median": 138060.2,
+            "p95": 397336.5
+          }
+        },
+        "priority_greedy": {
+          "label": "Priority Greedy Heuristic",
+          "on_time_hh_pct": {
+            "p5": 20.8,
+            "median": 45.8,
+            "p95": 58.3
+          },
+          "on_time_headcount": {
+            "p5": 16.9,
+            "median": 31.0,
+            "p95": 44.1
+          },
+          "assigned_cost": {
+            "p5": 9386.6,
+            "median": 12338.5,
+            "p95": 16018.6
+          },
+          "unassigned_penalty": {
+            "p5": 0.0,
+            "median": 62500.0,
+            "p95": 276875.0
+          },
+          "total_cost": {
+            "p5": 10532.5,
+            "median": 75934.1,
+            "p95": 289720.3
+          }
+        },
+        "alns_optimizer": {
+          "label": "ALNS Metaheuristic Optimizer",
+          "on_time_hh_pct": {
+            "p5": 25.0,
+            "median": 45.8,
+            "p95": 62.7
+          },
+          "on_time_headcount": {
+            "p5": 17.9,
+            "median": 33.0,
+            "p95": 44.2
+          },
+          "assigned_cost": {
+            "p5": 9572.0,
+            "median": 12510.7,
+            "p95": 16954.1
+          },
+          "unassigned_penalty": {
+            "p5": 0.0,
+            "median": 62500.0,
+            "p95": 275000.0
+          },
+          "total_cost": {
+            "p5": 10486.5,
+            "median": 73715.4,
+            "p95": 285950.4
+          }
+        }
+      },
+      "paired_headcount_diff_optimizer_vs_fcfs": {
+        "median_people": 1.0,
+        "p5_people": -4.0,
+        "p95_people": 6.0,
+        "counts": {
+          "better": 30,
+          "tied": 20,
+          "worse": 10
+        },
+        "plain_statement": "Paired on-time headcount difference (Optimizer - FCFS): Median 1.0 people [p5: -4.0, p95: 6.0]. Optimizer evacuated more people on time: 30 seeds. Tied: 20 seeds. FCFS evacuated more: 10 seeds."
+      },
+      "paired_headcount_diff_optimizer_vs_greedy": {
+        "median_people": 0.0,
+        "p5_people": -1.0,
+        "p95_people": 5.0,
+        "counts": {
+          "better": 21,
+          "tied": 35,
+          "worse": 4
+        },
+        "plain_statement": "Paired on-time headcount difference (Optimizer - Greedy): Median 0.0 people [p5: -1.0, p95: 5.0]. Optimizer evacuated more people on time: 21 seeds. Tied: 35 seeds. Greedy evacuated more: 4 seeds."
+      },
+      "paired_cost_diff_greedy_minus_optimizer": {
+        "median_pts": 242.2,
+        "p5_pts": 9.6,
+        "p95_pts": 60929.3,
+        "counts": {
+          "better": 59,
+          "tied": 1,
+          "worse": 0
+        },
+        "plain_statement": "Paired cost difference (Greedy - Optimizer): Median 242.2 pts [p5: 9.6 pts, p95: 60929.3 pts]. Optimizer lower cost: 59 seeds. Tied with greedy: 1 seeds. Greedy lower cost: 0 seeds."
+      },
+      "unassigned_households_summary": {
+        "first_come_first_served": {
+          "total_unassigned_across_60_seeds": 129,
+          "median_per_seed": 2.0,
+          "p5": 0.0,
+          "p95": 5.0,
+          "breakdown_reasons": {
+            "stretcher_capacity_constraint": 123,
+            "wheelchair_accessibility_constraint": 6,
+            "general_seat_packing_constraint": 0
+          }
+        },
+        "priority_greedy": {
+          "total_unassigned_across_60_seeds": 116,
+          "median_per_seed": 2.0,
+          "p5": 0.0,
+          "p95": 5.0,
+          "breakdown_reasons": {
+            "stretcher_capacity_constraint": 76,
+            "wheelchair_accessibility_constraint": 40,
+            "general_seat_packing_constraint": 0
+          }
+        },
+        "alns_optimizer": {
+          "total_unassigned_across_60_seeds": 84,
+          "median_per_seed": 1.0,
+          "p5": 0.0,
+          "p95": 4.0,
+          "breakdown_reasons": {
+            "stretcher_capacity_constraint": 69,
+            "wheelchair_accessibility_constraint": 15,
+            "general_seat_packing_constraint": 0
+          }
+        }
+      }
+    }
+  },
+  "extreme_scarcity": {
+    "scenario_name": "Extreme Scarcity",
+    "scenario_description": "3 vehicles (12 seats total) vs 24 households (~72 souls), distant base (8-12 km), tight flood arrival deadlines (15-45 min). Dominated by seat shortage.",
+    "cost_formula": "Risk-Weighted Cost = sum_{assigned}(1000 * E_r + w_r * d_r) + sum_{unassigned}(5000 * w_r / 10)",
+    "cost_units": "penalty points",
+    "unassigned_penalty_share_pct": 98.4,
+    "routing_gain_assigned_cost_pct": 1.03,
+    "methods": {
+      "first_come_first_served": {
+        "label": "First-Come-First-Served (FCFS)",
+        "on_time_hh_pct": {
+          "p5": 0.0,
+          "median": 8.3,
+          "p95": 16.7
+        },
+        "on_time_headcount": {
+          "p5": 0.0,
+          "median": 5.0,
+          "p95": 11.0
+        },
+        "assigned_cost": {
+          "p5": 1161.0,
+          "median": 2242.7,
+          "p95": 4431.1
+        },
+        "unassigned_penalty": {
+          "p5": 329875.0,
+          "median": 497500.0,
+          "p95": 718125.0
+        },
+        "total_cost": {
+          "p5": 331806.8,
+          "median": 499376.1,
+          "p95": 721033.4
+        }
+      },
+      "priority_greedy": {
+        "label": "Priority Greedy Heuristic",
+        "on_time_hh_pct": {
+          "p5": 0.0,
+          "median": 8.3,
+          "p95": 16.7
+        },
+        "on_time_headcount": {
+          "p5": 0.0,
+          "median": 5.0,
+          "p95": 10.0
+        },
+        "assigned_cost": {
+          "p5": 2991.2,
+          "median": 4131.4,
+          "p95": 6015.2
+        },
+        "unassigned_penalty": {
+          "p5": 237125.0,
+          "median": 396250.0,
+          "p95": 632625.0
+        },
+        "total_cost": {
+          "p5": 241006.1,
+          "median": 402035.8,
+          "p95": 637038.7
+        }
+      },
+      "alns_optimizer": {
+        "label": "ALNS Metaheuristic Optimizer",
+        "on_time_hh_pct": {
+          "p5": 0.0,
+          "median": 8.3,
+          "p95": 16.7
+        },
+        "on_time_headcount": {
+          "p5": 0.0,
+          "median": 6.0,
+          "p95": 10.0
+        },
+        "assigned_cost": {
+          "p5": 2820.2,
+          "median": 4088.7,
+          "p95": 6015.0
+        },
+        "unassigned_penalty": {
+          "p5": 229875.0,
+          "median": 393750.0,
+          "p95": 632625.0
+        },
+        "total_cost": {
+          "p5": 233927.6,
+          "median": 400160.2,
+          "p95": 636582.7
+        }
+      }
+    },
+    "paired_headcount_diff_optimizer_vs_fcfs": {
+      "median_people": 0.0,
+      "p5_people": -6.0,
+      "p95_people": 7.0,
+      "counts": {
+        "better": 29,
+        "tied": 9,
+        "worse": 22
+      },
+      "plain_statement": "Paired on-time headcount difference (Optimizer - FCFS): Median 0.0 people [p5: -6.0, p95: 7.0]. Optimizer evacuated more people on time: 29 seeds. Tied: 9 seeds. FCFS evacuated more: 22 seeds."
+    },
+    "paired_headcount_diff_optimizer_vs_greedy": {
+      "median_people": 0.0,
+      "p5_people": 0.0,
+      "p95_people": 4.0,
+      "counts": {
+        "better": 16,
+        "tied": 44,
+        "worse": 0
+      },
+      "plain_statement": "Paired on-time headcount difference (Optimizer - Greedy): Median 0.0 people [p5: 0.0, p95: 4.0]. Optimizer evacuated more people on time: 16 seeds. Tied: 44 seeds. Greedy evacuated more: 0 seeds."
+    },
+    "paired_cost_diff_greedy_minus_optimizer": {
+      "median_pts": 0.0,
+      "p5_pts": 0.0,
+      "p95_pts": 25241.3,
+      "counts": {
+        "better": 28,
+        "tied": 32,
+        "worse": 0
+      },
+      "plain_statement": "Paired cost difference (Greedy - Optimizer): Median 0.0 pts [p5: 0.0 pts, p95: 25241.3 pts]. Optimizer lower cost: 28 seeds. Tied with greedy: 32 seeds. Greedy lower cost: 0 seeds."
+    }
+  },
+  "moderate_scarcity": {
+    "scenario_name": "Seat-Limited, Loose Deadlines",
+    "scenario_description": "6 vehicles (54 seats total) vs 24 households (~72 souls), regional fleet, normal flood arrival deadlines (45-120 min). Seat-limited with loose deadlines.",
+    "cost_formula": "Risk-Weighted Cost = sum_{assigned}(1000 * E_r + w_r * d_r) + sum_{unassigned}(5000 * w_r / 10)",
+    "cost_units": "penalty points",
+    "unassigned_penalty_share_pct": 98.7,
+    "routing_gain_assigned_cost_pct": -1.0,
+    "methods": {
+      "first_come_first_served": {
+        "label": "First-Come-First-Served (FCFS)",
+        "on_time_hh_pct": {
+          "p5": 66.5,
+          "median": 70.8,
+          "p95": 79.2
+        },
+        "on_time_headcount": {
+          "p5": 47.0,
+          "median": 51.5,
+          "p95": 54.0
+        },
+        "assigned_cost": {
+          "p5": 323.9,
+          "median": 1826.9,
+          "p95": 1090.1
+        },
+        "unassigned_penalty": {
+          "p5": 155000.0,
+          "median": 204375.0,
+          "p95": 453000.0
+        },
+        "total_cost": {
+          "p5": 156098.2,
+          "median": 206256.3,
+          "p95": 453446.6
+        }
+      },
+      "priority_greedy": {
+        "label": "Priority Greedy Heuristic",
+        "on_time_hh_pct": {
+          "p5": 66.5,
+          "median": 70.8,
+          "p95": 79.2
+        },
+        "on_time_headcount": {
+          "p5": 47.0,
+          "median": 51.0,
+          "p95": 54.0
+        },
+        "assigned_cost": {
+          "p5": 334.0,
+          "median": 2244.5,
+          "p95": 918.1
+        },
+        "unassigned_penalty": {
+          "p5": 47375.0,
+          "median": 165000.0,
+          "p95": 416250.0
+        },
+        "total_cost": {
+          "p5": 47947.3,
+          "median": 167244.5,
+          "p95": 417109.5
+        }
+      },
+      "alns_optimizer": {
+        "label": "ALNS Metaheuristic Optimizer",
+        "on_time_hh_pct": {
+          "p5": 66.7,
+          "median": 70.8,
+          "p95": 79.4
+        },
+        "on_time_headcount": {
+          "p5": 49.0,
+          "median": 51.0,
+          "p95": 54.0
+        },
+        "assigned_cost": {
+          "p5": 334.0,
+          "median": 2231.0,
+          "p95": 918.1
+        },
+        "unassigned_penalty": {
+          "p5": 47375.0,
+          "median": 165000.0,
+          "p95": 416250.0
+        },
+        "total_cost": {
+          "p5": 47947.3,
+          "median": 167231.0,
+          "p95": 416834.8
+        }
+      }
+    },
+    "paired_headcount_diff_optimizer_vs_fcfs": {
+      "median_people": 0.0,
+      "p5_people": -3.0,
+      "p95_people": 3.0,
+      "counts": {
+        "better": 24,
+        "tied": 16,
+        "worse": 20
+      },
+      "plain_statement": "Paired on-time headcount difference (Optimizer - FCFS): Median 0.0 people [p5: -3.0, p95: 3.0]. Optimizer evacuated more people on time: 24 seeds. Tied: 16 seeds. FCFS evacuated more: 20 seeds."
+    },
+    "paired_headcount_diff_optimizer_vs_greedy": {
+      "median_people": 0.0,
+      "p5_people": 0.0,
+      "p95_people": 2.0,
+      "counts": {
+        "better": 5,
+        "tied": 54,
+        "worse": 1
+      },
+      "plain_statement": "Paired on-time headcount difference (Optimizer - Greedy): Median 0.0 people [p5: 0.0, p95: 2.0]. Optimizer evacuated more people on time: 5 seeds. Tied: 54 seeds. Greedy evacuated more: 1 seeds."
+    },
+    "paired_cost_diff_greedy_minus_optimizer": {
+      "median_pts": 0.0,
+      "p5_pts": 0.0,
+      "p95_pts": 15427.8,
+      "counts": {
+        "better": 16,
+        "tied": 44,
+        "worse": 0
+      },
+      "plain_statement": "Paired cost difference (Greedy - Optimizer): Median 0.0 pts [p5: 0.0 pts, p95: 15427.8 pts]. Optimizer lower cost: 16 seeds. Tied with greedy: 44 seeds. Greedy lower cost: 0 seeds."
+    }
+  },
+  "bound_deadlines": {
+    "scenario_name": "Enough General Seats, Limited Accessible Vehicles, Tight Deadlines",
+    "scenario_description": "8 vehicles (96 seats total) vs 24 households (~72 souls), distant base (8-12 km), tight flood arrival deadlines (15-45 min). Enough general seats, limited accessible vehicles, tight deadlines.",
+    "cost_formula": "Risk-Weighted Cost = sum_{assigned}(1000 * E_r + w_r * d_r) + sum_{unassigned}(5000 * w_r / 10)",
+    "cost_units": "penalty points",
+    "unassigned_penalty_share_pct": 84.8,
+    "routing_gain_assigned_cost_pct": -1.4,
+    "methods": {
+      "first_come_first_served": {
+        "label": "First-Come-First-Served (FCFS)",
+        "on_time_hh_pct": {
+          "p5": 25.0,
+          "median": 41.7,
+          "p95": 58.5
+        },
+        "on_time_headcount": {
+          "p5": 17.0,
+          "median": 30.5,
+          "p95": 45.0
+        },
+        "assigned_cost": {
+          "p5": 7971.8,
+          "median": 11864.6,
+          "p95": 16081.4
+        },
+        "unassigned_penalty": {
+          "p5": 0.0,
+          "median": 125000.0,
+          "p95": 388125.0
+        },
+        "total_cost": {
+          "p5": 11707.0,
+          "median": 138060.2,
+          "p95": 397336.5
+        }
+      },
+      "priority_greedy": {
+        "label": "Priority Greedy Heuristic",
+        "on_time_hh_pct": {
+          "p5": 20.8,
+          "median": 45.8,
+          "p95": 58.3
+        },
+        "on_time_headcount": {
+          "p5": 16.9,
+          "median": 31.0,
+          "p95": 44.1
+        },
+        "assigned_cost": {
+          "p5": 9386.6,
+          "median": 12338.5,
+          "p95": 16018.6
+        },
+        "unassigned_penalty": {
+          "p5": 0.0,
+          "median": 62500.0,
+          "p95": 276875.0
+        },
+        "total_cost": {
+          "p5": 10532.5,
+          "median": 75934.1,
+          "p95": 289720.3
+        }
+      },
+      "alns_optimizer": {
+        "label": "ALNS Metaheuristic Optimizer",
+        "on_time_hh_pct": {
+          "p5": 25.0,
+          "median": 45.8,
+          "p95": 62.7
+        },
+        "on_time_headcount": {
+          "p5": 17.9,
+          "median": 33.0,
+          "p95": 44.2
+        },
+        "assigned_cost": {
+          "p5": 9572.0,
+          "median": 12510.7,
+          "p95": 16954.1
+        },
+        "unassigned_penalty": {
+          "p5": 0.0,
+          "median": 62500.0,
+          "p95": 275000.0
+        },
+        "total_cost": {
+          "p5": 10486.5,
+          "median": 73715.4,
+          "p95": 285950.4
+        }
+      }
+    },
+    "paired_headcount_diff_optimizer_vs_fcfs": {
+      "median_people": 1.0,
+      "p5_people": -4.0,
+      "p95_people": 6.0,
+      "counts": {
+        "better": 30,
+        "tied": 20,
+        "worse": 10
+      },
+      "plain_statement": "Paired on-time headcount difference (Optimizer - FCFS): Median 1.0 people [p5: -4.0, p95: 6.0]. Optimizer evacuated more people on time: 30 seeds. Tied: 20 seeds. FCFS evacuated more: 10 seeds."
+    },
+    "paired_headcount_diff_optimizer_vs_greedy": {
+      "median_people": 0.0,
+      "p5_people": -1.0,
+      "p95_people": 5.0,
+      "counts": {
+        "better": 21,
+        "tied": 35,
+        "worse": 4
+      },
+      "plain_statement": "Paired on-time headcount difference (Optimizer - Greedy): Median 0.0 people [p5: -1.0, p95: 5.0]. Optimizer evacuated more people on time: 21 seeds. Tied: 35 seeds. Greedy evacuated more: 4 seeds."
+    },
+    "paired_cost_diff_greedy_minus_optimizer": {
+      "median_pts": 242.2,
+      "p5_pts": 9.6,
+      "p95_pts": 60929.3,
+      "counts": {
+        "better": 59,
+        "tied": 1,
+        "worse": 0
+      },
+      "plain_statement": "Paired cost difference (Greedy - Optimizer): Median 242.2 pts [p5: 9.6 pts, p95: 60929.3 pts]. Optimizer lower cost: 59 seeds. Tied with greedy: 1 seeds. Greedy lower cost: 0 seeds."
+    },
+    "unassigned_households_summary": {
+      "first_come_first_served": {
+        "total_unassigned_across_60_seeds": 129,
+        "median_per_seed": 2.0,
+        "p5": 0.0,
+        "p95": 5.0,
+        "breakdown_reasons": {
+          "stretcher_capacity_constraint": 123,
+          "wheelchair_accessibility_constraint": 6,
+          "general_seat_packing_constraint": 0
+        }
+      },
+      "priority_greedy": {
+        "total_unassigned_across_60_seeds": 116,
+        "median_per_seed": 2.0,
+        "p5": 0.0,
+        "p95": 5.0,
+        "breakdown_reasons": {
+          "stretcher_capacity_constraint": 76,
+          "wheelchair_accessibility_constraint": 40,
+          "general_seat_packing_constraint": 0
+        }
+      },
+      "alns_optimizer": {
+        "total_unassigned_across_60_seeds": 84,
+        "median_per_seed": 1.0,
+        "p5": 0.0,
+        "p95": 4.0,
+        "breakdown_reasons": {
+          "stretcher_capacity_constraint": 69,
+          "wheelchair_accessibility_constraint": 15,
+          "general_seat_packing_constraint": 0
+        }
+      }
+    }
+  },
+  "methods": {
+    "first_come_first_served": {
+      "label": "First-Come-First-Served (FCFS)",
+      "on_time_hh_pct": {
+        "p5": 0.0,
+        "median": 8.3,
+        "p95": 16.7
+      },
+      "on_time_headcount": {
+        "p5": 0.0,
+        "median": 5.0,
+        "p95": 11.0
+      },
+      "assigned_cost": {
+        "p5": 1161.0,
+        "median": 2242.7,
+        "p95": 4431.1
+      },
+      "unassigned_penalty": {
+        "p5": 329875.0,
+        "median": 497500.0,
+        "p95": 718125.0
+      },
+      "total_cost": {
+        "p5": 331806.8,
+        "median": 499376.1,
+        "p95": 721033.4
+      }
+    },
+    "priority_greedy": {
+      "label": "Priority Greedy Heuristic",
+      "on_time_hh_pct": {
+        "p5": 0.0,
+        "median": 8.3,
+        "p95": 16.7
+      },
+      "on_time_headcount": {
+        "p5": 0.0,
+        "median": 5.0,
+        "p95": 10.0
+      },
+      "assigned_cost": {
+        "p5": 2991.2,
+        "median": 4131.4,
+        "p95": 6015.2
+      },
+      "unassigned_penalty": {
+        "p5": 237125.0,
+        "median": 396250.0,
+        "p95": 632625.0
+      },
+      "total_cost": {
+        "p5": 241006.1,
+        "median": 402035.8,
+        "p95": 637038.7
+      }
+    },
+    "alns_optimizer": {
+      "label": "ALNS Metaheuristic Optimizer",
+      "on_time_hh_pct": {
+        "p5": 0.0,
+        "median": 8.3,
+        "p95": 16.7
+      },
+      "on_time_headcount": {
+        "p5": 0.0,
+        "median": 6.0,
+        "p95": 10.0
+      },
+      "assigned_cost": {
+        "p5": 2820.2,
+        "median": 4088.7,
+        "p95": 6015.0
+      },
+      "unassigned_penalty": {
+        "p5": 229875.0,
+        "median": 393750.0,
+        "p95": 632625.0
+      },
+      "total_cost": {
+        "p5": 233927.6,
+        "median": 400160.2,
+        "p95": 636582.7
+      }
+    }
+  },
+  "comparison_summary": {
+    "plain_statement": "Paired cost difference (Greedy - Optimizer): Median 0.0 pts [p5: 0.0 pts, p95: 25241.3 pts]. Optimizer lower cost: 28 seeds. Tied with greedy: 32 seeds. Greedy lower cost: 0 seeds.",
+    "paired_difference_greedy_minus_optimizer": {
+      "median": 0.0,
+      "p5": 0.0,
+      "p95": 25241.3
+    },
+    "counts": {
+      "better": 28,
+      "tied": 32,
+      "worse": 0
+    }
+  }
+}

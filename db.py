@@ -39,6 +39,14 @@ def init_db():
         schema = f.read()
     conn = get_standalone_db()
     conn.executescript(schema)
+    
+    # Check if water_arrival_minutes column exists on household table
+    cur = conn.cursor()
+    cur.execute("PRAGMA table_info(household)")
+    cols = [r["name"] for r in cur.fetchall()]
+    if "water_arrival_minutes" not in cols:
+        cur.execute("ALTER TABLE household ADD COLUMN water_arrival_minutes REAL")
+    
     conn.commit()
     conn.close()
 

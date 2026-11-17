@@ -60,3 +60,29 @@ def test_sanitization_drops_unsafe_text():
     sanitized = sanitize_llm_reply(unsafe_text, "request_recorded", fallback)
     assert sanitized == fallback
     assert "help is on the way" not in sanitized.lower()
+
+
+def test_resident_templates_have_no_advice_or_dispatch_language():
+    resident_templates = [
+        "screens/phone.html",
+        "screens/confirmation.html",
+        "screens/ready.html",
+        "screens/household_needs.html"
+    ]
+    forbidden_resident_patterns = [
+        "remain vigilant",
+        "vigilant",
+        "higher ground",
+        "stay calm",
+        "stay put",
+        "offer pending",
+        "dispatch",
+        "dispatched"
+    ]
+    for tmpl_path in resident_templates:
+        with open(tmpl_path, "r", encoding="utf-8") as f:
+            content = f.read().lower()
+        for pattern in forbidden_resident_patterns:
+            assert pattern not in content, f"Resident-facing template {tmpl_path} contains forbidden pattern '{pattern}'"
+        if "phone.html" in tmpl_path:
+            assert '{{ t("your request is recorded. no driver has accepted yet.") }}' in content

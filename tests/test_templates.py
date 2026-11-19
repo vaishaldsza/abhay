@@ -138,3 +138,72 @@ def test_callback_created_only_after_acceptance_and_idempotent():
     assert count2 == 1
 
     conn.close()
+
+
+def test_dispatcher_callfloor_light_mode_button_visibility():
+    """
+    Regression test ensuring buttons on dispatcher, call floor, and call detail
+    (Suggest plan, View Details, Assign vehicle, Assign Rescue Asset) have crisp
+    white text and high contrast in light mode and are never rendered invisible.
+    """
+    with open("templates/nav.html", encoding="utf-8") as f:
+        nav_html = f.read()
+
+    # Ensure .text-white is NOT turned near-black in light mode
+    assert "html.light .text-white {\n    color: #0f172a" not in nav_html
+    assert "html.light .text-white {\n    color: #0F172A" not in nav_html
+
+    # Ensure white text is explicitly enforced in light mode
+    assert "html.light .text-white" in nav_html
+    assert "html.light #btn-suggest-plan" in nav_html
+    assert "html.light #btn-callfloor-suggest-plan" in nav_html
+    assert "html.light .view-details-btn" in nav_html
+    assert "html.light #btn-open-assign-modal" in nav_html
+    assert "html.light #btn-assign-life-threat" in nav_html
+    assert "html.light #assignVehicleModal .bg-primary-container" in nav_html
+    assert "html.light .btn-dispatch-vehicle" in nav_html
+    assert "html.light .btn-review-assign" in nav_html
+
+    # Check screens templates for required IDs and classes
+    with open("screens/dashboard.html", encoding="utf-8") as f:
+        dash_html = f.read()
+    assert 'id="btn-suggest-plan"' in dash_html
+    assert 'id="btn-assign-life-threat"' in dash_html
+    assert 'btn-review-assign' in dash_html
+
+    with open("screens/call_floor.html", encoding="utf-8") as f:
+        cf_html = f.read()
+    assert 'id="btn-callfloor-suggest-plan"' in cf_html
+    assert 'view-details-btn' in cf_html
+    assert 'btn-review-assign' in cf_html
+
+    with open("screens/call_detail.html", encoding="utf-8") as f:
+        cd_html = f.read()
+    assert 'id="btn-open-assign-modal"' in cd_html
+    assert 'Assign Rescue Asset' in cd_html
+    assert 'btn-dispatch-vehicle' in cd_html
+
+
+def test_ivr_speech_dark_mode_visibility():
+    """
+    Regression test ensuring the Original IVR Speech (Kannada) box, label,
+    and Kannada speech text are high-contrast and fully visible in dark mode.
+    """
+    with open("templates/nav.html", encoding="utf-8") as f:
+        nav_html = f.read()
+
+    assert "html.dark .ivr-speech-box" in nav_html
+    assert "html.dark .bg-\\[\\#FFFDF7\\]" in nav_html
+    assert "border-left: 4px solid #f59e0b" in nav_html
+    assert "color: #fbbf24 !important" in nav_html
+    assert "html.dark .ivr-speech-box p" in nav_html
+
+    with open("screens/call_detail.html", encoding="utf-8") as f:
+        cd_html = f.read()
+
+    assert "Original IVR Speech (Kannada)" in cd_html
+    assert "ivr-speech-box" in cd_html
+    assert "ivr-speech-label" in cd_html
+    assert "ivr-speech-text" in cd_html
+
+

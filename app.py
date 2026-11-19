@@ -4,14 +4,70 @@ Indian District Disaster AI Evacuation Coordinator
 Built for the Gnani AI Great Indian AI Internship Challenge.
 """
 
+import hmac
 import os
+import secrets
+import time
+import uuid
+from collections import defaultdict
 from pathlib import Path
 from flask import Flask, render_template, send_from_directory, request, jsonify, session, redirect, url_for, flash
 import jinja2
 
 from config import Config
-from db import close_db, get_db, log_audit
+from db import close_db, get_db, log_audit, mask_phone, encrypt_phone, hash_phone, normalize_phone
+from werkzeug.security import generate_password_hash, check_password_hash
 import urllib.parse
+
+# Rate limiting storage (in-memory per process)
+RATE_LIMIT_STORE = defaultdict(list)
+
+def check_rate_limit(key: str, max_attempts: int = 5, window_sec: int = 900) -> bool:
+    """Returns True if within rate limit, False if exceeded limit."""
+    now = time.time()
+    attempts = RATE_LIMIT_STORE[key]
+    # Filter attempts within current sliding window
+    RATE_LIMIT_STORE[key] = [t for t in attempts if now - t < window_sec]
+    return len(RATE_LIMIT_STORE[key]) < max_attempts
+
+def record_rate_limit_attempt(key: str):
+    RATE_LIMIT_STORE[key].append(time.time())
+
+def reset_rate_limits():
+    RATE_LIMIT_STORE.clear()
+
+# Constant-time dummy hash for generic timing on failed lookups
+DUMMY_PASSWORD_HASH = generate_password_hash("constant_timing_dummy_password_2026")
+
+from flask.testing import FlaskClient
+
+class AbhayTestClient(FlaskClient):
+    """
+    Test client that automatically attaches the session's X-CSRF-Token for authenticated
+    state-changing calls, exactly mimicking the browser's shared JS fetch wrapper, unless
+    explicitly overridden or auto_csrf=False.
+    """
+    def open(self, *args, **kwargs):
+        auto_csrf = kwargs.pop("auto_csrf", True)
+        if auto_csrf:
+            headers = kwargs.get("headers")
+            if headers is None:
+                headers = {}
+                kwargs["headers"] = headers
+            has_csrf = False
+            if isinstance(headers, dict):
+                has_csrf = any(k.lower() == "x-csrf-token" for k in headers)
+            elif isinstance(headers, (list, tuple)):
+                has_csrf = any(k.lower() == "x-csrf-token" for k, _ in headers)
+            if not has_csrf:
+                try:
+                    with self.session_transaction() as sess:
+                        token = sess.get("csrf_token")
+                        if token and isinstance(headers, dict):
+                            headers["X-CSRF-Token"] = token
+                except Exception:
+                    pass
+        return super().open(*args, **kwargs)
 
 # Import Blueprints
 from api.events import events_bp
@@ -32,6 +88,17 @@ def create_app():
         static_url_path="/static"
     )
     app.secret_key = Config.SECRET_KEY
+    app.config["SESSION_COOKIE_HTTPONLY"] = True
+    app.config["SESSION_COOKIE_SAMESITE"] = "Lax"
+    app.test_client_class = AbhayTestClient
+
+    def rotate_session():
+        """Rotate session to prevent session fixation attacks."""
+        lang = session.get("lang", "en")
+        session.clear()
+        session["session_id"] = secrets.token_hex(16)
+        session["csrf_token"] = secrets.token_hex(32)
+        session["lang"] = lang
 
     # Configure dual Jinja loader so templates from screens/ and templates/ can be loaded seamlessly
     screens_dir = str(Config.BASE_DIR / "screens")
@@ -68,9 +135,59 @@ def create_app():
     @app.before_request
     def check_role_access():
         path = request.path
-        # Allow static files, audio cache, login and logout
-        if path.startswith("/static/") or path.startswith("/audio-cache/") or path in ("/", "/login", "/logout", "/register", "/under-the-hood") or path.startswith("/api/set-lang/"):
+
+        # Ensure CSRF token is initialized in session
+        if "csrf_token" not in session:
+            session["csrf_token"] = secrets.token_hex(32)
+
+        # Enforce CSRF token on all state-changing API requests under /api
+        if request.method in ("POST", "PUT", "PATCH", "DELETE"):
+            if path.startswith("/api/") and not path.startswith("/api/set-lang/"):
+                token = request.headers.get("X-CSRF-Token")
+                if not token and request.is_json:
+                    token = (request.get_json(silent=True) or {}).get("csrf_token")
+                if not token:
+                    token = request.form.get("csrf_token")
+
+                session_token = session.get("csrf_token")
+                if not token or not session_token or not hmac.compare_digest(str(token), str(session_token)):
+                    return jsonify({
+                        "success": False,
+                        "error": "Invalid or missing CSRF token. X-CSRF-Token header is required."
+                    }), 400
+
+        # Allow static files, audio cache, public auth screens and info
+        if path.startswith("/static/") or path.startswith("/audio-cache/") or path in ("/", "/login", "/logout", "/register", "/signin", "/under-the-hood") or path.startswith("/api/set-lang/"):
             return None
+
+        # Invalidate sessions of purged resident users
+        role = session.get("role")
+        if role == "resident":
+            user_id = session.get("user_id")
+            hh_id = session.get("household_id")
+            sess_ver = session.get("session_version", 1)
+            db = get_db()
+            invalid = False
+            if user_id:
+                u_cols = [r[1] for r in db.execute("PRAGMA table_info(user)").fetchall()]
+                if "session_version" in u_cols:
+                    u = db.execute("SELECT session_version, password_hash FROM user WHERE id = ?", (user_id,)).fetchone()
+                    if u and (u["password_hash"] == "[PURGED]" or u["session_version"] != sess_ver):
+                        invalid = True
+                else:
+                    u = db.execute("SELECT password_hash FROM user WHERE id = ?", (user_id,)).fetchone()
+                    if u and u["password_hash"] == "[PURGED]":
+                        invalid = True
+            elif hh_id:
+                hh = db.execute("SELECT first_name FROM household WHERE id = ?", (hh_id,)).fetchone()
+                if hh and hh["first_name"] == "[PURGED]":
+                    invalid = True
+
+            if invalid:
+                session.clear()
+                if path.startswith("/api/"):
+                    return jsonify({"success": False, "error": "Session invalidated or record purged", "redirect": "/signin"}), 401
+                return redirect("/signin?error=" + urllib.parse.quote("Your session has ended as personal data was purged."))
 
         # If DEMO_MODE is disabled, allow access without demo role enforcement
         demo_mode = app.config.get("DEMO_MODE", Config.DEMO_MODE)
@@ -80,7 +197,10 @@ def create_app():
         role = session.get("role")
         if not role:
             if path.startswith("/api/"):
-                return jsonify({"success": False, "error": "Unauthorized: please login at /login"}), 401
+                return jsonify({"success": False, "error": "Unauthorized"}), 401
+            # Route residents to /signin, staff/demo to /login
+            if path in ("/ready", "/household-needs", "/confirmation", "/phone"):
+                return redirect("/signin?error=" + urllib.parse.quote("Please sign in to continue."))
             return redirect("/login?error=" + urllib.parse.quote("Please choose a demo role to continue."))
 
         # Page-level role whitelist
@@ -153,21 +273,20 @@ def create_app():
         return {
             "officer_name": session.get("user_name", "Duty officer"),
             "incident_name": incident_name,
-            "demo_mode": Config.DEMO_MODE,
+            "demo_mode": app.config.get("DEMO_MODE", Config.DEMO_MODE),
             "current_lang": cur_lang,
             "t": lambda k: t(k, cur_lang),
             "t_status": lambda k: translate_status(k, cur_lang),
             "t_nav": lambda k: translate_nav(k, cur_lang),
             "i18n_dict": dict_i18n,
             "i18n_json": json.dumps(dict_i18n),
-            "use_mock_gnani": Config.USE_MOCK_GNANI
+            "use_mock_gnani": Config.USE_MOCK_GNANI,
+            "csrf_token": session.get("csrf_token", "")
         }
 
     @app.route("/login", methods=["GET", "POST"])
     def page_login():
-        tab = request.args.get("tab", "login")
         if request.method == "POST":
-            action = request.form.get("action")
             role_home = {
                 "dispatcher": "/dashboard",
                 "driver": "/driver",
@@ -175,66 +294,12 @@ def create_app():
                 "resident": "/ready"
             }
 
-            # --- CASE 1: Sign Up / Register New Account ---
-            if action == "register":
-                username = (request.form.get("username") or "").strip()
-                password = request.form.get("password") or ""
-                full_name = (request.form.get("full_name") or "").strip()
-                email = (request.form.get("email") or "").strip()
-                role = (request.form.get("role") or "resident").strip()
-                phone = (request.form.get("phone") or "").strip()
-                vehicle_id = (request.form.get("vehicle_id") or "").strip() or ("veh-01" if role == "driver" else None)
+            # Optional credential login support
+            action = request.form.get("action")
+            username = (request.form.get("username") or "").strip()
+            password = request.form.get("password") or ""
 
-                if not username or not password or not full_name:
-                    return render_template("login.html", demo_mode=Config.DEMO_MODE, error="Please provide Full Name, Username, and Password.", tab="register")
-                if role not in ("dispatcher", "driver", "field_worker", "resident"):
-                    return render_template("login.html", demo_mode=Config.DEMO_MODE, error="Invalid role selected.", tab="register")
-
-                db = get_db()
-                existing = db.execute("SELECT id FROM user WHERE username = ? OR (email IS NOT NULL AND email != '' AND email = ?)", (username, email)).fetchone()
-                if existing:
-                    return render_template("login.html", demo_mode=Config.DEMO_MODE, error="Username or email is already registered.", tab="register")
-
-                import uuid
-                from werkzeug.security import generate_password_hash
-                user_id = f"usr-{uuid.uuid4().hex[:8]}"
-                pwd_hash = generate_password_hash(password)
-                db.execute(
-                    "INSERT INTO user (id, username, email, password_hash, role, full_name, phone, vehicle_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
-                    (user_id, username, email or None, pwd_hash, role, full_name, phone or None, vehicle_id)
-                )
-                log_audit(
-                    actor=full_name,
-                    actor_type=role,
-                    action="USER_REGISTER",
-                    detail=f"User registered with username {username} as {role}",
-                    conn=db
-                )
-                db.commit()
-
-                # Automatically establish session upon registration
-                session["user_id"] = user_id
-                session["role"] = role
-                session["user_name"] = full_name
-                if role == "driver":
-                    session["vehicle_id"] = vehicle_id or "veh-01"
-                else:
-                    session.pop("vehicle_id", None)
-
-                log_audit(
-                    actor=full_name,
-                    actor_type=role,
-                    action="USER_LOGIN",
-                    detail=f"User {username} auto-logged in as {role} after registration",
-                    conn=db
-                )
-                db.commit()
-                return redirect(role_home.get(role, "/dashboard"))
-
-            # --- CASE 2: Account Login with Username & Password ---
-            if action == "login" or (request.form.get("username") and request.form.get("password")):
-                username = (request.form.get("username") or "").strip()
-                password = request.form.get("password") or ""
+            if action == "login" or (username and password):
                 db = get_db()
                 user = db.execute(
                     "SELECT * FROM user WHERE username = ? OR (email IS NOT NULL AND email != '' AND email = ?)",
@@ -242,10 +307,12 @@ def create_app():
                 ).fetchone()
                 from werkzeug.security import check_password_hash
                 if not user or not check_password_hash(user["password_hash"], password):
-                    return render_template("login.html", demo_mode=Config.DEMO_MODE, error="Invalid username or password.", tab="login")
+                    demo_mode = app.config.get("DEMO_MODE", Config.DEMO_MODE)
+                    return render_template("login.html", demo_mode=demo_mode, error="Invalid username or password."), 200
 
                 role = user["role"]
                 full_name = user["full_name"]
+                rotate_session()
                 session["user_id"] = user["id"]
                 session["role"] = role
                 session["user_name"] = full_name
@@ -264,7 +331,15 @@ def create_app():
                 db.commit()
                 return redirect(role_home.get(role, "/dashboard"))
 
-            # --- CASE 3: Quick Demo Role 1-Click Login ---
+            # Quick Demo Role 1-Click Login
+            demo_mode = app.config.get("DEMO_MODE", Config.DEMO_MODE)
+            if not demo_mode:
+                return render_template(
+                    "login.html",
+                    demo_mode=False,
+                    error="Demo role entry is disabled in production mode. Please use resident sign-in."
+                ), 403
+
             role = request.form.get("role", "dispatcher")
             user_names = {
                 "dispatcher": "Duty officer",
@@ -273,6 +348,7 @@ def create_app():
                 "resident": "Citizen Parvathi"
             }
             user_name = user_names.get(role, "Demo User")
+            rotate_session()
             session["role"] = role
             session["user_name"] = user_name
             if role == "driver":
@@ -293,15 +369,280 @@ def create_app():
 
             return redirect(role_home.get(role, "/dashboard"))
 
+        demo_mode = app.config.get("DEMO_MODE", Config.DEMO_MODE)
         error = request.args.get("error")
-        return render_template("login.html", demo_mode=Config.DEMO_MODE, error=error, tab=tab)
+        return render_template("login.html", demo_mode=demo_mode, error=error)
+
+    @app.route("/signin", methods=["GET", "POST"])
+    def page_signin():
+        if request.method == "POST":
+            # CSRF protection on POST forms
+            token = request.form.get("csrf_token") or request.headers.get("X-CSRF-Token")
+            session_token = session.get("csrf_token")
+            if not token or not session_token or not hmac.compare_digest(str(token), str(session_token)):
+                return render_template("signin.html", error="Invalid or missing CSRF token."), 400
+
+            phone = (request.form.get("phone") or "").strip()
+            password = request.form.get("password") or ""
+            client_ip = request.remote_addr or "127.0.0.1"
+            phone_h = hash_phone(phone) if phone else "none"
+
+            # Rate limit check per IP and per phone (5 attempts per 15 min)
+            ip_key = f"ip:{client_ip}:signin"
+            phone_key = f"phone:{phone_h}:signin"
+
+            if not check_rate_limit(ip_key) or (phone and not check_rate_limit(phone_key)):
+                db = get_db()
+                log_audit(
+                    actor="anonymous",
+                    actor_type="resident",
+                    action="RATE_LIMIT_EXCEEDED",
+                    household_id=None,
+                    detail="Rate limit exceeded on /signin endpoint",
+                    conn=db
+                )
+                db.commit()
+                return render_template("signin.html", error="Too many attempts. Please try again after 15 minutes.", phone=phone), 429
+
+            record_rate_limit_attempt(ip_key)
+            if phone:
+                record_rate_limit_attempt(phone_key)
+
+            if not phone or not password:
+                return render_template("signin.html", error="Phone or password is incorrect", phone=phone), 400
+
+            db = get_db()
+            user = db.execute("SELECT * FROM user WHERE role = 'resident' AND phone_hash = ?", (phone_h,)).fetchone()
+
+            # Generic error timing: always perform a password hash comparison
+            if not user:
+                check_password_hash(DUMMY_PASSWORD_HASH, password)
+                log_audit(
+                    actor="anonymous",
+                    actor_type="resident",
+                    action="AUTH_FAILED",
+                    household_id=None,
+                    detail="Failed sign-in attempt (invalid credentials)",
+                    conn=db
+                )
+                db.commit()
+                return render_template("signin.html", error="Phone or password is incorrect", phone=phone), 401
+
+            if not check_password_hash(user["password_hash"], password):
+                log_audit(
+                    actor="anonymous",
+                    actor_type="resident",
+                    action="AUTH_FAILED",
+                    household_id=None,
+                    detail="Failed sign-in attempt (invalid credentials)",
+                    conn=db
+                )
+                db.commit()
+                return render_template("signin.html", error="Phone or password is incorrect", phone=phone), 401
+
+            # Sign-in verified. Find associated household
+            hh = db.execute("SELECT id FROM household WHERE phone_hash = ?", (phone_h,)).fetchone()
+            hh_id = hh["id"] if hh else None
+
+            rotate_session()
+            session["user_id"] = user["id"]
+            session["role"] = "resident"
+            session["user_name"] = user["full_name"]
+            session["household_id"] = hh_id
+            session["session_version"] = user["session_version"] if "session_version" in user.keys() else 1
+            session.pop("vehicle_id", None)
+
+            log_audit(
+                actor=user["full_name"],
+                actor_type="resident",
+                action="USER_LOGIN",
+                household_id=hh_id,
+                detail="Resident signed in with phone credentials",
+                conn=db
+            )
+            db.commit()
+
+            if request.is_json:
+                return jsonify({"success": True, "redirect": "/ready"}), 200
+            return redirect("/ready")
+
+        error = request.args.get("error")
+        return render_template("signin.html", error=error)
 
     @app.route("/register", methods=["GET", "POST"])
     def page_register():
         if request.method == "POST":
-            return page_login()
+            # CSRF protection on POST forms
+            token = request.form.get("csrf_token") or request.headers.get("X-CSRF-Token")
+            session_token = session.get("csrf_token")
+            if not token or not session_token or not hmac.compare_digest(str(token), str(session_token)):
+                return render_template("register.html", error="Invalid or missing CSRF token."), 400
+
+            data = request.form
+            first_name_input = (data.get("first_name") or data.get("full_name") or "").strip()
+            phone = (data.get("phone") or "").strip()
+            landmark = (data.get("landmark") or "").strip()
+            password = data.get("password") or ""
+            confirm_password = data.get("confirm_password") or ""
+            consent = data.get("consent")
+            attempted_role = (data.get("role") or "").strip().lower()
+
+            # Prevent staff registration
+            if attempted_role in ("dispatcher", "driver", "field_worker"):
+                return render_template(
+                    "register.html",
+                    error="Staff roles cannot be registered. Please use demo login.",
+                    errors=["Staff roles cannot be registered. Please use demo login."],
+                    first_name=first_name_input,
+                    phone=phone,
+                    landmark=landmark,
+                    consent=bool(consent)
+                ), 400
+
+            client_ip = request.remote_addr or "127.0.0.1"
+            phone_h = hash_phone(phone) if phone else "none"
+
+            # Rate limiting check
+            ip_key = f"ip:{client_ip}:register"
+            phone_key = f"phone:{phone_h}:register"
+
+            if not check_rate_limit(ip_key) or (phone and not check_rate_limit(phone_key)):
+                db = get_db()
+                log_audit(
+                    actor="anonymous",
+                    actor_type="resident",
+                    action="RATE_LIMIT_EXCEEDED",
+                    household_id=None,
+                    detail="Rate limit exceeded on /register endpoint",
+                    conn=db
+                )
+                db.commit()
+                return render_template(
+                    "register.html",
+                    error="Too many attempts. Please try again after 15 minutes.",
+                    errors=["Too many attempts. Please try again after 15 minutes."],
+                    first_name=first_name_input,
+                    phone=phone,
+                    landmark=landmark,
+                    consent=bool(consent)
+                ), 429
+
+            record_rate_limit_attempt(ip_key)
+            if phone:
+                record_rate_limit_attempt(phone_key)
+
+            errors = []
+            if not first_name_input:
+                errors.append("First name is required.")
+            first_name = first_name_input.split()[0] if first_name_input else ""
+
+            if not phone:
+                errors.append("Phone number is required.")
+            else:
+                digits = "".join(c for c in phone if c.isdigit())
+                if len(digits) < 7:
+                    errors.append("Please provide a valid telephone number.")
+
+            if not landmark:
+                errors.append("Landmark or location is required.")
+
+            if not password:
+                errors.append("Password is required.")
+            elif len(password) < 8:
+                errors.append("Password must be at least 8 characters long.")
+
+            if password and confirm_password and password != confirm_password:
+                errors.append("Passwords do not match.")
+            elif not confirm_password:
+                errors.append("Please confirm your password.")
+
+            if not consent:
+                errors.append("Consent is required under DPDP Act 2023 principles for disaster coordination.")
+
+            if errors:
+                err_msg = " ".join(errors)
+                return render_template(
+                    "register.html",
+                    error=err_msg,
+                    errors=errors,
+                    first_name=first_name,
+                    phone=phone,
+                    landmark=landmark,
+                    consent=bool(consent)
+                ), 400
+
+            db = get_db()
+            # Enforce limit: one household per phone number
+            existing_hh = db.execute("SELECT id FROM household WHERE phone_hash = ?", (phone_h,)).fetchone()
+            existing_usr = db.execute("SELECT id FROM user WHERE phone_hash = ?", (phone_h,)).fetchone()
+            if existing_hh or existing_usr:
+                return render_template(
+                    "register.html",
+                    error="A household with this phone number is already registered.",
+                    errors=["A household with this phone number is already registered."],
+                    first_name=first_name,
+                    phone=phone,
+                    landmark=landmark,
+                    consent=bool(consent)
+                ), 400
+
+            user_id = f"usr-{uuid.uuid4().hex[:8]}"
+            username = f"res_{uuid.uuid4().hex[:8]}"
+            pwd_hash = generate_password_hash(password)
+            phone_masked = mask_phone(phone)
+            phone_enc = encrypt_phone(phone)
+
+            # Insert resident user (never store plaintext phone)
+            db.execute(
+                "INSERT INTO user (id, username, email, password_hash, role, full_name, phone_masked, phone_enc, phone_hash) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
+                (user_id, username, None, pwd_hash, "resident", first_name, phone_masked, phone_enc, phone_h)
+            )
+
+            # Insert household with verification_status = 'self-reported, unverified'
+            hh_id = f"hh-{uuid.uuid4().hex[:6]}"
+            inc = db.execute("SELECT id FROM incident WHERE closed_at IS NULL ORDER BY created_at DESC LIMIT 1").fetchone()
+            incident_id = inc["id"] if inc else "inc-bantwal-01"
+
+            db.execute(
+                """INSERT INTO household (id, incident_id, first_name, phone_masked, phone_enc, phone_hash, landmark, pin, lat, lng, language, members, status, consent_given, verification_status)
+                   VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 1, 'self-reported, unverified')""",
+                (hh_id, incident_id, first_name, phone_masked, phone_enc, phone_h, landmark, "574211", 12.8904, 75.0378, session.get("lang", "en"), 1, "needs_help")
+            )
+
+            # Insert initial household member
+            db.execute(
+                """INSERT INTO member (id, household_id, cannot_walk, wheelchair_type, bedridden, elderly, pregnant, needs_medicine_oxygen, sleeping_room)
+                   VALUES (?, ?, 0, 'none', 0, 0, 0, 0, 'Ground Floor')""",
+                (f"mem-{uuid.uuid4().hex[:6]}", hh_id)
+            )
+
+            # Log registration to audit_log (never log password or raw phone)
+            log_audit(
+                actor=first_name,
+                actor_type="resident",
+                action="USER_REGISTER",
+                household_id=hh_id,
+                detail=f"Resident {first_name} registered household at {landmark} with DPDP consent and auto-deletion notice",
+                conn=db
+            )
+            db.commit()
+
+            # Rotate session to prevent session fixation and establish resident session
+            rotate_session()
+            session["user_id"] = user_id
+            session["role"] = "resident"
+            session["user_name"] = first_name
+            session["household_id"] = hh_id
+            session["session_version"] = 1
+            session.pop("vehicle_id", None)
+
+            if request.is_json:
+                return jsonify({"success": True, "redirect": "/ready", "household_id": hh_id}), 200
+
+            return redirect("/ready")
+
         error = request.args.get("error")
-        return render_template("login.html", demo_mode=Config.DEMO_MODE, error=error, tab="register")
+        return render_template("register.html", error=error)
 
     @app.route("/logout")
     def page_logout():
@@ -310,14 +651,15 @@ def create_app():
         db = get_db()
         log_audit(
             actor=user_name,
-            actor_type=role,
+            actor_type=role if role in ("dispatcher", "driver", "resident", "field_worker") else "resident",
             action="USER_LOGOUT",
-            detail=f"User logged out from {role}",
+            detail=f"User signed out from {role}",
             conn=db
         )
         db.commit()
+        rotate_session()
         session.clear()
-        return redirect("/login")
+        return redirect("/signin")
 
     @app.route("/api/set-lang/<lang>", methods=["POST", "GET"])
     def set_language(lang):
@@ -343,23 +685,36 @@ def create_app():
             return jsonify({"success": False, "error": "Full name cannot be empty"}), 400
 
         session["user_name"] = full_name
+        p_masked = mask_phone(phone) if phone else None
         if phone:
-            session["phone"] = phone
+            session["phone"] = p_masked
         if address:
             session["address"] = address
 
         db = get_db()
         user_id = session.get("user_id")
         if user_id:
-            db.execute(
-                "UPDATE user SET full_name = ?, phone = ? WHERE id = ?",
-                (full_name, phone or None, user_id)
-            )
+            u_cols = [r[1] for r in db.execute("PRAGMA table_info(user)").fetchall()]
+            if "phone_masked" in u_cols and "phone" in u_cols:
+                db.execute(
+                    "UPDATE user SET full_name = ?, phone = ?, phone_masked = ? WHERE id = ?",
+                    (full_name, p_masked, p_masked, user_id)
+                )
+            elif "phone_masked" in u_cols:
+                db.execute(
+                    "UPDATE user SET full_name = ?, phone_masked = ? WHERE id = ?",
+                    (full_name, p_masked, user_id)
+                )
+            else:
+                db.execute(
+                    "UPDATE user SET full_name = ?, phone = ? WHERE id = ?",
+                    (full_name, p_masked, user_id)
+                )
         log_audit(
             actor=full_name,
             actor_type=session.get("role", "user"),
             action="USER_PROFILE_UPDATE",
-            detail=f"User updated profile: name={full_name}, phone={phone}, address={address}",
+            detail=f"User updated profile: name={full_name}, phone={p_masked or '[NONE]'}, address={address}",
             conn=db
         )
         db.commit()
@@ -388,18 +743,17 @@ def create_app():
         call = None
         hh = None
         if str(id).startswith("call-"):
-            call = db.execute("SELECT * FROM call WHERE id = ?", (id,)).fetchone()
+            call = db.execute("SELECT * FROM call WHERE id = ? AND transcript != ''", (id,)).fetchone()
             if call:
-                hh = db.execute("SELECT * FROM household WHERE id = ?", (call["household_id"],)).fetchone()
+                hh = db.execute("SELECT * FROM household WHERE id = ? AND first_name != '[PURGED]' AND phone_masked != '[PURGED]'", (call["household_id"],)).fetchone()
         else:
-            hh = db.execute("SELECT * FROM household WHERE id = ?", (id,)).fetchone()
+            hh = db.execute("SELECT * FROM household WHERE id = ? AND first_name != '[PURGED]' AND phone_masked != '[PURGED]'", (id,)).fetchone()
             if hh:
-                call = db.execute("SELECT * FROM call WHERE household_id = ? ORDER BY created_at DESC LIMIT 1", (hh["id"],)).fetchone()
+                call = db.execute("SELECT * FROM call WHERE household_id = ? AND transcript != '' ORDER BY created_at DESC LIMIT 1", (hh["id"],)).fetchone()
 
+        # If household is not found or has been purged, return 404 with plain "Record removed or not found" page
         if not hh:
-            hh = db.execute("SELECT * FROM household LIMIT 1").fetchone()
-        if not call and hh:
-            call = db.execute("SELECT * FROM call WHERE household_id = ? ORDER BY created_at DESC LIMIT 1", (hh["id"],)).fetchone()
+            return render_template("404.html", message="Record removed or not found"), 404
 
         has_real_audio = False
         if call and call["audio_path"]:

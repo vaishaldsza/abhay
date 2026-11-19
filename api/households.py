@@ -4,7 +4,7 @@ Household API Endpoints
 
 import uuid
 from flask import Blueprint, request, jsonify
-from db import get_db, mask_phone, encrypt_phone, log_audit
+from db import get_db, mask_phone, encrypt_phone, hash_phone, log_audit
 from api.events import broadcast_event
 from core.priority import priority_score
 
@@ -28,7 +28,7 @@ def get_households():
         LEFT JOIN member m ON m.household_id = h.id
         LEFT JOIN request r ON r.household_id = h.id
         LEFT JOIN vehicle v ON v.id = r.vehicle_id
-        WHERE 1=1
+        WHERE h.first_name != '[PURGED]' AND h.phone_masked != '[PURGED]'
     """
     params = []
 
@@ -57,6 +57,8 @@ def get_households():
         d = dict(r)
         d["phone_masked"] = mask_phone(d["phone_masked"])
         del d["phone_enc"] # Never expose hash or enc in UI API
+        if "phone_hash" in d:
+            del d["phone_hash"]
         score, breakdown = priority_score(d)
         d["priority_score"] = score
         d["priority_breakdown"] = breakdown
@@ -70,14 +72,16 @@ def get_households():
 @households_bp.route("/api/households/<id>", methods=["GET"])
 def get_household(id):
     db = get_db()
-    hh = db.execute("SELECT * FROM household WHERE id = ?", (id,)).fetchone()
+    hh = db.execute("SELECT * FROM household WHERE id = ? AND first_name != '[PURGED]'", (id,)).fetchone()
     if not hh:
-        return jsonify({"success": False, "error": "Household not found"}), 404
+        return jsonify({"success": False, "error": "Household not found or record purged"}), 404
 
     hh_dict = dict(hh)
     hh_dict["phone_masked"] = mask_phone(hh_dict["phone_masked"])
     if "phone_enc" in hh_dict:
         del hh_dict["phone_enc"]
+    if "phone_hash" in hh_dict:
+        del hh_dict["phone_hash"]
     score, breakdown = priority_score(hh_dict, conn=db)
     hh_dict["priority_score"] = score
     hh_dict["priority_breakdown"] = breakdown
@@ -115,6 +119,7 @@ def register_household():
     phone = data.get("phone", "")
     phone_masked = mask_phone(phone)
     phone_enc = encrypt_phone(phone)
+    phone_h = hash_phone(phone)
 
     db = get_db()
     hh_id = f"hh-{uuid.uuid4().hex[:6]}"
@@ -130,9 +135,9 @@ def register_household():
     initial_status = "needs_help" if needs_evac else "can_help"
 
     db.execute(
-        """INSERT INTO household (id, incident_id, first_name, phone_masked, phone_enc, landmark, pin, lat, lng, language, members, status, consent_given)
-           VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 1)""",
-        (hh_id, incident_id, first_name, phone_masked, phone_enc, landmark, pin, lat, lng, language, members_count, initial_status)
+        """INSERT INTO household (id, incident_id, first_name, phone_masked, phone_enc, phone_hash, landmark, pin, lat, lng, language, members, status, consent_given, verification_status)
+           VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 1, 'self-reported, unverified')""",
+        (hh_id, incident_id, first_name, phone_masked, phone_enc, phone_h, landmark, pin, lat, lng, language, members_count, initial_status)
     )
 
     # Members details
@@ -187,6 +192,10 @@ def resolve_field_visit(id):
     db.execute(
         "UPDATE field_visit SET status = 'resolved', notes = ? WHERE id = ?",
         (notes, id)
+    )
+    db.execute(
+        "UPDATE household SET verification_status = 'verified' WHERE id = ?",
+        (fv["household_id"],)
     )
     
     # Update household status

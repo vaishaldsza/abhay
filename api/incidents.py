@@ -44,4 +44,8 @@ def close_incident(id):
     log_audit("dispatcher", "dispatcher", "INCIDENT_CLOSED", None, f"Incident {id} closed at {closed_at}. 72h retention timer started.", conn=db)
     db.commit()
     broadcast_event("incident_closed", {"incident_id": id, "closed_at": closed_at})
+
+    from api.audit import start_auto_purge_job
+    start_auto_purge_job(id)
+
     return jsonify({"success": True, "incident_id": id, "closed_at": closed_at})

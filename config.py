@@ -8,7 +8,29 @@ load_dotenv(BASE_DIR / ".env")
 
 class Config:
     BASE_DIR = BASE_DIR
-    SECRET_KEY = os.getenv("SECRET_KEY")
+    _secret_key = os.getenv("SECRET_KEY")
+    if not _secret_key:
+        raise ValueError("SECRET_KEY must be provided in .env with no default value.")
+    SECRET_KEY = _secret_key
+
+    _phone_hash_key = os.getenv("PHONE_HASH_KEY")
+    if not _phone_hash_key:
+        raise ValueError("PHONE_HASH_KEY must be provided in .env with no default value.")
+    PHONE_HASH_KEY = _phone_hash_key
+
+    _phone_encryption_key = os.getenv("PHONE_ENCRYPTION_KEY")
+    if not _phone_encryption_key:
+        raise ValueError("PHONE_ENCRYPTION_KEY must be provided in .env with no default value.")
+    try:
+        from cryptography.fernet import Fernet
+        Fernet(_phone_encryption_key.encode("utf-8"))
+    except Exception as e:
+        raise ValueError(
+            "PHONE_ENCRYPTION_KEY must be a valid 32-byte url-safe base64 Fernet key. "
+            "Generate one with: python -c \"from cryptography.fernet import Fernet; print(Fernet.generate_key().decode())\""
+        ) from e
+    PHONE_ENCRYPTION_KEY = _phone_encryption_key
+
     DEMO_MODE = os.getenv("DEMO_MODE", "true").lower() in ("true", "1", "yes")
     DATABASE_PATH = os.getenv("DATABASE_PATH", str(BASE_DIR / "abhay.db"))
     

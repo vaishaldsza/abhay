@@ -21,6 +21,8 @@ from core.optimizer import optimize_assignments, generate_optimization_plan
 
 @pytest.fixture
 def client(tmp_path):
+    orig_db = Config.DATABASE_PATH
+    orig_secret = Config.SECRET_KEY
     test_db = tmp_path / "test_assign.db"
     Config.DATABASE_PATH = test_db
     Config.SECRET_KEY = "test-secret-key"
@@ -33,6 +35,9 @@ def client(tmp_path):
 
     with app.test_client() as client:
         yield client
+
+    Config.DATABASE_PATH = orig_db
+    Config.SECRET_KEY = orig_secret
 
 def test_capacity_and_stretcher_constraints_never_violated(client):
     """

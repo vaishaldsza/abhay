@@ -520,7 +520,7 @@
 </div>
 </td>
 <td class="py-3 px-4 text-right">
-<button class="inline-flex items-center gap-1 px-3 py-1.5 bg-[#0B2545] hover:bg-[#133968] active:bg-[#06162B] text-white rounded-lg text-label-md font-label-md shadow-sm transition-all">
+<button class="view-details-btn inline-flex items-center gap-1 px-3 py-1.5 bg-[#0B2545] hover:bg-[#133968] active:bg-[#06162B] text-white rounded-lg text-label-md font-label-md shadow-sm transition-all" onclick="window.location.href='/call/hh-001'">
 <span class="material-symbols-outlined text-sm" data-icon="visibility">visibility</span>
 <span>View Details</span>
 </button>
@@ -638,7 +638,7 @@
 </div>
 </td>
 <td class="py-3 px-4 text-right">
-<button class="inline-flex items-center gap-1 px-3 py-1.5 bg-white border border-[#CBD5E1] hover:bg-[#F1F5F9] text-[#0B2545] rounded-lg text-label-md font-label-md transition-all">
+<button class="view-details-btn inline-flex items-center gap-1 px-3 py-1.5 bg-[#0B2545] hover:bg-[#133968] active:bg-[#06162B] text-white rounded-lg text-label-md font-label-md shadow-sm transition-all" onclick="window.location.href='/call/hh-003'">
 <span class="material-symbols-outlined text-sm" data-icon="visibility">visibility</span>
 <span>View Details</span>
 </button>
@@ -696,7 +696,7 @@
 </div>
 </td>
 <td class="py-3 px-4 text-right">
-<button class="inline-flex items-center gap-1 px-3 py-1.5 bg-white border border-[#CBD5E1] hover:bg-[#F1F5F9] text-[#0B2545] rounded-lg text-label-md font-label-md transition-all">
+<button class="view-details-btn inline-flex items-center gap-1 px-3 py-1.5 bg-[#0B2545] hover:bg-[#133968] active:bg-[#06162B] text-white rounded-lg text-label-md font-label-md shadow-sm transition-all" onclick="window.location.href='/call/hh-003'">
 <span class="material-symbols-outlined text-sm" data-icon="visibility">visibility</span>
 <span>View Details</span>
 </button>
@@ -825,7 +825,7 @@
 </div>
 </td>
 <td class="py-3 px-4 text-right">
-<button class="inline-flex items-center gap-1 px-3 py-1.5 bg-white border border-[#CBD5E1] hover:bg-[#F1F5F9] text-[#0B2545] rounded-lg text-label-md font-label-md transition-all">
+<button class="view-details-btn inline-flex items-center gap-1 px-3 py-1.5 bg-[#0B2545] hover:bg-[#133968] active:bg-[#06162B] text-white rounded-lg text-label-md font-label-md shadow-sm transition-all" onclick="window.location.href='/call/hh-003'">
 <span class="material-symbols-outlined text-sm" data-icon="visibility">visibility</span>
 <span>View Details</span>
 </button>
@@ -1025,7 +1025,19 @@ async function loadCallFloorData() {
     }
 
     const tbody = document.querySelector('tbody');
-    if (!tbody || households.length === 0) return;
+    if (!tbody) return;
+    if (households.length === 0) {
+      tbody.innerHTML = `
+        <tr>
+          <td colspan="8" class="text-center py-12 text-on-surface-variant dark:text-slate-400">
+            <div class="flex flex-col items-center justify-center">
+              <span class="material-symbols-outlined text-3xl mb-1 text-slate-400">inbox</span>
+              <p class="font-medium text-sm">No households in the queue.</p>
+            </div>
+          </td>
+        </tr>`;
+      return;
+    }
 
     let rowsHtml = '';
     households.forEach((h, idx) => {
@@ -1071,6 +1083,14 @@ async function loadCallFloorData() {
                 <span class="text-[8px] font-normal opacity-70 ml-0.5">(ordering aid)</span>
               </span>
             </div>
+            ${(h.verification_status && h.verification_status.indexOf('unverified') !== -1) ? `
+              <div class="mt-1">
+                <span class="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[10px] font-bold bg-amber-500/15 text-amber-800 dark:text-amber-300 border border-amber-400/30" title="Self-reported by resident, awaiting field confirmation">
+                  <span class="material-symbols-outlined text-[11px]">pending_actions</span>
+                  self-reported, unverified
+                </span>
+              </div>
+            ` : ''}
             <div class="text-caption text-on-surface-variant dark:text-slate-300 flex items-center gap-2 mt-0.5">
               <span class="font-semibold text-primary dark:text-slate-200">${h.members || 1} Souls</span>
               <span>•</span>
@@ -1105,7 +1125,7 @@ async function loadCallFloorData() {
             </div>
           </td>
           <td class="py-3 px-4 text-right">
-            <a href="/call/${h.id}" class="inline-flex items-center gap-1 px-3 py-1.5 bg-[#0B2545] hover:bg-[#133968] active:bg-[#06162B] text-white rounded-lg text-label-md font-label-md shadow-sm transition-all">
+            <a href="/call/${h.id}" class="view-details-btn inline-flex items-center gap-1 px-3 py-1.5 bg-[#0B2545] hover:bg-[#133968] active:bg-[#06162B] text-white rounded-lg text-label-md font-label-md shadow-sm transition-all">
               <span class="material-symbols-outlined text-sm">visibility</span>
               <span>View Details</span>
             </a>
@@ -1169,7 +1189,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     Suggested Asset: <strong class="text-primary dark:text-slate-100">${a.vehicle_designation}</strong> (${a.vehicle_type}, Driver: ${a.vehicle_driver || 'Assigned'}) • ${a.people_count} souls
                   </div>
                 </div>
-                <a href="/call/${a.household_id}?suggested_veh=${a.vehicle_id}" class="px-3.5 py-1.5 rounded-lg bg-primary hover:bg-primary-container text-on-primary font-label-md text-xs font-semibold shrink-0 shadow-xs flex items-center gap-1.5 self-start sm:self-center">
+                <a href="/call/${a.household_id}?suggested_veh=${a.vehicle_id}" class="btn-review-assign px-3.5 py-1.5 rounded-lg bg-primary hover:bg-primary-container text-on-primary font-label-md text-xs font-semibold shrink-0 shadow-xs flex items-center gap-1.5 self-start sm:self-center">
                   <span class="material-symbols-outlined text-sm">open_in_new</span>
                   <span>Review & Assign vehicle</span>
                 </a>

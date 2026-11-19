@@ -6,7 +6,7 @@ import uuid
 import random
 from datetime import datetime, timedelta, timezone
 from config import Config
-from db import init_db, get_standalone_db, mask_phone, encrypt_phone, log_audit
+from db import init_db, get_standalone_db, mask_phone, encrypt_phone, hash_phone, log_audit, migrate_phone_hashes
 from werkzeug.security import generate_password_hash
 
 def create_sample_wav(filepath: str, duration_sec: float = 2.0, freq: float = 440.0):
@@ -131,15 +131,19 @@ def seed_database():
         landmark = landmarks[i % len(landmarks)]
         pin = f"57421{random.randint(1, 9)}"
         members_count = random.randint(1, 6)
-        phone_raw = f"988{random.randint(1000000, 9999999)}"
+        if name == "Parvathi":
+            phone_raw = "9876543213"
+        else:
+            phone_raw = f"988{random.randint(1000000, 9999999)}"
         phone_masked = mask_phone(phone_raw)
         phone_enc = encrypt_phone(phone_raw)
+        phone_hash = hash_phone(phone_raw)
         # Demo assumption: estimated water arrival in minutes (30m to 180m)
         water_arrival = round(random.uniform(35.0, 180.0), 1) if (i % 5 != 0) else None
 
         household_records.append((
-            hh_id, incident_id, name, phone_masked, phone_enc, landmark, pin,
-            lat, lng, lang, members_count, status, 1, water_arrival, datetime.now(timezone.utc).isoformat()
+            hh_id, incident_id, name, phone_masked, phone_enc, phone_hash, landmark, pin,
+            lat, lng, lang, members_count, status, 1, water_arrival, "verified", datetime.now(timezone.utc).isoformat()
         ))
 
         # Member details
@@ -200,8 +204,8 @@ def seed_database():
             ))
 
     cur.executemany(
-        """INSERT INTO household (id, incident_id, first_name, phone_masked, phone_enc, landmark, pin, lat, lng, language, members, status, consent_given, water_arrival_minutes, updated_at)
-           VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)""",
+        """INSERT INTO household (id, incident_id, first_name, phone_masked, phone_enc, phone_hash, landmark, pin, lat, lng, language, members, status, consent_given, water_arrival_minutes, verification_status, updated_at)
+           VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)""",
         household_records
     )
 
@@ -242,17 +246,21 @@ def seed_database():
     )
 
     # Seed Default Registered Users
-    sample_users = [
-        ("usr-001", "dispatcher", "dispatcher@ddma.gov.in", generate_password_hash("admin123"), "dispatcher", "Duty officer", "+91 9876543210", None),
-        ("usr-002", "driver", "driver.suresh@rescue.gov.in", generate_password_hash("driver123"), "driver", "Driver Suresh", "+91 9876543211", "veh-01"),
-        ("usr-003", "field_worker", "suma.asha@health.gov.in", generate_password_hash("field123"), "field_worker", "ASHA Worker Suma", "+91 9876543212", None),
-        ("usr-004", "resident", "parvathi.achari@gmail.com", generate_password_hash("resident123"), "resident", "Citizen Parvathi", "+91 9876543213", None)
+    sample_users_data = [
+        ("usr-001", "dispatcher", "dispatcher@ddma.gov.in", generate_password_hash("admin123"), "dispatcher", "Duty officer", "9876543210", None),
+        ("usr-002", "driver", "driver.suresh@rescue.gov.in", generate_password_hash("driver123"), "driver", "Driver Suresh", "9876543211", "veh-01"),
+        ("usr-003", "field_worker", "suma.asha@health.gov.in", generate_password_hash("field123"), "field_worker", "ASHA Worker Suma", "9876543212", None),
+        ("usr-004", "resident", "parvathi.achari@gmail.com", generate_password_hash("resident123"), "resident", "Citizen Parvathi", "9876543213", None)
     ]
-    cur.executemany(
-        """INSERT INTO user (id, username, email, password_hash, role, full_name, phone, vehicle_id)
-           VALUES (?, ?, ?, ?, ?, ?, ?, ?)""",
-        sample_users
-    )
+    for uid, uname, email, pwhash, role, fname, raw_p, veh_id in sample_users_data:
+        p_masked = mask_phone(raw_p)
+        p_enc = encrypt_phone(raw_p)
+        p_hash = hash_phone(raw_p)
+        cur.execute(
+            """INSERT INTO user (id, username, email, password_hash, role, full_name, phone_masked, phone_enc, phone_hash, vehicle_id)
+               VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)""",
+            (uid, uname, email, pwhash, role, fname, p_masked, p_enc, p_hash, veh_id)
+        )
 
     conn.commit()
 
@@ -260,6 +268,16 @@ def seed_database():
     log_audit("system", "system", "SYSTEM_INITIALIZED", None, "Database schema and seed initialized for Demo Flood, Bantwal", conn=conn)
     log_audit("dispatcher", "dispatcher", "INCIDENT_ACTIVATED", None, "Incident inc-bantwal-01 activated by District Control Room", conn=conn)
 
+    conn.commit()
+
+    # Verify and run idempotent phone hash migration
+    report = migrate_phone_hashes(conn)
+    print(f"Migration report: {report}")
+    if report["unmigrated_households"] or report["unmigrated_users"]:
+        raise RuntimeError(f"Reseed failed: Unmigrated rows detected! {report}")
+
+    # Run VACUUM to reclaim storage and purge deleted / updated free pages
+    cur.execute("VACUUM;")
     conn.commit()
     conn.close()
     print("Database successfully seeded with 40 households, 6 vehicles, calls, requests, and offers.")

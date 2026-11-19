@@ -14,6 +14,7 @@ CREATE TABLE IF NOT EXISTS household (
     first_name TEXT NOT NULL,
     phone_masked TEXT NOT NULL, -- e.g. +91 XXXXX XXXXX
     phone_enc TEXT NOT NULL,    -- encrypted or hashed phone
+    phone_hash TEXT,            -- deterministic salted hash for lookup
     landmark TEXT,
     pin TEXT,
     lat REAL,
@@ -23,6 +24,7 @@ CREATE TABLE IF NOT EXISTS household (
     status TEXT NOT NULL DEFAULT 'not_reached', -- not_reached, needs_help, can_help, request_recorded, driver_accepted, on_run, picked_up, evacuated
     consent_given INTEGER DEFAULT 1,
     water_arrival_minutes REAL, -- optional flood water arrival assumption (demo assumption)
+    verification_status TEXT DEFAULT 'verified', -- verified | self-reported, unverified
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (incident_id) REFERENCES incident(id)
 );
@@ -131,7 +133,10 @@ CREATE TABLE IF NOT EXISTS user (
     password_hash TEXT NOT NULL,
     role TEXT NOT NULL DEFAULT 'resident', -- dispatcher | driver | field_worker | resident
     full_name TEXT NOT NULL,
-    phone TEXT,
+    phone_masked TEXT DEFAULT '+91 XXXXX XXXXX',
+    phone_enc TEXT,
+    phone_hash TEXT,
     vehicle_id TEXT,
+    session_version INTEGER DEFAULT 1,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );

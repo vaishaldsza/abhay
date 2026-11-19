@@ -25,7 +25,7 @@ def test_all_15_page_routes_return_200(client):
         "/incidents",
         "/dashboard",
         "/call-floor",
-        "/call/call-001",
+        "/call/hh-001",
         "/simulate",
         "/fleet",
         "/run/req-001",

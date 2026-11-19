@@ -229,11 +229,14 @@ Where $E_r \in [0, 1]$ is the lateness risk factor relative to water arrival min
 
 ---
 
-## 7. Route & Screen Sitemap (All 15 Routes)
+## 7. Route & Screen Sitemap (Core Routes)
 
 | Route | Screen / Template | Purpose |
 | :--- | :--- | :--- |
 | `/` | `screens/landing.html` | Public landing page explaining the prototype, the honesty rule, and prototype limits. |
+| `/login` | `screens/login.html` | Demo role selection portal with one-click access for Dispatcher, Driver, Field worker, and Resident, demo banner, and link to resident registration and sign in. |
+| `/signin` | `screens/signin.html` | Secure sign-in portal for registered residents with phone number, password, rate limiting (5 attempts / 15m), session rotation, and generic timing. |
+| `/register` | `screens/register.html` | Public resident household registration with first name, masked telephony display, landmark, password creation, DPDP Act 2023 consent notice, and unverified status flagging. |
 | `/incidents` | `screens/incident_select.html` | Incident selection portal (Level 3 Demo Flood Bantwal; Dispatcher only). |
 | `/dashboard` | `screens/dashboard.html` | Dispatcher tactical command center with map, live queue, and vehicle positions from seed data. |
 | `/call-floor` | `screens/call_floor.html` | Call floor agent view with audio playback and transcription stream. |
@@ -281,7 +284,49 @@ Follow this script to demonstrate the core value proposition:
 
 ---
 
-## 9. License & Attribution
+## 9. Security Notes
+
+- **Cryptographic Separation: What is Hashed, Encrypted, and Masked**:
+  - **Hashed (Lookup & Passwords)**:
+    - **Passwords**: Hashed with Werkzeug's `generate_password_hash` using salted `scrypt`. Passwords are never stored in plain text or logged.
+    - **Phone Numbers for Deterministic Lookup (`phone_hash`)**: Hashed with keyed **HMAC-SHA256** using the secret `PHONE_HASH_KEY` from `.env`. Because Indian mobile numbers are 10 digits with a limited search space (~$10^{10}$ combinations), unkeyed hashes (like SHA-256) are easily reversed via offline rainbow tables. HMAC-SHA256 keyed with a 256-bit secret prevents offline dictionary and enumeration attacks.
+  - **Encrypted (Reversible Telephony Storage (`phone_enc`))**:
+    - Stored in `household.phone_enc` and `user.phone_enc` using **Fernet authenticated symmetric encryption** (`cryptography.fernet.Fernet`), combining 128-bit AES in CBC mode with HMAC-SHA256 for authentication and PKCS7 padding.
+    - Keyed by `PHONE_ENCRYPTION_KEY` from `.env`. Fernet ensures confidentiality and integrity: any tampered ciphertext or invalid key fails with `InvalidToken`.
+    - Real telephone numbers can be recovered exclusively via `decrypt_phone()` by authorized DDMA telephony / IVR callback systems.
+  - **Masked (UI Display & Audit Trail (`phone_masked`))**:
+    - Displayed in templates and logged in audit trails strictly as `+91 XXXXX XXXXX`.
+    - No plain text telephone number ever touches persistent database files, logs, or JSON responses.
+- **Constant-Time Verification & Sign-In Timing**:
+  - `hmac.compare_digest` is used specifically for CSRF token comparison across HTML form POSTs (`/signin`, `/register`) and AJAX/fetch requests under `/api/`, eliminating timing side-channels during token validation.
+  - Sign-in timing uses a precomputed dummy hash (`DUMMY_PASSWORD_HASH = generate_password_hash(...)`) to run a real password verification cycle when a submitted phone number does not exist in the database, ensuring constant-time response latency and preventing account enumeration via timing attacks.
+- **Key Storage & Threat Model Caveats**:
+  - The `PHONE_ENCRYPTION_KEY` lives in `.env` on the local filesystem beside the SQLite database (`abhay.db`). Consequently, Fernet encryption protects against **database-file leaks only** (e.g., leaked SQLite backups, unprivileged file exfiltration, or discarded storage media). It does not defend against a full host or environment compromise where `.env` is accessible.
+  - **No Key Rotation Yet**: Cryptographic key rotation is not implemented in this prototype. The recommended upgrade path for production is `MultiFernet` (`from cryptography.fernet import MultiFernet`), which supports multi-key decryption during phased re-encryption workflows.
+- **72-Hour Data Purge is a Project Design Choice**:
+  - Automated deletion after 72 hours (and the `/api/privacy/delete-now` manual emergency purge) is an intentional **project design choice** inspired by data minimization under India's Digital Personal Data Protection (DPDP) Act 2023. Operational disaster telemetry and citizen PII are cleared once life-safety operations conclude, preventing persistent surveillance or unauthorized post-disaster data retention.
+  - The purge removes data from the application database only; backups, logs, and copies outside it are not covered.
+- **In-Memory Rate Limiter**:
+  - The sliding-window rate limiter on `/signin` and `/register` (5 attempts per 15 minutes) stores attempts in memory.
+  - State resets on process restart and is scoped to a single process. In multi-worker deployments (e.g., Gunicorn or uWSGI), state is not shared across workers without an external cache like Redis.
+  - Proxy IP caveat: Rate limiting relies on `request.remote_addr`. In production environments behind reverse proxies (Nginx, Cloudflare, AWS ALB), Werkzeug's `ProxyFix` middleware must be enabled with trusted proxy hops configured; otherwise, all incoming traffic appears to originate from the proxy's IP address.
+- **Duplicate-Phone Responses Reveal Registration**:
+  - Submitting an already registered phone number to `/register` returns an explicit HTTP 400 error (*"A household with this phone number is already registered"*). While this provides immediate clarity to citizens during disaster intake, it technically allows an adversary to enumerate whether a given telephone number is present in the database.
+- **Demo Roles Bypass Sign-In**:
+  - The `/login` route features one-click demo role buttons (Dispatcher, Driver, Field worker, Resident) that bypass credential authentication for competition judges and prototype evaluation.
+  - **These demo roles must be disabled before any public deployment** by setting `DEMO_MODE=false` in `.env`. When `DEMO_MODE=false`, all role entry attempts at `/login` are strictly rejected with HTTP 403, and only authenticated resident sign-in via `/signin` or administrative credentials are functional.
+- **Authentication Scope & Limitations**:
+  - In this prototype version, there is **no automated password reset** mechanism and **no SMS / telephony OTP** verification service.
+- **Mandatory Environment Variables**:
+  - `SECRET_KEY`, `PHONE_HASH_KEY`, and `PHONE_ENCRYPTION_KEY` are mandatory in `.env` with **no default fallbacks**. The application immediately fails at startup with a `ValueError` explaining how to generate each key if any are missing or invalid.
+- **CSRF Protection on State-Changing API Endpoints**:
+  - All state-changing endpoints (`POST`, `PUT`, `PATCH`, `DELETE`) under `/api/` require a valid CSRF token passed via the `X-CSRF-Token` HTTP header (or form/JSON payload). The shared client JavaScript automatically attaches this header to all `fetch` requests. State-changing requests without the header are rejected with HTTP 400.
+- **Self-Reported Household Badges**:
+  - Households self-registered by residents through the public `/register` portal are stamped with `verification_status = 'self-reported, unverified'` and prominently marked with an alert badge across the Dispatcher Dashboard, Call Floor (`/call-floor`), and Call Detail (`/call/<id>`) views until verified by field officers.
+
+---
+
+## 10. License & Attribution
 
 - Built for the **Gnani AI Great Indian AI Internship Challenge (2026)**.
 - Models: Architecture designed for **Gnani Prisma STT**, **Gnani Evon LLM**, and **Gnani Timbre TTS** (runs in mock mode).

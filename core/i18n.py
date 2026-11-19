@@ -1141,6 +1141,126 @@ UI_TRANSLATIONS = {
         "en": "Incident select",
         "hi": "घटना चयन",
         "kn": "ಘಟನೆ ಆಯ್ಕೆ"
+    },
+    "Register your household": {
+        "en": "Register your household",
+        "hi": "अपने परिवार का पंजीकरण करें",
+        "kn": "ನಿಮ್ಮ ಕುಟುಂಬವನ್ನು ನೋಂದಾಯಿಸಿ"
+    },
+    "Resident? Register your household": {
+        "en": "Resident? Register your household",
+        "hi": "नागरिक? अपने परिवार का पंजीकरण करें",
+        "kn": "ನಿವಾಸಿಗಳೇ? ನಿಮ್ಮ ಕುಟುಂಬವನ್ನು ನೋಂದಾಯಿಸಿ"
+    },
+    "Already registered? Demo login": {
+        "en": "Already registered? Demo login",
+        "hi": "पहले से पंजीकृत हैं? डेमो लॉगिन",
+        "kn": "ಈಗಾಗಲೇ ನೋಂದಾಯಿಸಲಾಗಿದೆಯೇ? ಡೆಮೊ ಲಾಗಿನ್"
+    },
+    "Resident Registration": {
+        "en": "Resident Registration",
+        "hi": "नागरिक पंजीकरण",
+        "kn": "ನಿವಾಸಿಗಳ ನೋಂದಣಿ"
+    },
+    "Citizen Household Registration": {
+        "en": "Citizen Household Registration",
+        "hi": "नागरिक परिवार पंजीकरण",
+        "kn": "ನಾಗರಿಕ ಕುಟುಂಬ ನೋಂದಣಿ"
+    },
+    "First name": {
+        "en": "First name",
+        "hi": "पहला नाम",
+        "kn": "ಮೊದಲ ಹೆಸರು"
+    },
+    "Phone number": {
+        "en": "Phone number",
+        "hi": "फ़ोन नंबर",
+        "kn": "ಫೋನ್ ಸಂಖ್ಯೆ"
+    },
+    "Landmark / Location": {
+        "en": "Landmark / Location",
+        "hi": "लैंडमार्क / स्थान",
+        "kn": "ಗುರುತಿನ ಸ್ಥಳ / ವಿಳಾಸ"
+    },
+    "DPDP Act 2023 Consent & Notice": {
+        "en": "DPDP Act 2023 Consent & Notice",
+        "hi": "DPDP अधिनियम 2023 सहमति और सूचना",
+        "kn": "ಡಿಪಿಡಿಪಿ ಕಾಯ್ದೆ 2023 ಸಮ್ಮತಿ ಮತ್ತು ಸೂಚನೆ"
+    },
+    "I consent to emergency evacuation coordination and distress response under DPDP Act 2023 principles (purpose limitation and data minimisation). I understand that all personal records are subject to automatic deletion 72 hours after incident closure.": {
+        "en": "I consent to emergency evacuation coordination and distress response under DPDP Act 2023 principles (purpose limitation and data minimisation). I understand that all personal records are subject to automatic deletion 72 hours after incident closure.",
+        "hi": "मैं DPDP अधिनियम 2023 के सिद्धांतों (उद्देश्य सीमा और डेटा न्यूनतमकरण) के तहत आपातकालीन निकासी समन्वय और संकट प्रतिक्रिया के लिए सहमति देता हूं। मैं समझता हूं कि घटना समाप्त होने के 72 घंटे बाद सभी व्यक्तिगत रिकॉर्ड स्वचालित रूप से हटा दिए जाएंगे।",
+        "kn": "ಡಿಪಿಡಿಪಿ ಕಾಯ್ದೆ 2023 ರ ತತ್ವಗಳ ಅಡಿಯಲ್ಲಿ ತುರ್ತು ಸ್ಥಳಾಂತರ ಸಮನ್ವಯ ಮತ್ತು ವಿಪತ್ತು ಪ್ರತಿಕ್ರಿಯೆಗೆ ನಾನು ಸಮ್ಮತಿಸುತ್ತೇನೆ. ಘಟನೆ ಮುಕ್ತಾಯಗೊಂಡ 72 ಗಂಟೆಗಳ ನಂತರ ಎಲ್ಲಾ ವೈಯಕ್ತಿಕ ದಾಖಲೆಗಳನ್ನು ಸ್ವಯಂಚಾಲಿತವಾಗಿ ಅಳಿಸಲಾಗುತ್ತದೆ ಎಂದು ನಾನು ಅರ್ಥಮಾಡಿಕೊಂಡಿದ್ದೇನೆ."
+    },
+    "Register & Continue to Readiness": {
+        "en": "Register & Continue to Readiness",
+        "hi": "पंजीकरण करें और तैयारी पर जाएं",
+        "kn": "ನೋಂದಾಯಿಸಿ ಮತ್ತು ಸನ್ನದ್ಧತೆಗೆ ಮುಂದುವರಿಯಿರಿ"
+    },
+    "Only first names are collected per DPDP data minimisation.": {
+        "en": "Only first names are collected per DPDP data minimisation.",
+        "hi": "DPDP डेटा न्यूनतमकरण के अनुसार केवल पहला नाम एकत्र किया जाता है।",
+        "kn": "ಡಿಪಿಡಿಪಿ ಡೇಟಾ ಕನಿಷ್ಠೀಕರಣದ ಪ್ರಕಾರ ಮೊದಲ ಹೆಸರನ್ನು ಮಾತ್ರ ಸಂಗ್ರಹಿಸಲಾಗುತ್ತದೆ."
+    },
+    "Strictly masked across all command displays as +91 XXXXX XXXXX.": {
+        "en": "Strictly masked across all command displays as +91 XXXXX XXXXX.",
+        "hi": "सभी कमांड डिस्प्ले पर +91 XXXXX XXXXX के रूप में सख्ती से छुपाया गया।",
+        "kn": "ಎಲ್ಲಾ ಕಮಾಂಡ್ ಡಿಸ್ಪ್ಲೇಗಳಲ್ಲಿ +91 XXXXX XXXXX ಎಂದು ಕಟ್ಟುನಿಟ್ಟಾಗಿ ಮರೆಮಾಡಲಾಗಿದೆ."
+    },
+    "Sign in": {
+        "en": "Sign in",
+        "hi": "साइन इन करें",
+        "kn": "ಸೈನ್ ಇನ್ ಮಾಡಿ"
+    },
+    "Sign In": {
+        "en": "Sign In",
+        "hi": "साइन इन करें",
+        "kn": "ಸೈನ್ ಇನ್ ಮಾಡಿ"
+    },
+    "Sign in to your household": {
+        "en": "Sign in to your household",
+        "hi": "अपने परिवार में साइन इन करें",
+        "kn": "ನಿಮ್ಮ ಕುಟುಂಬಕ್ಕೆ ಸೈನ್ ಇನ್ ಮಾಡಿ"
+    },
+    "New here? Register your household": {
+        "en": "New here? Register your household",
+        "hi": "नए हैं? अपने परिवार का पंजीकरण करें",
+        "kn": "ಹೊಸಬರೇ? ನಿಮ್ಮ ಕುಟುಂಬವನ್ನು ನೋಂದಾಯಿಸಿ"
+    },
+    "Just exploring? Use demo roles": {
+        "en": "Just exploring? Use demo roles",
+        "hi": "सिर्फ देख रहे हैं? डेमो भूमिकाओं का उपयोग करें",
+        "kn": "ಕೇವಲ ಪರಿಶೀಲಿಸುತ್ತಿರುವಿರಾ? ಡೆಮೊ ಪಾತ್ರಗಳನ್ನು ಬಳಸಿ"
+    },
+    "Registered already? Sign in": {
+        "en": "Registered already? Sign in",
+        "hi": "पहले से पंजीकृत हैं? साइन इन करें",
+        "kn": "ಈಗಾಗಲೇ ನೋಂದಾಯಿಸಲಾಗಿದೆಯೇ? ಸೈನ್ ಇನ್ ಮಾಡಿ"
+    },
+    "Already registered? Sign in": {
+        "en": "Already registered? Sign in",
+        "hi": "पहले से पंजीकृत हैं? साइन इन करें",
+        "kn": "ಈಗಾಗಲೇ ನೋಂದಾಯಿಸಲಾಗಿದೆಯೇ? ಸೈನ್ ಇನ್ ಮಾಡಿ"
+    },
+    "Phone or password is incorrect": {
+        "en": "Phone or password is incorrect",
+        "hi": "फ़ोन या पासवर्ड गलत है",
+        "kn": "ಫೋನ್ ಅಥವಾ ಪಾಸ್‌ವರ್ಡ್ ತಪ್ಪಾಗಿದೆ"
+    },
+    "Password": {
+        "en": "Password",
+        "hi": "पासवर्ड",
+        "kn": "ಪಾಸ್‌ವರ್ಡ್"
+    },
+    "Confirm Password": {
+        "en": "Confirm Password",
+        "hi": "पासवर्ड की पुष्टि करें",
+        "kn": "ಪಾಸ್‌ವರ್ಡ್ ದೃಢೀಕರಿಸಿ"
+    },
+    "self-reported, unverified": {
+        "en": "self-reported, unverified",
+        "hi": "स्व-रिपोर्ट किया गया, असत्यापित",
+        "kn": "ಸ್ವಯಂ-ವರದಿ, ಪರಿಶೀಲಿಸಲಾಗಿಲ್ಲ"
     }
 }
 

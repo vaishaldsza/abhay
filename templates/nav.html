@@ -1,7 +1,7 @@
 <!-- Early Theme Initialization to Prevent Flash of Dark/Light Theme -->
 <script>
   (function() {
-    const theme = localStorage.getItem('theme') || 'dark';
+    const theme = localStorage.getItem('theme') || localStorage.getItem('abhay_theme') || 'dark';
     if (theme === 'light') {
       document.documentElement.classList.add('light');
       document.documentElement.classList.remove('dark');
@@ -9,6 +9,36 @@
       document.documentElement.classList.add('dark');
       document.documentElement.classList.remove('light');
     }
+  })();
+</script>
+
+<!-- Shared CSRF Protection for all Fetch/API State-Changing Calls -->
+<meta name="csrf-token" content="{{ csrf_token }}"/>
+<script>
+  window.ABHAY_CSRF_TOKEN = "{{ csrf_token }}";
+  (function() {
+    const originalFetch = window.fetch;
+    window.fetch = function(url, options = {}) {
+      const method = (options.method || 'GET').toUpperCase();
+      if (['POST', 'PUT', 'PATCH', 'DELETE'].includes(method)) {
+        options.headers = options.headers || {};
+        const token = window.ABHAY_CSRF_TOKEN || document.querySelector('meta[name="csrf-token"]')?.getAttribute('content');
+        if (token) {
+          if (options.headers instanceof Headers) {
+            if (!options.headers.has('X-CSRF-Token')) options.headers.set('X-CSRF-Token', token);
+          } else if (Array.isArray(options.headers)) {
+            if (!options.headers.some(([k]) => k.toLowerCase() === 'x-csrf-token')) {
+              options.headers.push(['X-CSRF-Token', token]);
+            }
+          } else {
+            if (!Object.keys(options.headers).some(k => k.toLowerCase() === 'x-csrf-token')) {
+              options.headers['X-CSRF-Token'] = token;
+            }
+          }
+        }
+      }
+      return originalFetch.call(this, url, options);
+    };
   })();
 </script>
 
@@ -59,8 +89,12 @@
     color: #f8fafc !important;
   }
   html.dark .bg-primary {
-    background-color: #0b1e38 !important;
+    background-color: #133863 !important;
     color: #f8fafc !important;
+  }
+  html.dark .bg-primary:hover,
+  html.dark button[type="submit"]:hover {
+    background-color: #1a497f !important;
   }
   html.dark .bg-primary-container {
     background-color: #0f284a !important;
@@ -68,12 +102,15 @@
   }
   html.dark .bg-surface-container-lowest\/95,
   html.dark .bg-surface-container-lowest\/90,
+  html.dark .bg-surface-container-low\/80,
   html.dark .bg-surface-container-low\/70,
   html.dark .bg-surface-container-low\/60,
   html.dark .bg-surface-container-low\/50,
   html.dark .bg-surface-container-low\/40,
+  html.dark .bg-surface-container-low\/30,
   html.dark .bg-surface-container-low\/20,
   html.dark .bg-surface-container\/50,
+  html.dark .bg-surface-container-high\/80,
   html.dark .bg-surface-container-high\/60,
   html.dark .bg-surface-container-high\/20,
   html.dark .bg-white\/70 {
@@ -111,20 +148,46 @@
     background-color: rgba(30, 58, 138, 0.4) !important;
     color: #93c5fd !important;
   }
-  html.dark .bg-\[\#FEF2F2\] {
+  html.dark .bg-\[\#FEF2F2\],
+  html.dark .bg-\[\#FEF2F2\]\/80,
+  html.dark .bg-\[\#FEF2F2\]\/60,
+  html.dark .bg-\[\#FEF2F2\]\/40 {
     background-color: rgba(153, 27, 27, 0.25) !important;
     color: #fca5a5 !important;
     border-color: rgba(220, 38, 38, 0.4) !important;
   }
-  html.dark .bg-\[\#F0FDF4\] {
+  html.dark .border-\[\#FECACA\] {
+    border-color: rgba(220, 38, 38, 0.4) !important;
+  }
+  html.dark .bg-\[\#F0FDF4\],
+  html.dark .bg-\[\#F0FDF4\]\/80,
+  html.dark .bg-\[\#F0FDF4\]\/60,
+  html.dark .bg-\[\#DCFCE7\] {
     background-color: rgba(22, 101, 52, 0.25) !important;
     color: #86efac !important;
     border-color: rgba(34, 197, 94, 0.4) !important;
   }
-  html.dark .bg-\[\#FFF7ED\] {
+  html.dark .border-\[\#BBF7D0\] {
+    border-color: rgba(34, 197, 94, 0.4) !important;
+  }
+  html.dark .bg-\[\#FFF7ED\],
+  html.dark .bg-\[\#FFF7ED\]\/80,
+  html.dark .bg-\[\#FFF7ED\]\/60,
+  html.dark .bg-\[\#FFEDD5\] {
     background-color: rgba(154, 52, 18, 0.25) !important;
     color: #fed7aa !important;
     border-color: rgba(234, 88, 12, 0.4) !important;
+  }
+  html.dark .border-\[\#FFEDD5\] {
+    border-color: rgba(234, 88, 12, 0.4) !important;
+  }
+  html.dark .bg-\[\#FFFDF7\],
+  html.dark .bg-\[\#fffdf7\],
+  html.dark .ivr-speech-box {
+    background-color: rgba(245, 158, 11, 0.15) !important;
+    color: #f8fafc !important;
+    border-left-color: #f59e0b !important;
+    border-color: rgba(245, 158, 11, 0.4) !important;
   }
   html.dark .bg-\[\#EFF6FF\] {
     background-color: rgba(30, 64, 175, 0.25) !important;
@@ -272,6 +335,7 @@
   /* Borders in Dark Mode */
   html.dark .border-outline,
   html.dark .border-outline-variant,
+  html.dark .border-outline-variant\/70,
   html.dark .border-outline-variant\/60,
   html.dark .border-outline-variant\/50,
   html.dark .border-outline-variant\/40,
@@ -290,6 +354,11 @@
   html.dark .divide-\[\#E2E8F0\] > * + * {
     border-color: #1e293b !important;
   }
+  html.dark .border-primary,
+  html.dark .border-2.border-primary,
+  html.dark .border-primary-container {
+    border-color: #3b82f6 !important;
+  }
 
   /* Form Inputs, Selects, and Textareas in Dark Mode */
   html.dark input:not([type="checkbox"]):not([type="radio"]),
@@ -299,9 +368,61 @@
     color: #f8fafc !important;
     border-color: #334155 !important;
   }
+  html.dark select option {
+    background-color: #0b1526 !important;
+    color: #f8fafc !important;
+  }
+  html.dark input[type="checkbox"],
+  html.dark input[type="radio"] {
+    background-color: #0b1526 !important;
+    border-color: #64748b !important;
+    color: #fea619 !important;
+  }
+  html.dark input[type="checkbox"]:checked {
+    background-color: #fea619 !important;
+    border-color: #fea619 !important;
+  }
   html.dark input::placeholder,
   html.dark textarea::placeholder {
-    color: #64748b !important;
+    color: #94a3b8 !important;
+  }
+
+  /* Interactive Elements in Resident & Household Pages */
+  html.dark #gps-btn {
+    background-color: #0f1c32 !important;
+    border-color: #3b82f6 !important;
+    color: #f8fafc !important;
+  }
+  html.dark #gps-btn:hover {
+    background-color: #14243e !important;
+  }
+  html.dark #dec-btn,
+  html.dark #inc-btn {
+    background-color: #0f1c32 !important;
+    border-color: #475569 !important;
+    color: #f8fafc !important;
+  }
+  html.dark #dec-btn:hover,
+  html.dark #inc-btn:hover {
+    background-color: #1e293b !important;
+  }
+  html.dark #member-count {
+    color: #f8fafc !important;
+  }
+
+  /* Gradient Overrides for Dark Mode */
+  html.dark .from-white {
+    --tw-gradient-from: #0b1526 var(--tw-gradient-from-position) !important;
+    --tw-gradient-to: rgba(11, 21, 38, 0) var(--tw-gradient-to-position) !important;
+    --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to) !important;
+  }
+  html.dark .text-\[\#0B2545\],
+  html.dark .text-\[\#001026\] {
+    color: #f8fafc !important;
+  }
+  html.dark .text-\[\#991B1B\],
+  html.dark .text-\[\#991B1B\]\/90 {
+    color: #fca5a5 !important;
   }
 
   /* Tables & Lists in Dark Mode */
@@ -438,9 +559,12 @@
   }
   html.light .text-primary,
   html.light .text-on-surface,
-  html.light .text-on-background,
-  html.light .text-white {
+  html.light .text-on-background {
     color: #0f172a !important;
+  }
+  html.light .text-white,
+  html.light .text-on-primary {
+    color: #ffffff !important;
   }
   html.light .text-on-surface-variant {
     color: #475569 !important;
@@ -644,6 +768,292 @@
   html.light .leaflet-tile-pane {
     filter: none !important;
   }
+
+  /* =========================================================
+     DISPATCHER, CALL FLOOR & CALL DETAIL LIGHT MODE OVERRIDES
+     ========================================================= */
+
+  /* Suggest Plan Buttons (Dashboard & Call Floor) */
+  #btn-suggest-plan,
+  #btn-callfloor-suggest-plan,
+  html.light #btn-suggest-plan,
+  html.light #btn-callfloor-suggest-plan,
+  html.dark #btn-suggest-plan,
+  html.dark #btn-callfloor-suggest-plan {
+    background-color: #0b2545 !important;
+    color: #ffffff !important;
+    border: 1px solid #0b2545 !important;
+  }
+  #btn-suggest-plan:hover,
+  #btn-callfloor-suggest-plan:hover,
+  html.light #btn-suggest-plan:hover,
+  html.light #btn-callfloor-suggest-plan:hover,
+  html.dark #btn-suggest-plan:hover,
+  html.dark #btn-callfloor-suggest-plan:hover {
+    background-color: #133968 !important;
+    color: #ffffff !important;
+    border-color: #133968 !important;
+  }
+  #btn-suggest-plan *,
+  #btn-callfloor-suggest-plan *,
+  html.light #btn-suggest-plan *,
+  html.light #btn-callfloor-suggest-plan *,
+  html.dark #btn-suggest-plan *,
+  html.dark #btn-callfloor-suggest-plan * {
+    color: #ffffff !important;
+  }
+
+  /* View Details Buttons across Call Floor & Dispatcher */
+  .view-details-btn,
+  html.light .view-details-btn,
+  html.dark .view-details-btn {
+    background-color: #0b2545 !important;
+    color: #ffffff !important;
+    border: 1px solid #0b2545 !important;
+  }
+  .view-details-btn:hover,
+  html.light .view-details-btn:hover,
+  html.dark .view-details-btn:hover {
+    background-color: #133968 !important;
+    color: #ffffff !important;
+    border-color: #133968 !important;
+  }
+  .view-details-btn *,
+  html.light .view-details-btn *,
+  html.dark .view-details-btn * {
+    color: #ffffff !important;
+  }
+
+  /* Assign Vehicle Button on Call Detail */
+  #btn-open-assign-modal,
+  html.light #btn-open-assign-modal,
+  html.dark #btn-open-assign-modal {
+    background-color: #0b2545 !important;
+    color: #ffffff !important;
+    border: 1px solid #0b2545 !important;
+  }
+  #btn-open-assign-modal:hover,
+  html.light #btn-open-assign-modal:hover,
+  html.dark #btn-open-assign-modal:hover {
+    background-color: #133968 !important;
+    color: #ffffff !important;
+    border-color: #133968 !important;
+  }
+  #btn-open-assign-modal *,
+  html.light #btn-open-assign-modal *,
+  html.dark #btn-open-assign-modal * {
+    color: #ffffff !important;
+  }
+
+  /* Assign Vehicle on Dashboard Life-Threat Strip */
+  #btn-assign-life-threat,
+  html.light #btn-assign-life-threat,
+  html.dark #btn-assign-life-threat {
+    background-color: #ffffff !important;
+    color: #dc2626 !important;
+    font-weight: 700 !important;
+    border: 1px solid #fca5a5 !important;
+  }
+  #btn-assign-life-threat:hover,
+  html.light #btn-assign-life-threat:hover,
+  html.dark #btn-assign-life-threat:hover {
+    background-color: #fee2e2 !important;
+    color: #b91c1c !important;
+  }
+
+  /* Assign Rescue Asset Modal Header & Content */
+  #assignVehicleModal .bg-primary-container,
+  html.light #assignVehicleModal .bg-primary-container,
+  html.dark #assignVehicleModal .bg-primary-container {
+    background-color: #0b2545 !important;
+    color: #ffffff !important;
+  }
+  #assignVehicleModal .bg-primary-container h3,
+  #assignVehicleModal .bg-primary-container p,
+  #assignVehicleModal .bg-primary-container span,
+  #assignVehicleModal .bg-primary-container button,
+  html.light #assignVehicleModal .bg-primary-container h3,
+  html.light #assignVehicleModal .bg-primary-container p,
+  html.light #assignVehicleModal .bg-primary-container span,
+  html.light #assignVehicleModal .bg-primary-container button,
+  html.dark #assignVehicleModal .bg-primary-container h3,
+  html.dark #assignVehicleModal .bg-primary-container p,
+  html.dark #assignVehicleModal .bg-primary-container span,
+  html.dark #assignVehicleModal .bg-primary-container button {
+    color: #ffffff !important;
+  }
+  #assignVehicleModal .bg-primary-container .text-on-primary-container,
+  html.light #assignVehicleModal .bg-primary-container .text-on-primary-container {
+    color: #cbd5e1 !important;
+  }
+
+  /* Modal Dispatch Vehicle / Send Offer to Driver Buttons */
+  #assignVehicleModal button[onclick*="dispatchVehicle"],
+  .btn-dispatch-vehicle,
+  html.light #assignVehicleModal button[onclick*="dispatchVehicle"],
+  html.light .btn-dispatch-vehicle,
+  html.dark #assignVehicleModal button[onclick*="dispatchVehicle"],
+  html.dark .btn-dispatch-vehicle {
+    background-color: #0b2545 !important;
+    color: #ffffff !important;
+    border: 1px solid #0b2545 !important;
+  }
+  #assignVehicleModal button[onclick*="dispatchVehicle"]:hover,
+  .btn-dispatch-vehicle:hover,
+  html.light #assignVehicleModal button[onclick*="dispatchVehicle"]:hover,
+  html.light .btn-dispatch-vehicle:hover,
+  html.dark #assignVehicleModal button[onclick*="dispatchVehicle"]:hover,
+  html.dark .btn-dispatch-vehicle:hover {
+    background-color: #133968 !important;
+    color: #ffffff !important;
+    border-color: #133968 !important;
+  }
+  #assignVehicleModal button[onclick*="dispatchVehicle"] *,
+  .btn-dispatch-vehicle *,
+  html.light #assignVehicleModal button[onclick*="dispatchVehicle"] *,
+  html.light .btn-dispatch-vehicle *,
+  html.dark #assignVehicleModal button[onclick*="dispatchVehicle"] *,
+  html.dark .btn-dispatch-vehicle * {
+    color: #ffffff !important;
+  }
+
+  /* Suggest Plan Modal Header & Review & Assign Vehicle Action */
+  #suggestPlanModal .bg-primary-container,
+  html.light #suggestPlanModal .bg-primary-container,
+  html.dark #suggestPlanModal .bg-primary-container {
+    background-color: #0b2545 !important;
+    color: #ffffff !important;
+  }
+  #suggestPlanModal .bg-primary-container *,
+  html.light #suggestPlanModal .bg-primary-container *,
+  html.dark #suggestPlanModal .bg-primary-container * {
+    color: #ffffff !important;
+  }
+  #suggestPlanModal .bg-primary-container .text-on-primary-container,
+  html.light #suggestPlanModal .bg-primary-container .text-on-primary-container {
+    color: #cbd5e1 !important;
+  }
+  .btn-review-assign,
+  html.light .btn-review-assign,
+  html.dark .btn-review-assign {
+    background-color: #0b2545 !important;
+    color: #ffffff !important;
+    border: 1px solid #0b2545 !important;
+  }
+  .btn-review-assign:hover,
+  html.light .btn-review-assign:hover,
+  html.dark .btn-review-assign:hover {
+    background-color: #133968 !important;
+    color: #ffffff !important;
+    border-color: #133968 !important;
+  }
+  .btn-review-assign *,
+  html.light .btn-review-assign *,
+  html.dark .btn-review-assign * {
+    color: #ffffff !important;
+  }
+
+  /* General Primary Navy Buttons and Badges in Light Mode */
+  html.light .bg-\[\#0B2545\],
+  html.light .bg-\[\#0b2545\] {
+    background-color: #0b2545 !important;
+    color: #ffffff !important;
+  }
+  html.light .bg-\[\#0B2545\] *,
+  html.light .bg-\[\#0b2545\] * {
+    color: #ffffff !important;
+  }
+  html.light .bg-\[\#0B2545\]:hover,
+  html.light .bg-\[\#0b2545\]:hover {
+    background-color: #133968 !important;
+    color: #ffffff !important;
+  }
+
+  /* =========================================================
+     IVR SPEECH & TRANSLATION BOXES (CALL DETAIL / CALL FLOOR)
+     ========================================================= */
+
+  /* Dark Mode: Original IVR Speech (Kannada) */
+  html.dark .ivr-speech-box,
+  html.dark .bg-\[\#FFFDF7\],
+  html.dark .bg-\[\#fffdf7\] {
+    background-color: rgba(245, 158, 11, 0.15) !important;
+    border-left: 4px solid #f59e0b !important;
+    color: #f8fafc !important;
+  }
+  html.dark .ivr-speech-box .ivr-speech-label,
+  html.dark .bg-\[\#FFFDF7\] .text-secondary,
+  html.dark .bg-\[\#fffdf7\] .text-secondary {
+    color: #fbbf24 !important;
+    font-weight: 700 !important;
+  }
+  html.dark .ivr-speech-box p,
+  html.dark .ivr-speech-box .ivr-speech-text,
+  html.dark .bg-\[\#FFFDF7\] p,
+  html.dark .bg-\[\#fffdf7\] p {
+    color: #f8fafc !important;
+  }
+
+  /* Dark Mode: Verified English Translation */
+  html.dark .ivr-translation-box,
+  html.dark .bg-\[\#F0FDF4\],
+  html.dark .bg-\[\#f0fdf4\] {
+    background-color: rgba(22, 101, 52, 0.22) !important;
+    border-left: 4px solid #22c55e !important;
+    color: #f8fafc !important;
+  }
+  html.dark .ivr-translation-box .ivr-translation-label,
+  html.dark .bg-\[\#F0FDF4\] .text-\[\#166534\],
+  html.dark .bg-\[\#f0fdf4\] .text-\[\#166534\] {
+    color: #86efac !important;
+    font-weight: 700 !important;
+  }
+  html.dark .ivr-translation-box p,
+  html.dark .ivr-translation-box .ivr-translation-text,
+  html.dark .bg-\[\#F0FDF4\] p,
+  html.dark .bg-\[\#f0fdf4\] p {
+    color: #f8fafc !important;
+  }
+
+  /* Light Mode: Original IVR Speech (Kannada) */
+  html.light .ivr-speech-box,
+  html.light .bg-\[\#FFFDF7\],
+  html.light .bg-\[\#fffdf7\] {
+    background-color: #fffdf7 !important;
+    border-left: 4px solid #f59e0b !important;
+  }
+  html.light .ivr-speech-box .ivr-speech-label,
+  html.light .bg-\[\#FFFDF7\] .text-secondary,
+  html.light .bg-\[\#fffdf7\] .text-secondary {
+    color: #b45309 !important;
+    font-weight: 700 !important;
+  }
+  html.light .ivr-speech-box p,
+  html.light .ivr-speech-box .ivr-speech-text,
+  html.light .bg-\[\#FFFDF7\] p,
+  html.light .bg-\[\#fffdf7\] p {
+    color: #1e293b !important;
+  }
+
+  /* Light Mode: Verified English Translation */
+  html.light .ivr-translation-box,
+  html.light .bg-\[\#F0FDF4\],
+  html.light .bg-\[\#f0fdf4\] {
+    background-color: #f0fdf4 !important;
+    border-left: 4px solid #16a34a !important;
+  }
+  html.light .ivr-translation-box .ivr-translation-label,
+  html.light .bg-\[\#F0FDF4\] .text-\[\#166534\],
+  html.light .bg-\[\#f0fdf4\] .text-\[\#166534\] {
+    color: #166534 !important;
+    font-weight: 700 !important;
+  }
+  html.light .ivr-translation-box p,
+  html.light .ivr-translation-box .ivr-translation-text,
+  html.light .bg-\[\#F0FDF4\] p,
+  html.light .bg-\[\#f0fdf4\] p {
+    color: #1e293b !important;
+  }
 </style>
 
 
@@ -831,11 +1241,13 @@ function toggleTheme() {
     document.documentElement.classList.remove('light');
     document.documentElement.classList.add('dark');
     localStorage.setItem('theme', 'dark');
+    localStorage.setItem('abhay_theme', 'dark');
     updateThemeUI('dark');
   } else {
     document.documentElement.classList.remove('dark');
     document.documentElement.classList.add('light');
     localStorage.setItem('theme', 'light');
+    localStorage.setItem('abhay_theme', 'light');
     updateThemeUI('light');
   }
 }
@@ -852,7 +1264,7 @@ function updateThemeUI(theme) {
 }
 
 document.addEventListener('DOMContentLoaded', function() {
-  const curTheme = localStorage.getItem('theme') || 'dark';
+  const curTheme = localStorage.getItem('theme') || localStorage.getItem('abhay_theme') || 'dark';
   updateThemeUI(curTheme);
 });
 </script>

@@ -634,6 +634,13 @@
           <div style="font-size: 12px; color: #475569; margin-top: 2px;">
             <strong>${(typeof i18n !== 'undefined' && i18n['Members']) || 'Members'}:</strong> ${members}
           </div>
+          ${(h.verification_status && h.verification_status.indexOf('unverified') !== -1) ? `
+            <div style="margin-top: 6px;">
+              <span style="background: #FEF3C7; color: #B45309; font-size: 10px; font-weight: 700; padding: 2px 6px; border-radius: 4px; border: 1px solid #FCD34D;">
+                ${(typeof i18n !== 'undefined' && i18n['self-reported, unverified']) || 'self-reported, unverified'}
+              </span>
+            </div>
+          ` : ''}
         </div>
       `;
     }
@@ -747,6 +754,14 @@
               <span class="truncate">${landmark}</span>
               <span class="font-label-tabular text-caption shrink-0 ml-1 text-on-surface-variant dark:text-slate-400">${members} ${(members > 1 ? ((typeof i18n !== 'undefined' && i18n['Members']) || 'Members') : ((typeof i18n !== 'undefined' && i18n['Member']) || 'Member'))}</span>
             </div>
+            ${(h.verification_status && h.verification_status.indexOf('unverified') !== -1) ? `
+              <div class="mt-1">
+                <span class="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[10px] font-semibold bg-amber-500/15 text-amber-800 dark:text-amber-300 border border-amber-400/30">
+                  <span class="material-symbols-outlined text-[11px]">pending_actions</span>
+                  ${(typeof i18n !== 'undefined' && i18n['self-reported, unverified']) || 'self-reported, unverified'}
+                </span>
+              </div>
+            ` : ''}
             ${subDetails}
           </div>
         `;
@@ -879,6 +894,15 @@
         const res = await fetch('/api/households');
         const data = await res.json();
         allHouseholds = data.households || [];
+
+        // Remove markers for households that have been purged or removed
+        const activeIds = new Set(allHouseholds.map(h => h.id));
+        householdMarkers.forEach((marker, id) => {
+          if (!activeIds.has(id)) {
+            map.removeLayer(marker);
+            householdMarkers.delete(id);
+          }
+        });
 
         // Render map markers
         allHouseholds.forEach(h => {
@@ -1208,7 +1232,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     Suggested Asset: <strong class="text-primary dark:text-slate-100">${a.vehicle_designation}</strong> (${a.vehicle_type}, Driver: ${a.vehicle_driver || 'Assigned'}) • ${a.people_count} souls
                   </div>
                 </div>
-                <a href="/call/${a.household_id}?suggested_veh=${a.vehicle_id}" class="px-3.5 py-1.5 rounded-lg bg-primary hover:bg-primary-container text-on-primary font-label-md text-xs font-semibold shrink-0 shadow-xs flex items-center gap-1.5 self-start sm:self-center">
+                <a href="/call/${a.household_id}?suggested_veh=${a.vehicle_id}" class="btn-review-assign px-3.5 py-1.5 rounded-lg bg-primary hover:bg-primary-container text-on-primary font-label-md text-xs font-semibold shrink-0 shadow-xs flex items-center gap-1.5 self-start sm:self-center">
                   <span class="material-symbols-outlined text-sm">open_in_new</span>
                   <span>Review & Assign vehicle</span>
                 </a>

@@ -1,6 +1,19 @@
 <!-- Confirmation - Abhay Citizen -->
 
-<!DOCTYPE html><html class="light" lang="{{ current_lang or 'en' }}"><head>
+<!DOCTYPE html><html lang="{{ current_lang or 'en' }}"><head>
+<!-- Early Theme Initialization to Prevent Flash of Dark/Light Theme -->
+<script>
+  (function() {
+    const theme = localStorage.getItem('theme') || localStorage.getItem('abhay_theme') || 'dark';
+    if (theme === 'light') {
+      document.documentElement.classList.add('light');
+      document.documentElement.classList.remove('dark');
+    } else {
+      document.documentElement.classList.add('dark');
+      document.documentElement.classList.remove('light');
+    }
+  })();
+</script>
 
 <meta charset="utf-8">
 

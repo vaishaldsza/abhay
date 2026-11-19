@@ -7,7 +7,7 @@
   <!-- Early Theme Initialization to Prevent Flash of Dark/Light Theme -->
   <script>
     (function() {
-      const savedTheme = localStorage.getItem('abhay_theme') || 'dark';
+      const savedTheme = localStorage.getItem('theme') || localStorage.getItem('abhay_theme') || 'dark';
       if (savedTheme === 'light') {
         document.documentElement.classList.remove('dark');
         document.documentElement.classList.add('light');
@@ -38,6 +38,36 @@
         }
       }
     }
+  </script>
+
+  <!-- Shared CSRF Meta & Fetch Interceptor -->
+  <meta name="csrf-token" content="{{ csrf_token }}"/>
+  <script>
+    window.ABHAY_CSRF_TOKEN = "{{ csrf_token }}";
+    (function() {
+      const originalFetch = window.fetch;
+      window.fetch = function(url, options = {}) {
+        const method = (options.method || 'GET').toUpperCase();
+        if (['POST', 'PUT', 'PATCH', 'DELETE'].includes(method)) {
+          options.headers = options.headers || {};
+          const token = window.ABHAY_CSRF_TOKEN || document.querySelector('meta[name="csrf-token"]')?.getAttribute('content');
+          if (token) {
+            if (options.headers instanceof Headers) {
+              if (!options.headers.has('X-CSRF-Token')) options.headers.set('X-CSRF-Token', token);
+            } else if (Array.isArray(options.headers)) {
+              if (!options.headers.some(([k]) => k.toLowerCase() === 'x-csrf-token')) {
+                options.headers.push(['X-CSRF-Token', token]);
+              }
+            } else {
+              if (!Object.keys(options.headers).some(k => k.toLowerCase() === 'x-csrf-token')) {
+                options.headers['X-CSRF-Token'] = token;
+              }
+            }
+          }
+        }
+        return originalFetch.call(this, url, options);
+      };
+    })();
   </script>
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -73,11 +103,31 @@
 
       <!-- Controls: Language, Theme, Demo Action -->
       <div class="flex items-center gap-2 sm:gap-3">
-        <!-- Language Switcher Pills -->
-        <div class="inline-flex rounded-lg border border-slate-300 dark:border-slate-700 bg-slate-100 dark:bg-slate-900 p-0.5 text-xs font-semibold">
-          <button type="button" onclick="changeLang('en')" class="px-2.5 py-1 rounded-md transition {% if current_lang == 'en' %}bg-white dark:bg-[#0B2545] text-slate-900 dark:text-amber-400 shadow-xs{% else %}text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white{% endif %}">EN</button>
-          <button type="button" onclick="changeLang('hi')" class="px-2.5 py-1 rounded-md transition {% if current_lang == 'hi' %}bg-white dark:bg-[#0B2545] text-slate-900 dark:text-amber-400 shadow-xs{% else %}text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white{% endif %}">हिं</button>
-          <button type="button" onclick="changeLang('kn')" class="px-2.5 py-1 rounded-md transition {% if current_lang == 'kn' %}bg-white dark:bg-[#0B2545] text-slate-900 dark:text-amber-400 shadow-xs{% else %}text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white{% endif %}">ಕನ್ನ</button>
+        <!-- Language Dropdown -->
+        <div class="relative inline-block text-left z-[10000]" id="lang-dropdown-wrapper">
+          <button type="button" onclick="toggleLangDropdown(event)" id="lang-toggle-btn" class="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-200 border border-slate-300 dark:border-slate-700 text-xs font-medium transition focus:outline-none focus:ring-2 focus:ring-amber-500 shadow-xs" aria-haspopup="true" aria-expanded="false" aria-label="Select Language">
+            <span class="text-sm">🌐</span>
+            <span class="font-bold text-amber-600 dark:text-amber-400" id="current-lang-label">
+              {% if current_lang == 'hi' %}हिन्दी (HI){% elif current_lang == 'kn' %}ಕನ್ನಡ (KN){% else %}English (EN){% endif %}
+            </span>
+            <svg class="w-3.5 h-3.5 text-slate-500 dark:text-slate-400 transition-transform duration-200" id="lang-chevron" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+            </svg>
+          </button>
+          <div id="lang-dropdown-menu" class="hidden absolute right-0 mt-1.5 w-44 rounded-md shadow-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 py-1 z-[10000] divide-y divide-slate-100 dark:divide-slate-800" role="menu">
+            <button type="button" onclick="setAppLanguage('en')" class="w-full text-left px-3 py-2 text-xs flex items-center justify-between transition {% if current_lang == 'en' %}text-amber-600 dark:text-amber-400 font-bold bg-slate-100 dark:bg-slate-800/80{% else %}text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-amber-600 dark:hover:text-amber-300{% endif %}" role="menuitem">
+              <span>English (EN)</span>
+              {% if current_lang == 'en' %}<span class="text-amber-600 dark:text-amber-400 text-sm">✓</span>{% endif %}
+            </button>
+            <button type="button" onclick="setAppLanguage('hi')" class="w-full text-left px-3 py-2 text-xs flex items-center justify-between transition {% if current_lang == 'hi' %}text-amber-600 dark:text-amber-400 font-bold bg-slate-100 dark:bg-slate-800/80{% else %}text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-amber-600 dark:hover:text-amber-300{% endif %}" role="menuitem">
+              <span>हिन्दी (Hindi)</span>
+              {% if current_lang == 'hi' %}<span class="text-amber-600 dark:text-amber-400 text-sm">✓</span>{% endif %}
+            </button>
+            <button type="button" onclick="setAppLanguage('kn')" class="w-full text-left px-3 py-2 text-xs flex items-center justify-between transition {% if current_lang == 'kn' %}text-amber-600 dark:text-amber-400 font-bold bg-slate-100 dark:bg-slate-800/80{% else %}text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-amber-600 dark:hover:text-amber-300{% endif %}" role="menuitem">
+              <span>ಕನ್ನಡ (Kannada)</span>
+              {% if current_lang == 'kn' %}<span class="text-amber-600 dark:text-amber-400 text-sm">✓</span>{% endif %}
+            </button>
+          </div>
         </div>
 
         <!-- Dark / Light Theme Toggle -->
@@ -93,6 +143,9 @@
             <span class="material-symbols-outlined text-[14px]">arrow_forward</span>
           </a>
         {% else %}
+          <a href="/signin" class="inline-flex items-center gap-1 px-3 py-2 rounded-lg border border-slate-300 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 text-xs font-semibold shadow-xs transition">
+            <span>{{ t("Sign in") }}</span>
+          </a>
           <a href="/login" class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg bg-[#0B2545] hover:bg-[#133863] text-white text-xs font-semibold shadow-sm transition">
             <span>{{ t("Try the demo") }}</span>
             <span class="material-symbols-outlined text-[14px]">arrow_forward</span>
@@ -494,10 +547,16 @@
               {{ t("Registers household medical or mobility needs in advance, or responds to automated check-in calls.") }}
             </p>
           </div>
-          <a href="/login?role=resident" class="w-full py-2.5 px-3 rounded-lg bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-900 dark:text-white text-xs font-semibold text-center transition flex items-center justify-center gap-1.5">
-            <span>{{ t("Enter as demo Resident") }}</span>
-            <span class="material-symbols-outlined text-[14px]">arrow_forward</span>
-          </a>
+          <div class="space-y-2">
+            <a href="/login?role=resident" class="w-full py-2.5 px-3 rounded-lg bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-900 dark:text-white text-xs font-semibold text-center transition flex items-center justify-center gap-1.5">
+              <span>{{ t("Enter as demo Resident") }}</span>
+              <span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+            </a>
+            <a href="/register" class="w-full py-1 text-center text-xs font-medium text-emerald-600 dark:text-emerald-400 hover:underline flex items-center justify-center gap-1">
+              <span>{{ t("Register your household") }}</span>
+              <span class="material-symbols-outlined text-[12px]">arrow_forward</span>
+            </a>
+          </div>
         </div>
       </div>
     </section>
@@ -541,6 +600,8 @@
       <div class="flex flex-wrap items-center gap-4">
         <a href="/login" class="hover:text-slate-900 dark:hover:text-white transition">{{ t("Login / Access Demo") }}</a>
         <span>•</span>
+        <a href="/register" class="hover:text-slate-900 dark:hover:text-white transition">{{ t("Register your household") }}</a>
+        <span>•</span>
         <a href="/under-the-hood" class="hover:text-slate-900 dark:hover:text-white transition">{{ t("Under the Hood (Architecture)") }}</a>
         <span>•</span>
         <a href="https://github.com/vaishaldsza/abhay.git" target="_blank" rel="noopener noreferrer" class="hover:text-slate-900 dark:hover:text-white transition flex items-center gap-1">
@@ -558,9 +619,38 @@
 
   <!-- Scripts -->
   <script>
-    function changeLang(lang) {
+    function toggleLangDropdown(event) {
+      if (event) event.stopPropagation();
+      const menu = document.getElementById('lang-dropdown-menu');
+      const chev = document.getElementById('lang-chevron');
+      if (menu) {
+        const isHidden = menu.classList.toggle('hidden');
+        if (chev) {
+          if (isHidden) chev.classList.remove('rotate-180');
+          else chev.classList.add('rotate-180');
+        }
+      }
+    }
+
+    document.addEventListener('click', function(e) {
+      const menu = document.getElementById('lang-dropdown-menu');
+      const wrap = document.getElementById('lang-dropdown-wrapper');
+      if (menu && !menu.classList.contains('hidden') && wrap && !wrap.contains(e.target)) {
+        menu.classList.add('hidden');
+        const chev = document.getElementById('lang-chevron');
+        if (chev) chev.classList.remove('rotate-180');
+      }
+    });
+
+    function setAppLanguage(lang) {
       fetch('/api/set-lang/' + lang, { method: 'POST' })
-        .then(() => window.location.reload());
+        .then(r => r.json())
+        .then(() => window.location.reload())
+        .catch(() => window.location.reload());
+    }
+
+    function changeLang(lang) {
+      setAppLanguage(lang);
     }
 
     function updateThemeIcon() {
@@ -576,10 +666,12 @@
       if (isLight) {
         document.documentElement.classList.remove('light');
         document.documentElement.classList.add('dark');
+        localStorage.setItem('theme', 'dark');
         localStorage.setItem('abhay_theme', 'dark');
       } else {
         document.documentElement.classList.remove('dark');
         document.documentElement.classList.add('light');
+        localStorage.setItem('theme', 'light');
         localStorage.setItem('abhay_theme', 'light');
       }
       updateThemeIcon();
